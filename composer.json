@@ -1,0 +1,64 @@
+{
+    "name": "inpsyde/fau-degree-program-common",
+    "description": "Shared kernel for FAU Degree Program and FAU Degree Program Output plugins.",
+    "license": "GPL-2.0-or-later",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Inpsyde GmbH",
+            "email": "hello@inpsyde.com",
+            "homepage": "https://inpsyde.com/",
+            "role": "Company"
+        }
+    ],
+    "autoload-dev": {
+        "psr-4": {
+            "Fau\\DegreeProgram\\Common\\Tests\\": ["tests/src/", "tests/unit/", "tests/functional/"],
+            "Fau\\DegreeProgram\\Common\\LanguageExtension\\Tests\\": "lib/lang-extension/tests/"
+        }
+    },
+    "require": {
+        "php": "^8.0",
+        "psr/log": "^3.0"
+    },
+    "require-dev": {
+        "brain/monkey": "^2.6",
+        "inpsyde/php-coding-standards": "^1",
+        "inpsyde/wp-stubs": "dev-main",
+        "johnpbloch/wordpress-core": "^6.1",
+        "phpunit/phpunit": "^9.5",
+        "vimeo/psalm": "^5.4"
+    },
+    "suggest": {
+        "inpsyde/modularity": "Modular PSR-11 implementation for WordPress Plugins, Themes or Libraries"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://repo.packagist.com/inpsyde/"
+        },
+        {
+            "packagist.org": false
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Fau\\DegreeProgram\\Common\\": "src/",
+            "Fau\\DegreeProgram\\Common\\LanguageExtension\\": "lib/lang-extension/src/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "scripts": {
+        "check-coding-standards": "vendor/bin/phpcs",
+        "check-psalm": "vendor/bin/psalm --no-cache",
+        "fix-coding-standards": "vendor/bin/phpcbf"
+    }
+}

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset>
+    <file>./src/</file>
+    <file>./tests/</file>
+
+    <arg value="sp"/>
+    <arg name="colors"/>
+    <config name="testVersion" value="8.0-"/>
+    <config name="ignore_warnings_on_exit" value="1"/>
+
+    <rule ref="Inpsyde">
+        <exclude name="Inpsyde.CodeQuality.ElementNameMinimalLength.TooShort"/>
+    </rule>
+
+    <rule ref="Inpsyde.CodeQuality.Psr4">
+        <properties>
+            <property
+                    name="psr4"
+                    type="array"
+                    value="Fau\DegreeProgram\Common=>src,Fau\DegreeProgram\Common\Tests=>tests/src|tests/unit|tests/functional"
+            />
+        </properties>
+    </rule>
+
+    <rule ref="Inpsyde.CodeQuality.NoAccessors.NoGetter">
+        <exclude-pattern>Repository.php</exclude-pattern>
+    </rule>
+
+    <rule ref="VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable">
+        <exclude-pattern>*/templates/*</exclude-pattern>
+    </rule>
+
+    <rule ref="WordPress.Security.EscapeOutput.OutputNotEscaped">
+        <exclude-pattern>./tests/*</exclude-pattern>
+    </rule>
+
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+</ruleset>
