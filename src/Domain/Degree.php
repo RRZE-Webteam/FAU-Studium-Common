@@ -62,10 +62,20 @@ final class Degree implements JsonSerializable
 
     public function asString(string $languageCode): string
     {
+        $abbreviation = $this->abbreviation->asString($languageCode);
+        $name = $this->name->asString($languageCode);
+        if (!$name) {
+            return '';
+        }
+
+        if (!$abbreviation) {
+            return $name;
+        }
+
         return sprintf(
             '%s: %s',
-            $this->abbreviation->asString($languageCode),
-            $this->name->asString($languageCode)
+            $abbreviation,
+            $name
         );
     }
 

@@ -42,7 +42,7 @@ final class Content
         private ContentItem $testimonials,
     ) {
 
-        $this->about->withDefaultTitle(
+        $this->about = $this->about->withDefaultTitle(
             MultilingualString::fromTranslations(
                 'default',
                 'Worum geht es im Studiengang?',
@@ -50,7 +50,7 @@ final class Content
             )
         );
 
-        $this->structure->withDefaultTitle(
+        $this->structure = $this->structure->withDefaultTitle(
             MultilingualString::fromTranslations(
                 'default',
                 'Aufbau und Struktur',
@@ -58,7 +58,7 @@ final class Content
             )
         );
 
-        $this->specializations->withDefaultTitle(
+        $this->specializations = $this->specializations->withDefaultTitle(
             MultilingualString::fromTranslations(
                 'default',
                 'Studienrichtungen und Schwerpunkte',
@@ -66,7 +66,7 @@ final class Content
             )
         );
 
-        $this->qualitiesAndSkills->withDefaultTitle(
+        $this->qualitiesAndSkills = $this->qualitiesAndSkills->withDefaultTitle(
             MultilingualString::fromTranslations(
                 'default',
                 'Was sollte ich mitbringen?',
@@ -74,7 +74,7 @@ final class Content
             )
         );
 
-        $this->whyShouldStudy->withDefaultTitle(
+        $this->whyShouldStudy = $this->whyShouldStudy->withDefaultTitle(
             MultilingualString::fromTranslations(
                 'default',
                 'Gute Gründe für ein Studium an der FAU',
@@ -82,7 +82,7 @@ final class Content
             )
         );
 
-        $this->careerProspects->withDefaultTitle(
+        $this->careerProspects = $this->careerProspects->withDefaultTitle(
             MultilingualString::fromTranslations(
                 'default',
                 'Welche beruflichen Perspektiven stehen mir offen?',
@@ -90,7 +90,7 @@ final class Content
             )
         );
 
-        $this->specialFeatures->withDefaultTitle(
+        $this->specialFeatures = $this->specialFeatures->withDefaultTitle(
             MultilingualString::fromTranslations(
                 'default',
                 'Besondere Hinweise',
@@ -98,7 +98,7 @@ final class Content
             )
         );
 
-        $this->specialFeatures->withDefaultTitle(
+        $this->specialFeatures = $this->specialFeatures->withDefaultTitle(
             MultilingualString::fromTranslations(
                 'default',
                 'Erfahrungsberichte',
