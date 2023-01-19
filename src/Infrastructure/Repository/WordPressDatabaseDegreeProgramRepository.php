@@ -8,6 +8,7 @@ use Fau\DegreeProgram\Common\Application\ContentTranslated;
 use Fau\DegreeProgram\Common\Application\DegreeProgramViewRaw;
 use Fau\DegreeProgram\Common\Application\DegreeProgramViewRepository;
 use Fau\DegreeProgram\Common\Application\DegreeProgramViewTranslated;
+use Fau\DegreeProgram\Common\Application\DegreeTranslated;
 use Fau\DegreeProgram\Common\Application\Link;
 use Fau\DegreeProgram\Common\Application\RelatedDegreeProgram;
 use Fau\DegreeProgram\Common\Application\RelatedDegreePrograms;
@@ -267,7 +268,7 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             numberOfStudents: $raw->numberOfStudents()->asString(),
             teachingLanguage: $raw->teachingLanguage()->asString($languageCode),
             attributes: $raw->attributes()->asArrayOfStrings($languageCode),
-            degree: $raw->degree()->asString($languageCode),
+            degree: DegreeTranslated::fromDegree($raw->degree(), $languageCode),
             faculty: Link::fromMultilingualLink($raw->faculty(), $languageCode),
             location: $raw->location()->asString($languageCode),
             subjectGroups: $raw->subjectGroups()->asArrayOfStrings($languageCode),

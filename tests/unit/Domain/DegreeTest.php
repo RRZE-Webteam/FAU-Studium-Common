@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Fau\DegreeProgram\Common\Tests\Domain;
 
 use Fau\DegreeProgram\Common\Domain\Degree;
-use Fau\DegreeProgram\Common\Domain\MultilingualString;
 use Fau\DegreeProgram\Common\Tests\UnitTestCase;
 
 final class DegreeTest extends UnitTestCase
@@ -53,88 +52,5 @@ final class DegreeTest extends UnitTestCase
             'TSE',
             $sut->abbreviation()->inEnglish()
         );
-    }
-
-    /**
-     * @dataProvider degreeAsStringDataProvider
-     */
-    public function testFullDegreeAsString(Degree $degree, string $de, string $en): void
-    {
-        $this->assertSame(
-            $de,
-            $degree->asString('de')
-        );
-        $this->assertSame(
-            $en,
-            $degree->asString('en')
-        );
-        $this->assertEmpty($degree->asString('not_supported_code'));
-    }
-
-    public function degreeAsStringDataProvider(): iterable
-    {
-        yield [
-            'full_degree' =>
-                Degree::new(
-                    'term:5',
-                    MultilingualString::fromTranslations(
-                        'term:5',
-                        'Lehramt Mittelschule',
-                        'Teaching secondary education'
-                    ),
-                    MultilingualString::fromTranslations(
-                        'term:5',
-                        'LM',
-                        'TSE'
-                    )
-                ),
-            'LM: Lehramt Mittelschule',
-            'TSE: Teaching secondary education',
-        ];
-
-        yield [
-            'without_name' =>
-                Degree::new(
-                    'term:5',
-                    MultilingualString::fromTranslations(
-                        'term:5',
-                        '',
-                        ''
-                    ),
-                    MultilingualString::fromTranslations(
-                        'term:5',
-                        'LM',
-                        'TSE'
-                    )
-                ),
-            '',
-            '',
-        ];
-
-        yield [
-            'without_abbreviation' =>
-                Degree::new(
-                    'term:5',
-                    MultilingualString::fromTranslations(
-                        'term:5',
-                        'Lehramt Mittelschule',
-                        'Teaching secondary education'
-                    ),
-                    MultilingualString::fromTranslations(
-                        'term:5',
-                        '',
-                        ''
-                    )
-                ),
-            'Lehramt Mittelschule',
-            'Teaching secondary education',
-        ];
-
-        yield [
-            'empty' =>
-                Degree::empty(),
-            '',
-            '',
-        ];
     }
 }

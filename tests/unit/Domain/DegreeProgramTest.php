@@ -95,8 +95,8 @@ class DegreeProgramTest extends UnitTestCase
             $result['attributes']->asArrayOfStrings('de')[0]
         );
         $this->assertSame(
-            'OD: One Degree',
-            $result['degree']->asString('de')
+            'One Degree',
+            $result['degree']->name()->inGerman()
         );
         $this->assertSame(
             'Link Faculty Math EN',
