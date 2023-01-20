@@ -164,6 +164,22 @@ final class Content
         ];
     }
 
+    /**
+     * @psalm-param callable(string): string $callback
+     */
+    public function mapDescriptions(callable $callback): self
+    {
+        $content = $this->asArray();
+        foreach ($content as $key => $item) {
+            foreach ([MultilingualString::DE, MultilingualString::EN] as $languageCode) {
+                $content[$key][ContentItem::DESCRIPTION][$languageCode] = $callback(
+                    $item[ContentItem::DESCRIPTION][$languageCode]
+                );
+            }
+        }
+        return self::fromArray($content);
+    }
+
     public function about(): ContentItem
     {
         return $this->about;

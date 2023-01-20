@@ -239,6 +239,7 @@ final class DegreeProgram
     public function update(
         array $data,
         DegreeProgramDataValidator $dataValidator,
+        DegreeProgramSanitizer $contentSanitizer,
     ): void {
 
         $violations = $dataValidator->validate($data);
@@ -271,7 +272,8 @@ final class DegreeProgram
         $this->subjectGroups = MultilingualList::fromArray($data[self::SUBJECT_GROUPS]);
         $this->videos = ArrayOfStrings::new(...$data[self::VIDEOS]);
         $this->metaDescription = MultilingualString::fromArray($data[self::META_DESCRIPTION]);
-        $this->content = Content::fromArray($data[self::CONTENT]);
+        $this->content = Content::fromArray($data[self::CONTENT])
+            ->mapDescriptions([$contentSanitizer, 'sanitizeContentField']);
         $this->admissionRequirements = AdmissionRequirements::fromArray($data[self::ADMISSION_REQUIREMENTS]);
         $this->contentRelatedMasterRequirements = MultilingualString::fromArray($data[self::CONTENT_RELATED_MASTER_REQUIREMENTS]);
         $this->applicationDeadlineWinterSemester = $data[self::APPLICATION_DEADLINE_WINTER_SEMESTER];

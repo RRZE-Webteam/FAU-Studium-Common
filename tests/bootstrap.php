@@ -9,5 +9,4 @@ define('VENDOR_DIR', dirname(__DIR__) . '/vendor');
 define('RESOURCES_DIR', TESTS_DIR . '/resources');
 define('TEMPLATES_DIR', TESTS_DIR . '/resources/templates');
 #
-defined('ABSPATH') or define('ABSPATH', VENDOR_DIR . '/johnpbloch/wordpress-core');
-defined('WPINC') or define('WPINC', '/wp-includes');
+defined('ABSPATH') or define('ABSPATH', VENDOR_DIR . '/johnpbloch/wordpress-core/');

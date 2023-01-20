@@ -4,14 +4,7 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Infrastructure\Repository;
 
-use Fau\DegreeProgram\Common\Application\ContentTranslated;
 use Fau\DegreeProgram\Common\Application\DegreeProgramViewRaw;
-use Fau\DegreeProgram\Common\Application\DegreeProgramViewRepository;
-use Fau\DegreeProgram\Common\Application\DegreeProgramViewTranslated;
-use Fau\DegreeProgram\Common\Application\DegreeTranslated;
-use Fau\DegreeProgram\Common\Application\Link;
-use Fau\DegreeProgram\Common\Application\RelatedDegreeProgram;
-use Fau\DegreeProgram\Common\Application\RelatedDegreePrograms;
 use Fau\DegreeProgram\Common\Domain\AdmissionRequirements;
 use Fau\DegreeProgram\Common\Domain\Content;
 use Fau\DegreeProgram\Common\Domain\ContentItem;
@@ -47,7 +40,7 @@ use RuntimeException;
 use WP_Post;
 use WP_Term;
 
-final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository implements DegreeProgramRepository, DegreeProgramViewRepository
+final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository implements DegreeProgramRepository
 {
     /**
      * phpcs:disable Inpsyde.CodeQuality.FunctionLength.TooLong
@@ -185,126 +178,6 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
         );
     }
 
-    public function findRaw(DegreeProgramId $degreeProgramId): ?DegreeProgramViewRaw
-    {
-        try {
-            $degreeProgram = $this->getById($degreeProgramId);
-            return $this->transformEntityToView($degreeProgram);
-        } catch (RuntimeException) {
-            return null;
-        }
-    }
-
-    private function transformEntityToView(DegreeProgram $degreeProgram): DegreeProgramViewRaw
-    {
-        $data = $degreeProgram->asArray();
-        return new DegreeProgramViewRaw(
-            $data[DegreeProgram::ID],
-            $data[DegreeProgram::FEATURED_IMAGE],
-            $data[DegreeProgram::TEASER_IMAGE],
-            $data[DegreeProgram::TITLE],
-            $data[DegreeProgram::SUBTITLE],
-            $data[DegreeProgram::STANDARD_DURATION],
-            $data[DegreeProgram::FEE_REQUIRED],
-            $data[DegreeProgram::START],
-            $data[DegreeProgram::NUMBER_OF_STUDENTS],
-            $data[DegreeProgram::TEACHING_LANGUAGE],
-            $data[DegreeProgram::ATTRIBUTES],
-            $data[DegreeProgram::DEGREE],
-            $data[DegreeProgram::FACULTY],
-            $data[DegreeProgram::LOCATION],
-            $data[DegreeProgram::SUBJECT_GROUPS],
-            $data[DegreeProgram::VIDEOS],
-            $data[DegreeProgram::META_DESCRIPTION],
-            $data[DegreeProgram::CONTENT],
-            $data[DegreeProgram::ADMISSION_REQUIREMENTS],
-            $data[DegreeProgram::CONTENT_RELATED_MASTER_REQUIREMENTS],
-            $data[DegreeProgram::APPLICATION_DEADLINE_WINTER_SEMESTER],
-            $data[DegreeProgram::APPLICATION_DEADLINE_SUMMER_SEMESTER],
-            $data[DegreeProgram::DETAILS_AND_NOTES],
-            $data[DegreeProgram::LANGUAGE_SKILLS],
-            $data[DegreeProgram::LANGUAGE_SKILLS_HUMANITIES_FACULTY],
-            $data[DegreeProgram::GERMAN_LANGUAGE_SKILLS_FOR_INTERNATIONAL_STUDENTS],
-            $data[DegreeProgram::START_OF_SEMESTER],
-            $data[DegreeProgram::SEMESTER_DATES],
-            $data[DegreeProgram::EXAMINATIONS_OFFICE],
-            $data[DegreeProgram::EXAMINATION_REGULATIONS],
-            $data[DegreeProgram::MODULE_HANDBOOK],
-            $data[DegreeProgram::URL],
-            $data[DegreeProgram::DEPARTMENT],
-            $data[DegreeProgram::STUDENT_ADVICE],
-            $data[DegreeProgram::SUBJECT_SPECIFIC_ADVICE],
-            $data[DegreeProgram::SERVICE_CENTERS],
-            $data[DegreeProgram::STUDENT_REPRESENTATIVES],
-            $data[DegreeProgram::SEMESTER_FEE],
-            $data[DegreeProgram::DEGREE_PROGRAM_FEES],
-            $data[DegreeProgram::ABROAD_OPPORTUNITIES],
-            $data[DegreeProgram::KEYWORDS],
-            $data[DegreeProgram::AREA_OF_STUDY],
-            $data[DegreeProgram::COMBINATIONS],
-            $data[DegreeProgram::LIMITED_COMBINATIONS],
-        );
-    }
-
-    public function findTranslated(
-        DegreeProgramId $degreeProgramId,
-        string $languageCode
-    ): ?DegreeProgramViewTranslated {
-
-        $raw = $this->findRaw($degreeProgramId);
-        if (!$raw instanceof DegreeProgramViewRaw) {
-            return null;
-        }
-
-        return new DegreeProgramViewTranslated(
-            id: $degreeProgramId,
-            featuredImage: $raw->featuredImage(),
-            teaserImage: $raw->teaserImage(),
-            title: $raw->title()->asString($languageCode),
-            subtitle: $raw->subtitle()->asString($languageCode),
-            standardDuration: $raw->standardDuration(),
-            feeRequired: $raw->isFeeRequired(),
-            start: $raw->start()->asArrayOfStrings($languageCode),
-            numberOfStudents: $raw->numberOfStudents()->asString(),
-            teachingLanguage: $raw->teachingLanguage()->asString($languageCode),
-            attributes: $raw->attributes()->asArrayOfStrings($languageCode),
-            degree: DegreeTranslated::fromDegree($raw->degree(), $languageCode),
-            faculty: Link::fromMultilingualLink($raw->faculty(), $languageCode),
-            location: $raw->location()->asString($languageCode),
-            subjectGroups: $raw->subjectGroups()->asArrayOfStrings($languageCode),
-            videos: $this->formattedVideos($raw->videos()),
-            metaDescription: $raw->metaDescription()->asString($languageCode),
-            content: ContentTranslated::fromContent($raw->content(), $languageCode),
-            application: Link::fromMultilingualLink($raw->admissionRequirements()->requirementsForDegree($raw->degree()), $languageCode),
-            contentRelatedMasterRequirements: $raw->contentRelatedMasterRequirements()->asString($languageCode),
-            applicationDeadlineWinterSemester: $raw->applicationDeadlineWinterSemester(),
-            applicationDeadlineSummerSemester: $raw->applicationDeadlineSummerSemester(),
-            detailsAndNotes: $raw->detailsAndNotes()->asString($languageCode),
-            languageSkills: $raw->languageSkills()->asString($languageCode),
-            languageSkillsHumanitiesFaculty: $raw->languageSkillsHumanitiesFaculty(),
-            germanLanguageSkillsForInternationalStudents: Link::fromMultilingualLink(
-                $raw->germanLanguageSkillsForInternationalStudents(),
-                $languageCode
-            ),
-            startOfSemester: Link::fromMultilingualLink($raw->startOfSemester(), $languageCode),
-            semesterDates: Link::fromMultilingualLink($raw->semesterDates(), $languageCode),
-            examinationsOffice: Link::fromMultilingualLink($raw->examinationsOffice(), $languageCode),
-            examinationRegulations: Link::fromMultilingualLink($raw->examinationRegulations(), $languageCode),
-            moduleHandbook: $raw->moduleHandbook(),
-            url: $raw->url()->asString($languageCode),
-            department: Link::fromMultilingualLink($raw->department(), $languageCode),
-            studentAdvice: Link::fromMultilingualLink($raw->studentAdvice(), $languageCode),
-            subjectSpecificAdvice: Link::fromMultilingualLink($raw->subjectSpecificAdvice(), $languageCode),
-            serviceCenters: Link::fromMultilingualLink($raw->serviceCenters(), $languageCode),
-            studentRepresentatives: $raw->studentRepresentatives(),
-            semesterFee: Link::fromMultilingualLink($raw->semesterFee(), $languageCode),
-            degreeProgramFees: $raw->degreeProgramFees()->asString($languageCode),
-            abroadOpportunities: Link::fromMultilingualLink($raw->abroadOpportunities(), $languageCode),
-            combinations: $this->relatedDegreePrograms($raw->combinations()->asArray(), $languageCode),
-            limitedCombinations: $this->relatedDegreePrograms($raw->limitedCombinations()->asArray(), $languageCode),
-        );
-    }
-
     private function numberOfStudents(WP_Post $post): NumberOfStudents
     {
         $firstTerm = $this->firstTerm($post, NumberOfStudentsTaxonomy::KEY);
@@ -348,17 +221,6 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
         );
     }
 
-    private function formattedVideos(ArrayOfStrings $videos): ArrayOfStrings
-    {
-        $result = [];
-        foreach ($videos as $video) {
-            // $video could be shortcode or link
-            $result[] = (string) apply_filters('the_content', $video);
-        }
-
-        return ArrayOfStrings::new(...$result);
-    }
-
     private function contentItem(WP_Post $post, string $key): ContentItem
     {
         return ContentItem::new(
@@ -384,51 +246,6 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
     }
 
     /**
-     * @param array<int> $ids
-     */
-    private function relatedDegreePrograms(array $ids, string $languageCode): RelatedDegreePrograms
-    {
-        $result = [];
-        foreach ($ids as $id) {
-            $post = get_post($id);
-            if (!$post instanceof WP_Post) {
-                continue;
-            }
-
-            $result[] = $this->relatedDegreeProgram($post, $languageCode);
-        }
-
-        return RelatedDegreePrograms::new(...$result);
-    }
-
-    private function relatedDegreeProgram(WP_Post $post, string $languageCode): RelatedDegreeProgram
-    {
-        if ($languageCode === MultilingualString::DE) {
-            return RelatedDegreeProgram::new(
-                $post->ID,
-                $post->post_title,
-                (string) get_the_permalink($post),
-            );
-        }
-
-        return RelatedDegreeProgram::new(
-            $post->ID,
-            (string) get_post_meta(
-                $post->ID,
-                BilingualRepository::addEnglishSuffix('title'),
-                true
-            ),
-            home_url(
-                (string) get_post_meta(
-                    $post->ID,
-                    BilingualRepository::addEnglishSuffix('post_name'),
-                    true
-                )
-            ),
-        );
-    }
-
-    /**
      * While it violates the DDD consistency principle, we save the Degree Program entity
      * only partially to leverage WordPress functionality provided out-of-the-box.
      *
@@ -438,7 +255,8 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
      */
     public function save(DegreeProgram $degreeProgram): void
     {
-        $degreeProgramViewRaw = $this->transformEntityToView($degreeProgram);
+
+        $degreeProgramViewRaw = DegreeProgramViewRaw::fromDegreeProgram($degreeProgram);
         $postId = $degreeProgramViewRaw->id()->asInt();
 
         set_post_thumbnail($postId, $degreeProgramViewRaw->featuredImage()->id());

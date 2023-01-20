@@ -5,7 +5,21 @@ declare(strict_types=1);
 namespace Fau\DegreeProgram\Common\Application;
 
 use Fau\DegreeProgram\Common\Domain\Content;
+use Fau\DegreeProgram\Common\Domain\ContentItem;
 
+/**
+ * @psalm-import-type ContentItemTranslatedType from ContentItemTranslated
+ * @psalm-type ContentTranslatedType = array{
+ *     about: ContentItemTranslatedType,
+ *     structure: ContentItemTranslatedType,
+ *     specializations: ContentItemTranslatedType,
+ *     qualities_and_skills: ContentItemTranslatedType,
+ *     why_should_study: ContentItemTranslatedType,
+ *     career_prospects: ContentItemTranslatedType,
+ *     special_features: ContentItemTranslatedType,
+ *     testimonials: ContentItemTranslatedType,
+ * }
+ */
 final class ContentTranslated
 {
     private function __construct(
@@ -57,10 +71,12 @@ final class ContentTranslated
         );
     }
 
+    /**
+     * @return ContentTranslatedType
+     */
     public function asArray(): array
     {
         return [
-            //TODO: or asString, but an object looks better for REST API
             Content::ABOUT => $this->about->asArray(),
             Content::STRUCTURE => $this->structure->asArray(),
             Content::SPECIALIZATIONS => $this->specializations->asArray(),
@@ -70,6 +86,24 @@ final class ContentTranslated
             Content::SPECIAL_FEATURES => $this->specialFeatures->asArray(),
             Content::TESTIMONIALS => $this->testimonials->asArray(),
         ];
+    }
+
+    /**
+     * @psalm-param callable(string): string $callback
+     */
+    public function mapDescriptions(callable $callback): self
+    {
+        $content = $this->asArray();
+        $contentItems = [];
+        foreach ($content as $item) {
+            $contentItems[] = ContentItemTranslated::new(
+                $item[ContentItem::TITLE],
+                $callback(
+                    $item[ContentItem::DESCRIPTION]
+                )
+            );
+        }
+        return new self(...$contentItems);
     }
 
     public function about(): ContentItemTranslated

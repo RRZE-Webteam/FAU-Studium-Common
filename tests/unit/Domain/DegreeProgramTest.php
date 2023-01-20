@@ -18,6 +18,7 @@ use Fau\DegreeProgram\Common\Domain\MultilingualList;
 use Fau\DegreeProgram\Common\Domain\MultilingualString;
 use Fau\DegreeProgram\Common\Domain\NumberOfStudents;
 use Fau\DegreeProgram\Common\LanguageExtension\ArrayOfStrings;
+use Fau\DegreeProgram\Common\Tests\Sanitizer\StubSanitizer;
 use Fau\DegreeProgram\Common\Tests\UnitTestCase;
 use Fau\DegreeProgram\Common\Tests\Validator\StubDataValidator;
 use InvalidArgumentException;
@@ -34,7 +35,11 @@ class DegreeProgramTest extends UnitTestCase
         $wrongId = 12312;
         $data['id'] = $wrongId;
 
-        $sut->update($data, new StubDataValidator(ArrayOfStrings::new()));
+        $sut->update(
+            $data,
+            new StubDataValidator(ArrayOfStrings::new()),
+            new StubSanitizer(),
+        );
     }
 
     public function testUpdateValidationFailed(): void
@@ -48,14 +53,22 @@ class DegreeProgramTest extends UnitTestCase
         $sut = $this->createDegreeProgram();
         $data = $this->fixtureData();
 
-        $sut->update($data, new StubDataValidator($violations));
+        $sut->update(
+            $data,
+            new StubDataValidator($violations),
+            new StubSanitizer(),
+        );
     }
 
     public function testUpdateSuccessfully(): void
     {
         $sut = $this->createDegreeProgram();
         $data = $this->fixtureData();
-        $sut->update($data, new StubDataValidator(ArrayOfStrings::new()));
+        $sut->update(
+            $data,
+            new StubDataValidator(ArrayOfStrings::new()),
+            new StubSanitizer(),
+        );
         $result = $sut->asArray();
 
         $this->assertSame(

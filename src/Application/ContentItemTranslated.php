@@ -6,6 +6,12 @@ namespace Fau\DegreeProgram\Common\Application;
 
 use Fau\DegreeProgram\Common\Domain\ContentItem;
 
+/**
+ * @psalm-type ContentItemTranslatedType = array{
+ *     title: string,
+ *     description: string,
+ * }
+ */
 final class ContentItemTranslated
 {
     private function __construct(
@@ -36,6 +42,9 @@ final class ContentItemTranslated
         );
     }
 
+    /**
+     * @return ContentItemTranslatedType
+     */
     public function asArray(): array
     {
         return [

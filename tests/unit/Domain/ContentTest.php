@@ -9,7 +9,93 @@ use Fau\DegreeProgram\Common\Tests\UnitTestCase;
 
 class ContentTest extends UnitTestCase
 {
-    public function testFromArray(): void
+    /**
+     * @dataProvider contentDataProvider
+     */
+    public function testFromArray(array $contentData): void
+    {
+        $sut = Content::fromArray($contentData);
+
+        $this->assertSame($contentData, $sut->asArray());
+        $this->assertSame(
+            'About Title DE',
+            $sut->about()->title()->asString('de')
+        );
+        $this->assertSame(
+            'Structure Description EN',
+            $sut->structure()->description()->asString('en')
+        );
+        $this->assertSame(
+            'Specializations Title EN',
+            $sut->specializations()->title()->asString('en')
+        );
+        $this->assertSame(
+            'Qualities Description DE',
+            $sut->qualitiesAndSkills()->description()->asString('de')
+        );
+        $this->assertSame(
+            'option:why_should_study',
+            $sut->whyShouldStudy()->title()->id()
+        );
+        $this->assertSame(
+            'Career Title DE',
+            $sut->careerProspects()->title()->inGerman()
+        );
+        $this->assertSame(
+            'Special Title EN',
+            $sut->specialFeatures()->title()->inEnglish()
+        );
+        $this->assertSame(
+            'Testimonials Description DE',
+            $sut->testimonials()->description()->inGerman()
+        );
+    }
+
+    /**
+     * @dataProvider contentDataProvider
+     */
+    public function testMapDescriptions(array $contentData): void
+    {
+        $sut = Content::fromArray($contentData)
+            ->mapDescriptions(
+                static fn(string $description) => '[Was processed]' . $description
+            );
+
+        $this->assertSame(
+            'About Title DE',
+            $sut->about()->title()->asString('de')
+        );
+        $this->assertSame(
+            '[Was processed]Structure Description EN',
+            $sut->structure()->description()->asString('en')
+        );
+        $this->assertSame(
+            'Specializations Title EN',
+            $sut->specializations()->title()->asString('en')
+        );
+        $this->assertSame(
+            '[Was processed]Qualities Description DE',
+            $sut->qualitiesAndSkills()->description()->asString('de')
+        );
+        $this->assertSame(
+            'option:why_should_study',
+            $sut->whyShouldStudy()->title()->id()
+        );
+        $this->assertSame(
+            'Career Title DE',
+            $sut->careerProspects()->title()->inGerman()
+        );
+        $this->assertSame(
+            'Special Title EN',
+            $sut->specialFeatures()->title()->inEnglish()
+        );
+        $this->assertSame(
+            '[Was processed]Testimonials Description DE',
+            $sut->testimonials()->description()->inGerman()
+        );
+    }
+
+    public function contentDataProvider(): iterable
     {
         $data = [
             'about' => [
@@ -110,39 +196,6 @@ class ContentTest extends UnitTestCase
             ],
         ];
 
-        $sut = Content::fromArray($data);
-        $this->assertSame($data, $sut->asArray());
-        $this->assertSame(
-            'About Title DE',
-            $sut->about()->title()->asString('de')
-        );
-        $this->assertSame(
-            'Structure Description EN',
-            $sut->structure()->description()->asString('en')
-        );
-        $this->assertSame(
-            'Specializations Title EN',
-            $sut->specializations()->title()->asString('en')
-        );
-        $this->assertSame(
-            'Qualities Description DE',
-            $sut->qualitiesAndSkills()->description()->asString('de')
-        );
-        $this->assertSame(
-            'option:why_should_study',
-            $sut->whyShouldStudy()->title()->id()
-        );
-        $this->assertSame(
-            'Career Title DE',
-            $sut->careerProspects()->title()->inGerman()
-        );
-        $this->assertSame(
-            'Special Title EN',
-            $sut->specialFeatures()->title()->inEnglish()
-        );
-        $this->assertSame(
-            'Testimonials Description DE',
-            $sut->testimonials()->description()->inGerman()
-        );
+        yield 'basic_data' => [$data];
     }
 }

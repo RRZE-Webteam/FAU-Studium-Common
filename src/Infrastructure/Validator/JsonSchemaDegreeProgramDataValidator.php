@@ -52,9 +52,7 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
 
     private const MULTILINGUAL_LIST = [
         'type' => 'array',
-        'items' => [
-            'type' => self::MULTILINGUAL_STRING,
-        ],
+        'items' => self::MULTILINGUAL_STRING,
     ];
 
     private const MULTILINGUAL_LINK = [
@@ -78,9 +76,7 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
 
     private const MULTILINGUAL_LINKS = [
         'type' => 'array',
-        'items' => [
-            'type' => self::MULTILINGUAL_LINK,
-        ],
+        'items' => self::MULTILINGUAL_LINK,
     ];
 
     private const CONTENT_ITEM = [

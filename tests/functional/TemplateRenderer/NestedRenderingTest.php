@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Tests\TemplateRenderer;
 
-use Fau\DegreeProgram\Common\Tests\RendererTestCase;
 use Fau\DegreeProgram\Common\Tests\Dto\ListDto;
 use Fau\DegreeProgram\Common\Tests\Dto\ListItemDto;
+use Fau\DegreeProgram\Common\Tests\RendererTestCase;
 
 final class NestedRenderingTest extends RendererTestCase
 {

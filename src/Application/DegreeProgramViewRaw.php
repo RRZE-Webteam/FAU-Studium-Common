@@ -21,7 +21,7 @@ use JsonSerializable;
 
 final class DegreeProgramViewRaw implements JsonSerializable
 {
-    public function __construct(
+    private function __construct(
         private DegreeProgramId $id,
         private Image $featuredImage,
         private Image $teaserImage,
@@ -67,6 +67,57 @@ final class DegreeProgramViewRaw implements JsonSerializable
         private DegreeProgramIds $combinations,
         private DegreeProgramIds $limitedCombinations,
     ) {
+    }
+
+    public static function fromDegreeProgram(DegreeProgram $degreeProgram): self
+    {
+        $data = $degreeProgram->asArray();
+        return new self(
+            $data[DegreeProgram::ID],
+            $data[DegreeProgram::FEATURED_IMAGE],
+            $data[DegreeProgram::TEASER_IMAGE],
+            $data[DegreeProgram::TITLE],
+            $data[DegreeProgram::SUBTITLE],
+            $data[DegreeProgram::STANDARD_DURATION],
+            $data[DegreeProgram::FEE_REQUIRED],
+            $data[DegreeProgram::START],
+            $data[DegreeProgram::NUMBER_OF_STUDENTS],
+            $data[DegreeProgram::TEACHING_LANGUAGE],
+            $data[DegreeProgram::ATTRIBUTES],
+            $data[DegreeProgram::DEGREE],
+            $data[DegreeProgram::FACULTY],
+            $data[DegreeProgram::LOCATION],
+            $data[DegreeProgram::SUBJECT_GROUPS],
+            $data[DegreeProgram::VIDEOS],
+            $data[DegreeProgram::META_DESCRIPTION],
+            $data[DegreeProgram::CONTENT],
+            $data[DegreeProgram::ADMISSION_REQUIREMENTS],
+            $data[DegreeProgram::CONTENT_RELATED_MASTER_REQUIREMENTS],
+            $data[DegreeProgram::APPLICATION_DEADLINE_WINTER_SEMESTER],
+            $data[DegreeProgram::APPLICATION_DEADLINE_SUMMER_SEMESTER],
+            $data[DegreeProgram::DETAILS_AND_NOTES],
+            $data[DegreeProgram::LANGUAGE_SKILLS],
+            $data[DegreeProgram::LANGUAGE_SKILLS_HUMANITIES_FACULTY],
+            $data[DegreeProgram::GERMAN_LANGUAGE_SKILLS_FOR_INTERNATIONAL_STUDENTS],
+            $data[DegreeProgram::START_OF_SEMESTER],
+            $data[DegreeProgram::SEMESTER_DATES],
+            $data[DegreeProgram::EXAMINATIONS_OFFICE],
+            $data[DegreeProgram::EXAMINATION_REGULATIONS],
+            $data[DegreeProgram::MODULE_HANDBOOK],
+            $data[DegreeProgram::URL],
+            $data[DegreeProgram::DEPARTMENT],
+            $data[DegreeProgram::STUDENT_ADVICE],
+            $data[DegreeProgram::SUBJECT_SPECIFIC_ADVICE],
+            $data[DegreeProgram::SERVICE_CENTERS],
+            $data[DegreeProgram::STUDENT_REPRESENTATIVES],
+            $data[DegreeProgram::SEMESTER_FEE],
+            $data[DegreeProgram::DEGREE_PROGRAM_FEES],
+            $data[DegreeProgram::ABROAD_OPPORTUNITIES],
+            $data[DegreeProgram::KEYWORDS],
+            $data[DegreeProgram::AREA_OF_STUDY],
+            $data[DegreeProgram::COMBINATIONS],
+            $data[DegreeProgram::LIMITED_COMBINATIONS],
+        );
     }
 
     public function asArray(): array
