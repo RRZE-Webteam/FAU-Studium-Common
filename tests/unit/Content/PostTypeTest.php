@@ -18,7 +18,6 @@ final class PostTypeTest extends UnitTestCase
                 'label' => 'Degree Programs',
                 'hierarchical' => false,
                 'supports' => [
-                    'title',
                     'editor',
                     'thumbnail',
                 ],
@@ -37,7 +36,6 @@ final class PostTypeTest extends UnitTestCase
                 'label' => 'Degree Programs',
                 'hierarchical' => false,
                 'supports' => [
-                    'title',
                     'editor',
                     'thumbnail',
                 ],

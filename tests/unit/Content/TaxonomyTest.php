@@ -45,6 +45,7 @@ final class TaxonomyTest extends UnitTestCase
                 'rest_base' => 'degree',
                 'public' => true,
                 'show_in_rest' => true,
+                'meta_box_cb' => false,
             ],
             DegreeTaxonomy::public()->args()
         );

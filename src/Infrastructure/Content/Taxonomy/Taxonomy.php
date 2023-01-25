@@ -33,6 +33,7 @@ abstract class Taxonomy
             [
                 'public' => true,
                 'show_in_rest' => true,
+                'meta_box_cb' => false,
             ]
         );
     }

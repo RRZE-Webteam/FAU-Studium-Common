@@ -13,7 +13,11 @@
     ],
     "autoload-dev": {
         "psr-4": {
-            "Fau\\DegreeProgram\\Common\\Tests\\": ["tests/src/", "tests/unit/", "tests/functional/"],
+            "Fau\\DegreeProgram\\Common\\Tests\\": [
+                "tests/src/",
+                "tests/unit/",
+                "tests/functional/"
+            ],
             "Fau\\DegreeProgram\\Common\\LanguageExtension\\Tests\\": "lib/lang-extension/tests/"
         }
     },
@@ -32,15 +36,6 @@
     "suggest": {
         "inpsyde/modularity": "Modular PSR-11 implementation for WordPress Plugins, Themes or Libraries"
     },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://repo.packagist.com/inpsyde/"
-        },
-        {
-            "packagist.org": false
-        }
-    ],
     "minimum-stability": "dev",
     "prefer-stable": true,
     "autoload": {

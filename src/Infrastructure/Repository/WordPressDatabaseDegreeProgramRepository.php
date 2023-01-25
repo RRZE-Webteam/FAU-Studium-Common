@@ -259,6 +259,11 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
         $degreeProgramViewRaw = DegreeProgramViewRaw::fromDegreeProgram($degreeProgram);
         $postId = $degreeProgramViewRaw->id()->asInt();
 
+        wp_update_post([
+            'ID' => $postId,
+            'post_title' => $degreeProgramViewRaw->title()->inGerman(),
+        ]);
+
         set_post_thumbnail($postId, $degreeProgramViewRaw->featuredImage()->id());
 
         $metas = [

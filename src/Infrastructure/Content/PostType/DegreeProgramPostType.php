@@ -26,7 +26,6 @@ class DegreeProgramPostType
                 'labels' => self::labels(),
                 'hierarchical' => false,
                 'supports' => [
-                    'title',
                     'editor',
                     'thumbnail',
                 ],
