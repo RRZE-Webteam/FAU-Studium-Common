@@ -275,12 +275,15 @@ final class DegreeProgram
         $this->content = Content::fromArray($data[self::CONTENT])
             ->mapDescriptions([$contentSanitizer, 'sanitizeContentField']);
         $this->admissionRequirements = AdmissionRequirements::fromArray($data[self::ADMISSION_REQUIREMENTS]);
-        $this->contentRelatedMasterRequirements = MultilingualString::fromArray($data[self::CONTENT_RELATED_MASTER_REQUIREMENTS]);
-        $this->applicationDeadlineWinterSemester = $data[self::APPLICATION_DEADLINE_WINTER_SEMESTER];
-        $this->applicationDeadlineSummerSemester = $data[self::APPLICATION_DEADLINE_SUMMER_SEMESTER];
-        $this->detailsAndNotes = MultilingualString::fromArray($data[self::DETAILS_AND_NOTES]);
-        $this->languageSkills = MultilingualString::fromArray($data[self::LANGUAGE_SKILLS]);
-        $this->languageSkillsHumanitiesFaculty = $data[self::LANGUAGE_SKILLS_HUMANITIES_FACULTY];
+        $this->contentRelatedMasterRequirements = MultilingualString::fromArray($data[self::CONTENT_RELATED_MASTER_REQUIREMENTS])
+            ->mapTranslations([$contentSanitizer, 'sanitizeContentField']);
+        $this->applicationDeadlineWinterSemester = $contentSanitizer->sanitizeContentField($data[self::APPLICATION_DEADLINE_WINTER_SEMESTER]);
+        $this->applicationDeadlineSummerSemester = $contentSanitizer->sanitizeContentField($data[self::APPLICATION_DEADLINE_SUMMER_SEMESTER]);
+        $this->detailsAndNotes = MultilingualString::fromArray($data[self::DETAILS_AND_NOTES])
+            ->mapTranslations([$contentSanitizer, 'sanitizeContentField']);
+        $this->languageSkills = MultilingualString::fromArray($data[self::LANGUAGE_SKILLS])
+            ->mapTranslations([$contentSanitizer, 'sanitizeContentField']);
+        $this->languageSkillsHumanitiesFaculty = $contentSanitizer->sanitizeContentField($data[self::LANGUAGE_SKILLS_HUMANITIES_FACULTY]);
         $this->germanLanguageSkillsForInternationalStudents = MultilingualLink::fromArray($data[self::GERMAN_LANGUAGE_SKILLS_FOR_INTERNATIONAL_STUDENTS]);
         $this->startOfSemester = MultilingualLink::fromArray($data[self::START_OF_SEMESTER]);
         $this->semesterDates = MultilingualLink::fromArray($data[self::SEMESTER_DATES]);

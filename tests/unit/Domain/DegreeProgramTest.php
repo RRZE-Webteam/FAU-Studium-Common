@@ -67,7 +67,7 @@ class DegreeProgramTest extends UnitTestCase
         $sut->update(
             $data,
             new StubDataValidator(ArrayOfStrings::new()),
-            new StubSanitizer(),
+            new StubSanitizer('[Was sanitized]'),
         );
         $result = $sut->asArray();
 
@@ -140,7 +140,7 @@ class DegreeProgramTest extends UnitTestCase
             $result['content']->structure()->title()->inGerman()
         );
         $this->assertSame(
-            'Structure description.',
+            '[Was sanitized]Structure description.',
             $result['content']->structure()->description()->inGerman()
         );
         $this->assertSame(
@@ -148,27 +148,27 @@ class DegreeProgramTest extends UnitTestCase
             $result['admission_requirements']->bachelorOrTeachingDegree()->name()->inGerman()
         );
         $this->assertSame(
-            'Master requirements.',
+            '[Was sanitized]Master requirements.',
             $result['content_related_master_requirements']->inGerman()
         );
         $this->assertSame(
-            '1/12',
+            '[Was sanitized]1/12',
             $result['application_deadline_winter_semester']
         );
         $this->assertSame(
-            '1/07',
+            '[Was sanitized]1/07',
             $result['application_deadline_summer_semester']
         );
         $this->assertSame(
-            'Notes EN.',
+            '[Was sanitized]Notes EN.',
             $result['details_and_notes']->inEnglish()
         );
         $this->assertSame(
-            'C1',
+            '[Was sanitized]C1',
             $result['language_skills']->inEnglish()
         );
         $this->assertSame(
-            'Excellent',
+            '[Was sanitized]Excellent',
             $result['language_skills_humanities_faculty']
         );
         $this->assertSame(

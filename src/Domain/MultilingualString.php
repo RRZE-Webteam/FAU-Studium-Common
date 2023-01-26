@@ -67,6 +67,18 @@ final class MultilingualString implements JsonSerializable
         );
     }
 
+    /**
+     * @psalm-param callable(string): string $callback
+     */
+    public function mapTranslations(callable $callback): self
+    {
+        return self::fromTranslations(
+            $this->id,
+            $callback($this->inGerman()),
+            $callback($this->inEnglish()),
+        );
+    }
+
     public function asString(string $languageCode): string
     {
         if ($languageCode) {

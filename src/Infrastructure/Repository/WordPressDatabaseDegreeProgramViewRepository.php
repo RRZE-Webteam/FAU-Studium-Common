@@ -72,12 +72,24 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
             content: ContentTranslated::fromContent($raw->content(), $languageCode)
                 ->mapDescriptions([$this, 'formatContentField']),
             application: Link::fromMultilingualLink($raw->admissionRequirements()->requirementsForDegree($raw->degree()), $languageCode),
-            contentRelatedMasterRequirements: $raw->contentRelatedMasterRequirements()->asString($languageCode),
-            applicationDeadlineWinterSemester: $raw->applicationDeadlineWinterSemester(),
-            applicationDeadlineSummerSemester: $raw->applicationDeadlineSummerSemester(),
-            detailsAndNotes: $raw->detailsAndNotes()->asString($languageCode),
-            languageSkills: $raw->languageSkills()->asString($languageCode),
-            languageSkillsHumanitiesFaculty: $raw->languageSkillsHumanitiesFaculty(),
+            contentRelatedMasterRequirements: $this->formatContentField(
+                $raw->contentRelatedMasterRequirements()->asString($languageCode)
+            ),
+            applicationDeadlineWinterSemester: $this->formatContentField(
+                $raw->applicationDeadlineWinterSemester()
+            ),
+            applicationDeadlineSummerSemester:  $this->formatContentField(
+                $raw->applicationDeadlineSummerSemester()
+            ),
+            detailsAndNotes: $this->formatContentField(
+                $raw->detailsAndNotes()->asString($languageCode)
+            ),
+            languageSkills: $this->formatContentField(
+                $raw->languageSkills()->asString($languageCode)
+            ),
+            languageSkillsHumanitiesFaculty: $this->formatContentField(
+                $raw->languageSkillsHumanitiesFaculty()
+            ),
             germanLanguageSkillsForInternationalStudents: Link::fromMultilingualLink(
                 $raw->germanLanguageSkillsForInternationalStudents(),
                 $languageCode

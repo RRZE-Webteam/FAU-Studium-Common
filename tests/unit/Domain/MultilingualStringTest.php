@@ -61,4 +61,19 @@ class MultilingualStringTest extends UnitTestCase
         $this->assertSame('Default Keyword', $sut->inGerman());
         $this->assertSame('Keyword 1 EN', $sut->inEnglish());
     }
+
+    public function testMapTranslations(): void
+    {
+        $array = [
+            'id' => 'term:17',
+            'de' => 'Keyword 1',
+            'en' => 'Keyword 1 EN',
+        ];
+        $sut = MultilingualString::fromTranslations(...$array)
+            ->mapTranslations(static fn(string $translation) => '[Was processed]' . $translation);
+
+        $this->assertSame('term:17', $sut->id());
+        $this->assertSame('[Was processed]Keyword 1', $sut->inGerman());
+        $this->assertSame('[Was processed]Keyword 1 EN', $sut->inEnglish());
+    }
 }
