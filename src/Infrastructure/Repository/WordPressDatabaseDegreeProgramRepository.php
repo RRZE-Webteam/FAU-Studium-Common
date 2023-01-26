@@ -264,7 +264,10 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             'post_title' => $degreeProgramViewRaw->title()->inGerman(),
         ]);
 
-        set_post_thumbnail($postId, $degreeProgramViewRaw->featuredImage()->id());
+        $this->persistFeatureImage(
+            $postId,
+            $degreeProgramViewRaw->featuredImage()->id()
+        );
 
         $metas = [
             DegreeProgram::TEASER_IMAGE =>
@@ -373,6 +376,16 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             DegreeProgram::LIMITED_COMBINATIONS,
             $data[DegreeProgram::LIMITED_COMBINATIONS_CHANGESET],
         );
+    }
+
+    private function persistFeatureImage(int $postId, int $featureImageId): void
+    {
+        if ($featureImageId) {
+            set_post_thumbnail($postId, $featureImageId);
+            return;
+        }
+
+        delete_post_thumbnail($postId);
     }
 
     /**

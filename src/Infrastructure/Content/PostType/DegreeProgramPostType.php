@@ -27,7 +27,6 @@ class DegreeProgramPostType
                 'hierarchical' => false,
                 'supports' => [
                     'editor',
-                    'thumbnail',
                 ],
             ]
         );

@@ -19,7 +19,6 @@ final class PostTypeTest extends UnitTestCase
                 'hierarchical' => false,
                 'supports' => [
                     'editor',
-                    'thumbnail',
                 ],
                 'public' => true,
                 'show_in_rest' => true,
@@ -37,7 +36,6 @@ final class PostTypeTest extends UnitTestCase
                 'hierarchical' => false,
                 'supports' => [
                     'editor',
-                    'thumbnail',
                 ],
                 'public' => false,
                 'publicly_queryable' => true,
