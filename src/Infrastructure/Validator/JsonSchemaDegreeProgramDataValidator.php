@@ -278,7 +278,7 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
 
     public function validate(array $data): ArrayOfStrings
     {
-        $result = rest_validate_value_from_schema($data, self::SCHEMA);
+        $result = rest_validate_value_from_schema($data, self::SCHEMA, 'degree_program');
         if ($result === true) {
             return ArrayOfStrings::new();
         }
