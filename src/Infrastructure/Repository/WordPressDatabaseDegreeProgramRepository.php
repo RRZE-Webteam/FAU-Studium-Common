@@ -74,7 +74,7 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
                 (string) wp_get_attachment_image_url($teaserImageId, 'full')
             ),
             title: MultilingualString::fromTranslations(
-                'post:title',
+                $this->idGenerator->generatePostId($post, 'title'),
                 $post->post_title,
                 (string)get_post_meta(
                     $postId,
@@ -186,7 +186,7 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
         }
 
         return NumberOfStudents::new(
-            'term:' . (string) $firstTerm->term_id,
+            $this->idGenerator->generateTermId($firstTerm),
             term_description($firstTerm->term_id)
         );
     }
@@ -215,7 +215,7 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
         }
 
         return Degree::new(
-            'term:' . (string) $term->term_id,
+            $this->idGenerator->generateTermId($term),
             $this->bilingualTermName($term),
             $this->bilingualTermMeta($term, Degree::ABBREVIATION)
         );
@@ -360,7 +360,7 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
         foreach ($terms as $taxonomy => $multilingualStructure) {
             wp_set_object_terms(
                 $postId,
-                $this->termIdsList($multilingualStructure),
+                $this->idGenerator->termIdsList($multilingualStructure),
                 $taxonomy
             );
         }

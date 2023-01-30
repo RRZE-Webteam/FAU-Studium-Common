@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Infrastructure\Repository;
 
-use Fau\DegreeProgram\Common\Domain\Degree;
 use Fau\DegreeProgram\Common\Domain\MultilingualLink;
 use Fau\DegreeProgram\Common\Domain\MultilingualLinks;
 use Fau\DegreeProgram\Common\Domain\MultilingualList;
 use Fau\DegreeProgram\Common\Domain\MultilingualString;
-use Fau\DegreeProgram\Common\Domain\NumberOfStudents;
-use Fau\DegreeProgram\Common\LanguageExtension\ArrayOfStrings;
 use RuntimeException;
 use WP_Post;
 use WP_Term;
@@ -19,6 +16,11 @@ abstract class BilingualRepository
 {
     private const OPTION_PREFIX = 'fau';
 
+    public function __construct(
+        protected IdGenerator $idGenerator,
+    ) {
+    }
+
     final protected function bilingualTermName(?WP_Term $term): MultilingualString
     {
         if (!$term instanceof WP_Term) {
@@ -26,7 +28,7 @@ abstract class BilingualRepository
         }
 
         return MultilingualString::fromTranslations(
-            'term:' . (string) $term->term_id,
+            $this->idGenerator->generateTermId($term, 'name'),
             $term->name,
             (string) get_term_meta(
                 $term->term_id,
@@ -58,7 +60,7 @@ abstract class BilingualRepository
         }
 
         return MultilingualString::fromTranslations(
-            'term:' . (string) $term->term_id,
+            $this->idGenerator->generateTermMetaId($term, $key),
             (string) get_term_meta($term->term_id, $key, true),
             (string) get_term_meta($term->term_id, self::addEnglishSuffix($key), true),
         );
@@ -71,7 +73,7 @@ abstract class BilingualRepository
         }
 
         return MultilingualString::fromTranslations(
-            sprintf('post_meta:%s:%s', $key, $post->ID),
+            $this->idGenerator->generatePostMetaId($post, $key),
             (string) get_post_meta($post->ID, $key, true),
             (string) get_post_meta($post->ID, self::addEnglishSuffix($key), true),
         );
@@ -82,7 +84,12 @@ abstract class BilingualRepository
         MultilingualString $multilingualString
     ): void {
 
-        [$type, $key, $parsedPostId] = explode(':', $multilingualString->id());
+        [
+            'type' => $type,
+            'entityId' => $parsedPostId,
+            'subField' => $key,
+        ] = $this->idGenerator->parseId($multilingualString->id());
+
         if ($type !== 'post_meta' || !$key) {
             throw new RuntimeException(
                 sprintf(
@@ -112,7 +119,7 @@ abstract class BilingualRepository
         $option = (array) get_option($optionKey, []);
 
         return MultilingualString::fromTranslations(
-            'option:' . $optionKey,
+            $this->idGenerator->generateOptionId($optionKey),
             (string) ($option[MultilingualString::DE] ?? ''),
             (string) ($option[MultilingualString::EN] ?? ''),
         );
@@ -121,7 +128,7 @@ abstract class BilingualRepository
     final protected function bilingualLinkFromTerm(?WP_Term $term): MultilingualLink
     {
         return MultilingualLink::new(
-            $term instanceof WP_Term ? 'term:' . (string) $term->term_id : '',
+            $term instanceof WP_Term ? $this->idGenerator->generateTermId($term) : '',
             name: $this->bilingualTermName($term),
             linkText: $this->bilingualTermMeta($term, MultilingualLink::LINK_TEXT),
             linkUrl: $this->bilingualTermMeta($term, MultilingualLink::LINK_URL),
@@ -143,54 +150,6 @@ abstract class BilingualRepository
         return MultilingualLinks::new(...$links);
     }
 
-    /**
-     * @return list<int>
-     */
-    final protected function termIdsList(
-        MultilingualString|MultilingualList|MultilingualLink|MultilingualLinks|NumberOfStudents|Degree $structure
-    ): array {
-
-        $ids = $this->retrieveIds($structure);
-
-        $validatedIds = [];
-        foreach ($ids as $id) {
-            if (!$id) {
-                continue;
-            }
-
-            [$type, $termId] = explode(':', $id);
-            if ($type !== 'term' || (int) $termId < 1) {
-                throw new RuntimeException(
-                    sprintf(
-                        'Could not assign %s structure %s as terms.',
-                        $structure::class,
-                        (string) json_encode($structure)
-                    )
-                );
-            }
-
-            $validatedIds[] = (int) $termId;
-        }
-
-        return $validatedIds;
-    }
-
-    private function retrieveIds(
-        MultilingualString|MultilingualList|MultilingualLink|MultilingualLinks|NumberOfStudents|Degree $structure
-    ): ArrayOfStrings {
-
-        if ($structure instanceof MultilingualList || $structure instanceof MultilingualLinks) {
-            return ArrayOfStrings::new(
-                ...array_map(
-                    static fn(MultilingualString|MultilingualLink $item) => $item->id(),
-                    $structure->getArrayCopy()
-                )
-            );
-        }
-
-        return ArrayOfStrings::new($structure->id());
-    }
-
     final protected function bilingualLinkFromOption(string $key): MultilingualLink
     {
         $optionKey = self::addOptionPrefix($key);
@@ -198,19 +157,19 @@ abstract class BilingualRepository
         $option = (array) get_option($optionKey, []);
 
         return MultilingualLink::new(
-            'option:' . $optionKey,
+            $this->idGenerator->generateOptionId($optionKey),
             name: MultilingualString::fromTranslations(
-                'option:' . $optionKey . '.' . MultilingualLink::NAME,
+                $this->idGenerator->generateOptionId($optionKey, MultilingualLink::NAME),
                 (string) ($option[MultilingualLink::NAME] ?? ''),
                 (string) ($option[self::addEnglishSuffix(MultilingualLink::NAME)] ?? ''),
             ),
             linkText: MultilingualString::fromTranslations(
-                'option:' . $optionKey . '.' . MultilingualLink::LINK_TEXT,
+                $this->idGenerator->generateOptionId($optionKey, MultilingualLink::LINK_TEXT),
                 (string) ($option[MultilingualLink::LINK_TEXT] ?? ''),
                 (string) ($option[self::addEnglishSuffix(MultilingualLink::LINK_TEXT)] ?? ''),
             ),
             linkUrl: MultilingualString::fromTranslations(
-                'option:' . $optionKey . '.' . MultilingualLink::LINK_URL,
+                $this->idGenerator->generateOptionId($optionKey, MultilingualLink::LINK_URL),
                 (string) ($option[MultilingualLink::LINK_URL] ?? ''),
                 (string) ($option[self::addEnglishSuffix(MultilingualLink::LINK_URL)] ?? ''),
             ),

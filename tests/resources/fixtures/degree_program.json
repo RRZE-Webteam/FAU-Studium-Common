@@ -9,12 +9,12 @@
     "url": "https:\/\/fau.localhost\/wp-content\/uploads\/2022\/12\/abstract-1-1528080.jpg"
   },
   "title": {
-    "id": "post:title",
+    "id": "post:25:title",
     "de": "Master of Art FAU",
     "en": "Master of Art FAU EN"
   },
   "subtitle": {
-    "id": "post_meta:subtitle:25",
+    "id": "post_meta:25:subtitle",
     "de": "Subtitle",
     "en": "Subtitle EN"
   },
@@ -22,12 +22,12 @@
   "fee_required": true,
   "start": [
     {
-      "id": "term:21",
+      "id": "term:21:name",
       "de": "Summer",
       "en": "Summer EN"
     },
     {
-      "id": "term:20",
+      "id": "term:22:name",
       "de": "Winter",
       "en": "Winter EN"
     }
@@ -37,18 +37,18 @@
     "description": "<p>Less<\/p>"
   },
   "teaching_language": {
-    "id": "term:10",
+    "id": "term:10:name",
     "de": "German Formal",
     "en": "German Formal EN"
   },
   "attributes": [
     {
-      "id": "term:5",
+      "id": "term:5:name",
       "de": "DE",
       "en": "EN"
     },
     {
-      "id": "term:34",
+      "id": "term:34:name",
       "de": "New DE",
       "en": "New EN"
     }
@@ -56,12 +56,12 @@
   "degree": {
     "id": "term:7",
     "name": {
-      "id": "term:7",
+      "id": "term:7:name",
       "de": "One Degree",
       "en": "One Degree EN"
     },
     "abbreviation": {
-      "id": "term:7",
+      "id": "term_meta:7:abbreviation",
       "de": "OD",
       "en": "ODE"
     }
@@ -69,29 +69,29 @@
   "faculty": {
     "id": "term:11",
     "name": {
-      "id": "term:11",
+      "id": "term:11:name",
       "de": "Faculty Math",
       "en": "Faculty Math EN"
     },
     "link_text": {
-      "id": "term:11",
+      "id": "term_meta:11:link_text",
       "de": "Link Faculty Math",
       "en": "Link Faculty Math EN"
     },
     "link_url": {
-      "id": "term:11",
+      "id": "term_meta:11:link_url",
       "de": "https:\/\/fau.localhost\/faculty-math",
       "en": "https:\/\/fau.localhost\/faculty-math-en"
     }
   },
   "location": {
-    "id": "term:22",
+    "id": "term:22:name",
     "de": "Study location",
     "en": "Study location EN"
   },
   "subject_groups": [
     {
-      "id": "term:23",
+      "id": "term:23:name",
       "de": "Subject Bio",
       "en": "Subject Bio EN"
     }
@@ -101,7 +101,7 @@
     "https:\/\/vimeo.com\/"
   ],
   "meta_description": {
-    "id": "post_meta:meta_description:25",
+    "id": "post_meta:25:meta_description",
     "de": "Meta description.",
     "en": "Meta description EN."
   },
@@ -113,7 +113,7 @@
         "en": "What is the degree program about?"
       },
       "description": {
-        "id": "post_meta:about:25",
+        "id": "post_meta:25:about",
         "de": "It's very interesting.",
         "en": "It's very interesting EN."
       }
@@ -125,7 +125,7 @@
         "en": ""
       },
       "description": {
-        "id": "post_meta:structure:25",
+        "id": "post_meta:25:structure",
         "de": "Structure description.",
         "en": "Structure description EN."
       }
@@ -137,7 +137,7 @@
         "en": "Spec title EN"
       },
       "description": {
-        "id": "post_meta:specializations:25",
+        "id": "post_meta:25:specializations",
         "de": "Specializations description.",
         "en": "Specializations description EN."
       }
@@ -149,7 +149,7 @@
         "en": "Qualities ans skills title EN."
       },
       "description": {
-        "id": "post_meta:qualities_and_skills:25",
+        "id": "post_meta:25:qualities_and_skills",
         "de": "Qualities ans skills.",
         "en": "Qualities ans skills EN."
       }
@@ -161,7 +161,7 @@
         "en": "Why should I study at FAU?"
       },
       "description": {
-        "id": "post_meta:why_should_study:25",
+        "id": "post_meta:25:why_should_study",
         "de": "Why should study description.",
         "en": "Why should study description EN."
       }
@@ -173,7 +173,7 @@
         "en": "Career title EN."
       },
       "description": {
-        "id": "post_meta:career_prospects:25",
+        "id": "post_meta:25:career_prospects",
         "de": "Career description.",
         "en": "Career description EN."
       }
@@ -185,7 +185,7 @@
         "en": "Special title EN"
       },
       "description": {
-        "id": "post_meta:special_features:25",
+        "id": "post_meta:25:special_features",
         "de": "Special description",
         "en": "Special description EN"
       }
@@ -197,7 +197,7 @@
         "en": "Testimonials"
       },
       "description": {
-        "id": "post_meta:testimonials:25",
+        "id": "post_meta:25:testimonials",
         "de": "Testimonial description",
         "en": "Testimonial description EN"
       }
@@ -207,17 +207,17 @@
     "bachelor_or_teaching_degree": {
       "id": "term:13",
       "name": {
-        "id": "term:13",
+        "id": "term:13:name",
         "de": "Admission Bachelor",
         "en": "Admission Bachelor EN"
       },
       "link_text": {
-        "id": "term:13",
+        "id": "term_meta:13:link_text",
         "de": "Link Admission Bachelor",
         "en": "Link Admission Bachelor"
       },
       "link_url": {
-        "id": "term:13",
+        "id": "term_meta:13:link_url",
         "de": "https:\/\/fau.localhost\/admission-bachelor",
         "en": "https:\/\/fau.localhost\/admission-bachelor-en"
       }
@@ -225,17 +225,17 @@
     "teaching_degree_higher_semester": {
       "id": "term:24",
       "name": {
-        "id": "term:24",
+        "id": "term:24:name",
         "de": "Admission requirement for entering a teaching degree at a higher semester",
         "en": "Admission requirement for entering a teaching degree at a higher semester EN"
       },
       "link_text": {
-        "id": "term:24",
+        "id": "term_meta:24:link_text",
         "de": "Link to Admission requirement for entering a teaching degree at a higher semester",
         "en": "Link to Admission requirement for entering a teaching degree at a higher semester EN"
       },
       "link_url": {
-        "id": "term:24",
+        "id": "term_meta:24:link_url",
         "de": "https:\/\/fau.localhost\/higher-semester",
         "en": "https:\/\/fau.localhost\/higher-semester-en"
       }
@@ -243,36 +243,36 @@
     "master": {
       "id": "term:19",
       "name": {
-        "id": "term:19",
+        "id": "term:19:name",
         "de": "Admission requirement Master\u2019s degree",
         "en": "Admission requirement Master\u2019s degree EN"
       },
       "link_text": {
-        "id": "term:19",
+        "id": "term_meta:19:link_text",
         "de": "Link to Admission requirement Master\u2019s degree",
         "en": "Link to Admission requirement Master\u2019s degree EN"
       },
       "link_url": {
-        "id": "term:19",
+        "id": "term_meta:19:link_url",
         "de": "https:\/\/fau.localhost\/admission-master",
         "en": "https:\/\/fau.localhost\/admission-master-en"
       }
     }
   },
   "content_related_master_requirements": {
-    "id": "post_meta:content_related_master_requirements:25",
+    "id": "post_meta:25:content_related_master_requirements",
     "de": "Master requirements.",
     "en": "Master requirements EN."
   },
   "application_deadline_winter_semester": "1/12",
   "application_deadline_summer_semester": "1/07",
   "details_and_notes": {
-    "id": "post_meta:details_and_notes:25",
+    "id": "post_meta:25:details_and_notes",
     "de": "Notes.",
     "en": "Notes EN."
   },
   "language_skills": {
-    "id": "post_meta:language_skills:25",
+    "id": "post_meta:25:language_skills",
     "de": "C1",
     "en": "C1"
   },
@@ -280,17 +280,17 @@
   "german_language_skills_for_international_students": {
     "id": "term:16",
     "name": {
-      "id": "term:16",
+      "id": "term:16:name",
       "de": "German language skills for international students",
       "en": "German language skills for international students EN"
     },
     "link_text": {
-      "id": "term:16",
+      "id": "term_meta:16:link_text",
       "de": "Link to german language skills for international students",
       "en": "Link to german language skills for international students EN"
     },
     "link_url": {
-      "id": "term:16",
+      "id": "term_meta:16:link_url",
       "de": "https:\/\/fau.localhost\/german-language-skills-international-students",
       "en": "https:\/\/fau.localhost\/german-language-skills-international-students-en"
     }
@@ -298,17 +298,17 @@
   "start_of_semester": {
     "id": "option:fau_start_of_semester",
     "name": {
-      "id": "option:fau_start_of_semester.name",
+      "id": "option:fau_start_of_semester:name",
       "de": "Early start",
       "en": "Early start EN"
     },
     "link_text": {
-      "id": "option:fau_start_of_semester.link_text",
+      "id": "option:fau_start_of_semester:link_text",
       "de": "Link to Start of Semester",
       "en": "Link to Start of Semester EN"
     },
     "link_url": {
-      "id": "option:fau_start_of_semester.link_url",
+      "id": "option:fau_start_of_semester:link_url",
       "de": "https:\/\/fau.localhost\/start-of-semester",
       "en": "https:\/\/fau.localhost\/start-of-semester-en"
     }
@@ -316,17 +316,17 @@
   "semester_dates": {
     "id": "option:fau_semester_dates",
     "name": {
-      "id": "option:fau_semester_dates.name",
+      "id": "option:fau_semester_dates:name",
       "de": "1/09-23/12",
       "en": "1/09-23/12"
     },
     "link_text": {
-      "id": "option:fau_semester_dates.link_text",
+      "id": "option:fau_semester_dates:link_text",
       "de": "Link text Semester dates",
       "en": "Link text Semester dates EN"
     },
     "link_url": {
-      "id": "option:fau_semester_dates.link_url",
+      "id": "option:fau_semester_dates:link_url",
       "de": "https:\/\/fau.localhost\/semester-dates",
       "en": "https:\/\/fau.localhost\/semester-dates-en"
     }
@@ -334,17 +334,17 @@
   "examinations_office": {
     "id": "term:15",
     "name": {
-      "id": "term:15",
+      "id": "term:15:name",
       "de": "Examinations Office",
       "en": "Examinations Office EN"
     },
     "link_text": {
-      "id": "term:15",
+      "id": "term_meta:15:link_text",
       "de": "Link Examinations Office",
       "en": "Link Examinations Office EN"
     },
     "link_url": {
-      "id": "term:15",
+      "id": "term_meta:15:link_url",
       "de": "https:\/\/fau.localhost\/examinations-office",
       "en": "https:\/\/fau.localhost\/examinations-office-en"
     }
@@ -352,41 +352,41 @@
   "examination_regulations": {
     "id": "term:14",
     "name": {
-      "id": "term:14",
+      "id": "term:14:name",
       "de": "Regulations",
       "en": "Regulations EN"
     },
     "link_text": {
-      "id": "term:14",
+      "id": "term_meta:14:link_text",
       "de": "Link regulations",
       "en": "Link regulations EN"
     },
     "link_url": {
-      "id": "term:14",
+      "id": "term_meta:14:link_url",
       "de": "https:\/\/fau.localhost\/examination-regulations",
       "en": "https:\/\/fau.localhost\/examination-regulations-en"
     }
   },
   "module_handbook": "Module handbook value",
   "url": {
-    "id": "post_meta:url:25",
+    "id": "post_meta:25:url",
     "de": "https:\/\/fau.localhost\/degree",
     "en": "https:\/\/fau.localhost\/degree-program"
   },
   "department": {
     "id": "option:fau_department",
     "name": {
-      "id": "option:fau_department.name",
+      "id": "option:fau_department:name",
       "de": "Department",
       "en": "Department EN"
     },
     "link_text": {
-      "id": "option:fau_department.link_text",
+      "id": "option:fau_department:link_text",
       "de": "Link Department",
       "en": "Link Department EN"
     },
     "link_url": {
-      "id": "option:fau_department.link_url",
+      "id": "option:fau_department:link_url",
       "de": "https:\/\/fau.localhost\/department",
       "en": "https:\/\/fau.localhost\/department-en"
     }
@@ -394,17 +394,17 @@
   "student_advice": {
     "id": "option:fau_student_advice",
     "name": {
-      "id": "option:fau_student_advice.name",
+      "id": "option:fau_student_advice:name",
       "de": "Student Advice and Career Service",
       "en": "Student Advice and Career Service EN"
     },
     "link_text": {
-      "id": "option:fau_student_advice.link_text",
+      "id": "option:fau_student_advice:link_text",
       "de": "Link Student Advice and Career Service",
       "en": "Link Student Advice and Career Service EN"
     },
     "link_url": {
-      "id": "option:fau_student_advice.link_url",
+      "id": "option:fau_student_advice:link_url",
       "de": "https:\/\/fau.localhost\/career-service",
       "en": "https:\/\/fau.localhost\/career-service-en"
     }
@@ -412,17 +412,17 @@
   "subject_specific_advice": {
     "id": "term:6",
     "name": {
-      "id": "term:6",
+      "id": "term:6:name",
       "de": "Advice",
       "en": "Advice EN"
     },
     "link_text": {
-      "id": "term:6",
+      "id": "term_meta:6:link_text",
       "de": "Link to Advice",
       "en": "Link to Advice EN"
     },
     "link_url": {
-      "id": "term:6",
+      "id": "term_meta:6:link_url",
       "de": "https:\/\/fau.localhost\/advice",
       "en": "https:\/\/fau.localhost\/advice-en"
     }
@@ -430,17 +430,17 @@
   "service_centers": {
     "id": "option:fau_service_centers",
     "name": {
-      "id": "option:fau_service_centers.name",
+      "id": "option:fau_service_centers:name",
       "de": "Counseling and Service Centers at FAU",
       "en": "Counseling and Service Centers at FAU EN"
     },
     "link_text": {
-      "id": "option:fau_service_centers.link_text",
+      "id": "option:fau_service_centers:link_text",
       "de": "Link Counseling and Service Centers at FAU",
       "en": "Link Counseling and Service Centers at FAU EN"
     },
     "link_url": {
-      "id": "option:fau_service_centers.link_url",
+      "id": "option:fau_service_centers:link_url",
       "de": "https:\/\/fau.localhost\/counseling",
       "en": "https:\/\/fau.localhost\/counseling-en"
     }
@@ -449,52 +449,52 @@
   "semester_fee": {
     "id": "option:fau_semester_fee",
     "name": {
-      "id": "option:fau_semester_fee.name",
+      "id": "option:fau_semester_fee:name",
       "de": "Semester fee",
       "en": "Semester fee EN"
     },
     "link_text": {
-      "id": "option:fau_semester_fee.link_text",
+      "id": "option:fau_semester_fee:link_text",
       "de": "Link Semester fee",
       "en": "Link Semester fee EN"
     },
     "link_url": {
-      "id": "option:fau_semester_fee.link_url",
+      "id": "option:fau_semester_fee:link_url",
       "de": "https:\/\/fau.localhost\/semester-fee",
       "en": "https:\/\/fau.localhost\/semester-fee-en"
     }
   },
   "degree_program_fees": {
-    "id": "post_meta:degree_program_fees:25",
+    "id": "post_meta:25:degree_program_fees",
     "de": "1000 EUR",
     "en": "EUR 1000"
   },
   "abroad_opportunities": {
     "id": "option:fau_abroad_opportunities",
     "name": {
-      "id": "option:fau_abroad_opportunities.name",
+      "id": "option:fau_abroad_opportunities:name",
       "de": "Opportunities for spending time abroad",
       "en": "Opportunities for spending time abroad EN"
     },
     "link_text": {
-      "id": "option:fau_abroad_opportunities.link_text",
+      "id": "option:fau_abroad_opportunities:link_text",
       "de": "Link Opportunities for spending time abroad",
       "en": "Link Opportunities for spending time abroad EN"
     },
     "link_url": {
-      "id": "option:fau_abroad_opportunities.link_url",
+      "id": "option:fau_abroad_opportunities:link_url",
       "de": "https:\/\/fau.localhost\/abroad",
       "en": "https:\/\/fau.localhost\/abroad-en"
     }
   },
   "keywords": [
     {
-      "id": "term:17",
+      "id": "term:17:name",
       "de": "Keyword 1",
       "en": "Keyword 1 EN"
     },
     {
-      "id": "term:18",
+      "id": "term:18:name",
       "de": "Keyword 2",
       "en": "Keyword 2 EN"
     }
@@ -503,17 +503,17 @@
     {
       "id": "term:3",
       "name": {
-        "id": "term:3",
+        "id": "term:3:name",
         "de": "Biology",
         "en": "Biology EN"
       },
       "link_text": {
-        "id": "term:3",
+        "id": "term_meta:3:link_text",
         "de": "Link Biology",
         "en": "Link Biology"
       },
       "link_url": {
-        "id": "term:3",
+        "id": "term_meta:3:link_url",
         "de": "https:\/\/fau.localhost\/biology",
         "en": "https:\/\/fau.localhost\/biology-en"
       }
@@ -521,17 +521,17 @@
     {
       "id": "term:38",
       "name": {
-        "id": "term:38",
+        "id": "term:38:name",
         "de": "Math",
         "en": "Math EN"
       },
       "link_text": {
-        "id": "term:38",
+        "id": "term_meta:38:link_text",
         "de": "Link Math",
         "en": "Link Math EN"
       },
       "link_url": {
-        "id": "term:38",
+        "id": "term_meta:38:link_url",
         "de": "https:\/\/fau.localhost\/biology-math",
         "en": "https:\/\/fau.localhost\/biology-math-en"
       }
