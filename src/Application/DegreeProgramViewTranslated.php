@@ -13,6 +13,10 @@ use JsonSerializable;
 final class DegreeProgramViewTranslated implements JsonSerializable
 {
     public const APPLICATION = 'application';
+    public const TRANSLATIONS = 'translations';
+
+    /** @var array<string, DegreeProgramViewTranslated> */
+    private array $translations = [];
 
     public function __construct(
         private DegreeProgramId $id,
@@ -109,11 +113,33 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             DegreeProgram::ABROAD_OPPORTUNITIES => $this->abroadOpportunities->asArray(),
             DegreeProgram::COMBINATIONS => $this->combinations->asArray(),
             DegreeProgram::LIMITED_COMBINATIONS => $this->limitedCombinations->asArray(),
+            self::TRANSLATIONS => $this->translationsAsArray(),
         ];
     }
 
     public function jsonSerialize()
     {
         return $this->asArray();
+    }
+
+    public function withTranslation(
+        DegreeProgramViewTranslated $degreeProgramViewTranslated,
+        string $languageCode,
+    ): self {
+
+        $instance = clone $this;
+        $instance->translations[$languageCode] = $degreeProgramViewTranslated;
+
+        return $instance;
+    }
+
+    private function translationsAsArray(): array
+    {
+        return array_map(static function (DegreeProgramViewTranslated $view): array {
+            $result = $view->asArray();
+            unset($result[DegreeProgram::ID], $result[self::TRANSLATIONS]);
+
+            return $result;
+        }, $this->translations);
     }
 }

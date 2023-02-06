@@ -27,5 +27,6 @@
         <MissingClosureReturnType errorLevel="suppress"/>
         <UnresolvableInclude errorLevel="suppress"/>
         <ParadoxicalCondition errorLevel="suppress"/>
+        <UnusedForeachValue errorLevel="suppress" />
     </issueHandlers>
 </psalm>

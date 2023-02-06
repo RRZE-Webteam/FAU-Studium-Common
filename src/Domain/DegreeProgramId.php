@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Domain;
 
-use InvalidArgumentException;
 use JsonSerializable;
+use Webmozart\Assert\Assert;
 
 final class DegreeProgramId implements JsonSerializable
 {
@@ -13,7 +13,7 @@ final class DegreeProgramId implements JsonSerializable
         private int $id,
     ) {
 
-        $id >= 0 or throw new InvalidArgumentException();
+        Assert::positiveInteger($this->id);
     }
 
     public static function fromInt(int $id): self

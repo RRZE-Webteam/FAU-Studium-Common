@@ -23,7 +23,8 @@
     },
     "require": {
         "php": "^8.0",
-        "psr/log": "^3.0"
+        "psr/log": "^3.0",
+        "webmozart/assert": "^1.11"
     },
     "require-dev": {
         "brain/monkey": "^2.6",

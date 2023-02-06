@@ -6,19 +6,23 @@ namespace Fau\DegreeProgram\Common\Infrastructure\Repository;
 
 use Fau\DegreeProgram\Common\Application\ContentTranslated;
 use Fau\DegreeProgram\Common\Application\DegreeProgramViewRaw;
-use Fau\DegreeProgram\Common\Application\DegreeProgramViewRepository;
 use Fau\DegreeProgram\Common\Application\DegreeProgramViewTranslated;
 use Fau\DegreeProgram\Common\Application\DegreeTranslated;
 use Fau\DegreeProgram\Common\Application\Link;
 use Fau\DegreeProgram\Common\Application\RelatedDegreeProgram;
 use Fau\DegreeProgram\Common\Application\RelatedDegreePrograms;
+use Fau\DegreeProgram\Common\Application\Repository\CollectionCriteria;
+use Fau\DegreeProgram\Common\Application\Repository\DegreeProgramViewRepository;
+use Fau\DegreeProgram\Common\Application\Repository\PaginationAwareCollection;
 use Fau\DegreeProgram\Common\Domain\DegreeProgramId;
 use Fau\DegreeProgram\Common\Domain\DegreeProgramRepository;
 use Fau\DegreeProgram\Common\Domain\MultilingualString;
+use Fau\DegreeProgram\Common\Infrastructure\Content\PostType\DegreeProgramPostType;
 use Fau\DegreeProgram\Common\Infrastructure\Sanitizer\HtmlDegreeProgramSanitizer;
 use Fau\DegreeProgram\Common\LanguageExtension\ArrayOfStrings;
 use RuntimeException;
 use WP_Post;
+use WP_Query;
 
 final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgramViewRepository
 {
@@ -51,8 +55,28 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
             return null;
         }
 
+        $main = $this->translateDegreeProgram($raw, $languageCode);
+        foreach (MultilingualString::LANGUAGES as $code => $name) {
+            if ($code === $languageCode) {
+                continue;
+            }
+
+            $main = $main->withTranslation(
+                $this->translateDegreeProgram($raw, $code),
+                $code
+            );
+        }
+
+        return $main;
+    }
+
+    private function translateDegreeProgram(
+        DegreeProgramViewRaw $raw,
+        string $languageCode
+    ): DegreeProgramViewTranslated {
+
         return new DegreeProgramViewTranslated(
-            id: $degreeProgramId,
+            id: $raw->id(),
             featuredImage: $raw->featuredImage(),
             teaserImage: $raw->teaserImage(),
             title: $raw->title()->asString($languageCode),
@@ -178,5 +202,73 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
                 )
             ),
         );
+    }
+
+    public function findRawCollection(CollectionCriteria $criteria): PaginationAwareCollection
+    {
+        $query = new WP_Query();
+        /** @var array<int> $ids */
+        $ids = $query->query(
+            self::prepareWpQueryArgs($criteria)
+        );
+
+        $items = [];
+        foreach ($ids as $id) {
+            $view = $this->findRaw(
+                DegreeProgramId::fromInt($id),
+            );
+
+            if ($view instanceof DegreeProgramViewRaw) {
+                $items[] = $view;
+            }
+        }
+
+        return new WpQueryPaginationAwareCollection($query, ...$items);
+    }
+
+    public function findTranslatedCollection(CollectionCriteria $criteria, string $languageCode): PaginationAwareCollection
+    {
+        $query = new WP_Query();
+        /** @var array<int> $ids */
+        $ids = $query->query(
+            self::prepareWpQueryArgs($criteria)
+        );
+
+        $items = [];
+        foreach ($ids as $id) {
+            $view = $this->findTranslated(
+                DegreeProgramId::fromInt($id),
+                $languageCode
+            );
+
+            if ($view instanceof DegreeProgramViewTranslated) {
+                $items[] = $view;
+            }
+        }
+
+        return new WpQueryPaginationAwareCollection($query, ...$items);
+    }
+
+    private static function prepareWpQueryArgs(CollectionCriteria $criteria): array
+    {
+        /** @var array<string, string> $aliases */
+        static $aliases = [
+            'page' => 'paged',
+            'per_page' => 'posts_per_page',
+        ];
+
+        /** @var array<string, mixed> $requiredArgs */
+        static $requiredArgs = [
+            'post_type' => DegreeProgramPostType::KEY,
+            'post_status' => 'publish',
+            'fields' => 'ids',
+        ];
+
+        $normalizedArgs = [];
+        foreach ($criteria->args() as $key => $value) {
+            $normalizedArgs[$aliases[$key] ?? $key] = $value;
+        }
+
+        return array_merge($normalizedArgs, $requiredArgs);
     }
 }

@@ -6,14 +6,17 @@ namespace Fau\DegreeProgram\Common\Tests\Repository;
 
 use Fau\DegreeProgram\Common\Application\ContentTranslated;
 use Fau\DegreeProgram\Common\Application\DegreeProgramViewRaw;
-use Fau\DegreeProgram\Common\Application\DegreeProgramViewRepository;
 use Fau\DegreeProgram\Common\Application\DegreeProgramViewTranslated;
 use Fau\DegreeProgram\Common\Application\DegreeTranslated;
 use Fau\DegreeProgram\Common\Application\Link;
 use Fau\DegreeProgram\Common\Application\RelatedDegreePrograms;
+use Fau\DegreeProgram\Common\Application\Repository\CollectionCriteria;
+use Fau\DegreeProgram\Common\Application\Repository\DegreeProgramViewRepository;
+use Fau\DegreeProgram\Common\Application\Repository\PaginationAwareCollection;
 use Fau\DegreeProgram\Common\Domain\DegreeProgram;
 use Fau\DegreeProgram\Common\Domain\DegreeProgramId;
 use Fau\DegreeProgram\Common\Domain\DegreeProgramRepository;
+use Fau\DegreeProgram\Common\Domain\MultilingualString;
 use Fau\DegreeProgram\Common\Tests\FixtureDegreeProgramDataProviderTrait;
 use RuntimeException;
 
@@ -50,17 +53,32 @@ final class StubDegreeProgramRepository implements DegreeProgramRepository, Degr
     public function findTranslated(DegreeProgramId $degreeProgramId, string $languageCode): ?DegreeProgramViewTranslated
     {
         $raw = $this->findRaw($degreeProgramId);
-        if (!$raw) {
-            return null;
-        }
-
-        $raw = $this->findRaw($degreeProgramId);
         if (!$raw instanceof DegreeProgramViewRaw) {
             return null;
         }
 
+        $main = $this->translateDegreeProgram($raw, $languageCode);
+        foreach (MultilingualString::LANGUAGES as $code => $name) {
+            if ($code === $languageCode) {
+                continue;
+            }
+
+            $main = $main->withTranslation(
+                $this->translateDegreeProgram($raw, $code),
+                $code
+            );
+        }
+
+        return $main;
+    }
+
+    private function translateDegreeProgram(
+        DegreeProgramViewRaw $raw,
+        string $languageCode
+    ): DegreeProgramViewTranslated {
+
         return new DegreeProgramViewTranslated(
-            id: $degreeProgramId,
+            id: $raw->id(),
             featuredImage: $raw->featuredImage(),
             teaserImage: $raw->teaserImage(),
             title: $raw->title()->asString($languageCode),
@@ -106,5 +124,15 @@ final class StubDegreeProgramRepository implements DegreeProgramRepository, Degr
             combinations: RelatedDegreePrograms::new(),
             limitedCombinations: RelatedDegreePrograms::new(),
         );
+    }
+
+    public function findRawCollection(CollectionCriteria $criteria): PaginationAwareCollection
+    {
+        return new StubPaginationAwareCollection();
+    }
+
+    public function findTranslatedCollection(CollectionCriteria $criteria, string $languageCode): PaginationAwareCollection
+    {
+        return new StubPaginationAwareCollection();
     }
 }

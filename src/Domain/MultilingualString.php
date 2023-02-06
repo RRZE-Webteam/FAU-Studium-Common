@@ -7,6 +7,7 @@ namespace Fau\DegreeProgram\Common\Domain;
 use JsonSerializable;
 
 /**
+ * @psalm-type LanguageCodes = 'de' | 'en'
  * @psalm-type MultilingualStringType = array{id: string, de: string, en: string}
  */
 final class MultilingualString implements JsonSerializable
