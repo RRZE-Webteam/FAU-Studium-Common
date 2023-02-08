@@ -75,7 +75,7 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             ),
             title: MultilingualString::fromTranslations(
                 $this->idGenerator->generatePostId($post, 'title'),
-                $post->post_title,
+                $post->post_status !== 'auto-draft' ? $post->post_title : '',
                 (string)get_post_meta(
                     $postId,
                     BilingualRepository::addEnglishSuffix('title'),

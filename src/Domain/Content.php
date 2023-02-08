@@ -98,7 +98,7 @@ final class Content
             )
         );
 
-        $this->specialFeatures = $this->specialFeatures->withDefaultTitle(
+        $this->testimonials = $this->testimonials->withDefaultTitle(
             MultilingualString::fromTranslations(
                 'default',
                 'Erfahrungsberichte',
