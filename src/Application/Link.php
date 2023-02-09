@@ -6,6 +6,13 @@ namespace Fau\DegreeProgram\Common\Application;
 
 use Fau\DegreeProgram\Common\Domain\MultilingualLink;
 
+/**
+ * @psalm-type LinkType = array{
+ *     name: string,
+ *     link_text: string,
+ *     link_url: string,
+ * }
+ */
 final class Link
 {
     private function __construct(
@@ -33,6 +40,18 @@ final class Link
         );
     }
 
+    /**
+     * @psalm-param LinkType $data
+     */
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            $data[MultilingualLink::NAME],
+            $data[MultilingualLink::LINK_TEXT],
+            $data[MultilingualLink::LINK_URL],
+        );
+    }
+
     public function name(): string
     {
         return $this->name;
@@ -48,6 +67,9 @@ final class Link
         return $this->linkUrl;
     }
 
+    /**
+     * @return LinkType $data
+     */
     public function asArray(): array
     {
         return [

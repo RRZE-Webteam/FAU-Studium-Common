@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy;
 
 use ArrayObject;
+use Fau\DegreeProgram\Common\LanguageExtension\ArrayOfStrings;
 
 /**
  * @template-extends ArrayObject<int, class-string<Taxonomy>>
@@ -37,5 +38,26 @@ final class TaxonomiesList extends ArrayObject
     public static function new(): self
     {
         return new self();
+    }
+
+    public function keys(): ArrayOfStrings
+    {
+        /** @var array<string>|null $keys */
+        static $keys = null;
+
+        if (is_array($keys)) {
+            return ArrayOfStrings::new(...$keys);
+        }
+
+        $keys = [];
+        foreach ($this->getArrayCopy() as $item) {
+            if (!defined("{$item}::KEY")) {
+                continue;
+            }
+
+            $keys[] = (string) constant("{$item}::KEY");
+        }
+
+        return ArrayOfStrings::new(...$keys);
     }
 }

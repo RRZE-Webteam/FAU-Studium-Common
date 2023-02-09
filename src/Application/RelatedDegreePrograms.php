@@ -24,6 +24,19 @@ final class RelatedDegreePrograms extends ArrayObject implements JsonSerializabl
     }
 
     /**
+     * @psalm-param array<RelatedDegreeProgramType> $data
+     */
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            ...array_map(
+                [RelatedDegreeProgram::class, 'fromArray'],
+                $data
+            )
+        );
+    }
+
+    /**
      * @return array<RelatedDegreeProgramType>
      */
     public function asArray(): array

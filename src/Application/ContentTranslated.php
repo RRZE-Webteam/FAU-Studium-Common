@@ -72,6 +72,23 @@ final class ContentTranslated
     }
 
     /**
+     * @psalm-param ContentTranslatedType $data
+     */
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            ContentItemTranslated::fromArray($data[Content::ABOUT]),
+            ContentItemTranslated::fromArray($data[Content::STRUCTURE]),
+            ContentItemTranslated::fromArray($data[Content::SPECIALIZATIONS]),
+            ContentItemTranslated::fromArray($data[Content::QUALITIES_AND_SKILLS]),
+            ContentItemTranslated::fromArray($data[Content::WHY_SHOULD_STUDY]),
+            ContentItemTranslated::fromArray($data[Content::CAREER_PROSPECTS]),
+            ContentItemTranslated::fromArray($data[Content::SPECIAL_FEATURES]),
+            ContentItemTranslated::fromArray($data[Content::TESTIMONIALS]),
+        );
+    }
+
+    /**
      * @return ContentTranslatedType
      */
     public function asArray(): array

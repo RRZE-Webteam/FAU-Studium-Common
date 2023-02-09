@@ -43,6 +43,17 @@ final class ContentItemTranslated
     }
 
     /**
+     * @psalm-param ContentItemTranslatedType $data
+     */
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            $data[ContentItem::TITLE],
+            $data[ContentItem::DESCRIPTION],
+        );
+    }
+
+    /**
      * @return ContentItemTranslatedType
      */
     public function asArray(): array

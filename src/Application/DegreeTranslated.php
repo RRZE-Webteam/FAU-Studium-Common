@@ -6,6 +6,12 @@ namespace Fau\DegreeProgram\Common\Application;
 
 use Fau\DegreeProgram\Common\Domain\Degree;
 
+/**
+ * @psalm-type DegreeTranslatedType = array{
+ *     name: string,
+ *     abbreviation: string,
+ * }
+ */
 final class DegreeTranslated
 {
     private function __construct(
@@ -33,6 +39,20 @@ final class DegreeTranslated
         );
     }
 
+    /**
+     * @psalm-param DegreeTranslatedType $data
+     */
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            $data[Degree::NAME],
+            $data[Degree::ABBREVIATION],
+        );
+    }
+
+    /**
+     * @return DegreeTranslatedType $data
+     */
     public function asArray(): array
     {
         return [

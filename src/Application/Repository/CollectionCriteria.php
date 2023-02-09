@@ -10,6 +10,7 @@ use Webmozart\Assert\Assert;
  * @psalm-type SupportedArgs = array{
  *    page: int,
  *    per_page: int,
+ *    include?: array<int>,
  * }
  */
 final class CollectionCriteria
@@ -54,6 +55,18 @@ final class CollectionCriteria
     public function withPerPage(int $perPage): self
     {
         $this->args['per_page'] = $perPage;
+
+        return new self($this->args);
+    }
+
+    /**
+     * @param array<int> $include
+     */
+    public function withInclude(array $include): self
+    {
+        Assert::allPositiveInteger($include);
+
+        $this->args['include'] = $include;
 
         return new self($this->args);
     }

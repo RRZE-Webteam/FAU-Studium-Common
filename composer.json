@@ -23,7 +23,9 @@
     },
     "require": {
         "php": "^8.0",
+        "psr/event-dispatcher": "^1.0",
         "psr/log": "^3.0",
+        "psr/simple-cache": "^3.0",
         "webmozart/assert": "^1.11"
     },
     "require-dev": {
@@ -32,7 +34,8 @@
         "inpsyde/wp-stubs": "dev-main",
         "johnpbloch/wordpress-core": "^6.1",
         "phpunit/phpunit": "^9.5",
-        "vimeo/psalm": "^5.4"
+        "vimeo/psalm": "^5.4",
+        "wp-cli/wp-cli": "^2.7"
     },
     "suggest": {
         "inpsyde/modularity": "Modular PSR-11 implementation for WordPress Plugins, Themes or Libraries"

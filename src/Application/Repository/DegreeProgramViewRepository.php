@@ -23,18 +23,4 @@ interface DegreeProgramViewRepository
         DegreeProgramId $degreeProgramId,
         string $languageCode
     ): ?DegreeProgramViewTranslated;
-
-    /**
-     * @psalm-return PaginationAwareCollection<DegreeProgramViewRaw>
-     */
-    public function findRawCollection(CollectionCriteria $criteria): PaginationAwareCollection;
-
-    /**
-     * @psalm-param LanguageCodes $languageCode
-     * @psalm-return PaginationAwareCollection<DegreeProgramViewTranslated>
-     */
-    public function findTranslatedCollection(
-        CollectionCriteria $criteria,
-        string $languageCode
-    ): PaginationAwareCollection;
 }

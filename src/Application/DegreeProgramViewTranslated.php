@@ -12,6 +12,7 @@ use JsonSerializable;
 
 final class DegreeProgramViewTranslated implements JsonSerializable
 {
+    public const LANG = 'lang';
     public const APPLICATION = 'application';
     public const TRANSLATIONS = 'translations';
 
@@ -20,6 +21,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
 
     public function __construct(
         private DegreeProgramId $id,
+        private string $lang,
         private Image $featuredImage,
         private Image $teaserImage,
         private string $title,
@@ -67,10 +69,80 @@ final class DegreeProgramViewTranslated implements JsonSerializable
     ) {
     }
 
+    /**
+     * We run this method on raw data from persistence
+     * so strong typing doesn't make sense.
+     *
+     * @psalm-suppress MixedArgument
+     * @psalm-suppress MixedArrayAssignment
+     *
+     * phpcs:disable Inpsyde.CodeQuality.FunctionLength.TooLong
+     */
+    public static function fromArray(array $data): self
+    {
+        $main = new self(
+            id: DegreeProgramId::fromInt((int) $data[DegreeProgram::ID]),
+            lang: $data[self::LANG],
+            featuredImage: Image::fromArray($data[DegreeProgram::FEATURED_IMAGE]),
+            teaserImage: Image::fromArray($data[DegreeProgram::TEASER_IMAGE]),
+            title: $data[DegreeProgram::TITLE],
+            subtitle: $data[DegreeProgram::SUBTITLE],
+            standardDuration: $data[DegreeProgram::STANDARD_DURATION],
+            feeRequired: $data[DegreeProgram::FEE_REQUIRED],
+            start: ArrayOfStrings::new(...$data[DegreeProgram::START]),
+            numberOfStudents: $data[DegreeProgram::NUMBER_OF_STUDENTS],
+            teachingLanguage: $data[DegreeProgram::TEACHING_LANGUAGE],
+            attributes: ArrayOfStrings::new(...$data[DegreeProgram::ATTRIBUTES]),
+            degree: DegreeTranslated::fromArray($data[DegreeProgram::DEGREE]),
+            faculty: Link::fromArray($data[DegreeProgram::FACULTY]),
+            location: $data[DegreeProgram::LOCATION],
+            subjectGroups: ArrayOfStrings::new(...$data[DegreeProgram::SUBJECT_GROUPS]),
+            videos: ArrayOfStrings::new(...$data[DegreeProgram::VIDEOS]),
+            metaDescription: $data[DegreeProgram::META_DESCRIPTION],
+            content: ContentTranslated::fromArray($data[DegreeProgram::CONTENT]),
+            application: Link::fromArray($data[self::APPLICATION]),
+            contentRelatedMasterRequirements: $data[DegreeProgram::CONTENT_RELATED_MASTER_REQUIREMENTS],
+            applicationDeadlineWinterSemester: $data[DegreeProgram::APPLICATION_DEADLINE_WINTER_SEMESTER],
+            applicationDeadlineSummerSemester: $data[DegreeProgram::APPLICATION_DEADLINE_SUMMER_SEMESTER],
+            detailsAndNotes: $data[DegreeProgram::DETAILS_AND_NOTES],
+            languageSkills: $data[DegreeProgram::LANGUAGE_SKILLS],
+            languageSkillsHumanitiesFaculty: $data[DegreeProgram::LANGUAGE_SKILLS_HUMANITIES_FACULTY],
+            germanLanguageSkillsForInternationalStudents: Link::fromArray($data[DegreeProgram::GERMAN_LANGUAGE_SKILLS_FOR_INTERNATIONAL_STUDENTS]),
+            startOfSemester: Link::fromArray($data[DegreeProgram::START_OF_SEMESTER]),
+            semesterDates: Link::fromArray($data[DegreeProgram::SEMESTER_DATES]),
+            examinationsOffice: Link::fromArray($data[DegreeProgram::EXAMINATIONS_OFFICE]),
+            examinationRegulations: Link::fromArray($data[DegreeProgram::EXAMINATION_REGULATIONS]),
+            moduleHandbook: $data[DegreeProgram::MODULE_HANDBOOK],
+            url: $data[DegreeProgram::URL],
+            department: Link::fromArray($data[DegreeProgram::DEPARTMENT]),
+            studentAdvice: Link::fromArray($data[DegreeProgram::STUDENT_ADVICE]),
+            subjectSpecificAdvice: Link::fromArray($data[DegreeProgram::SUBJECT_SPECIFIC_ADVICE]),
+            serviceCenters: Link::fromArray($data[DegreeProgram::SERVICE_CENTERS]),
+            studentRepresentatives: $data[DegreeProgram::STUDENT_REPRESENTATIVES],
+            semesterFee: Link::fromArray($data[DegreeProgram::SEMESTER_FEE]),
+            degreeProgramFees: $data[DegreeProgram::DEGREE_PROGRAM_FEES],
+            abroadOpportunities: Link::fromArray($data[DegreeProgram::ABROAD_OPPORTUNITIES]),
+            combinations:  RelatedDegreePrograms::fromArray($data[DegreeProgram::COMBINATIONS]),
+            limitedCombinations: RelatedDegreePrograms::fromArray($data[DegreeProgram::LIMITED_COMBINATIONS]),
+        );
+
+        if (empty($data[self::TRANSLATIONS])) {
+            return $main;
+        }
+
+        foreach ($data[self::TRANSLATIONS] as $translationData) {
+            $translationData[DegreeProgram::ID] = $data[DegreeProgram::ID];
+            $main->withTranslation(self::fromArray($translationData), $data[self::LANG]);
+        }
+
+        return $main;
+    }
+
     public function asArray(): array
     {
         return [
             DegreeProgram::ID => $this->id->asInt(),
+            self::LANG => $this->lang,
             DegreeProgram::FEATURED_IMAGE => $this->featuredImage->asArray(),
             DegreeProgram::TEASER_IMAGE => $this->teaserImage->asArray(),
             DegreeProgram::TITLE => $this->title,
@@ -87,8 +159,8 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             DegreeProgram::SUBJECT_GROUPS => $this->subjectGroups->getArrayCopy(),
             DegreeProgram::VIDEOS => $this->videos->getArrayCopy(),
             DegreeProgram::META_DESCRIPTION => $this->metaDescription,
-            DegreeProgram::CONTENT => $this->content,
-            self::APPLICATION => $this->application,
+            DegreeProgram::CONTENT => $this->content->asArray(),
+            self::APPLICATION => $this->application->asArray(),
             DegreeProgram::CONTENT_RELATED_MASTER_REQUIREMENTS => $this->contentRelatedMasterRequirements,
             DegreeProgram::APPLICATION_DEADLINE_WINTER_SEMESTER => $this->applicationDeadlineWinterSemester,
             DegreeProgram::APPLICATION_DEADLINE_SUMMER_SEMESTER => $this->applicationDeadlineSummerSemester,
@@ -133,6 +205,24 @@ final class DegreeProgramViewTranslated implements JsonSerializable
         return $instance;
     }
 
+    public function withBaseLang(string $languageCode): ?self
+    {
+        if ($languageCode === $this->lang) {
+            return $this;
+        }
+
+        if (!isset($this->translations[$languageCode])) {
+            return null;
+        }
+
+        $main = $this->translations[$languageCode];
+        $translation = clone $this;
+        $translation->translations = [];
+        $main->withTranslation($translation, $languageCode);
+
+        return $main;
+    }
+
     private function translationsAsArray(): array
     {
         return array_map(static function (DegreeProgramViewTranslated $view): array {
@@ -141,5 +231,10 @@ final class DegreeProgramViewTranslated implements JsonSerializable
 
             return $result;
         }, $this->translations);
+    }
+
+    public function id(): int
+    {
+        return $this->id->asInt();
     }
 }

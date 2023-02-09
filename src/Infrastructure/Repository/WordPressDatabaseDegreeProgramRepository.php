@@ -36,12 +36,21 @@ use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\TeachingDegreeHighe
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\TeachingLanguageTaxonomy;
 use Fau\DegreeProgram\Common\LanguageExtension\ArrayOfStrings;
 use Fau\DegreeProgram\Common\LanguageExtension\IntegersListChangeset;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use RuntimeException;
 use WP_Post;
 use WP_Term;
 
 final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository implements DegreeProgramRepository
 {
+    public function __construct(
+        IdGenerator $idGenerator,
+        private EventDispatcherInterface $eventDispatcher,
+    ) {
+
+        parent::__construct($idGenerator);
+    }
+
     /**
      * phpcs:disable Inpsyde.CodeQuality.FunctionLength.TooLong
      * phpcs:disable Generic.Metrics.CyclomaticComplexity.TooHigh
@@ -376,6 +385,10 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             DegreeProgram::LIMITED_COMBINATIONS,
             $data[DegreeProgram::LIMITED_COMBINATIONS_CHANGESET],
         );
+
+        foreach ($degreeProgram->releaseEvents() as $event) {
+            $this->eventDispatcher->dispatch($event);
+        }
     }
 
     private function persistFeatureImage(int $postId, int $featureImageId): void

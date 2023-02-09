@@ -120,6 +120,63 @@ final class DegreeProgramViewRaw implements JsonSerializable
         );
     }
 
+    /**
+     * We run this method on raw data from persistence
+     * so strong typing doesn't make sense.
+     *
+     * @psalm-suppress MixedArgument
+     * @psalm-suppress MixedArrayAssignment
+     */
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            id: DegreeProgramId::fromInt($data[DegreeProgram::ID]),
+            featuredImage: Image::fromArray($data[DegreeProgram::FEATURED_IMAGE]),
+            teaserImage: Image::fromArray($data[DegreeProgram::TEASER_IMAGE]),
+            title: MultilingualString::fromArray($data[DegreeProgram::TITLE]),
+            subtitle: MultilingualString::fromArray($data[DegreeProgram::SUBTITLE]),
+            standardDuration: $data[DegreeProgram::STANDARD_DURATION],
+            feeRequired: $data[DegreeProgram::FEE_REQUIRED],
+            start: MultilingualList::fromArray($data[DegreeProgram::START]),
+            numberOfStudents: NumberOfStudents::fromArray($data[DegreeProgram::NUMBER_OF_STUDENTS]),
+            teachingLanguage: MultilingualString::fromArray($data[DegreeProgram::TEACHING_LANGUAGE]),
+            attributes: MultilingualList::fromArray($data[DegreeProgram::ATTRIBUTES]),
+            degree: Degree::fromArray($data[DegreeProgram::DEGREE]),
+            faculty: MultilingualLink::fromArray($data[DegreeProgram::FACULTY]),
+            location: MultilingualString::fromArray($data[DegreeProgram::LOCATION]),
+            subjectGroups: MultilingualList::fromArray($data[DegreeProgram::SUBJECT_GROUPS]),
+            videos: ArrayOfStrings::new(...$data[DegreeProgram::VIDEOS]),
+            metaDescription: MultilingualString::fromArray($data[DegreeProgram::META_DESCRIPTION]),
+            content: Content::fromArray($data[DegreeProgram::CONTENT]),
+            admissionRequirements: AdmissionRequirements::fromArray($data[DegreeProgram::ADMISSION_REQUIREMENTS]),
+            contentRelatedMasterRequirements: MultilingualString::fromArray($data[DegreeProgram::CONTENT_RELATED_MASTER_REQUIREMENTS]),
+            applicationDeadlineWinterSemester: $data[DegreeProgram::APPLICATION_DEADLINE_WINTER_SEMESTER],
+            applicationDeadlineSummerSemester: $data[DegreeProgram::APPLICATION_DEADLINE_SUMMER_SEMESTER],
+            detailsAndNotes: MultilingualString::fromArray($data[DegreeProgram::DETAILS_AND_NOTES]),
+            languageSkills: MultilingualString::fromArray($data[DegreeProgram::LANGUAGE_SKILLS]),
+            languageSkillsHumanitiesFaculty: $data[DegreeProgram::LANGUAGE_SKILLS_HUMANITIES_FACULTY],
+            germanLanguageSkillsForInternationalStudents: MultilingualLink::fromArray($data[DegreeProgram::GERMAN_LANGUAGE_SKILLS_FOR_INTERNATIONAL_STUDENTS]),
+            startOfSemester: MultilingualLink::fromArray($data[DegreeProgram::START_OF_SEMESTER]),
+            semesterDates: MultilingualLink::fromArray($data[DegreeProgram::SEMESTER_DATES]),
+            examinationsOffice: MultilingualLink::fromArray($data[DegreeProgram::EXAMINATIONS_OFFICE]),
+            examinationRegulations: MultilingualLink::fromArray($data[DegreeProgram::EXAMINATION_REGULATIONS]),
+            moduleHandbook: $data[DegreeProgram::MODULE_HANDBOOK],
+            url: MultilingualString::fromArray($data[DegreeProgram::URL]),
+            department: MultilingualLink::fromArray($data[DegreeProgram::DEPARTMENT]),
+            studentAdvice: MultilingualLink::fromArray($data[DegreeProgram::STUDENT_ADVICE]),
+            subjectSpecificAdvice: MultilingualLink::fromArray($data[DegreeProgram::SUBJECT_SPECIFIC_ADVICE]),
+            serviceCenters: MultilingualLink::fromArray($data[DegreeProgram::SERVICE_CENTERS]),
+            studentRepresentatives: $data[DegreeProgram::STUDENT_REPRESENTATIVES],
+            semesterFee: MultilingualLink::fromArray($data[DegreeProgram::SEMESTER_FEE]),
+            degreeProgramFees: MultilingualString::fromArray($data[DegreeProgram::DEGREE_PROGRAM_FEES]),
+            abroadOpportunities: MultilingualLink::fromArray($data[DegreeProgram::ABROAD_OPPORTUNITIES]),
+            keywords: MultilingualList::fromArray($data[DegreeProgram::KEYWORDS]),
+            areaOfStudy: MultilingualLinks::fromArray($data[DegreeProgram::AREA_OF_STUDY]),
+            combinations: DegreeProgramIds::fromArray($data[DegreeProgram::COMBINATIONS]),
+            limitedCombinations: DegreeProgramIds::fromArray($data[DegreeProgram::LIMITED_COMBINATIONS]),
+        );
+    }
+
     public function asArray(): array
     {
         return [

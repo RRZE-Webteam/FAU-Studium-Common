@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Domain;
 
+use Fau\DegreeProgram\Common\Domain\Event\DegreeProgramUpdated;
 use Fau\DegreeProgram\Common\LanguageExtension\ArrayOfStrings;
 use Fau\DegreeProgram\Common\LanguageExtension\IntegersListChangeset;
 use InvalidArgumentException;
@@ -60,6 +61,8 @@ final class DegreeProgram
 
     private IntegersListChangeset $combinationsChangeset;
     private IntegersListChangeset $limitedCombinationsChangeset;
+    /** @var array<object> */
+    private array $events = [];
 
     public function __construct(
         private DegreeProgramId $id,
@@ -310,6 +313,8 @@ final class DegreeProgram
         $this->limitedCombinationsChangeset = $this
             ->limitedCombinationsChangeset
             ->applyChanges($data[self::LIMITED_COMBINATIONS]);
+
+        $this->events[] = DegreeProgramUpdated::new($this->id->asInt());
     }
 
     /**
@@ -414,5 +419,13 @@ final class DegreeProgram
             self::COMBINATIONS_CHANGESET => $this->combinationsChangeset,
             self::LIMITED_COMBINATIONS_CHANGESET => $this->limitedCombinationsChangeset,
         ];
+    }
+
+    /**
+     * @return array<object>
+     */
+    public function releaseEvents(): array
+    {
+        return $this->events;
     }
 }

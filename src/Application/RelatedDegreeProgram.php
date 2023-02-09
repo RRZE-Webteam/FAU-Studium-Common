@@ -37,6 +37,18 @@ final class RelatedDegreeProgram
         );
     }
 
+    /**
+     * @psalm-param RelatedDegreeProgramType $data
+     */
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            $data[self::ID],
+            $data[self::TITLE],
+            $data[self::URL],
+        );
+    }
+
     public function title(): string
     {
         return $this->title;
