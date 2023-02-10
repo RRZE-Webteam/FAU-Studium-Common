@@ -13,6 +13,7 @@ use Psr\SimpleCache\CacheInterface;
 
 /**
  * @psalm-import-type LanguageCodes from MultilingualString
+ * @psalm-import-type DegreeProgramViewRawArrayType from DegreeProgramViewRaw
  */
 final class CachedDegreeProgramViewRepository implements DegreeProgramViewRepository
 {
@@ -26,6 +27,7 @@ final class CachedDegreeProgramViewRepository implements DegreeProgramViewReposi
     public function findRaw(DegreeProgramId $degreeProgramId): ?DegreeProgramViewRaw
     {
         $key = $this->cacheKeyGenerator->generateForDegreeProgram($degreeProgramId);
+        /** @psalm-var ?DegreeProgramViewRawArrayType $data */
         $data = $this->cache->get($key);
 
         return is_array($data)

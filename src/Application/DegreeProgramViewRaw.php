@@ -19,6 +19,62 @@ use Fau\DegreeProgram\Common\Domain\NumberOfStudents;
 use Fau\DegreeProgram\Common\LanguageExtension\ArrayOfStrings;
 use JsonSerializable;
 
+/**
+ * @psalm-import-type MultilingualStringType from MultilingualString
+ * @psalm-import-type MultilingualLinkType from MultilingualLink
+ * @psalm-import-type ContentType from Content
+ * @psalm-import-type AdmissionRequirementsType from AdmissionRequirements
+ * @psalm-type DegreeProgramViewRawArrayType = array {
+ *     id: int,
+ *     featured_image: array{id: int, url: string},
+ *     teaser_image: array{id: int, url: string},
+ *     title: MultilingualStringType,
+ *     subtitle: MultilingualStringType,
+ *     standard_duration: int,
+ *     fee_required: bool,
+ *     start: array<MultilingualStringType>,
+ *     number_of_students: array{id: string, description: string},
+ *     teaching_language: MultilingualStringType,
+ *     attributes: array<MultilingualStringType>,
+ *     degree: array{
+ *          id: string,
+ *          name: MultilingualStringType,
+ *          abbreviation: MultilingualStringType
+ *     },
+ *     faculty: MultilingualLinkType,
+ *     location: MultilingualStringType,
+ *     subject_groups: array<MultilingualStringType>,
+ *     videos: array<array-key, string>,
+ *     meta_description: MultilingualStringType,
+ *     content: ContentType,
+ *     admission_requirements: AdmissionRequirementsType,
+ *     content_related_master_requirements: MultilingualStringType,
+ *     application_deadline_winter_semester: string,
+ *     application_deadline_summer_semester: string,
+ *     details_and_notes: MultilingualStringType,
+ *     language_skills: MultilingualStringType,
+ *     language_skills_humanities_faculty: string,
+ *     german_language_skills_for_international_students: MultilingualLinkType,
+ *     start_of_semester: MultilingualLinkType,
+ *     semester_dates: MultilingualLinkType,
+ *     examinations_office: MultilingualLinkType,
+ *     examination_regulations: MultilingualLinkType,
+ *     module_handbook: string,
+ *     url: MultilingualStringType,
+ *     department: MultilingualLinkType,
+ *     student_advice: MultilingualLinkType,
+ *     subject_specific_advice: MultilingualLinkType,
+ *     service_centers: MultilingualLinkType,
+ *     student_representatives: string,
+ *     semester_fee: MultilingualLinkType,
+ *     degree_program_fees: MultilingualStringType,
+ *     abroad_opportunities: MultilingualLinkType,
+ *     keywords: array<MultilingualStringType>,
+ *     area_of_study: array<MultilingualLinkType>,
+ *     combinations: array<int>,
+ *     limited_combinations: array<int>,
+ * }
+ */
 final class DegreeProgramViewRaw implements JsonSerializable
 {
     private function __construct(
@@ -121,11 +177,8 @@ final class DegreeProgramViewRaw implements JsonSerializable
     }
 
     /**
-     * We run this method on raw data from persistence
-     * so strong typing doesn't make sense.
      *
-     * @psalm-suppress MixedArgument
-     * @psalm-suppress MixedArrayAssignment
+     * @psalm-param DegreeProgramViewRawArrayType $data
      */
     public static function fromArray(array $data): self
     {
@@ -177,6 +230,9 @@ final class DegreeProgramViewRaw implements JsonSerializable
         );
     }
 
+    /**
+     * @psalm-return DegreeProgramViewRawArrayType
+     */
     public function asArray(): array
     {
         return [
@@ -187,7 +243,7 @@ final class DegreeProgramViewRaw implements JsonSerializable
             DegreeProgram::SUBTITLE => $this->subtitle->asArray(),
             DegreeProgram::STANDARD_DURATION => $this->standardDuration,
             DegreeProgram::FEE_REQUIRED => $this->feeRequired,
-            DegreeProgram::START => $this->start,
+            DegreeProgram::START => $this->start->asArray(),
             DegreeProgram::NUMBER_OF_STUDENTS => $this->numberOfStudents->asArray(),
             DegreeProgram::TEACHING_LANGUAGE => $this->teachingLanguage->asArray(),
             DegreeProgram::ATTRIBUTES => $this->attributes->asArray(),
