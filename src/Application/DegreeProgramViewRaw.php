@@ -26,6 +26,7 @@ use JsonSerializable;
  * @psalm-import-type AdmissionRequirementsType from AdmissionRequirements
  * @psalm-type DegreeProgramViewRawArrayType = array {
  *     id: int,
+ *     slug: MultilingualStringType,
  *     featured_image: array{id: int, url: string},
  *     teaser_image: array{id: int, url: string},
  *     title: MultilingualStringType,
@@ -79,6 +80,7 @@ final class DegreeProgramViewRaw implements JsonSerializable
 {
     private function __construct(
         private DegreeProgramId $id,
+        private MultilingualString $slug,
         private Image $featuredImage,
         private Image $teaserImage,
         private MultilingualString $title,
@@ -130,6 +132,7 @@ final class DegreeProgramViewRaw implements JsonSerializable
         $data = $degreeProgram->asArray();
         return new self(
             $data[DegreeProgram::ID],
+            $data[DegreeProgram::SLUG],
             $data[DegreeProgram::FEATURED_IMAGE],
             $data[DegreeProgram::TEASER_IMAGE],
             $data[DegreeProgram::TITLE],
@@ -184,6 +187,7 @@ final class DegreeProgramViewRaw implements JsonSerializable
     {
         return new self(
             id: DegreeProgramId::fromInt($data[DegreeProgram::ID]),
+            slug: MultilingualString::fromArray($data[DegreeProgram::SLUG]),
             featuredImage: Image::fromArray($data[DegreeProgram::FEATURED_IMAGE]),
             teaserImage: Image::fromArray($data[DegreeProgram::TEASER_IMAGE]),
             title: MultilingualString::fromArray($data[DegreeProgram::TITLE]),
@@ -232,11 +236,14 @@ final class DegreeProgramViewRaw implements JsonSerializable
 
     /**
      * @psalm-return DegreeProgramViewRawArrayType
+     *
+     * phpcs:disable Inpsyde.CodeQuality.FunctionLength.TooLong
      */
     public function asArray(): array
     {
         return [
             DegreeProgram::ID => $this->id->asInt(),
+            DegreeProgram::SLUG => $this->slug->asArray(),
             DegreeProgram::FEATURED_IMAGE => $this->featuredImage->asArray(),
             DegreeProgram::TEASER_IMAGE => $this->teaserImage->asArray(),
             DegreeProgram::TITLE => $this->title->asArray(),
@@ -294,6 +301,11 @@ final class DegreeProgramViewRaw implements JsonSerializable
     public function id(): DegreeProgramId
     {
         return $this->id;
+    }
+
+    public function slug(): MultilingualString
+    {
+        return $this->slug;
     }
 
     public function featuredImage(): Image

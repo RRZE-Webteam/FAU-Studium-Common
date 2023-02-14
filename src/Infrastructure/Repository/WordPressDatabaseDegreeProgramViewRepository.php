@@ -9,6 +9,7 @@ use Fau\DegreeProgram\Common\Application\DegreeProgramViewRaw;
 use Fau\DegreeProgram\Common\Application\DegreeProgramViewTranslated;
 use Fau\DegreeProgram\Common\Application\DegreeTranslated;
 use Fau\DegreeProgram\Common\Application\Link;
+use Fau\DegreeProgram\Common\Application\Links;
 use Fau\DegreeProgram\Common\Application\RelatedDegreeProgram;
 use Fau\DegreeProgram\Common\Application\RelatedDegreePrograms;
 use Fau\DegreeProgram\Common\Application\Repository\DegreeProgramViewRepository;
@@ -20,6 +21,9 @@ use Fau\DegreeProgram\Common\LanguageExtension\ArrayOfStrings;
 use RuntimeException;
 use WP_Post;
 
+/**
+ * @psalm-import-type LanguageCodes from MultilingualString
+ */
 final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgramViewRepository
 {
     public function __construct(
@@ -66,6 +70,9 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
         return $main;
     }
 
+    /**
+     * @psalm-param LanguageCodes $languageCode
+     */
     private function translateDegreeProgram(
         DegreeProgramViewRaw $raw,
         string $languageCode
@@ -73,6 +80,7 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
 
         return new DegreeProgramViewTranslated(
             id: $raw->id(),
+            slug: $raw->slug()->asString($languageCode),
             lang: $languageCode,
             featuredImage: $raw->featuredImage(),
             teaserImage: $raw->teaserImage(),
@@ -129,6 +137,8 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
             semesterFee: Link::fromMultilingualLink($raw->semesterFee(), $languageCode),
             degreeProgramFees: $raw->degreeProgramFees()->asString($languageCode),
             abroadOpportunities: Link::fromMultilingualLink($raw->abroadOpportunities(), $languageCode),
+            keywords: $raw->keywords()->asArrayOfStrings($languageCode),
+            areaOfStudy: Links::fromMultilingualLinks($raw->areaOfStudy(), $languageCode),
             combinations: $this->relatedDegreePrograms($raw->combinations()->asArray(), $languageCode),
             limitedCombinations: $this->relatedDegreePrograms($raw->limitedCombinations()->asArray(), $languageCode),
         );

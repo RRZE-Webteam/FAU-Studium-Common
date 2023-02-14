@@ -12,12 +12,14 @@ use Fau\DegreeProgram\Common\Application\Repository\DegreeProgramViewRepository;
 use Fau\DegreeProgram\Common\Application\Repository\PaginationAwareCollection;
 use Fau\DegreeProgram\Common\Domain\DegreeProgramId;
 use Fau\DegreeProgram\Common\Infrastructure\Content\PostType\DegreeProgramPostType;
+use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\TaxonomiesList;
 use WP_Query;
 
 final class WordPressDatabaseDegreeProgramCollectionRepository implements DegreeProgramCollectionRepository
 {
     public function __construct(
         private DegreeProgramViewRepository $degreeProgramViewRepository,
+        private TaxonomiesList $taxonomiesList,
     ) {
     }
 
@@ -26,7 +28,7 @@ final class WordPressDatabaseDegreeProgramCollectionRepository implements Degree
         $query = new WP_Query();
         /** @var array<int> $ids */
         $ids = $query->query(
-            self::prepareWpQueryArgs($criteria)
+            $this->prepareWpQueryArgs($criteria)
         );
 
         $items = [];
@@ -48,7 +50,7 @@ final class WordPressDatabaseDegreeProgramCollectionRepository implements Degree
         $query = new WP_Query();
         /** @var array<int> $ids */
         $ids = $query->query(
-            self::prepareWpQueryArgs($criteria)
+            $this->prepareWpQueryArgs($criteria)
         );
 
         $items = [];
@@ -70,7 +72,7 @@ final class WordPressDatabaseDegreeProgramCollectionRepository implements Degree
      * The permanent degree program cache is used
      * instead of WordPress internal cache.
      */
-    private static function prepareWpQueryArgs(CollectionCriteria $criteria): array
+    private function prepareWpQueryArgs(CollectionCriteria $criteria): array
     {
         /** @var array<string, string> $aliases */
         static $aliases = [
@@ -93,6 +95,26 @@ final class WordPressDatabaseDegreeProgramCollectionRepository implements Degree
             $normalizedArgs[$aliases[$key] ?? $key] = $value;
         }
 
+        $normalizedArgs['tax_query'] = $this->buildTaxQuery($criteria);
+
         return array_merge($normalizedArgs, $requiredArgs);
+    }
+
+    private function buildTaxQuery(CollectionCriteria $criteria): array
+    {
+        $taxQuery = [];
+        foreach ($criteria->filters() as $filterType => $values) {
+            $taxonomyKey = $this->taxonomiesList->convertRestBaseToSlug($filterType);
+            if (!$taxonomyKey) {
+                continue;
+            }
+
+            $taxQuery[] = [
+                'taxonomy' => $taxonomyKey,
+                'terms' => $values,
+            ];
+        }
+
+        return $taxQuery;
     }
 }

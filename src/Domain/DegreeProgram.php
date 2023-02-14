@@ -13,6 +13,7 @@ use RuntimeException;
 final class DegreeProgram
 {
     public const ID = 'id';
+    public const SLUG = 'slug';
     public const FEATURED_IMAGE = 'featured_image';
     public const TEASER_IMAGE = 'teaser_image';
     public const TITLE = 'title';
@@ -66,6 +67,7 @@ final class DegreeProgram
 
     public function __construct(
         private DegreeProgramId $id,
+        private MultilingualString $slug,
         //--- At a glance (“Auf einen Blick”) ---//
         private Image $featuredImage,
         private Image $teaserImage,
@@ -259,6 +261,7 @@ final class DegreeProgram
             throw new RuntimeException('Invalid entity id.');
         }
 
+        $this->slug = MultilingualString::fromArray($data[self::SLUG]);
         $this->featuredImage = Image::fromArray($data[self::FEATURED_IMAGE]);
         $this->teaserImage = Image::fromArray($data[self::TEASER_IMAGE]);
         $this->title = MultilingualString::fromArray($data[self::TITLE]);
@@ -320,6 +323,7 @@ final class DegreeProgram
     /**
      * @return array{
      *     id: DegreeProgramId,
+     *     slug: MultilingualString,
      *     featured_image: Image,
      *     teaser_image: Image,
      *     title: MultilingualString,
@@ -372,6 +376,7 @@ final class DegreeProgram
     {
         return [
             self::ID => $this->id,
+            self::SLUG => $this->slug,
             self::FEATURED_IMAGE => $this->featuredImage,
             self::TEASER_IMAGE => $this->teaserImage,
             self::TITLE => $this->title,

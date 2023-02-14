@@ -7,20 +7,83 @@ namespace Fau\DegreeProgram\Common\Application;
 use Fau\DegreeProgram\Common\Domain\DegreeProgram;
 use Fau\DegreeProgram\Common\Domain\DegreeProgramId;
 use Fau\DegreeProgram\Common\Domain\Image;
+use Fau\DegreeProgram\Common\Domain\MultilingualString;
 use Fau\DegreeProgram\Common\LanguageExtension\ArrayOfStrings;
 use JsonSerializable;
 
+/**
+ * @psalm-import-type DegreeTranslatedType from DegreeTranslated
+ * @psalm-import-type LinkType from Link
+ * @psalm-import-type ContentTranslatedType from ContentTranslated
+ * @psalm-import-type RelatedDegreeProgramType from RelatedDegreeProgram
+ * @psalm-import-type LanguageCodes from MultilingualString
+ * @psalm-type DegreeProgramTranslation = array{
+ *     slug: string,
+ *     lang: LanguageCodes,
+ *     featured_image: array{id: int, url: string},
+ *     teaser_image: array{id: int, url: string},
+ *     title: string,
+ *     subtitle: string,
+ *     standard_duration: int,
+ *     fee_required: bool,
+ *     start: array<string>,
+ *     number_of_students: string,
+ *     teaching_language: string,
+ *     attributes: array<string>,
+ *     degree: DegreeTranslatedType,
+ *     faculty: LinkType,
+ *     location: string,
+ *     subject_groups: array<string>,
+ *     videos: array<array-key, string>,
+ *     meta_description: string,
+ *     content: ContentTranslatedType,
+ *     application: LinkType,
+ *     content_related_master_requirements: string,
+ *     application_deadline_winter_semester: string,
+ *     application_deadline_summer_semester: string,
+ *     details_and_notes: string,
+ *     language_skills: string,
+ *     language_skills_humanities_faculty: string,
+ *     german_language_skills_for_international_students: LinkType,
+ *     start_of_semester: LinkType,
+ *     semester_dates: LinkType,
+ *     examinations_office: LinkType,
+ *     examination_regulations: LinkType,
+ *     module_handbook: string,
+ *     url: string,
+ *     department: LinkType,
+ *     student_advice: LinkType,
+ *     subject_specific_advice: LinkType,
+ *     service_centers: LinkType,
+ *     student_representatives: string,
+ *     semester_fee: LinkType,
+ *     degree_program_fees: string,
+ *     abroad_opportunities: LinkType,
+ *     keywords: array<string>,
+ *     area_of_study: array<LinkType>,
+ *     combinations: array<RelatedDegreeProgramType>,
+ *     limited_combinations: array<RelatedDegreeProgramType>,
+ * }
+ * @psalm-type DegreeProgramViewTranslatedArrayType = DegreeProgramTranslation & array{
+ *      id: int,
+ *      translations: array<LanguageCodes, DegreeProgramTranslation>,
+ * }
+ */
 final class DegreeProgramViewTranslated implements JsonSerializable
 {
     public const LANG = 'lang';
     public const APPLICATION = 'application';
     public const TRANSLATIONS = 'translations';
 
-    /** @var array<string, DegreeProgramViewTranslated> */
+    /** @var array<LanguageCodes, DegreeProgramViewTranslated> */
     private array $translations = [];
 
     public function __construct(
         private DegreeProgramId $id,
+        private string $slug,
+        /**
+         * @var LanguageCodes $lang
+         */
         private string $lang,
         private Image $featuredImage,
         private Image $teaserImage,
@@ -64,17 +127,18 @@ final class DegreeProgramViewTranslated implements JsonSerializable
         private Link $semesterFee,
         private string $degreeProgramFees,
         private Link $abroadOpportunities,
+        private ArrayOfStrings $keywords,
+        private Links $areaOfStudy,
         private RelatedDegreePrograms $combinations,
         private RelatedDegreePrograms $limitedCombinations,
     ) {
     }
 
     /**
-     * We run this method on raw data from persistence
-     * so strong typing doesn't make sense.
-     *
-     * @psalm-suppress MixedArgument
-     * @psalm-suppress MixedArrayAssignment
+     * @psalm-param DegreeProgramTranslation & array{
+     *      id: int | numeric-string,
+     *      translations?: array<LanguageCodes, DegreeProgramTranslation>,
+     * } $data
      *
      * phpcs:disable Inpsyde.CodeQuality.FunctionLength.TooLong
      */
@@ -82,6 +146,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
     {
         $main = new self(
             id: DegreeProgramId::fromInt((int) $data[DegreeProgram::ID]),
+            slug: $data[DegreeProgram::SLUG],
             lang: $data[self::LANG],
             featuredImage: Image::fromArray($data[DegreeProgram::FEATURED_IMAGE]),
             teaserImage: Image::fromArray($data[DegreeProgram::TEASER_IMAGE]),
@@ -122,6 +187,8 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             semesterFee: Link::fromArray($data[DegreeProgram::SEMESTER_FEE]),
             degreeProgramFees: $data[DegreeProgram::DEGREE_PROGRAM_FEES],
             abroadOpportunities: Link::fromArray($data[DegreeProgram::ABROAD_OPPORTUNITIES]),
+            keywords: ArrayOfStrings::new(...$data[DegreeProgram::KEYWORDS]),
+            areaOfStudy: Links::fromArray($data[DegreeProgram::AREA_OF_STUDY]),
             combinations:  RelatedDegreePrograms::fromArray($data[DegreeProgram::COMBINATIONS]),
             limitedCombinations: RelatedDegreePrograms::fromArray($data[DegreeProgram::LIMITED_COMBINATIONS]),
         );
@@ -132,16 +199,20 @@ final class DegreeProgramViewTranslated implements JsonSerializable
 
         foreach ($data[self::TRANSLATIONS] as $translationData) {
             $translationData[DegreeProgram::ID] = $data[DegreeProgram::ID];
-            $main->withTranslation(self::fromArray($translationData), $data[self::LANG]);
+            $main = $main->withTranslation(self::fromArray($translationData), $translationData[self::LANG]);
         }
 
         return $main;
     }
 
+    /**
+     * @return DegreeProgramViewTranslatedArrayType
+     */
     public function asArray(): array
     {
         return [
             DegreeProgram::ID => $this->id->asInt(),
+            DegreeProgram::SLUG => $this->slug,
             self::LANG => $this->lang,
             DegreeProgram::FEATURED_IMAGE => $this->featuredImage->asArray(),
             DegreeProgram::TEASER_IMAGE => $this->teaserImage->asArray(),
@@ -183,6 +254,8 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             DegreeProgram::SEMESTER_FEE => $this->semesterFee->asArray(),
             DegreeProgram::DEGREE_PROGRAM_FEES => $this->degreeProgramFees,
             DegreeProgram::ABROAD_OPPORTUNITIES => $this->abroadOpportunities->asArray(),
+            DegreeProgram::KEYWORDS => $this->keywords->getArrayCopy(),
+            DegreeProgram::AREA_OF_STUDY => $this->areaOfStudy->asArray(),
             DegreeProgram::COMBINATIONS => $this->combinations->asArray(),
             DegreeProgram::LIMITED_COMBINATIONS => $this->limitedCombinations->asArray(),
             self::TRANSLATIONS => $this->translationsAsArray(),
@@ -194,6 +267,9 @@ final class DegreeProgramViewTranslated implements JsonSerializable
         return $this->asArray();
     }
 
+    /**
+     * @psalm-param LanguageCodes $languageCode
+     */
     public function withTranslation(
         DegreeProgramViewTranslated $degreeProgramViewTranslated,
         string $languageCode,
@@ -205,6 +281,9 @@ final class DegreeProgramViewTranslated implements JsonSerializable
         return $instance;
     }
 
+    /**
+     * @psalm-param LanguageCodes $languageCode
+     */
     public function withBaseLang(string $languageCode): ?self
     {
         if ($languageCode === $this->lang) {
@@ -223,6 +302,9 @@ final class DegreeProgramViewTranslated implements JsonSerializable
         return $main;
     }
 
+    /**
+     * @return array<LanguageCodes, DegreeProgramTranslation>
+     */
     private function translationsAsArray(): array
     {
         return array_map(static function (DegreeProgramViewTranslated $view): array {

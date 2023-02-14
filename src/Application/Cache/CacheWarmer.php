@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Application\Cache;
 
+use Fau\DegreeProgram\Common\Application\Event\CacheWarmed;
 use Fau\DegreeProgram\Common\Application\Repository\CollectionCriteria;
 use Fau\DegreeProgram\Common\Application\Repository\DegreeProgramCollectionRepository;
 use Fau\DegreeProgram\Common\Application\Repository\PaginationAwareCollection;
 use Fau\DegreeProgram\Common\Domain\DegreeProgramId;
 use Fau\DegreeProgram\Common\Domain\MultilingualString;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
 use Psr\SimpleCache\CacheInterface;
 use Psr\SimpleCache\InvalidArgumentException;
@@ -19,6 +21,7 @@ final class CacheWarmer
         private CacheKeyGenerator $cacheKeyGenerator,
         private CacheInterface $cache,
         private DegreeProgramCollectionRepository $collectionRepository,
+        private EventDispatcherInterface $eventDispatcher,
         private LoggerInterface $logger,
     ) {
     }
@@ -38,6 +41,7 @@ final class CacheWarmer
             return false;
         }
 
+        $this->eventDispatcher->dispatch(CacheWarmed::fully());
         $this->logger->info('Successful degree program full cache warming.');
 
         return true;
@@ -73,6 +77,7 @@ final class CacheWarmer
             return false;
         }
 
+        $this->eventDispatcher->dispatch(CacheWarmed::partially($ids));
         $this->logger->info(
             sprintf(
                 'Successful degree program partial cache warming for IDs: %s.',

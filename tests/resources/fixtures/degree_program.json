@@ -1,5 +1,10 @@
 {
   "id": 25,
+  "slug": {
+    "id": "post:25:post_name",
+    "de": "master-of-art-fau-od",
+    "en": "master-of-art-fau-en-ode"
+  },
   "featured_image": {
     "id": 9,
     "url": "https:\/\/fau.localhost\/wp-content\/uploads\/2022\/12\/viber_image_2022-05-27_15-30-39-852.jpg"

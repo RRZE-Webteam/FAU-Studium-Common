@@ -7,6 +7,7 @@ namespace Fau\DegreeProgram\Common\Application\Repository;
 use Webmozart\Assert\Assert;
 
 /**
+ * @psalm-type SupportedFilterTypes = 'degree';
  * @psalm-type SupportedArgs = array{
  *    page: int,
  *    per_page: int,
@@ -17,12 +18,12 @@ final class CollectionCriteria
 {
     /**
      * @param SupportedArgs $args
+     * @param array<SupportedFilterTypes, array<int>> $filters
      */
-    private function __construct(private array $args)
-    {
-        Assert::positiveInteger($this->args['page']);
-        Assert::greaterThanEq($this->args['per_page'], -1);
-        Assert::notEq($this->args['per_page'], 0);
+    private function __construct(
+        private array $args,
+        private array $filters
+    ) {
     }
 
     public static function new(): self
@@ -30,21 +31,25 @@ final class CollectionCriteria
         return new self([
             'page' => 1,
             'per_page' => 10,
-        ]);
+        ], []);
     }
 
     public function toNextPage(): self
     {
-        $this->args['page']++;
+        $instance = clone $this;
+        $instance->args['page']++;
 
-        return new self($this->args);
+        return $instance;
     }
 
     public function withPage(int $page): self
     {
-        $this->args['page'] = $page;
+        Assert::positiveInteger($page);
 
-        return new self($this->args);
+        $instance = clone $this;
+        $instance->args['page'] = $page;
+
+        return $instance;
     }
 
     public function page(): int
@@ -54,9 +59,26 @@ final class CollectionCriteria
 
     public function withPerPage(int $perPage): self
     {
-        $this->args['per_page'] = $perPage;
+        Assert::greaterThanEq($perPage, -1);
+        Assert::notEq($perPage, 0);
 
-        return new self($this->args);
+        $instance = clone $this;
+        $instance->args['per_page'] = $perPage;
+
+        return $instance;
+    }
+
+    public function perPage(): int
+    {
+        return $this->args['per_page'];
+    }
+
+    public function withoutPagination(): self
+    {
+        $instance = clone $this;
+        $instance->args['per_page'] = -1;
+
+        return $instance;
     }
 
     /**
@@ -66,9 +88,26 @@ final class CollectionCriteria
     {
         Assert::allPositiveInteger($include);
 
-        $this->args['include'] = $include;
+        $instance = clone $this;
+        $instance->args['include'] = $include;
 
-        return new self($this->args);
+        return $instance;
+    }
+
+    /**
+     * @psalm-param SupportedFilterTypes $filterType
+     */
+    public function withFilter(string $filterType, int ...$values): self
+    {
+        $instance = clone $this;
+        $instance->filters[$filterType] = $values;
+
+        return $instance;
+    }
+
+    public function withDegree(int ...$values): self
+    {
+        return $this->withFilter('degree', ...$values);
     }
 
     /**
@@ -77,5 +116,13 @@ final class CollectionCriteria
     public function args(): array
     {
         return $this->args;
+    }
+
+    /**
+     * @psalm-return array<SupportedFilterTypes, array<int>>
+     */
+    public function filters(): array
+    {
+        return $this->filters;
     }
 }

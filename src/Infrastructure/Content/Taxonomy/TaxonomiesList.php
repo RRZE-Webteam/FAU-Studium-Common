@@ -12,6 +12,11 @@ use Fau\DegreeProgram\Common\LanguageExtension\ArrayOfStrings;
  */
 final class TaxonomiesList extends ArrayObject
 {
+    /**
+     * @var array<string, string>
+     */
+    private array $restBaseSlugMap = [];
+
     private function __construct()
     {
         parent::__construct([
@@ -33,6 +38,16 @@ final class TaxonomiesList extends ArrayObject
             TeachingDegreeHigherSemesterAdmissionRequirementTaxonomy::class,
             TeachingLanguageTaxonomy::class,
         ]);
+
+        foreach ($this->getArrayCopy() as $item) {
+            if (!defined("{$item}::KEY")) {
+                continue;
+            }
+
+            $restBase = (string) constant("{$item}::REST_BASE");
+            $key = (string) constant("{$item}::KEY");
+            $this->restBaseSlugMap[$restBase] = $key;
+        }
     }
 
     public static function new(): self
@@ -42,22 +57,11 @@ final class TaxonomiesList extends ArrayObject
 
     public function keys(): ArrayOfStrings
     {
-        /** @var array<string>|null $keys */
-        static $keys = null;
+        return ArrayOfStrings::new(...array_values($this->restBaseSlugMap));
+    }
 
-        if (is_array($keys)) {
-            return ArrayOfStrings::new(...$keys);
-        }
-
-        $keys = [];
-        foreach ($this->getArrayCopy() as $item) {
-            if (!defined("{$item}::KEY")) {
-                continue;
-            }
-
-            $keys[] = (string) constant("{$item}::KEY");
-        }
-
-        return ArrayOfStrings::new(...$keys);
+    public function convertRestBaseToSlug(string $restBase): ?string
+    {
+        return $this->restBaseSlugMap[$restBase] ?? null;
     }
 }

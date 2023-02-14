@@ -102,6 +102,7 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
         'additionalProperties' => false,
         'required' => [
             DegreeProgram::ID,
+            DegreeProgram::SLUG,
             DegreeProgram::FEATURED_IMAGE,
             DegreeProgram::TEASER_IMAGE,
             DegreeProgram::TITLE,
@@ -151,6 +152,7 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
                 'type' => 'integer',
                 'minimum' => 1,
             ],
+            DegreeProgram::SLUG => self::MULTILINGUAL_STRING,
             DegreeProgram::FEATURED_IMAGE => self::IMAGE,
             DegreeProgram::TEASER_IMAGE => self::IMAGE,
             DegreeProgram::TITLE => self::MULTILINGUAL_STRING,

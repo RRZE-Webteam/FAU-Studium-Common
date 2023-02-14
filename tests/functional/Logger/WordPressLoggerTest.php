@@ -26,6 +26,8 @@ final class WordPressLoggerTest extends WpDbLessTestCase
         );
         define('WP_DEBUG_LOG', true);
         parent::setUp();
+
+        $this->wpOption->addOption('home', 'https://fau.de');
     }
 
     public function tearDown(): void
@@ -52,11 +54,14 @@ final class WordPressLoggerTest extends WpDbLessTestCase
         $sut = WordPressLogger::new(self::PACKAGE);
         $sut->error('Error happens!');
         self::assertStringEndsWith(
-            "[ERROR]: Error happens!\n[]\n",
+            "[ERROR] [my_package]: Error happens!\n{\"site_url\":\"https:\/\/fau.de\"}\n",
             stream_get_contents($this->tmpStream)
         );
     }
 
+    /**
+     * phpcs:disable Inpsyde.CodeQuality.LineLength.TooLong
+     */
     public function testContext(): void
     {
         add_action(self::PACKAGE . '.error', static function (array $context) {
@@ -66,7 +71,7 @@ final class WordPressLoggerTest extends WpDbLessTestCase
         $sut = WordPressLogger::new(self::PACKAGE);
         $sut->error('Error happens!', ['where' => 'here']);
         self::assertStringEndsWith(
-            "[ERROR]: Error happens!\n{\"where\":\"here\"}\n",
+            "[ERROR] [my_package]: Error happens!\n{\"where\":\"here\",\"site_url\":\"https:\/\/fau.de\"}\n",
             stream_get_contents($this->tmpStream)
         );
     }
@@ -85,7 +90,7 @@ final class WordPressLoggerTest extends WpDbLessTestCase
         $sut->error('Error happens!', ['exception' => $exception]);
         $entries = explode("\n", stream_get_contents($this->tmpStream));
         self::assertStringEndsWith(
-            "[ERROR]: Error happens!",
+            "[ERROR] [my_package]: Error happens!",
             $entries[0]
         );
         self::assertStringEndsWith(

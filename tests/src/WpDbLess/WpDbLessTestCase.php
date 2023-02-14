@@ -17,7 +17,7 @@ class WpDbLessTestCase extends TestCase
 {
     private ?Throwable $throwable = null;
     private WpHook $wpHook;
-    private WpOption $wpOption;
+    protected WpOption $wpOption;
 
     protected function setUp(): void
     {

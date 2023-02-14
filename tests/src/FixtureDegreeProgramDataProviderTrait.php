@@ -48,6 +48,7 @@ trait FixtureDegreeProgramDataProviderTrait
     {
         return new DegreeProgram(
             id: DegreeProgramId::fromInt($id),
+            slug: MultilingualString::empty(),
             featuredImage: Image::empty(),
             teaserImage: Image::empty(),
             title: MultilingualString::empty(),

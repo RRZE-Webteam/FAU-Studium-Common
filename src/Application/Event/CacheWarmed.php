@@ -6,9 +6,9 @@ namespace Fau\DegreeProgram\Common\Application\Event;
 
 use Stringable;
 
-final class CacheInvalidated implements Stringable
+final class CacheWarmed implements Stringable
 {
-    public const NAME = 'degree_program_cache_invalidated';
+    public const NAME = 'degree_program_cache_warmed';
 
     private function __construct(
         private bool $isFully,

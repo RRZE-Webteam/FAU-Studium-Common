@@ -29,7 +29,7 @@ final class CacheInvalidator
             return false;
         }
 
-        $this->eventDispatcher->dispatch(CacheInvalidated::full());
+        $this->eventDispatcher->dispatch(CacheInvalidated::fully());
         $this->logger->info('Successful degree program full cache invalidation.');
         return true;
     }
@@ -75,7 +75,7 @@ final class CacheInvalidator
             return false;
         }
 
-        $this->eventDispatcher->dispatch(CacheInvalidated::partial($ids));
+        $this->eventDispatcher->dispatch(CacheInvalidated::partially($ids));
         $this->logger->info(
             sprintf(
                 'Successful degree program partial cache invalidation for IDs: %s.',

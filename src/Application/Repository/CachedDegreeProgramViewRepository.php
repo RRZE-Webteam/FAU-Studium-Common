@@ -14,6 +14,7 @@ use Psr\SimpleCache\CacheInterface;
 /**
  * @psalm-import-type LanguageCodes from MultilingualString
  * @psalm-import-type DegreeProgramViewRawArrayType from DegreeProgramViewRaw
+ * @psalm-import-type DegreeProgramViewTranslatedArrayType from DegreeProgramViewTranslated
  */
 final class CachedDegreeProgramViewRepository implements DegreeProgramViewRepository
 {
@@ -38,6 +39,7 @@ final class CachedDegreeProgramViewRepository implements DegreeProgramViewReposi
     public function findTranslated(DegreeProgramId $degreeProgramId, string $languageCode): ?DegreeProgramViewTranslated
     {
         $key = $this->cacheKeyGenerator->generateForDegreeProgram($degreeProgramId, CacheKeyGenerator::TRANSLATED_TYPE);
+        /** @psalm-var ?DegreeProgramViewTranslatedArrayType $data */
         $data = $this->cache->get($key);
 
         if (!is_array($data)) {

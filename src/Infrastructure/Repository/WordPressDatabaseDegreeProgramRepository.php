@@ -41,6 +41,9 @@ use RuntimeException;
 use WP_Post;
 use WP_Term;
 
+/**
+ * @psalm-import-type LanguageCodes from MultilingualString
+ */
 final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository implements DegreeProgramRepository
 {
     public function __construct(
@@ -74,6 +77,15 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
 
         return new DegreeProgram(
             id: $degreeProgramId,
+            slug: MultilingualString::fromTranslations(
+                $this->idGenerator->generatePostId($post, 'post_name'),
+                $post->post_name,
+                (string) get_post_meta(
+                    $postId,
+                    BilingualRepository::addEnglishSuffix('post_name'),
+                    true,
+                ),
+            ),
             featuredImage: Image::new(
                 $featuredImageId,
                 (string) wp_get_attachment_image_url($featuredImageId, 'full')
@@ -271,6 +283,10 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
         wp_update_post([
             'ID' => $postId,
             'post_title' => $degreeProgramViewRaw->title()->inGerman(),
+            'post_name' => $this->generateSlug(
+                $degreeProgramViewRaw,
+                MultilingualString::DE
+            ),
         ]);
 
         $this->persistFeatureImage(
@@ -283,6 +299,11 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
                 $degreeProgramViewRaw->teaserImage()->id(),
             BilingualRepository::addEnglishSuffix('title') =>
                 $degreeProgramViewRaw->title()->inEnglish(),
+            BilingualRepository::addEnglishSuffix('post_name') =>
+                $this->generateSlug(
+                    $degreeProgramViewRaw,
+                    MultilingualString::EN
+                ),
             DegreeProgram::STANDARD_DURATION =>
                 $degreeProgramViewRaw->standardDuration(),
             DegreeProgram::FEE_REQUIRED =>
@@ -419,5 +440,22 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             add_post_meta($postId, $key, $item);
             add_post_meta($item, $key, $postId);
         }
+    }
+
+    /**
+     * @psalm-param LanguageCodes $languageCode
+     */
+    private function generateSlug(
+        DegreeProgramViewRaw $degreeProgramViewRaw,
+        string $languageCode
+    ): string {
+
+        return sanitize_title(
+            sprintf(
+                "%s-%s",
+                $degreeProgramViewRaw->title()->asString($languageCode),
+                $degreeProgramViewRaw->degree()->abbreviation()->asString($languageCode)
+            )
+        );
     }
 }

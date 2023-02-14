@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fau\DegreeProgram\Common\Infrastructure\Logger;
 
 use Psr\Log\AbstractLogger;
+use Psr\Log\LogLevel;
 use Stringable;
 use Throwable;
 
@@ -25,12 +26,14 @@ final class WordPressLogger extends AbstractLogger
      */
     public function log($level, Stringable|string $message, array $context = []): void
     {
-        if (defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
-            // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
-            error_log(
-                $this->prepareLogEntry((string) $level, (string) $message, $context)
-            );
+        if ($level === LogLevel::DEBUG && !$this->isDebugMode()) {
+            return;
         }
+
+        // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+        error_log(
+            $this->prepareLogEntry((string) $level, (string) $message, $context)
+        );
 
         $context['message'] = $message;
         do_action(
@@ -43,7 +46,7 @@ final class WordPressLogger extends AbstractLogger
     private function prepareLogEntry(string $level, string $message, array $context): string
     {
         $parts = [
-            sprintf('[%s]: %s', strtoupper($level), $message),
+            sprintf('[%s] [%s]: %s', strtoupper($level), $this->package, $message),
         ];
 
         if (isset($context['exception']) && $context['exception'] instanceof Throwable) {
@@ -54,8 +57,16 @@ final class WordPressLogger extends AbstractLogger
             $parts[] = $exception->getTraceAsString();
         }
 
+        $context['site_url'] = home_url();
+
         $parts[] = json_encode($context);
 
         return implode("\n", $parts);
+    }
+
+    private function isDebugMode(): bool
+    {
+        /** @psalm-suppress TypeDoesNotContainType */
+        return defined('WP_DEBUG') && WP_DEBUG;
     }
 }
