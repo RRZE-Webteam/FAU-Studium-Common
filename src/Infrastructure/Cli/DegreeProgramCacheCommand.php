@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Infrastructure\Cli;
 
-use Fau\DegreeProgram\Common\Application\Cache\CacheWarmer;
+use Fau\DegreeProgram\Common\Application\Cache\CacheInvalidator;
 use Throwable;
 use WP_CLI;
 
 final class DegreeProgramCacheCommand
 {
-    public function __construct(private CacheWarmer $cacheWarmer)
+    public function __construct(private CacheInvalidator $cacheInvalidator)
     {
     }
 
@@ -19,14 +19,14 @@ final class DegreeProgramCacheCommand
      *
      * ## EXAMPLES
      *
-     *     wp fau cache warm
+     *     wp fau cache invalidate
      *
      * @when after_wp_load
      */
-    public function warm(): void
+    public function invalidate(): void
     {
         try {
-            $this->cacheWarmer->warmFully();
+            $this->cacheInvalidator->invalidateFully();
         } catch (Throwable $exception) {
             WP_CLI::error($exception);
         }

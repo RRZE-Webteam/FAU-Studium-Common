@@ -10,6 +10,9 @@ final class CacheInvalidated implements Stringable
 {
     public const NAME = 'degree_program_cache_invalidated';
 
+    /**
+     * @param array<int> $ids
+     */
     private function __construct(
         private bool $isFully,
         private array $ids,
@@ -21,6 +24,9 @@ final class CacheInvalidated implements Stringable
         return new self(true, []);
     }
 
+    /**
+     * @param array<int> $ids
+     */
     public static function partially(array $ids): self
     {
         return new self(false, $ids);
@@ -31,6 +37,9 @@ final class CacheInvalidated implements Stringable
         return $this->isFully;
     }
 
+    /**
+     * @return array<int>
+     */
     public function ids(): array
     {
         return $this->ids;

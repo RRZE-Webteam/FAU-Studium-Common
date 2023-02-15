@@ -41,8 +41,8 @@ final class CacheWarmer
             return false;
         }
 
-        $this->eventDispatcher->dispatch(CacheWarmed::fully());
         $this->logger->info('Successful degree program full cache warming.');
+        $this->eventDispatcher->dispatch(CacheWarmed::fully());
 
         return true;
     }
@@ -77,13 +77,13 @@ final class CacheWarmer
             return false;
         }
 
-        $this->eventDispatcher->dispatch(CacheWarmed::partially($ids));
         $this->logger->info(
             sprintf(
                 'Successful degree program partial cache warming for IDs: %s.',
                 implode(', ', $ids)
             )
         );
+        $this->eventDispatcher->dispatch(CacheWarmed::partially($ids));
 
         return true;
     }
