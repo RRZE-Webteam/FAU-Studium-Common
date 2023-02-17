@@ -13,7 +13,7 @@ final class DegreeTest extends UnitTestCase
     {
         $sut = Degree::empty();
         $this->assertSame(
-            '{"id":"","name":{"id":"","de":"","en":""},"abbreviation":{"id":"","de":"","en":""}}',
+            '{"id":"","name":{"id":"","de":"","en":""},"abbreviation":{"id":"","de":"","en":""},"parent":null}',
             json_encode($sut)
         );
     }
@@ -31,6 +31,20 @@ final class DegreeTest extends UnitTestCase
                 'id' => 'term:5',
                 'de' => 'LM',
                 'en' => 'TSE',
+            ],
+            'parent' => [
+                'id' => 'term:26',
+                'name' => [
+                    'id' => 'term:26',
+                    'de' => 'Bachelorstudiengänge',
+                    'en' => 'Bachelor Degrees',
+                ],
+                'abbreviation' => [
+                    'id' => 'term:26',
+                    'de' => 'LM',
+                    'en' => 'TSE',
+                ],
+                'parent' => null,
             ],
         ];
 
@@ -51,6 +65,14 @@ final class DegreeTest extends UnitTestCase
         $this->assertSame(
             'TSE',
             $sut->abbreviation()->inEnglish()
+        );
+        $this->assertSame(
+            'Bachelorstudiengänge',
+            $sut->parent()->name()->inGerman()
+        );
+        $this->assertSame(
+            'Bachelor Degrees',
+            $sut->parent()->name()->inEnglish()
         );
     }
 }

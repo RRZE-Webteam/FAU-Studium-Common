@@ -24,6 +24,7 @@ use JsonSerializable;
  * @psalm-import-type MultilingualLinkType from MultilingualLink
  * @psalm-import-type ContentType from Content
  * @psalm-import-type AdmissionRequirementsType from AdmissionRequirements
+ * @psalm-import-type DegreeType from Degree
  * @psalm-type DegreeProgramViewRawArrayType = array {
  *     id: int,
  *     slug: MultilingualStringType,
@@ -37,11 +38,7 @@ use JsonSerializable;
  *     number_of_students: array{id: string, description: string},
  *     teaching_language: MultilingualStringType,
  *     attributes: array<MultilingualStringType>,
- *     degree: array{
- *          id: string,
- *          name: MultilingualStringType,
- *          abbreviation: MultilingualStringType
- *     },
+ *     degree: DegreeType,
  *     faculty: MultilingualLinkType,
  *     location: MultilingualStringType,
  *     subject_groups: array<MultilingualStringType>,

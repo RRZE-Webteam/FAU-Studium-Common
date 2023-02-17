@@ -190,6 +190,23 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
                     ],
                     Degree::NAME => self::MULTILINGUAL_STRING,
                     Degree::ABBREVIATION => self::MULTILINGUAL_STRING,
+                    Degree::PARENT => [
+                        'oneOf' => [
+                            [
+                                'type' => 'object',
+                                'additionalProperties' => true,
+                                'required' => [Degree::ID],
+                                'properties' => [
+                                    Degree::ID => [
+                                        'type' => 'string',
+                                    ],
+                                ],
+                            ],
+                            [
+                                'type' => 'null',
+                            ],
+                        ],
+                    ],
                 ],
             ],
             DegreeProgram::FACULTY => self::MULTILINGUAL_LINK,

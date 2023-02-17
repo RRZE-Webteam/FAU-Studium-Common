@@ -235,10 +235,18 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             return Degree::empty();
         }
 
+        return $this->degreeFromTerm($term);
+    }
+
+    private function degreeFromTerm(WP_Term $term): Degree
+    {
+        $parent = get_term($term->parent);
+
         return Degree::new(
             $this->idGenerator->generateTermId($term),
             $this->bilingualTermName($term),
-            $this->bilingualTermMeta($term, Degree::ABBREVIATION)
+            $this->bilingualTermMeta($term, Degree::ABBREVIATION),
+            $parent instanceof WP_Term ? $this->degreeFromTerm($parent) : null,
         );
     }
 

@@ -28,7 +28,7 @@ final class JsonSerializer
         [$className, $objectData] = json_decode($string, true, 512, JSON_THROW_ON_ERROR);
 
         if (!in_array(JsonSerializable::class, (array) class_implements($className), true)) {
-            throw CouldNotDeserialize::becauseClassNotImplementJsonSerializableInterface($className);
+            throw CouldNotDeserialize::becauseClassDoesNotImplementInterface($className);
         }
 
         /**

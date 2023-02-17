@@ -8,7 +8,7 @@ use LogicException;
 
 final class CouldNotDeserialize extends LogicException
 {
-    public static function becauseClassNotImplementJsonSerializableInterface(string $className): self
+    public static function becauseClassDoesNotImplementInterface(string $className): self
     {
         return new self(sprintf(
             'Class %s must implement %s interface',

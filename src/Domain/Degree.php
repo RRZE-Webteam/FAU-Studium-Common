@@ -8,17 +8,28 @@ use JsonSerializable;
 
 /**
  * @psalm-import-type MultilingualStringType from MultilingualString
+ * @psalm-type Degree = array{
+ *     id: string,
+ *     name: MultilingualStringType,
+ *     abbreviation: MultilingualStringType,
+ * }
+ * @psalm-type DegreeType = Degree & array{parent: Degree|null}
+ *
+ * Psalm doesn't support self-referencing types, we need to provide workarounds.
+ * @link https://github.com/vimeo/psalm/issues/5739
  */
 final class Degree implements JsonSerializable
 {
     public const ID = 'id';
     public const NAME = 'name';
     public const ABBREVIATION = 'abbreviation';
+    public const PARENT = 'parent';
 
     private function __construct(
         private string $id,
         private MultilingualString $name,
         private MultilingualString $abbreviation,
+        private ?Degree $parent,
     ) {
     }
 
@@ -26,12 +37,14 @@ final class Degree implements JsonSerializable
         string $id,
         MultilingualString $name,
         MultilingualString $abbreviation,
+        ?Degree $parent,
     ): self {
 
         return new self(
             $id,
             $name,
-            $abbreviation
+            $abbreviation,
+            $parent
         );
     }
 
@@ -41,38 +54,37 @@ final class Degree implements JsonSerializable
             '',
             MultilingualString::empty(),
             MultilingualString::empty(),
+            null,
         );
     }
 
     /**
-     * @psalm-param array{
-     *     id: string,
-     *     name: MultilingualStringType,
-     *     abbreviation: MultilingualStringType
-     * } $data
+     * @psalm-param DegreeType $data
      */
     public static function fromArray(array $data): self
     {
+        /** @var DegreeType|null  $parentData */
+        $parentData = $data[self::PARENT];
         return new self(
             $data[self::ID],
             MultilingualString::fromArray($data[self::NAME]),
             MultilingualString::fromArray($data[self::ABBREVIATION]),
+            !empty($parentData) ? self::fromArray($parentData) : null,
         );
     }
 
     /**
-     * @return array{
-     *     id: string,
-     *     name: MultilingualStringType,
-     *     abbreviation: MultilingualStringType
-     * }
+     * @return DegreeType
      */
     public function asArray(): array
     {
+        /** @var Degree|null $parentData */
+        $parentData = $this->parent?->asArray();
         return [
             self::ID => $this->id,
             self::NAME => $this->name->asArray(),
             self::ABBREVIATION => $this->abbreviation->asArray(),
+            self::PARENT => $parentData,
         ];
     }
 
@@ -94,5 +106,10 @@ final class Degree implements JsonSerializable
     public function abbreviation(): MultilingualString
     {
         return $this->abbreviation;
+    }
+
+    public function parent(): ?Degree
+    {
+        return $this->parent;
     }
 }

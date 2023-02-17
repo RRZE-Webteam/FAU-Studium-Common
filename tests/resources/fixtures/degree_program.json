@@ -69,6 +69,20 @@
       "id": "term_meta:7:abbreviation",
       "de": "OD",
       "en": "ODE"
+    },
+    "parent": {
+      "id": "term:26",
+      "name": {
+        "id": "term:26:name",
+        "de": "Bachelorstudiengänge",
+        "en": "Bachelor Degrees"
+      },
+      "abbreviation": {
+        "id": "term_meta:26:abbreviation",
+        "de": "",
+        "en": ""
+      },
+      "parent": null
     }
   },
   "faculty": {

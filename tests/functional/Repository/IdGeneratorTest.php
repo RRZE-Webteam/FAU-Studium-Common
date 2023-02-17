@@ -158,6 +158,7 @@ final class IdGeneratorTest extends WpDbLessTestCase
                 'term:25',
                 MultilingualString::fromTranslations('term:25:name', '', ''),
                 MultilingualString::fromTranslations('term_meta:25:name', '', ''),
+                null
             ),
             [25],
         ];
