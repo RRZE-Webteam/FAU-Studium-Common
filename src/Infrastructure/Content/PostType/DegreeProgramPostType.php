@@ -27,6 +27,7 @@ class DegreeProgramPostType
                 'hierarchical' => false,
                 'supports' => [
                     'editor',
+                    'author',
                 ],
             ]
         );
