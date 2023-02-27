@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Infrastructure\TemplateRenderer;
 
-use CompileError;
+use RuntimeException;
 use Throwable;
 
 final class TemplateRenderer implements Renderer
@@ -55,7 +55,7 @@ final class TemplateRenderer implements Renderer
                 return '';
             }
 
-            throw new CompileError(
+            throw new RuntimeException(
                 sprintf('Could not render template %s', $templateName),
                 0,
                 $throwable

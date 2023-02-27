@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Tests\TemplateRenderer;
 
-use CompileError;
 use Fau\DegreeProgram\Common\Tests\RendererTestCase;
+use RuntimeException;
 use Throwable;
 use UnexpectedValueException;
 
@@ -41,7 +41,7 @@ class BasicRenderingDebugModeTest extends RendererTestCase
             $this->sut->render('wrong_name.php');
         } catch (Throwable $throwable) {
             $exceptionHasBeenCaught = true;
-            $this->assertInstanceOf(CompileError::class, $throwable);
+            $this->assertInstanceOf(RuntimeException::class, $throwable);
 
             /** @var Throwable $previous */
             $previous = $throwable->getPrevious();
@@ -54,7 +54,7 @@ class BasicRenderingDebugModeTest extends RendererTestCase
 
     public function testNonExistingVariables(): void
     {
-        $this->expectException(CompileError::class);
+        $this->expectException(RuntimeException::class);
         $this->expectExceptionMessageMatches('/hello\.php/');
         $this->sut->render('hello.php');
     }

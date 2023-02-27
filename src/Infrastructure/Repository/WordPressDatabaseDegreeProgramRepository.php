@@ -71,7 +71,7 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
         $teaserImageId = (int) get_post_meta($postId, DegreeProgram::TEASER_IMAGE, true);
 
         /**
-         * @var string[]|string $videos
+         * @var string $videos
          */
         $videos = get_post_meta($postId, DegreeProgram::VIDEOS, true);
 
@@ -119,7 +119,7 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             videos: ArrayOfStrings::new(
                 ...array_map(
                     'strval',
-                    array_filter((array) $videos)
+                    array_filter(explode(',', $videos))
                 )
             ),
             metaDescription: $this->bilingualPostMeta($post, DegreeProgram::META_DESCRIPTION),
@@ -317,7 +317,7 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             DegreeProgram::FEE_REQUIRED =>
                 $degreeProgramViewRaw->isFeeRequired(),
             DegreeProgram::VIDEOS =>
-                $degreeProgramViewRaw->videos(),
+                implode(',', $degreeProgramViewRaw->videos()->getArrayCopy()),
             DegreeProgram::APPLICATION_DEADLINE_WINTER_SEMESTER =>
                 $degreeProgramViewRaw->applicationDeadlineWinterSemester(),
             DegreeProgram::APPLICATION_DEADLINE_SUMMER_SEMESTER =>

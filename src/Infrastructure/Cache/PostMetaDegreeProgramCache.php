@@ -38,15 +38,18 @@ final class PostMetaDegreeProgramCache implements CacheInterface
         $metaKey = self::postMetaKey($type);
 
         try {
-            // `update_post_meta` returns false if value was not changed.
+            // `update_metadata` returns false if value was not changed.
             // We need to handle this edge case separately.
-            $encodedValue = wp_unslash(json_encode($value, JSON_THROW_ON_ERROR));
+            $encodedValue = json_encode($value, JSON_THROW_ON_ERROR);
             $existedValue = get_post_meta($postId, $metaKey, true);
             if ($encodedValue === $existedValue) {
                 return true;
             }
 
-            return (bool) update_post_meta($postId, $metaKey, $encodedValue);
+            // Add slashes to prevent broken JSON encoded value
+            // because `update_metadata` uses wp_unslash under the hood.
+            // `update_metadata` is used to allow adding post meta to revisions.
+            return (bool) update_metadata('post', $postId, $metaKey, addslashes($encodedValue));
         } catch (JsonException) {
             return false;
         }
