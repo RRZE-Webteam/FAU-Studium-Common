@@ -7,6 +7,13 @@ on:
         description: Target GitHub repository.
         required: true
         type: string
+    secrets:
+      DEPLOYBOT_EMAIL:
+        required: true
+      DEPLOYBOT_USER:
+        required: true
+      DEPLOYBOT_API_TOKEN:
+        required: true
 
 jobs:
   sync-changes:

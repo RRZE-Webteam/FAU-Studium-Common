@@ -1,0 +1,30 @@
+name: Quality assurance PHP
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '**.php'
+      - 'composer.*'
+      - 'phpcs.*'
+      - 'phpunit.*'
+      - 'psalm.*'
+jobs:
+  coding-standards-analysis-php:
+    uses: inpsyde/reusable-workflows/.github/workflows/coding-standards-php.yml@main
+    secrets:
+      COMPOSER_AUTH_JSON: ${{ secrets.PACKAGIST_AUTH_JSON }}
+    with:
+      PHP_VERSION: "8.0"
+  static-code-analysis-php:
+    uses: inpsyde/reusable-workflows/.github/workflows/static-analysis-php.yml@main
+    secrets:
+      COMPOSER_AUTH_JSON: ${{ secrets.PACKAGIST_AUTH_JSON }}
+    with:
+      PHP_VERSION: "8.0"
+  tests-unit-php:
+    needs: [ coding-standards-analysis-php, static-code-analysis-php ]
+    uses: inpsyde/reusable-workflows/.github/workflows/tests-unit-php.yml@main
+    with:
+      PHP_MATRIX: >-
+        ["8.0"]
