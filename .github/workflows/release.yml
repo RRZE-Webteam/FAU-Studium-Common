@@ -11,15 +11,24 @@ on:
 jobs:
   build-release:
     runs-on: ubuntu-latest
+    env:
+      TAG_NAME: ''
+      TAG_BRANCH_NAME: ''
 
     steps:
-      - name: Extract tag name into env
-        run: echo "TAG_NAME=$(echo ${GITHUB_REF#refs/*/})" >> $GITHUB_ENV
-
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          ref: ${{ env.TAG_NAME }}
+          ref: ${{ ((github.ref_type == 'tag') && github.sha) || github.ref }}
+
+      - name: Extract tag name into env
+        run: echo "TAG_NAME=$(echo ${GITHUB_REF#refs/*/})" >> $GITHUB_ENV
+
+      - name: Checkout new branch when running for a tag
+        if: ${{ github.ref_type == 'tag' }}
+        run: |
+          git checkout -b bot/release/${{ github.sha }}
+          echo "TAG_BRANCH_NAME=bot/release/${{ github.sha }}" >> $GITHUB_ENV
 
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v2
@@ -50,3 +59,10 @@ jobs:
           git push origin :refs/tags/${{ env.TAG_NAME }}
           git tag ${{ env.TAG_NAME }}
           git push origin --tags
+
+      - name: Delete tag branch
+        if: ${{ always() && (env.TAG_BRANCH_NAME != '') }}
+        run: |
+          git checkout --detach
+          git branch -d ${{ env.TAG_BRANCH_NAME }}
+          git push origin --delete ${{ env.TAG_BRANCH_NAME }}
