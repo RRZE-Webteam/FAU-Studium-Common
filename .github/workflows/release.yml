@@ -14,11 +14,13 @@ jobs:
     env:
       TAG_NAME: ''
       TAG_BRANCH_NAME: ''
+      NO_CHANGES: ''
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
         with:
+          fetch-depth: 0
           ref: ${{ ((github.ref_type == 'tag') && github.sha) || github.ref }}
 
       - name: Extract tag name into env
@@ -47,13 +49,17 @@ jobs:
           git config --global advice.addIgnoredFile false
           git config --global push.autoSetupRemote true
 
-      - name: Git add, commit, push
+      - name: Git add, commit
         run: |
           git add .
-          git commit -m "[BOT] Build package" --no-verify
-          git push
+          git commit -m "[BOT] Build package" --no-verify || ((echo "NO_CHANGES=yes" >> $GITHUB_ENV) && (echo "No changes to commit"))
+
+      - name: Git push
+        if: ${{ env.NO_CHANGES != 'yes' }}
+        run: git push
 
       - name: Move tag
+        if: ${{ env.TAG_NAME != '' && env.NO_CHANGES != 'yes' }}
         run: |
           git tag -d ${{ env.TAG_NAME }}
           git push origin :refs/tags/${{ env.TAG_NAME }}
@@ -61,7 +67,7 @@ jobs:
           git push origin --tags
 
       - name: Delete tag branch
-        if: ${{ always() && (env.TAG_BRANCH_NAME != '') }}
+        if: ${{ always() && (env.TAG_BRANCH_NAME != '' && env.NO_CHANGES != 'yes') }}
         run: |
           git checkout --detach
           git branch -d ${{ env.TAG_BRANCH_NAME }}
