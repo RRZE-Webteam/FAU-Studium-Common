@@ -51,7 +51,7 @@ jobs:
 
       - name: Git add, commit
         run: |
-          git add .
+          git add -f .
           git commit -m "[BOT] Build package" --no-verify || ((echo "NO_CHANGES=yes" >> $GITHUB_ENV) && (echo "No changes to commit"))
 
       - name: Git push
