@@ -103,11 +103,11 @@ class DegreeProgramTest extends UnitTestCase
         );
         $this->assertSame(
             'Link Faculty Math EN',
-            $result['faculty']->linkText()->inEnglish()
+            $result['faculty']->asArray()[0]['link_text']['en']
         );
         $this->assertSame(
             'Study location',
-            $result['location']->inGerman()
+            $result['location']->asArrayOfStrings('de')[0]
         );
         $this->assertSame(
             'Subject Bio EN',

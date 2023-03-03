@@ -39,8 +39,8 @@ use JsonSerializable;
  *     teaching_language: MultilingualStringType,
  *     attributes: array<MultilingualStringType>,
  *     degree: DegreeType,
- *     faculty: MultilingualLinkType,
- *     location: MultilingualStringType,
+ *     faculty: array<MultilingualLinkType>,
+ *     location: array<MultilingualStringType>,
  *     subject_groups: array<MultilingualStringType>,
  *     videos: array<array-key, string>,
  *     meta_description: MultilingualStringType,
@@ -89,8 +89,8 @@ final class DegreeProgramViewRaw implements JsonSerializable
         private MultilingualString $teachingLanguage,
         private MultilingualList $attributes,
         private Degree $degree,
-        private MultilingualLink $faculty,
-        private MultilingualString $location,
+        private MultilingualLinks $faculty,
+        private MultilingualList $location,
         private MultilingualList $subjectGroups,
         private ArrayOfStrings $videos,
         private MultilingualString $metaDescription,
@@ -196,8 +196,8 @@ final class DegreeProgramViewRaw implements JsonSerializable
             teachingLanguage: MultilingualString::fromArray($data[DegreeProgram::TEACHING_LANGUAGE]),
             attributes: MultilingualList::fromArray($data[DegreeProgram::ATTRIBUTES]),
             degree: Degree::fromArray($data[DegreeProgram::DEGREE]),
-            faculty: MultilingualLink::fromArray($data[DegreeProgram::FACULTY]),
-            location: MultilingualString::fromArray($data[DegreeProgram::LOCATION]),
+            faculty: MultilingualLinks::fromArray($data[DegreeProgram::FACULTY]),
+            location: MultilingualList::fromArray($data[DegreeProgram::LOCATION]),
             subjectGroups: MultilingualList::fromArray($data[DegreeProgram::SUBJECT_GROUPS]),
             videos: ArrayOfStrings::new(...$data[DegreeProgram::VIDEOS]),
             metaDescription: MultilingualString::fromArray($data[DegreeProgram::META_DESCRIPTION]),
@@ -360,12 +360,12 @@ final class DegreeProgramViewRaw implements JsonSerializable
         return $this->degree;
     }
 
-    public function faculty(): MultilingualLink
+    public function faculty(): MultilingualLinks
     {
         return $this->faculty;
     }
 
-    public function location(): MultilingualString
+    public function location(): MultilingualList
     {
         return $this->location;
     }

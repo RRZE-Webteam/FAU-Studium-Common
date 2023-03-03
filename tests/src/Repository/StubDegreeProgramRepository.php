@@ -9,6 +9,7 @@ use Fau\DegreeProgram\Common\Application\DegreeProgramViewRaw;
 use Fau\DegreeProgram\Common\Application\DegreeProgramViewTranslated;
 use Fau\DegreeProgram\Common\Application\DegreeTranslated;
 use Fau\DegreeProgram\Common\Application\Link;
+use Fau\DegreeProgram\Common\Application\Links;
 use Fau\DegreeProgram\Common\Application\RelatedDegreePrograms;
 use Fau\DegreeProgram\Common\Application\Repository\CollectionCriteria;
 use Fau\DegreeProgram\Common\Application\Repository\DegreeProgramViewRepository;
@@ -90,8 +91,8 @@ final class StubDegreeProgramRepository implements DegreeProgramRepository, Degr
             teachingLanguage: $raw->teachingLanguage()->asString($languageCode),
             attributes: $raw->attributes()->asArrayOfStrings($languageCode),
             degree: DegreeTranslated::fromDegree($raw->degree(), $languageCode),
-            faculty: Link::fromMultilingualLink($raw->faculty(), $languageCode),
-            location: $raw->location()->asString($languageCode),
+            faculty: Links::fromMultilingualLinks($raw->faculty(), $languageCode),
+            location: $raw->location()->asArrayOfStrings($languageCode),
             subjectGroups: $raw->subjectGroups()->asArrayOfStrings($languageCode),
             videos: $raw->videos(),
             metaDescription: $raw->metaDescription()->asString($languageCode),

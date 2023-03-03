@@ -113,8 +113,8 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             ),
             attributes: $this->bilingualTermsList($post, AttributeTaxonomy::KEY),
             degree: $this->degree($post),
-            faculty: $this->bilingualLinkFromTerm($this->firstTerm($post, FacultyTaxonomy::KEY)),
-            location: $this->bilingualTermName($this->firstTerm($post, StudyLocationTaxonomy::KEY)),
+            faculty: $this->bilingualTermLinks($post, FacultyTaxonomy::KEY),
+            location: $this->bilingualTermsList($post, StudyLocationTaxonomy::KEY),
             subjectGroups: $this->bilingualTermsList($post, SubjectGroupTaxonomy::KEY),
             videos: ArrayOfStrings::new(
                 ...array_map(

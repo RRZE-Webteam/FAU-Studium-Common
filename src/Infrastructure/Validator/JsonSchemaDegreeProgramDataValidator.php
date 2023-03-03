@@ -209,8 +209,8 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
                     ],
                 ],
             ],
-            DegreeProgram::FACULTY => self::MULTILINGUAL_LINK,
-            DegreeProgram::LOCATION => self::MULTILINGUAL_STRING,
+            DegreeProgram::FACULTY => self::MULTILINGUAL_LINKS,
+            DegreeProgram::LOCATION => self::MULTILINGUAL_LIST,
             DegreeProgram::SUBJECT_GROUPS => self::MULTILINGUAL_LIST,
             DegreeProgram::VIDEOS => [
                 'type' => 'array',

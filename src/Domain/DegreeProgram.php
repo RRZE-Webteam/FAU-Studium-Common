@@ -108,11 +108,11 @@ final class DegreeProgram
         /**
          * Fakultät
          */
-        private MultilingualLink $faculty,
+        private MultilingualLinks $faculty,
         /**
          * Studienort
          */
-        private MultilingualString $location,
+        private MultilingualList $location,
         /**
          * Fächergruppen
          */
@@ -273,8 +273,8 @@ final class DegreeProgram
         $this->teachingLanguage = MultilingualString::fromArray($data[self::TEACHING_LANGUAGE]);
         $this->attributes = MultilingualList::fromArray($data[self::ATTRIBUTES]);
         $this->degree = Degree::fromArray($data[self::DEGREE]);
-        $this->faculty = MultilingualLink::fromArray($data[self::FACULTY]);
-        $this->location = MultilingualString::fromArray($data[self::LOCATION]);
+        $this->faculty = MultilingualLinks::fromArray($data[self::FACULTY]);
+        $this->location = MultilingualList::fromArray($data[self::LOCATION]);
         $this->subjectGroups = MultilingualList::fromArray($data[self::SUBJECT_GROUPS]);
         $this->videos = ArrayOfStrings::new(...$data[self::VIDEOS]);
         $this->metaDescription = MultilingualString::fromArray($data[self::META_DESCRIPTION]);
@@ -335,8 +335,8 @@ final class DegreeProgram
      *     teaching_language: MultilingualString,
      *     attributes: MultilingualList,
      *     degree: Degree,
-     *     faculty: MultilingualLink,
-     *     location: MultilingualString,
+     *     faculty: MultilingualLinks,
+     *     location: MultilingualList,
      *     subject_groups: MultilingualList,
      *     videos: ArrayOfStrings,
      *     meta_description: MultilingualString,
