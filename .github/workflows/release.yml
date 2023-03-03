@@ -2,6 +2,11 @@ name: Release
 
 on:
   workflow_call:
+    secrets:
+      DEPLOYBOT_EMAIL:
+        required: true
+      DEPLOYBOT_USER:
+        required: true
 
 jobs:
   build-release:
