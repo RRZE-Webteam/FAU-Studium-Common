@@ -24,7 +24,6 @@ final class TaxonomiesList extends ArrayObject
             AttributeTaxonomy::class,
             BachelorOrTeachingDegreeAdmissionRequirementTaxonomy::class,
             DegreeTaxonomy::class,
-            ExaminationRegulationsTaxonomy::class,
             ExaminationsOfficeTaxonomy::class,
             FacultyTaxonomy::class,
             GermanLanguageSkillsForInternationalStudentsTaxonomy::class,

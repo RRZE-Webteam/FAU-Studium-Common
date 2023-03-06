@@ -170,7 +170,7 @@ final class DegreeProgram
         /**
          * Studien- und Prüfungsordnung
          */
-        private MultilingualLink $examinationRegulations,
+        private MultilingualString $examinationRegulations,
         /**
          * Modulhandbuch
          */
@@ -294,7 +294,7 @@ final class DegreeProgram
         $this->startOfSemester = MultilingualLink::fromArray($data[self::START_OF_SEMESTER]);
         $this->semesterDates = MultilingualLink::fromArray($data[self::SEMESTER_DATES]);
         $this->examinationsOffice = MultilingualLink::fromArray($data[self::EXAMINATIONS_OFFICE]);
-        $this->examinationRegulations = MultilingualLink::fromArray($data[self::EXAMINATION_REGULATIONS]);
+        $this->examinationRegulations = MultilingualString::fromArray($data[self::EXAMINATION_REGULATIONS]);
         $this->moduleHandbook = $data[self::MODULE_HANDBOOK];
         $this->url = MultilingualString::fromArray($data[self::URL]);
         $this->department = MultilingualLink::fromArray($data[self::DEPARTMENT]);
@@ -352,7 +352,7 @@ final class DegreeProgram
      *     start_of_semester: MultilingualLink,
      *     semester_dates: MultilingualLink,
      *     examinations_office: MultilingualLink,
-     *     examination_regulations: MultilingualLink,
+     *     examination_regulations: MultilingualString,
      *     module_handbook: string,
      *     url: MultilingualString,
      *     department: MultilingualLink,

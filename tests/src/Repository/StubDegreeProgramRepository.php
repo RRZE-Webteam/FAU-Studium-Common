@@ -111,7 +111,7 @@ final class StubDegreeProgramRepository implements DegreeProgramRepository, Degr
             startOfSemester: Link::fromMultilingualLink($raw->startOfSemester(), $languageCode),
             semesterDates: Link::fromMultilingualLink($raw->semesterDates(), $languageCode),
             examinationsOffice: Link::fromMultilingualLink($raw->examinationsOffice(), $languageCode),
-            examinationRegulations: Link::fromMultilingualLink($raw->examinationRegulations(), $languageCode),
+            examinationRegulations: $raw->examinationRegulations()->asString($languageCode),
             moduleHandbook: $raw->moduleHandbook(),
             url: $raw->url()->asString($languageCode),
             department: Link::fromMultilingualLink($raw->department(), $languageCode),

@@ -273,7 +273,7 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
             DegreeProgram::START_OF_SEMESTER => self::MULTILINGUAL_LINK,
             DegreeProgram::SEMESTER_DATES => self::MULTILINGUAL_LINK,
             DegreeProgram::EXAMINATIONS_OFFICE => self::MULTILINGUAL_LINK,
-            DegreeProgram::EXAMINATION_REGULATIONS => self::MULTILINGUAL_LINK,
+            DegreeProgram::EXAMINATION_REGULATIONS => self::MULTILINGUAL_STRING,
             DegreeProgram::MODULE_HANDBOOK => [
                 'type' => 'string',
             ],

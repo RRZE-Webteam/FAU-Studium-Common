@@ -21,7 +21,6 @@ use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\AreaOfStudyTaxonomy
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\AttributeTaxonomy;
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\BachelorOrTeachingDegreeAdmissionRequirementTaxonomy;
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\DegreeTaxonomy;
-use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\ExaminationRegulationsTaxonomy;
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\ExaminationsOfficeTaxonomy;
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\FacultyTaxonomy;
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\GermanLanguageSkillsForInternationalStudentsTaxonomy;
@@ -177,9 +176,7 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             examinationsOffice: $this->bilingualLinkFromTerm(
                 $this->firstTerm($post, ExaminationsOfficeTaxonomy::KEY)
             ),
-            examinationRegulations: $this->bilingualLinkFromTerm(
-                $this->firstTerm($post, ExaminationRegulationsTaxonomy::KEY)
-            ),
+            examinationRegulations: $this->bilingualPostMeta($post, DegreeProgram::EXAMINATION_REGULATIONS),
             moduleHandbook: (string)get_post_meta($postId, DegreeProgram::MODULE_HANDBOOK, true),
             url: $this->bilingualPostMeta($post, DegreeProgram::URL),
             department: $this->bilingualLinkFromOption(DegreeProgram::DEPARTMENT),
@@ -338,6 +335,7 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
         $bilingualMetas = [
             $degreeProgramViewRaw->subtitle(),
             $degreeProgramViewRaw->metaDescription(),
+            $degreeProgramViewRaw->examinationRegulations(),
             $content->about()->description(),
             $content->structure()->description(),
             $content->specializations()->description(),
@@ -385,8 +383,6 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
                 $degreeProgramViewRaw->germanLanguageSkillsForInternationalStudents(),
             ExaminationsOfficeTaxonomy::KEY =>
                 $degreeProgramViewRaw->examinationsOffice(),
-            ExaminationRegulationsTaxonomy::KEY =>
-                $degreeProgramViewRaw->examinationRegulations(),
             SubjectSpecificAdviceTaxonomy::KEY =>
                 $degreeProgramViewRaw->subjectSpecificAdvice(),
             KeywordTaxonomy::KEY =>

@@ -126,7 +126,9 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
             startOfSemester: Link::fromMultilingualLink($raw->startOfSemester(), $languageCode),
             semesterDates: Link::fromMultilingualLink($raw->semesterDates(), $languageCode),
             examinationsOffice: Link::fromMultilingualLink($raw->examinationsOffice(), $languageCode),
-            examinationRegulations: Link::fromMultilingualLink($raw->examinationRegulations(), $languageCode),
+            examinationRegulations: $this->formattedExaminationRegulations(
+                $raw->examinationRegulations()->asString($languageCode)
+            ),
             moduleHandbook: $raw->moduleHandbook(),
             url: $raw->url()->asString($languageCode),
             department: Link::fromMultilingualLink($raw->department(), $languageCode),
@@ -153,6 +155,12 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
         }
 
         return ArrayOfStrings::new(...$result);
+    }
+
+    private function formattedExaminationRegulations(string $examinationRegulations): string
+    {
+        $htmlsStripped = wp_strip_all_tags($examinationRegulations);
+        return apply_shortcodes($htmlsStripped);
     }
 
     public function formatContentField(string $content): string

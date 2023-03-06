@@ -90,7 +90,7 @@ trait FixtureDegreeProgramDataProviderTrait
             startOfSemester: MultilingualLink::empty(),
             semesterDates: MultilingualLink::empty(),
             examinationsOffice: MultilingualLink::empty(),
-            examinationRegulations: MultilingualLink::empty(),
+            examinationRegulations: MultilingualString::empty(),
             moduleHandbook: '',
             url: MultilingualString::empty(),
             department: MultilingualLink::empty(),

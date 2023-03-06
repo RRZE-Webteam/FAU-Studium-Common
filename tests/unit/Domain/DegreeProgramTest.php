@@ -178,8 +178,8 @@ class DegreeProgramTest extends UnitTestCase
             $result['examinations_office']->linkText()->inEnglish()
         );
         $this->assertSame(
-            'Link regulations EN',
-            $result['examination_regulations']->linkText()->inEnglish()
+            'https://fau.localhost/examinations-regulations-en',
+            $result['examination_regulations']->inEnglish()
         );
         $this->assertSame(
             'Module handbook value',

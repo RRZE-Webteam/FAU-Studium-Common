@@ -373,22 +373,9 @@
     }
   },
   "examination_regulations": {
-    "id": "term:14",
-    "name": {
-      "id": "term:14:name",
-      "de": "Regulations",
-      "en": "Regulations EN"
-    },
-    "link_text": {
-      "id": "term_meta:14:link_text",
-      "de": "Link regulations",
-      "en": "Link regulations EN"
-    },
-    "link_url": {
-      "id": "term_meta:14:link_url",
-      "de": "https:\/\/fau.localhost\/examination-regulations",
-      "en": "https:\/\/fau.localhost\/examination-regulations-en"
-    }
+    "id": "post_meta:25:examination_regulations",
+    "de": "https:\/\/fau.localhost\/examinations-regulations",
+    "en": "https:\/\/fau.localhost\/examinations-regulations-en"
   },
   "module_handbook": "Module handbook value",
   "url": {

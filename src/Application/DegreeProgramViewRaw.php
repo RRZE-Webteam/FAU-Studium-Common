@@ -56,7 +56,7 @@ use JsonSerializable;
  *     start_of_semester: MultilingualLinkType,
  *     semester_dates: MultilingualLinkType,
  *     examinations_office: MultilingualLinkType,
- *     examination_regulations: MultilingualLinkType,
+ *     examination_regulations: MultilingualStringType,
  *     module_handbook: string,
  *     url: MultilingualStringType,
  *     department: MultilingualLinkType,
@@ -106,7 +106,7 @@ final class DegreeProgramViewRaw implements JsonSerializable
         private MultilingualLink $startOfSemester,
         private MultilingualLink $semesterDates,
         private MultilingualLink $examinationsOffice,
-        private MultilingualLink $examinationRegulations,
+        private MultilingualString $examinationRegulations,
         private string $moduleHandbook,
         private MultilingualString $url,
         private MultilingualLink $department,
@@ -213,7 +213,7 @@ final class DegreeProgramViewRaw implements JsonSerializable
             startOfSemester: MultilingualLink::fromArray($data[DegreeProgram::START_OF_SEMESTER]),
             semesterDates: MultilingualLink::fromArray($data[DegreeProgram::SEMESTER_DATES]),
             examinationsOffice: MultilingualLink::fromArray($data[DegreeProgram::EXAMINATIONS_OFFICE]),
-            examinationRegulations: MultilingualLink::fromArray($data[DegreeProgram::EXAMINATION_REGULATIONS]),
+            examinationRegulations: MultilingualString::fromArray($data[DegreeProgram::EXAMINATION_REGULATIONS]),
             moduleHandbook: $data[DegreeProgram::MODULE_HANDBOOK],
             url: MultilingualString::fromArray($data[DegreeProgram::URL]),
             department: MultilingualLink::fromArray($data[DegreeProgram::DEPARTMENT]),
@@ -445,7 +445,7 @@ final class DegreeProgramViewRaw implements JsonSerializable
         return $this->examinationsOffice;
     }
 
-    public function examinationRegulations(): MultilingualLink
+    public function examinationRegulations(): MultilingualString
     {
         return $this->examinationRegulations;
     }
