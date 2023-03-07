@@ -38,15 +38,17 @@ jobs:
           git config --global advice.addIgnoredFile false
           git config --global push.autoSetupRemote true
 
-      - name: Switch to "dev" branch if not on a tag
-        if: ${{ github.ref_type != 'tag' }}
-        run: |
-          git checkout dev
-
       - name: Git add, commit
         run: |
           git add -f assets/ vendor/
           git commit -m "[BOT] Build package" --no-verify || ((echo "NO_CHANGES=yes" >> $GITHUB_ENV) && (echo "No changes to commit"))
+
+      - name: Switch to "dev" branch if not on a tag
+        if: ${{ github.ref_type != 'tag' }}
+        run: |
+          git checkout dev
+          git pull
+          git rebase main
 
       - name: Git push
         if: ${{ env.NO_CHANGES != 'yes' }}
