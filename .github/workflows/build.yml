@@ -48,7 +48,7 @@ jobs:
         run: |
           git checkout dev
           git pull
-          git rebase main
+          git merge main
 
       - name: Git push
         if: ${{ env.NO_CHANGES != 'yes' }}
