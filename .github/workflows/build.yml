@@ -21,11 +21,6 @@ jobs:
           fetch-depth: 0
           ref: main
 
-      - name: Switch to "dev" branch if not on a tag
-        if: ${{ github.ref_type != 'tag' }}
-        run: |
-          git checkout dev
-
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v2
         with:
@@ -42,6 +37,11 @@ jobs:
           git config --global user.name "${{ secrets.DEPLOYBOT_USER }}"
           git config --global advice.addIgnoredFile false
           git config --global push.autoSetupRemote true
+
+      - name: Switch to "dev" branch if not on a tag
+        if: ${{ github.ref_type != 'tag' }}
+        run: |
+          git checkout dev
 
       - name: Git add, commit
         run: |
