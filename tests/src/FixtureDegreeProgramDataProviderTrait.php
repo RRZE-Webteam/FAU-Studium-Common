@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Tests;
 
+use Fau\DegreeProgram\Common\Domain\AdmissionRequirement;
 use Fau\DegreeProgram\Common\Domain\AdmissionRequirements;
 use Fau\DegreeProgram\Common\Domain\Content;
 use Fau\DegreeProgram\Common\Domain\ContentItem;
@@ -76,9 +77,9 @@ trait FixtureDegreeProgramDataProviderTrait
                 testimonials: ContentItem::new(MultilingualString::empty(), MultilingualString::empty()),
             ),
             admissionRequirements: AdmissionRequirements::new(
-                bachelorOrTeachingDegree: MultilingualLink::empty(),
-                teachingDegreeHigherSemester: MultilingualLink::empty(),
-                master: MultilingualLink::empty(),
+                bachelorOrTeachingDegree: AdmissionRequirement::empty(),
+                teachingDegreeHigherSemester: AdmissionRequirement::empty(),
+                master: AdmissionRequirement::empty(),
             ),
             contentRelatedMasterRequirements: MultilingualString::empty(),
             applicationDeadlineWinterSemester: '',

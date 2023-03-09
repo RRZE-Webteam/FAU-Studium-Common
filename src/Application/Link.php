@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Application;
 
+use Fau\DegreeProgram\Common\Domain\AdmissionRequirement;
 use Fau\DegreeProgram\Common\Domain\MultilingualLink;
 
 /**
@@ -31,8 +32,11 @@ final class Link
         return new self($name, $linkText, $linkUrl);
     }
 
-    public static function fromMultilingualLink(MultilingualLink $multilingualLink, string $languageCode): self
-    {
+    public static function fromMultilingualLink(
+        MultilingualLink|AdmissionRequirement $multilingualLink,
+        string $languageCode
+    ): self {
+
         return new self(
             $multilingualLink->name()->asString($languageCode),
             $multilingualLink->linkText()->asString($languageCode),

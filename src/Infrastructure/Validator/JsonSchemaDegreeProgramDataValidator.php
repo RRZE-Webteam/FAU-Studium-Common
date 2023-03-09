@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Infrastructure\Validator;
 
+use Fau\DegreeProgram\Common\Domain\AdmissionRequirement;
 use Fau\DegreeProgram\Common\Domain\AdmissionRequirements;
 use Fau\DegreeProgram\Common\Domain\Content;
 use Fau\DegreeProgram\Common\Domain\ContentItem;
@@ -71,6 +72,46 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
             MultilingualLink::NAME => self::MULTILINGUAL_STRING,
             MultilingualLink::LINK_TEXT => self::MULTILINGUAL_STRING,
             MultilingualLink::LINK_URL => self::MULTILINGUAL_STRING,
+        ],
+    ];
+
+    private const ADMISSION_REQUIREMENT = [
+        'type' => 'object',
+        'additionalProperties' => false,
+        'required' => [
+            AdmissionRequirement::ID,
+            AdmissionRequirement::NAME,
+            AdmissionRequirement::LINK_TEXT,
+            AdmissionRequirement::LINK_URL,
+        ],
+        'properties' => [
+            AdmissionRequirement::ID => [
+                'type' => 'string',
+            ],
+            AdmissionRequirement::NAME => self::MULTILINGUAL_STRING,
+            AdmissionRequirement::LINK_TEXT => self::MULTILINGUAL_STRING,
+            AdmissionRequirement::LINK_URL => self::MULTILINGUAL_STRING,
+            AdmissionRequirement::PARENT => [
+                'oneOf' => [
+                    [
+                        'type' => 'object',
+                        'additionalProperties' => true,
+                        'required' => [
+                            AdmissionRequirement::ID,
+                            AdmissionRequirement::NAME,
+                        ],
+                        'properties' => [
+                            AdmissionRequirement::ID => [
+                                'type' => 'string',
+                            ],
+                            AdmissionRequirement::NAME => self::MULTILINGUAL_STRING,
+                        ],
+                    ],
+                    [
+                        'type' => 'null',
+                    ],
+                ],
+            ],
         ],
     ];
 
@@ -252,9 +293,9 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
                     AdmissionRequirements::MASTER,
                 ],
                 'properties' => [
-                    AdmissionRequirements::BACHELOR_OR_TEACHING_DEGREE => self::MULTILINGUAL_LINK,
-                    AdmissionRequirements::TEACHING_DEGREE_HIGHER_SEMESTER => self::MULTILINGUAL_LINK,
-                    AdmissionRequirements::MASTER => self::MULTILINGUAL_LINK,
+                    AdmissionRequirements::BACHELOR_OR_TEACHING_DEGREE => self::ADMISSION_REQUIREMENT,
+                    AdmissionRequirements::TEACHING_DEGREE_HIGHER_SEMESTER => self::ADMISSION_REQUIREMENT,
+                    AdmissionRequirements::MASTER => self::ADMISSION_REQUIREMENT,
                 ],
             ],
             DegreeProgram::CONTENT_RELATED_MASTER_REQUIREMENTS => self::MULTILINGUAL_STRING,

@@ -243,6 +243,25 @@
         "id": "term_meta:13:link_url",
         "de": "https:\/\/fau.localhost\/admission-bachelor",
         "en": "https:\/\/fau.localhost\/admission-bachelor-en"
+      },
+      "parent": {
+        "id": "term:123",
+        "name": {
+          "id": "term:123:name",
+          "de": "Frei",
+          "en": "Free"
+        },
+        "link_text": {
+          "id": "term_meta:123:link_text",
+          "de": "",
+          "en": ""
+        },
+        "link_url": {
+          "id": "term_meta:123:link_url",
+          "de": "",
+          "en": ""
+        },
+        "parent": null
       }
     },
     "teaching_degree_higher_semester": {
@@ -261,6 +280,25 @@
         "id": "term_meta:24:link_url",
         "de": "https:\/\/fau.localhost\/higher-semester",
         "en": "https:\/\/fau.localhost\/higher-semester-en"
+      },
+      "parent": {
+        "id": "term:124",
+        "name": {
+          "id": "term:124:name",
+          "de": "Frei",
+          "en": "Free"
+        },
+        "link_text": {
+          "id": "term_meta:124:link_text",
+          "de": "",
+          "en": ""
+        },
+        "link_url": {
+          "id": "term_meta:124:link_url",
+          "de": "",
+          "en": ""
+        },
+        "parent": null
       }
     },
     "master": {
@@ -279,6 +317,25 @@
         "id": "term_meta:19:link_url",
         "de": "https:\/\/fau.localhost\/admission-master",
         "en": "https:\/\/fau.localhost\/admission-master-en"
+      },
+      "parent": {
+        "id": "term:125",
+        "name": {
+          "id": "term:125:name",
+          "de": "Nich Frei",
+          "en": "Not Free"
+        },
+        "link_text": {
+          "id": "term_meta:125:link_text",
+          "de": "",
+          "en": ""
+        },
+        "link_url": {
+          "id": "term_meta:125:link_url",
+          "de": "",
+          "en": ""
+        },
+        "parent": null
       }
     }
   },

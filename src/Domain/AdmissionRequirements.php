@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Fau\DegreeProgram\Common\Domain;
 
 /**
- * @psalm-import-type MultilingualLinkType from MultilingualLink
+ * @psalm-import-type AdmissionRequirementType from AdmissionRequirement
  * @psalm-type AdmissionRequirementsType = array{
- *     bachelor_or_teaching_degree: MultilingualLinkType,
- *     teaching_degree_higher_semester: MultilingualLinkType,
- *     master: MultilingualLinkType,
+ *     bachelor_or_teaching_degree: AdmissionRequirementType,
+ *     teaching_degree_higher_semester: AdmissionRequirementType,
+ *     master: AdmissionRequirementType,
  * }
  */
 final class AdmissionRequirements
@@ -22,22 +22,22 @@ final class AdmissionRequirements
         /** Admission requirements for Bachelor’s/teaching degrees
          * (“Zugangsvoraussetzungen Bachelor/Lehramt”)
          */
-        private MultilingualLink $bachelorOrTeachingDegree,
+        private AdmissionRequirement $bachelorOrTeachingDegree,
         /** Admission requirements for entering a teaching degree at a higher semester
          * (“Zugangsvoraussetzungen Lehramt höheres Semester”)
          */
-        private MultilingualLink $teachingDegreeHigherSemester,
+        private AdmissionRequirement $teachingDegreeHigherSemester,
         /** Admission requirements for Master’s degree
          * (“Zugangsvoraussetzungen Master”)
          */
-        private MultilingualLink $master,
+        private AdmissionRequirement $master,
     ) {
     }
 
     public static function new(
-        MultilingualLink $bachelorOrTeachingDegree,
-        MultilingualLink $teachingDegreeHigherSemester,
-        MultilingualLink $master,
+        AdmissionRequirement $bachelorOrTeachingDegree,
+        AdmissionRequirement $teachingDegreeHigherSemester,
+        AdmissionRequirement $master,
     ): self {
 
         return new self(
@@ -53,9 +53,9 @@ final class AdmissionRequirements
     public static function fromArray(array $data): self
     {
         return new self(
-            MultilingualLink::fromArray($data[self::BACHELOR_OR_TEACHING_DEGREE]),
-            MultilingualLink::fromArray($data[self::TEACHING_DEGREE_HIGHER_SEMESTER]),
-            MultilingualLink::fromArray($data[self::MASTER]),
+            AdmissionRequirement::fromArray($data[self::BACHELOR_OR_TEACHING_DEGREE]),
+            AdmissionRequirement::fromArray($data[self::TEACHING_DEGREE_HIGHER_SEMESTER]),
+            AdmissionRequirement::fromArray($data[self::MASTER]),
         );
     }
 
@@ -71,7 +71,7 @@ final class AdmissionRequirements
         ];
     }
 
-    public function requirementsForDegree(Degree $degree): MultilingualLink
+    public function requirementsForDegree(Degree $degree): AdmissionRequirement
     {
         $degreeName = $degree->name()->inEnglish(); //@TODO: maybe safer to use slugs here...
         if ($degreeName === 'Bachelor' || $degreeName === 'Teaching degree') {
@@ -86,20 +86,20 @@ final class AdmissionRequirements
             return $this->teachingDegreeHigherSemester;
         }
 
-        return MultilingualLink::empty();
+        return AdmissionRequirement::empty();
     }
 
-    public function bachelorOrTeachingDegree(): MultilingualLink
+    public function bachelorOrTeachingDegree(): AdmissionRequirement
     {
         return $this->bachelorOrTeachingDegree;
     }
 
-    public function teachingDegreeHigherSemester(): MultilingualLink
+    public function teachingDegreeHigherSemester(): AdmissionRequirement
     {
         return $this->teachingDegreeHigherSemester;
     }
 
-    public function master(): MultilingualLink
+    public function master(): AdmissionRequirement
     {
         return $this->master;
     }

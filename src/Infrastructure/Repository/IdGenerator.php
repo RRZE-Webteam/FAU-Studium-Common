@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Infrastructure\Repository;
 
+use Fau\DegreeProgram\Common\Domain\AdmissionRequirement;
 use Fau\DegreeProgram\Common\Domain\Degree;
 use Fau\DegreeProgram\Common\Domain\MultilingualLink;
 use Fau\DegreeProgram\Common\Domain\MultilingualLinks;
@@ -92,7 +93,7 @@ final class IdGenerator
      * @return list<int>
      */
     public function termIdsList(
-        MultilingualString|MultilingualList|MultilingualLink|MultilingualLinks|NumberOfStudents|Degree $structure
+        MultilingualString|MultilingualList|MultilingualLink|MultilingualLinks|NumberOfStudents|Degree|AdmissionRequirement $structure
     ): array {
 
         $ids = $this->retrieveIds($structure);
@@ -121,7 +122,7 @@ final class IdGenerator
     }
 
     private function retrieveIds(
-        MultilingualString|MultilingualList|MultilingualLink|MultilingualLinks|NumberOfStudents|Degree $structure
+        MultilingualString|MultilingualList|MultilingualLink|MultilingualLinks|NumberOfStudents|Degree|AdmissionRequirement $structure
     ): ArrayOfStrings {
 
         if ($structure instanceof MultilingualList || $structure instanceof MultilingualLinks) {

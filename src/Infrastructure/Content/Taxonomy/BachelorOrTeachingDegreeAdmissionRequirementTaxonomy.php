@@ -42,6 +42,6 @@ final class BachelorOrTeachingDegreeAdmissionRequirementTaxonomy extends Taxonom
 
     protected function isHierarchical(): bool
     {
-        return false;
+        return true;
     }
 }

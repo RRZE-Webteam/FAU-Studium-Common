@@ -42,6 +42,6 @@ final class TeachingDegreeHigherSemesterAdmissionRequirementTaxonomy extends Tax
 
     protected function isHierarchical(): bool
     {
-        return false;
+        return true;
     }
 }

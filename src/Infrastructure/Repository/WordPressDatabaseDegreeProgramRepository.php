@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fau\DegreeProgram\Common\Infrastructure\Repository;
 
 use Fau\DegreeProgram\Common\Application\DegreeProgramViewRaw;
+use Fau\DegreeProgram\Common\Domain\AdmissionRequirement;
 use Fau\DegreeProgram\Common\Domain\AdmissionRequirements;
 use Fau\DegreeProgram\Common\Domain\Content;
 use Fau\DegreeProgram\Common\Domain\ContentItem;
@@ -96,15 +97,16 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             title: MultilingualString::fromTranslations(
                 $this->idGenerator->generatePostId($post, 'title'),
                 $post->post_status !== 'auto-draft' ? $post->post_title : '',
-                (string)get_post_meta(
+                (string) get_post_meta(
                     $postId,
                     BilingualRepository::addEnglishSuffix('title'),
                     true,
                 ),
             ),
             subtitle: $this->bilingualPostMeta($post, DegreeProgram::SUBTITLE),
-            standardDuration: (int)get_post_meta($postId, DegreeProgram::STANDARD_DURATION, true),
-            feeRequired: (bool)get_post_meta($postId, DegreeProgram::FEE_REQUIRED, true),
+            standardDuration:
+                (int) get_post_meta($postId, DegreeProgram::STANDARD_DURATION, true),
+            feeRequired: (bool) get_post_meta($postId, DegreeProgram::FEE_REQUIRED, true),
             start: $this->bilingualTermsList($post, SemesterTaxonomy::KEY),
             numberOfStudents: $this->numberOfStudents($post),
             teachingLanguage: $this->bilingualTermName(
@@ -133,19 +135,19 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
                 testimonials: $this->contentItem($post, Content::TESTIMONIALS),
             ),
             admissionRequirements: AdmissionRequirements::new(
-                bachelorOrTeachingDegree: $this->bilingualLinkFromTerm(
+                bachelorOrTeachingDegree: $this->admissionRequirement(
                     $this->firstTerm(
                         $post,
                         BachelorOrTeachingDegreeAdmissionRequirementTaxonomy::KEY
                     )
                 ),
-                teachingDegreeHigherSemester: $this->bilingualLinkFromTerm(
+                teachingDegreeHigherSemester: $this->admissionRequirement(
                     $this->firstTerm(
                         $post,
                         TeachingDegreeHigherSemesterAdmissionRequirementTaxonomy::KEY
                     )
                 ),
-                master: $this->bilingualLinkFromTerm(
+                master: $this->admissionRequirement(
                     $this->firstTerm(
                         $post,
                         MasterDegreeAdmissionRequirementTaxonomy::KEY,
@@ -157,27 +159,26 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
                 DegreeProgram::CONTENT_RELATED_MASTER_REQUIREMENTS
             ),
             applicationDeadlineWinterSemester:
-                (string)get_post_meta($postId, DegreeProgram::APPLICATION_DEADLINE_WINTER_SEMESTER, true),
+                (string) get_post_meta($postId, DegreeProgram::APPLICATION_DEADLINE_WINTER_SEMESTER, true),
             applicationDeadlineSummerSemester:
-                (string)get_post_meta($postId, DegreeProgram::APPLICATION_DEADLINE_SUMMER_SEMESTER, true),
+                (string) get_post_meta($postId, DegreeProgram::APPLICATION_DEADLINE_SUMMER_SEMESTER, true),
             detailsAndNotes: $this->bilingualPostMeta($post, DegreeProgram::DETAILS_AND_NOTES),
             languageSkills: $this->bilingualPostMeta($post, DegreeProgram::LANGUAGE_SKILLS),
             languageSkillsHumanitiesFaculty:
-                (string)get_post_meta($postId, DegreeProgram::LANGUAGE_SKILLS_HUMANITIES_FACULTY, true),
-            germanLanguageSkillsForInternationalStudents:
-                $this->bilingualLinkFromTerm(
-                    $this->firstTerm(
-                        $post,
-                        GermanLanguageSkillsForInternationalStudentsTaxonomy::KEY,
-                    )
-                ),
+                (string) get_post_meta($postId, DegreeProgram::LANGUAGE_SKILLS_HUMANITIES_FACULTY, true),
+            germanLanguageSkillsForInternationalStudents: $this->bilingualLinkFromTerm(
+                $this->firstTerm(
+                    $post,
+                    GermanLanguageSkillsForInternationalStudentsTaxonomy::KEY,
+                )
+            ),
             startOfSemester: $this->bilingualLinkFromOption(DegreeProgram::START_OF_SEMESTER),
             semesterDates: $this->bilingualLinkFromOption(DegreeProgram::SEMESTER_DATES),
             examinationsOffice: $this->bilingualLinkFromTerm(
                 $this->firstTerm($post, ExaminationsOfficeTaxonomy::KEY)
             ),
             examinationRegulations: $this->bilingualPostMeta($post, DegreeProgram::EXAMINATION_REGULATIONS),
-            moduleHandbook: (string)get_post_meta($postId, DegreeProgram::MODULE_HANDBOOK, true),
+            moduleHandbook: (string) get_post_meta($postId, DegreeProgram::MODULE_HANDBOOK, true),
             url: $this->bilingualPostMeta($post, DegreeProgram::URL),
             department: $this->bilingualLinkFromOption(DegreeProgram::DEPARTMENT),
             studentAdvice: $this->bilingualLinkFromOption(DegreeProgram::STUDENT_ADVICE),
@@ -185,7 +186,8 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
                 $this->firstTerm($post, SubjectSpecificAdviceTaxonomy::KEY)
             ),
             serviceCenters: $this->bilingualLinkFromOption(DegreeProgram::SERVICE_CENTERS),
-            studentRepresentatives: (string)get_post_meta($postId, DegreeProgram::STUDENT_REPRESENTATIVES, true),
+            studentRepresentatives:
+                (string) get_post_meta($postId, DegreeProgram::STUDENT_REPRESENTATIVES, true),
             semesterFee: $this->bilingualLinkFromOption(DegreeProgram::SEMESTER_FEE),
             degreeProgramFees: $this->bilingualPostMeta($post, DegreeProgram::DEGREE_PROGRAM_FEES),
             abroadOpportunities: $this->bilingualLinkFromOption(DegreeProgram::ABROAD_OPPORTUNITIES),
@@ -244,6 +246,20 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             $this->bilingualTermName($term),
             $this->bilingualTermMeta($term, Degree::ABBREVIATION),
             $parent instanceof WP_Term ? $this->degreeFromTerm($parent) : null,
+        );
+    }
+
+    private function admissionRequirement(?WP_Term $term): AdmissionRequirement
+    {
+        if (!$term instanceof WP_Term) {
+            return AdmissionRequirement::empty();
+        }
+
+        $parent = $term->parent ? get_term($term->parent) : null;
+
+        return AdmissionRequirement::new(
+            $this->bilingualLinkFromTerm($term),
+            $parent instanceof WP_Term ? $this->admissionRequirement($parent) : null,
         );
     }
 

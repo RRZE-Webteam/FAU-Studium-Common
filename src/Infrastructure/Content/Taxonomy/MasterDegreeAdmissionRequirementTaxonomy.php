@@ -42,6 +42,6 @@ final class MasterDegreeAdmissionRequirementTaxonomy extends Taxonomy
 
     protected function isHierarchical(): bool
     {
-        return false;
+        return true;
     }
 }
