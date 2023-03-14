@@ -186,8 +186,8 @@ class DegreeProgramTest extends UnitTestCase
             $result['module_handbook']
         );
         $this->assertSame(
-            'Link Department EN',
-            $result['department']->linkText()->inEnglish()
+            'https://fau.localhost/science-en',
+            $result['department']->inEnglish(),
         );
         $this->assertSame(
             'Link Student Advice and Career Service EN',
@@ -245,6 +245,10 @@ class DegreeProgramTest extends UnitTestCase
         $this->assertSame(
             [],
             $result['limited_combinations_changeset']->removed()
+        );
+        $this->assertSame(
+            'Notes for International Applicants',
+            $result['notes_for_international_applicants']->name()->inGerman()
         );
     }
 }

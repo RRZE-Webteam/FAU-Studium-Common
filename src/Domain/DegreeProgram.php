@@ -59,6 +59,7 @@ final class DegreeProgram
     public const LIMITED_COMBINATIONS = 'limited_combinations';
     public const COMBINATIONS_CHANGESET = 'combinations_changeset';
     public const LIMITED_COMBINATIONS_CHANGESET = 'limited_combinations_changeset';
+    public const NOTES_FOR_INTERNATIONAL_APPLICANTS = 'notes_for_international_applicants';
 
     private IntegersListChangeset $combinationsChangeset;
     private IntegersListChangeset $limitedCombinationsChangeset;
@@ -179,7 +180,7 @@ final class DegreeProgram
          * Studiengang-URL
          */
         private MultilingualString $url,
-        private MultilingualLink $department,
+        private MultilingualString $department,
         /**
          * Allgemeine Studienberatung
          */
@@ -226,6 +227,10 @@ final class DegreeProgram
          * Eingeschränkt Kombinationsmöglichkeiten
          */
         private DegreeProgramIds $limitedCombinations,
+        /**
+         * Hinweise für internationale Bewerber
+         */
+        private MultilingualLink $notesForInternationalApplicants,
     ) {
 
         $this->combinationsChangeset = IntegersListChangeset::new(
@@ -297,7 +302,7 @@ final class DegreeProgram
         $this->examinationRegulations = MultilingualString::fromArray($data[self::EXAMINATION_REGULATIONS]);
         $this->moduleHandbook = $data[self::MODULE_HANDBOOK];
         $this->url = MultilingualString::fromArray($data[self::URL]);
-        $this->department = MultilingualLink::fromArray($data[self::DEPARTMENT]);
+        $this->department = MultilingualString::fromArray($data[self::DEPARTMENT]);
         $this->studentAdvice = MultilingualLink::fromArray($data[self::STUDENT_ADVICE]);
         $this->subjectSpecificAdvice = MultilingualLink::fromArray($data[self::SUBJECT_SPECIFIC_ADVICE]);
         $this->serviceCenters = MultilingualLink::fromArray($data[self::SERVICE_CENTERS]);
@@ -309,6 +314,7 @@ final class DegreeProgram
         $this->areaOfStudy = MultilingualLinks::fromArray($data[self::AREA_OF_STUDY]);
         $this->combinations = DegreeProgramIds::fromArray($data[self::COMBINATIONS]);
         $this->limitedCombinations = DegreeProgramIds::fromArray($data[self::LIMITED_COMBINATIONS]);
+        $this->notesForInternationalApplicants = MultilingualLink::fromArray($data[self::NOTES_FOR_INTERNATIONAL_APPLICANTS]);
 
         $this->combinationsChangeset = $this
             ->combinationsChangeset
@@ -355,7 +361,7 @@ final class DegreeProgram
      *     examination_regulations: MultilingualString,
      *     module_handbook: string,
      *     url: MultilingualString,
-     *     department: MultilingualLink,
+     *     department: MultilingualString,
      *     student_advice: MultilingualLink,
      *     subject_specific_advice: MultilingualLink,
      *     service_centers: MultilingualLink,
@@ -369,6 +375,7 @@ final class DegreeProgram
      *     limited_combinations: DegreeProgramIds,
      *     combinations_changeset: IntegersListChangeset,
      *     limited_combinations_changeset: IntegersListChangeset,
+     *     notes_for_international_applicants: MultilingualLink,
      * }
      * @internal Only for repositories usage
      */
@@ -423,6 +430,7 @@ final class DegreeProgram
             self::LIMITED_COMBINATIONS => $this->limitedCombinations,
             self::COMBINATIONS_CHANGESET => $this->combinationsChangeset,
             self::LIMITED_COMBINATIONS_CHANGESET => $this->limitedCombinationsChangeset,
+            self::NOTES_FOR_INTERNATIONAL_APPLICANTS => $this->notesForInternationalApplicants,
         ];
     }
 

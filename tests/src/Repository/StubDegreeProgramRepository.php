@@ -114,7 +114,7 @@ final class StubDegreeProgramRepository implements DegreeProgramRepository, Degr
             examinationRegulations: $raw->examinationRegulations()->asString($languageCode),
             moduleHandbook: $raw->moduleHandbook(),
             url: $raw->url()->asString($languageCode),
-            department: Link::fromMultilingualLink($raw->department(), $languageCode),
+            department: $raw->department()->asString($languageCode),
             studentAdvice: Link::fromMultilingualLink($raw->studentAdvice(), $languageCode),
             subjectSpecificAdvice: Link::fromMultilingualLink($raw->subjectSpecificAdvice(), $languageCode),
             serviceCenters: Link::fromMultilingualLink($raw->serviceCenters(), $languageCode),
@@ -124,6 +124,7 @@ final class StubDegreeProgramRepository implements DegreeProgramRepository, Degr
             abroadOpportunities: Link::fromMultilingualLink($raw->abroadOpportunities(), $languageCode),
             combinations: RelatedDegreePrograms::new(),
             limitedCombinations: RelatedDegreePrograms::new(),
+            notesForInternationalApplicants: Link::fromMultilingualLink($raw->notesForInternationalApplicants(), $languageCode),
         );
     }
 

@@ -94,7 +94,7 @@ trait FixtureDegreeProgramDataProviderTrait
             examinationRegulations: MultilingualString::empty(),
             moduleHandbook: '',
             url: MultilingualString::empty(),
-            department: MultilingualLink::empty(),
+            department: MultilingualString::empty(),
             studentAdvice: MultilingualLink::empty(),
             subjectSpecificAdvice: MultilingualLink::empty(),
             serviceCenters: MultilingualLink::empty(),
@@ -106,6 +106,7 @@ trait FixtureDegreeProgramDataProviderTrait
             areaOfStudy: MultilingualLinks::new(),
             combinations: DegreeProgramIds::new(),
             limitedCombinations: DegreeProgramIds::new(),
+            notesForInternationalApplicants: MultilingualLink::empty(),
         );
     }
 }

@@ -187,6 +187,7 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
             DegreeProgram::AREA_OF_STUDY,
             DegreeProgram::COMBINATIONS,
             DegreeProgram::LIMITED_COMBINATIONS,
+            DegreeProgram::NOTES_FOR_INTERNATIONAL_APPLICANTS,
         ],
         'properties' => [
             DegreeProgram::ID => [
@@ -319,7 +320,7 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
                 'type' => 'string',
             ],
             DegreeProgram::URL => self::MULTILINGUAL_STRING,
-            DegreeProgram::DEPARTMENT => self::MULTILINGUAL_LINK,
+            DegreeProgram::DEPARTMENT => self::MULTILINGUAL_STRING,
             DegreeProgram::STUDENT_ADVICE => self::MULTILINGUAL_LINK,
             DegreeProgram::SUBJECT_SPECIFIC_ADVICE => self::MULTILINGUAL_LINK,
             DegreeProgram::SERVICE_CENTERS => self::MULTILINGUAL_LINK,
@@ -333,6 +334,7 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
             DegreeProgram::AREA_OF_STUDY => self::MULTILINGUAL_LINKS,
             DegreeProgram::COMBINATIONS => self::ARRAY_OF_IDS,
             DegreeProgram::LIMITED_COMBINATIONS => self::ARRAY_OF_IDS,
+            DegreeProgram::NOTES_FOR_INTERNATIONAL_APPLICANTS => self::MULTILINGUAL_LINK,
         ],
     ];
 

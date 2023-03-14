@@ -51,7 +51,7 @@ use JsonSerializable;
  *     examination_regulations: string,
  *     module_handbook: string,
  *     url: string,
- *     department: LinkType,
+ *     department: string,
  *     student_advice: LinkType,
  *     subject_specific_advice: LinkType,
  *     service_centers: LinkType,
@@ -63,6 +63,7 @@ use JsonSerializable;
  *     area_of_study: array<LinkType>,
  *     combinations: array<RelatedDegreeProgramType>,
  *     limited_combinations: array<RelatedDegreeProgramType>,
+ *     notes_for_international_applicants: LinkType,
  * }
  * @psalm-type DegreeProgramViewTranslatedArrayType = DegreeProgramTranslation & array{
  *      id: int,
@@ -119,7 +120,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
         private string $examinationRegulations,
         private string $moduleHandbook,
         private string $url,
-        private Link $department,
+        private string $department,
         private Link $studentAdvice,
         private Link $subjectSpecificAdvice,
         private Link $serviceCenters,
@@ -131,6 +132,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
         private Links $areaOfStudy,
         private RelatedDegreePrograms $combinations,
         private RelatedDegreePrograms $limitedCombinations,
+        private Link $notesForInternationalApplicants,
     ) {
     }
 
@@ -179,7 +181,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             examinationRegulations: $data[DegreeProgram::EXAMINATION_REGULATIONS],
             moduleHandbook: $data[DegreeProgram::MODULE_HANDBOOK],
             url: $data[DegreeProgram::URL],
-            department: Link::fromArray($data[DegreeProgram::DEPARTMENT]),
+            department: $data[DegreeProgram::DEPARTMENT],
             studentAdvice: Link::fromArray($data[DegreeProgram::STUDENT_ADVICE]),
             subjectSpecificAdvice: Link::fromArray($data[DegreeProgram::SUBJECT_SPECIFIC_ADVICE]),
             serviceCenters: Link::fromArray($data[DegreeProgram::SERVICE_CENTERS]),
@@ -191,6 +193,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             areaOfStudy: Links::fromArray($data[DegreeProgram::AREA_OF_STUDY]),
             combinations:  RelatedDegreePrograms::fromArray($data[DegreeProgram::COMBINATIONS]),
             limitedCombinations: RelatedDegreePrograms::fromArray($data[DegreeProgram::LIMITED_COMBINATIONS]),
+            notesForInternationalApplicants: Link::fromArray($data[DegreeProgram::NOTES_FOR_INTERNATIONAL_APPLICANTS]),
         );
 
         if (empty($data[self::TRANSLATIONS])) {
@@ -246,7 +249,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             DegreeProgram::EXAMINATION_REGULATIONS => $this->examinationRegulations,
             DegreeProgram::MODULE_HANDBOOK => $this->moduleHandbook,
             DegreeProgram::URL => $this->url,
-            DegreeProgram::DEPARTMENT => $this->department->asArray(),
+            DegreeProgram::DEPARTMENT => $this->department,
             DegreeProgram::STUDENT_ADVICE => $this->studentAdvice->asArray(),
             DegreeProgram::SUBJECT_SPECIFIC_ADVICE => $this->subjectSpecificAdvice->asArray(),
             DegreeProgram::SERVICE_CENTERS => $this->serviceCenters->asArray(),
@@ -258,6 +261,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             DegreeProgram::AREA_OF_STUDY => $this->areaOfStudy->asArray(),
             DegreeProgram::COMBINATIONS => $this->combinations->asArray(),
             DegreeProgram::LIMITED_COMBINATIONS => $this->limitedCombinations->asArray(),
+            DegreeProgram::NOTES_FOR_INTERNATIONAL_APPLICANTS => $this->notesForInternationalApplicants->asArray(),
             self::TRANSLATIONS => $this->translationsAsArray(),
         ];
     }

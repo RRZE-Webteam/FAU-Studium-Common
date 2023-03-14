@@ -131,7 +131,7 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
             ),
             moduleHandbook: $raw->moduleHandbook(),
             url: $raw->url()->asString($languageCode),
-            department: Link::fromMultilingualLink($raw->department(), $languageCode),
+            department: $raw->department()->asString($languageCode),
             studentAdvice: Link::fromMultilingualLink($raw->studentAdvice(), $languageCode),
             subjectSpecificAdvice: Link::fromMultilingualLink($raw->subjectSpecificAdvice(), $languageCode),
             serviceCenters: Link::fromMultilingualLink($raw->serviceCenters(), $languageCode),
@@ -143,6 +143,7 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
             areaOfStudy: Links::fromMultilingualLinks($raw->areaOfStudy(), $languageCode),
             combinations: $this->relatedDegreePrograms($raw->combinations()->asArray(), $languageCode),
             limitedCombinations: $this->relatedDegreePrograms($raw->limitedCombinations()->asArray(), $languageCode),
+            notesForInternationalApplicants: Link::fromMultilingualLink($raw->notesForInternationalApplicants(), $languageCode),
         );
     }
 

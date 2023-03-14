@@ -180,7 +180,7 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             examinationRegulations: $this->bilingualPostMeta($post, DegreeProgram::EXAMINATION_REGULATIONS),
             moduleHandbook: (string) get_post_meta($postId, DegreeProgram::MODULE_HANDBOOK, true),
             url: $this->bilingualPostMeta($post, DegreeProgram::URL),
-            department: $this->bilingualLinkFromOption(DegreeProgram::DEPARTMENT),
+            department: $this->bilingualPostMeta($post, DegreeProgram::DEPARTMENT),
             studentAdvice: $this->bilingualLinkFromOption(DegreeProgram::STUDENT_ADVICE),
             subjectSpecificAdvice: $this->bilingualLinkFromTerm(
                 $this->firstTerm($post, SubjectSpecificAdviceTaxonomy::KEY)
@@ -195,6 +195,7 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             areaOfStudy: $this->bilingualTermLinks($post, AreaOfStudyTaxonomy::KEY),
             combinations: $this->idsFromPostMeta($postId, DegreeProgram::COMBINATIONS),
             limitedCombinations: $this->idsFromPostMeta($postId, DegreeProgram::LIMITED_COMBINATIONS),
+            notesForInternationalApplicants: $this->bilingualLinkFromOption(DegreeProgram::NOTES_FOR_INTERNATIONAL_APPLICANTS),
         );
     }
 
@@ -365,6 +366,7 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             $degreeProgramViewRaw->languageSkills(),
             $degreeProgramViewRaw->url(),
             $degreeProgramViewRaw->degreeProgramFees(),
+            $degreeProgramViewRaw->department(),
         ];
 
         foreach ($bilingualMetas as $bilingualMeta) {

@@ -441,22 +441,9 @@
     "en": "https:\/\/fau.localhost\/degree-program"
   },
   "department": {
-    "id": "option:fau_department",
-    "name": {
-      "id": "option:fau_department:name",
-      "de": "Department",
-      "en": "Department EN"
-    },
-    "link_text": {
-      "id": "option:fau_department:link_text",
-      "de": "Link Department",
-      "en": "Link Department EN"
-    },
-    "link_url": {
-      "id": "option:fau_department:link_url",
-      "de": "https:\/\/fau.localhost\/department",
-      "en": "https:\/\/fau.localhost\/department-en"
-    }
+    "id": "post_meta:25:department",
+    "de": "https:\/\/fau.localhost\/science",
+    "en": "https:\/\/fau.localhost\/science-en"
   },
   "student_advice": {
     "id": "option:fau_student_advice",
@@ -610,5 +597,23 @@
   ],
   "limited_combinations": [
     26
-  ]
+  ],
+  "notes_for_international_applicants": {
+    "id": "option:fau_notes_for_international_applicants",
+    "name": {
+      "id": "option:fau_notes_for_international_applicants:name",
+      "de": "Notes for International Applicants",
+      "en": "Notes for International Applicants EN"
+    },
+    "link_text": {
+      "id": "option:fau_notes_for_international_applicants:link_text",
+      "de": "Link Notes for International Applicants",
+      "en": "Link Notes for International Applicants EN"
+    },
+    "link_url": {
+      "id": "option:fau_notes_for_international_applicants:link_url",
+      "de": "https:\/\/fau.localhost\/notes-for-intl-applicants",
+      "en": "https:\/\/fau.localhost\/notes-for-intl-applicants-en"
+    }
+  }
 }
