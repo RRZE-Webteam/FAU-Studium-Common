@@ -30,6 +30,19 @@ final class AdminBarMenu
 
     public function render(WP_Admin_Bar $adminBar): void
     {
+        if (count($this->menuItems) === 1) {
+            $menuItem = $this->menuItems[0];
+
+            $adminBar->add_menu(
+                [
+                    'id' => self::PARENT_ID . '-' . $menuItem->id(),
+                    'title' => $menuItem->title(),
+                    'href' => $menuItem->href(),
+                ]
+            );
+            return;
+        }
+
         $adminBar->add_menu(
             [
                 'id' => self::PARENT_ID,
