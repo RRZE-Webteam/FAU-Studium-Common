@@ -35,10 +35,10 @@ final class WordPressLogger extends AbstractLogger
             $this->prepareLogEntry((string) $level, (string) $message, $context)
         );
 
-        $context['message'] = $message;
+        $context['plugin'] = $this->package;
         do_action(
-            // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
-            sprintf('%s.%s', $this->package, (string) $level),
+            self::buildRrzeLogActionName((string) $level),
+            (string) $message,
             $context
         );
     }
@@ -68,5 +68,20 @@ final class WordPressLogger extends AbstractLogger
     {
         /** @psalm-suppress TypeDoesNotContainType */
         return defined('WP_DEBUG') && WP_DEBUG;
+    }
+
+    /**
+     * @link https://gitlab.rrze.fau.de/rrze-webteam/rrze-log
+     */
+    private static function buildRrzeLogActionName(string $level): string
+    {
+        $rrzeLevel = match ($level) {
+            LogLevel::EMERGENCY, LogLevel::ALERT, LogLevel::CRITICAL, LogLevel::ERROR => 'error',
+            LogLevel::WARNING => 'warning',
+            LogLevel::NOTICE => 'notice',
+            default => 'info',
+        };
+
+        return 'rrze.log.' . $rrzeLevel;
     }
 }

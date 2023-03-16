@@ -38,15 +38,15 @@ final class WordPressLoggerTest extends WpDbLessTestCase
 
     public function testWordPressHook(): void
     {
-        add_action(self::PACKAGE . '.error', static function (array $context) {
-            self::assertSame('Error happens!', $context['message']);
+        add_action('rrze.log.error', static function (string $message) {
+            self::assertSame('Error happens!', $message);
         });
 
         $sut = WordPressLogger::new(self::PACKAGE);
         $sut->error('Error happens!');
         $sut->info('Some info.');
-        self::assertSame(1, did_action(self::PACKAGE . '.error'));
-        self::assertSame(1, did_action(self::PACKAGE . '.info'));
+        self::assertSame(1, did_action('rrze.log.error'));
+        self::assertSame(1, did_action('rrze.log.info'));
     }
 
     public function testLogEntry(): void
@@ -64,9 +64,10 @@ final class WordPressLoggerTest extends WpDbLessTestCase
      */
     public function testContext(): void
     {
-        add_action(self::PACKAGE . '.error', static function (array $context) {
+        add_action('rrze.log.error', static function (string $message, array $context) {
             self::assertSame('here', $context['where']);
-        });
+            self::assertSame(self::PACKAGE, $context['plugin']);
+        }, 10, 2);
 
         $sut = WordPressLogger::new(self::PACKAGE);
         $sut->error('Error happens!', ['where' => 'here']);
@@ -80,11 +81,11 @@ final class WordPressLoggerTest extends WpDbLessTestCase
     {
         $exception = new Exception('Error!');
 
-        add_action(self::PACKAGE . '.error', static function (array $context) {
-            self::assertSame('Error happens!', $context['message']);
+        add_action('rrze.log.error', static function (string $message, array $context) {
+            self::assertSame('Error happens!', $message);
             self::assertInstanceOf(Exception::class, $context['exception']);
             self::assertSame('Error!', $context['exception']->getMessage());
-        });
+        }, 10, 2);
 
         $sut = WordPressLogger::new(self::PACKAGE);
         $sut->error('Error happens!', ['exception' => $exception]);
