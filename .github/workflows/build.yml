@@ -12,7 +12,7 @@ jobs:
   build-package:
     runs-on: ubuntu-latest
     env:
-      NO_CHANGES: ''
+      CHANGES: 'yes'
 
     steps:
       - name: Checkout
@@ -41,23 +41,26 @@ jobs:
       - name: Git add, commit
         run: |
           git add -f assets/ vendor/
-          git commit -m "[BOT] Build package" --no-verify || ((echo "NO_CHANGES=yes" >> $GITHUB_ENV) && (echo "No changes to commit"))
+          git commit -m "[BOT] Build package" --no-verify || ((echo "CHANGES=no" >> $GITHUB_ENV) && (echo "No changes to commit"))
 
-      - name: Switch to "dev" branch if not on a tag
-        if: ${{ github.ref_type != 'tag' }}
-        run: |
-          git checkout dev
-          git pull
-          git merge main
-
-      - name: Git push
-        if: ${{ env.NO_CHANGES != 'yes' }}
+      - name: Git push to "main" branch
+        if: ${{ env.CHANGES == 'yes' }}
         run: git push
 
       - name: Move tag
-        if: ${{ github.ref_type == 'tag' && env.NO_CHANGES != 'yes' }}
+        if: ${{ github.ref_type == 'tag'}}
         run: |
           git tag -d ${{ github.ref_name }}
           git push origin :refs/tags/${{ github.ref_name }}
           git tag ${{ github.ref_name }}
           git push origin --tags
+
+      - name: Git push to "dev" branch
+        run: |
+          git checkout dev
+          git pull
+          git rm -r -- assets vendor
+          git checkout main -- assets vendor
+          git commit -m "[BOT] Sync build package" --no-verify
+          git merge main 
+          git push
