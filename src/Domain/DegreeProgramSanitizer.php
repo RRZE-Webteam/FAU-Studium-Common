@@ -33,6 +33,7 @@ interface DegreeProgramSanitizer
         'p' => [],
         'strong' => [],
         'ul' => [],
+        'ol' => [],
         'li' => [],
         'dl' => [],
         'dd' => [],

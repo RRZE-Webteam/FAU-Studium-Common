@@ -42,7 +42,6 @@ final class SerializedBlocksDegreeProgramSanitizer implements DegreeProgramSanit
 
         return match ($block['blockName']) {
             'core/heading' => in_array((int) ($block['attrs']['level'] ?? 2), [3, 4, 5], true),
-            'core/list' => ($block['attrs']['ordered'] ?? false) === false,
             'core/shortcode' => (bool) preg_match(
                 $this->allowedShortcodeRegexpPattern(),
                 trim($block['innerHTML'])
