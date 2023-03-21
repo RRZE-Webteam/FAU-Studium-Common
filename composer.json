@@ -11,16 +11,6 @@
             "role": "Company"
         }
     ],
-    "autoload-dev": {
-        "psr-4": {
-            "Fau\\DegreeProgram\\Common\\Tests\\": [
-                "tests/src/",
-                "tests/unit/",
-                "tests/functional/"
-            ],
-            "Fau\\DegreeProgram\\Common\\LanguageExtension\\Tests\\": "lib/lang-extension/tests/"
-        }
-    },
     "require": {
         "php": "^8.0",
         "psr/event-dispatcher": "^1.0",
@@ -31,7 +21,7 @@
     "require-dev": {
         "brain/monkey": "^2.6",
         "inpsyde/php-coding-standards": "^1",
-        "inpsyde/wp-stubs": "dev-main",
+        "inpsyde/wp-stubs-versions": "dev-latest",
         "johnpbloch/wordpress-core": "^6.1",
         "phpunit/phpunit": "^9.5",
         "vimeo/psalm": "^5.4",
@@ -40,12 +30,31 @@
     "suggest": {
         "inpsyde/modularity": "Modular PSR-11 implementation for WordPress Plugins, Themes or Libraries"
     },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://raw.githubusercontent.com/inpsyde/wp-stubs/main",
+            "only": [
+                "inpsyde/wp-stubs-versions"
+            ]
+        }
+    ],
     "minimum-stability": "dev",
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "Fau\\DegreeProgram\\Common\\": "src/",
             "Fau\\DegreeProgram\\Common\\LanguageExtension\\": "lib/lang-extension/src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Fau\\DegreeProgram\\Common\\Tests\\": [
+                "tests/src/",
+                "tests/unit/",
+                "tests/functional/"
+            ],
+            "Fau\\DegreeProgram\\Common\\LanguageExtension\\Tests\\": "lib/lang-extension/tests/"
         }
     },
     "config": {
