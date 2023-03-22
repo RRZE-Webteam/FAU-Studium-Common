@@ -18,6 +18,7 @@ use JsonSerializable;
  * @psalm-import-type RelatedDegreeProgramType from RelatedDegreeProgram
  * @psalm-import-type LanguageCodes from MultilingualString
  * @psalm-type DegreeProgramTranslation = array{
+ *     link: string,
  *     slug: string,
  *     lang: LanguageCodes,
  *     featured_image: array{id: int, url: string},
@@ -72,6 +73,7 @@ use JsonSerializable;
  */
 final class DegreeProgramViewTranslated implements JsonSerializable
 {
+    public const LINK = 'link';
     public const LANG = 'lang';
     public const APPLICATION = 'application';
     public const TRANSLATIONS = 'translations';
@@ -81,6 +83,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
 
     public function __construct(
         private DegreeProgramId $id,
+        private string $link,
         private string $slug,
         /**
          * @var LanguageCodes $lang
@@ -148,6 +151,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
     {
         $main = new self(
             id: DegreeProgramId::fromInt((int) $data[DegreeProgram::ID]),
+            link: $data[self::LINK],
             slug: $data[DegreeProgram::SLUG],
             lang: $data[self::LANG],
             featuredImage: Image::fromArray($data[DegreeProgram::FEATURED_IMAGE]),
@@ -215,6 +219,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
     {
         return [
             DegreeProgram::ID => $this->id->asInt(),
+            self::LINK => $this->link,
             DegreeProgram::SLUG => $this->slug,
             self::LANG => $this->lang,
             DegreeProgram::FEATURED_IMAGE => $this->featuredImage->asArray(),
@@ -322,5 +327,240 @@ final class DegreeProgramViewTranslated implements JsonSerializable
     public function id(): int
     {
         return $this->id->asInt();
+    }
+
+    public function link(): string
+    {
+        return $this->link;
+    }
+
+    public function slug(): string
+    {
+        return $this->slug;
+    }
+
+    public function lang(): string
+    {
+        return $this->lang;
+    }
+
+    public function featuredImage(): Image
+    {
+        return $this->featuredImage;
+    }
+
+    public function teaserImage(): Image
+    {
+        return $this->teaserImage;
+    }
+
+    public function title(): string
+    {
+        return $this->title;
+    }
+
+    public function subtitle(): string
+    {
+        return $this->subtitle;
+    }
+
+    public function standardDuration(): int
+    {
+        return $this->standardDuration;
+    }
+
+    public function isFeeRequired(): bool
+    {
+        return $this->feeRequired;
+    }
+
+    public function start(): ArrayOfStrings
+    {
+        return $this->start;
+    }
+
+    public function numberOfStudents(): string
+    {
+        return $this->numberOfStudents;
+    }
+
+    public function teachingLanguage(): string
+    {
+        return $this->teachingLanguage;
+    }
+
+    public function attributes(): ArrayOfStrings
+    {
+        return $this->attributes;
+    }
+
+    public function degree(): DegreeTranslated
+    {
+        return $this->degree;
+    }
+
+    public function faculty(): Links
+    {
+        return $this->faculty;
+    }
+
+    public function location(): ArrayOfStrings
+    {
+        return $this->location;
+    }
+
+    public function subjectGroups(): ArrayOfStrings
+    {
+        return $this->subjectGroups;
+    }
+
+    public function videos(): ArrayOfStrings
+    {
+        return $this->videos;
+    }
+
+    public function metaDescription(): string
+    {
+        return $this->metaDescription;
+    }
+
+    public function content(): ContentTranslated
+    {
+        return $this->content;
+    }
+
+    public function application(): Link
+    {
+        return $this->application;
+    }
+
+    public function contentRelatedMasterRequirements(): string
+    {
+        return $this->contentRelatedMasterRequirements;
+    }
+
+    public function applicationDeadlineWinterSemester(): string
+    {
+        return $this->applicationDeadlineWinterSemester;
+    }
+
+    public function applicationDeadlineSummerSemester(): string
+    {
+        return $this->applicationDeadlineSummerSemester;
+    }
+
+    public function detailsAndNotes(): string
+    {
+        return $this->detailsAndNotes;
+    }
+
+    public function languageSkills(): string
+    {
+        return $this->languageSkills;
+    }
+
+    public function languageSkillsHumanitiesFaculty(): string
+    {
+        return $this->languageSkillsHumanitiesFaculty;
+    }
+
+    public function germanLanguageSkillsForInternationalStudents(): Link
+    {
+        return $this->germanLanguageSkillsForInternationalStudents;
+    }
+
+    public function startOfSemester(): Link
+    {
+        return $this->startOfSemester;
+    }
+
+    public function semesterDates(): Link
+    {
+        return $this->semesterDates;
+    }
+
+    public function examinationsOffice(): Link
+    {
+        return $this->examinationsOffice;
+    }
+
+    public function examinationRegulations(): string
+    {
+        return $this->examinationRegulations;
+    }
+
+    public function moduleHandbook(): string
+    {
+        return $this->moduleHandbook;
+    }
+
+    public function url(): string
+    {
+        return $this->url;
+    }
+
+    public function department(): string
+    {
+        return $this->department;
+    }
+
+    public function studentAdvice(): Link
+    {
+        return $this->studentAdvice;
+    }
+
+    public function subjectSpecificAdvice(): Link
+    {
+        return $this->subjectSpecificAdvice;
+    }
+
+    public function serviceCenters(): Link
+    {
+        return $this->serviceCenters;
+    }
+
+    public function studentRepresentatives(): string
+    {
+        return $this->studentRepresentatives;
+    }
+
+    public function semesterFee(): Link
+    {
+        return $this->semesterFee;
+    }
+
+    public function degreeProgramFees(): string
+    {
+        return $this->degreeProgramFees;
+    }
+
+    public function abroadOpportunities(): Link
+    {
+        return $this->abroadOpportunities;
+    }
+
+    public function keywords(): ArrayOfStrings
+    {
+        return $this->keywords;
+    }
+
+    public function areaOfStudy(): Links
+    {
+        return $this->areaOfStudy;
+    }
+
+    public function combinations(): RelatedDegreePrograms
+    {
+        return $this->combinations;
+    }
+
+    public function limitedCombinations(): RelatedDegreePrograms
+    {
+        return $this->limitedCombinations;
+    }
+
+    public function notesForInternationalApplicants(): Link
+    {
+        return $this->notesForInternationalApplicants;
     }
 }

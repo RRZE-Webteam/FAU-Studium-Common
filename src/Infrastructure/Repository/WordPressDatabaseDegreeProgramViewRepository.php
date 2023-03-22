@@ -80,6 +80,11 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
 
         return new DegreeProgramViewTranslated(
             id: $raw->id(),
+            link: $this->link(
+                $raw->id()->asInt(),
+                $raw->slug(),
+                $languageCode,
+            ),
             slug: $raw->slug()->asString($languageCode),
             lang: $languageCode,
             featuredImage: $raw->featuredImage(),
@@ -145,6 +150,20 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
             limitedCombinations: $this->relatedDegreePrograms($raw->limitedCombinations()->asArray(), $languageCode),
             notesForInternationalApplicants: Link::fromMultilingualLink($raw->notesForInternationalApplicants(), $languageCode),
         );
+    }
+
+    private function link(int $id, MultilingualString $slug, string $languageCode): string
+    {
+        $permalink = get_the_permalink($id);
+        if (!$permalink) {
+            return '';
+        }
+
+        if ($languageCode === MultilingualString::DE) {
+            return $permalink;
+        }
+
+        return str_replace($slug->inGerman(), $slug->inEnglish(), $permalink);
     }
 
     private function formattedVideos(ArrayOfStrings $videos): ArrayOfStrings
