@@ -101,7 +101,7 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
             faculty: Links::fromMultilingualLinks($raw->faculty(), $languageCode),
             location: $raw->location()->asArrayOfStrings($languageCode),
             subjectGroups: $raw->subjectGroups()->asArrayOfStrings($languageCode),
-            videos: $this->formattedVideos($raw->videos()),
+            videos: $raw->videos(),
             metaDescription: $raw->metaDescription()->asString($languageCode),
             content: ContentTranslated::fromContent($raw->content(), $languageCode)
                 ->mapDescriptions([$this, 'formatContentField']),
@@ -164,17 +164,6 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
         }
 
         return str_replace($slug->inGerman(), $slug->inEnglish(), $permalink);
-    }
-
-    private function formattedVideos(ArrayOfStrings $videos): ArrayOfStrings
-    {
-        $result = [];
-        foreach ($videos as $video) {
-            // $video could be shortcode or link
-            $result[] = (string) apply_filters('the_content', $video);
-        }
-
-        return ArrayOfStrings::new(...$result);
     }
 
     private function formattedExaminationRegulations(string $examinationRegulations): string

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fau\DegreeProgram\Common\Infrastructure\Sanitizer;
 
 use Fau\DegreeProgram\Common\Domain\DegreeProgramSanitizer;
+use Fau\DegreeProgram\Common\Domain\MultilingualString;
 
 final class HtmlDegreeProgramSanitizer implements DegreeProgramSanitizer
 {
@@ -18,7 +19,35 @@ final class HtmlDegreeProgramSanitizer implements DegreeProgramSanitizer
         );
     }
 
-    private function stripNotAllowedShortcodes(string $content): string
+    public function sanitizeTextField(string $text): string
+    {
+        return wp_strip_all_tags($text);
+    }
+
+    public function sanitizeMultiLingualTextField(MultilingualString $text): MultilingualString
+    {
+        return MultilingualString::fromTranslations(
+            $text->id(),
+            wp_strip_all_tags($text->inGerman()),
+            wp_strip_all_tags($text->inEnglish()),
+        );
+    }
+
+    public function sanitizeUrlField(string $url): string
+    {
+        return filter_var($url, FILTER_VALIDATE_URL) ?: '';
+    }
+
+    public function sanitizeMultilingualUrlField(MultilingualString $multilingualUrl): MultilingualString
+    {
+        return MultilingualString::fromTranslations(
+            $multilingualUrl->id(),
+            $this->sanitizeUrlField($multilingualUrl->inGerman()),
+            $this->sanitizeUrlField($multilingualUrl->inEnglish()),
+        );
+    }
+
+    private function stripNotAllowedShortcodes(string $content, ?array $allowedShortcodes = null): string
     {
         if (!str_contains($content, '[')) {
             return $content;
@@ -42,7 +71,7 @@ final class HtmlDegreeProgramSanitizer implements DegreeProgramSanitizer
         foreach ($matches as $shortcode) {
             $fullShortcodeTag = (string) $shortcode[0];
             $shortcodeTagName = (string) $shortcode[2];
-            if (!in_array($shortcodeTagName, self::ALLOWED_SHORTCODES, true)) {
+            if (!in_array($shortcodeTagName, $allowedShortcodes ?? self::ALLOWED_SHORTCODES, true)) {
                 $content = str_replace($fullShortcodeTag, '', $content);
             }
         }

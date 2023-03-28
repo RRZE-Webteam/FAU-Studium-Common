@@ -34,6 +34,7 @@ use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\SubjectGroupTaxonom
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\SubjectSpecificAdviceTaxonomy;
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\TeachingDegreeHigherSemesterAdmissionRequirementTaxonomy;
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\TeachingLanguageTaxonomy;
+use Fau\DegreeProgram\Common\Infrastructure\Sanitizer\HtmlDegreeProgramSanitizer;
 use Fau\DegreeProgram\Common\LanguageExtension\ArrayOfStrings;
 use Fau\DegreeProgram\Common\LanguageExtension\IntegersListChangeset;
 use Psr\EventDispatcher\EventDispatcherInterface;
@@ -49,6 +50,7 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
     public function __construct(
         IdGenerator $idGenerator,
         private EventDispatcherInterface $eventDispatcher,
+        private HtmlDegreeProgramSanitizer $fieldsSanitizer,
     ) {
 
         parent::__construct($idGenerator);
@@ -331,7 +333,13 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             DegreeProgram::FEE_REQUIRED =>
                 $degreeProgramViewRaw->isFeeRequired(),
             DegreeProgram::VIDEOS =>
-                implode(',', $degreeProgramViewRaw->videos()->getArrayCopy()),
+                implode(
+                    ',',
+                    array_map(
+                        [$this->fieldsSanitizer, 'sanitizeUrlField'],
+                        $degreeProgramViewRaw->videos()->getArrayCopy(),
+                    ),
+                ),
             DegreeProgram::APPLICATION_DEADLINE_WINTER_SEMESTER =>
                 $degreeProgramViewRaw->applicationDeadlineWinterSemester(),
             DegreeProgram::APPLICATION_DEADLINE_SUMMER_SEMESTER =>
@@ -339,9 +347,13 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             DegreeProgram::LANGUAGE_SKILLS_HUMANITIES_FACULTY =>
                 $degreeProgramViewRaw->languageSkillsHumanitiesFaculty(),
             DegreeProgram::MODULE_HANDBOOK =>
-                $degreeProgramViewRaw->moduleHandbook(),
+                $this->fieldsSanitizer->sanitizeUrlField(
+                    $degreeProgramViewRaw->moduleHandbook()
+                ),
             DegreeProgram::STUDENT_REPRESENTATIVES =>
-                $degreeProgramViewRaw->studentRepresentatives(),
+                $this->fieldsSanitizer->sanitizeUrlField(
+                    $degreeProgramViewRaw->studentRepresentatives()
+                ),
         ];
 
         foreach ($metas as $key => $value) {
@@ -351,7 +363,9 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
         $content = $degreeProgramViewRaw->content();
         $bilingualMetas = [
             $degreeProgramViewRaw->subtitle(),
-            $degreeProgramViewRaw->metaDescription(),
+            $this->fieldsSanitizer->sanitizeMultiLingualTextField(
+                $degreeProgramViewRaw->metaDescription()
+            ),
             $degreeProgramViewRaw->examinationRegulations(),
             $content->about()->description(),
             $content->structure()->description(),
@@ -364,9 +378,15 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             $degreeProgramViewRaw->contentRelatedMasterRequirements(),
             $degreeProgramViewRaw->detailsAndNotes(),
             $degreeProgramViewRaw->languageSkills(),
-            $degreeProgramViewRaw->url(),
-            $degreeProgramViewRaw->degreeProgramFees(),
-            $degreeProgramViewRaw->department(),
+            $this->fieldsSanitizer->sanitizeMultilingualUrlField(
+                $degreeProgramViewRaw->url()
+            ),
+            $this->fieldsSanitizer->sanitizeMultiLingualTextField(
+                $degreeProgramViewRaw->degreeProgramFees()
+            ),
+            $this->fieldsSanitizer->sanitizeMultilingualUrlField(
+                $degreeProgramViewRaw->department()
+            ),
         ];
 
         foreach ($bilingualMetas as $bilingualMeta) {
