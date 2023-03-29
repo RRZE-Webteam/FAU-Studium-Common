@@ -496,7 +496,11 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             sprintf(
                 "%s-%s",
                 $degreeProgramViewRaw->title()->asString($languageCode),
-                $degreeProgramViewRaw->degree()->abbreviation()->asString($languageCode)
+                str_replace(
+                    ['.', '-', ','],
+                    '',
+                    $degreeProgramViewRaw->degree()->abbreviation()->asString($languageCode)
+                )
             )
         );
     }
