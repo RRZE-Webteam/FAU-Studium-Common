@@ -23,7 +23,7 @@
     "de": "Subtitle",
     "en": "Subtitle EN"
   },
-  "standard_duration": 12,
+  "standard_duration": "6",
   "fee_required": true,
   "start": [
     {

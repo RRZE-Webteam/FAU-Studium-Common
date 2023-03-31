@@ -54,7 +54,7 @@ trait FixtureDegreeProgramDataProviderTrait
             teaserImage: Image::empty(),
             title: MultilingualString::empty(),
             subtitle: MultilingualString::empty(),
-            standardDuration: 0,
+            standardDuration: '',
             feeRequired: false,
             start: MultilingualList::new(),
             numberOfStudents: NumberOfStudents::empty(),

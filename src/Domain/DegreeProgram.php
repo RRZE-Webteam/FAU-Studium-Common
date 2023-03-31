@@ -78,7 +78,7 @@ final class DegreeProgram
          * Number of semesters
          * Regelstudienzeit
          */
-        private int $standardDuration,
+        private string $standardDuration,
         /**
          * Kostenpflichtig
          */
@@ -334,7 +334,7 @@ final class DegreeProgram
      *     teaser_image: Image,
      *     title: MultilingualString,
      *     subtitle: MultilingualString,
-     *     standard_duration: int,
+     *     standard_duration: string,
      *     fee_required: bool,
      *     start: MultilingualList,
      *     number_of_students: NumberOfStudents,

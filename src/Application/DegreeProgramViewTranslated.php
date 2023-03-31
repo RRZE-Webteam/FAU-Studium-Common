@@ -25,7 +25,7 @@ use JsonSerializable;
  *     teaser_image: array{id: int, url: string},
  *     title: string,
  *     subtitle: string,
- *     standard_duration: int,
+ *     standard_duration: string,
  *     fee_required: bool,
  *     start: array<string>,
  *     number_of_students: string,
@@ -93,7 +93,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
         private Image $teaserImage,
         private string $title,
         private string $subtitle,
-        private int $standardDuration,
+        private string $standardDuration,
         private bool $feeRequired,
         private ArrayOfStrings $start,
         private string $numberOfStudents,
@@ -364,7 +364,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
         return $this->subtitle;
     }
 
-    public function standardDuration(): int
+    public function standardDuration(): string
     {
         return $this->standardDuration;
     }

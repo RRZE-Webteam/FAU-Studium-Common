@@ -200,7 +200,7 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
             DegreeProgram::TITLE => self::MULTILINGUAL_STRING,
             DegreeProgram::SUBTITLE => self::MULTILINGUAL_STRING,
             DegreeProgram::STANDARD_DURATION => [
-                'type' => 'integer',
+                'type' => 'string',
                 'minimum' => 0,
             ],
             DegreeProgram::FEE_REQUIRED => [

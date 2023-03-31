@@ -25,14 +25,14 @@ use JsonSerializable;
  * @psalm-import-type ContentType from Content
  * @psalm-import-type AdmissionRequirementsType from AdmissionRequirements
  * @psalm-import-type DegreeType from Degree
- * @psalm-type DegreeProgramViewRawArrayType = array {
+ * @psalm-type DegreeProgramViewRawArrayType = array{
  *     id: int,
  *     slug: MultilingualStringType,
  *     featured_image: array{id: int, url: string},
  *     teaser_image: array{id: int, url: string},
  *     title: MultilingualStringType,
  *     subtitle: MultilingualStringType,
- *     standard_duration: int,
+ *     standard_duration: string,
  *     fee_required: bool,
  *     start: array<MultilingualStringType>,
  *     number_of_students: array{id: string, description: string},
@@ -83,7 +83,7 @@ final class DegreeProgramViewRaw implements JsonSerializable
         private Image $teaserImage,
         private MultilingualString $title,
         private MultilingualString $subtitle,
-        private int $standardDuration,
+        private string $standardDuration,
         private bool $feeRequired,
         private MultilingualList $start,
         private NumberOfStudents $numberOfStudents,
@@ -333,7 +333,7 @@ final class DegreeProgramViewRaw implements JsonSerializable
         return $this->subtitle;
     }
 
-    public function standardDuration(): int
+    public function standardDuration(): string
     {
         return $this->standardDuration;
     }

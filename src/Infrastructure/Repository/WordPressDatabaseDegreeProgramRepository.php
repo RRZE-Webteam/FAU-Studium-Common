@@ -107,7 +107,7 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             ),
             subtitle: $this->bilingualPostMeta($post, DegreeProgram::SUBTITLE),
             standardDuration:
-                (int) get_post_meta($postId, DegreeProgram::STANDARD_DURATION, true),
+                (string) get_post_meta($postId, DegreeProgram::STANDARD_DURATION, true),
             feeRequired: (bool) get_post_meta($postId, DegreeProgram::FEE_REQUIRED, true),
             start: $this->bilingualTermsList($post, SemesterTaxonomy::KEY),
             numberOfStudents: $this->numberOfStudents($post),
