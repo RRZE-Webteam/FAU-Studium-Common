@@ -75,14 +75,10 @@ final class DegreeProgram
         private MultilingualString $title,
         private MultilingualString $subtitle,
         /**
-         * Number of semesters
+         * Duration of studies in semester
          * Regelstudienzeit
          */
         private string $standardDuration,
-        /**
-         * Kostenpflichtig
-         */
-        private bool $feeRequired,
         /**
          * @var MultilingualList $start One or several semesters
          * Example: Summer Term, Winter Term
@@ -120,6 +116,14 @@ final class DegreeProgram
         private MultilingualList $subjectGroups,
         private ArrayOfStrings $videos,
         private MultilingualString $metaDescription,
+        /**
+         * Schlagworte
+         */
+        private MultilingualList $keywords,
+        /**
+         * Studienbereich
+         */
+        private MultilingualLinks $areaOfStudy,
         //--- Content (“Inhalte”) ---//
         private Content $content,
         //--- Admission requirements, application and enrollment (“Zugangsvoraussetzungen, Bewerbung und Einschreibung”) ---//
@@ -158,10 +162,12 @@ final class DegreeProgram
         //--- Organization (organizational notes/links) (“Organisation (Organisatorische Hinweise/Links)”) --- //
         /**
          * Semesterstart
+         * Shared property
          */
         private MultilingualLink $startOfSemester,
         /**
          * Semestertermine
+         * Shared property
          */
         private MultilingualLink $semesterDates,
         /**
@@ -183,6 +189,7 @@ final class DegreeProgram
         private MultilingualString $department,
         /**
          * Allgemeine Studienberatung
+         * Shared property
          */
         private MultilingualLink $studentAdvice,
         /**
@@ -191,6 +198,7 @@ final class DegreeProgram
         private MultilingualLink $subjectSpecificAdvice,
         /**
          * Beratungs- und Servicestellen der FAU
+         * Shared property
          */
         private MultilingualLink $serviceCenters,
         /**
@@ -199,25 +207,27 @@ final class DegreeProgram
         private string $studentRepresentatives,
         /**
          * Semesterbeitrag
+         * Shared property
          */
         private MultilingualLink $semesterFee,
+        /**
+         * Kostenpflichtig
+         */
+        private bool $feeRequired,
         /**
          * Studiengangsgebühren
          */
         private MultilingualString $degreeProgramFees,
         /**
          * Wege ins Ausland
+         * Shared property
          */
         private MultilingualLink $abroadOpportunities,
-        //--- Properties for filtering --- //
         /**
-         * Schlagworte
+         * Hinweise für internationale Bewerber
+         * Shared property
          */
-        private MultilingualList $keywords,
-        /**
-         * Studienbereich
-         */
-        private MultilingualLinks $areaOfStudy,
+        private MultilingualLink $notesForInternationalApplicants,
         //--- Degree program combinations --- //
         /**
          * Kombinationsmöglichkeiten
@@ -227,10 +237,6 @@ final class DegreeProgram
          * Eingeschränkt Kombinationsmöglichkeiten
          */
         private DegreeProgramIds $limitedCombinations,
-        /**
-         * Hinweise für internationale Bewerber
-         */
-        private MultilingualLink $notesForInternationalApplicants,
     ) {
 
         $this->combinationsChangeset = IntegersListChangeset::new(
