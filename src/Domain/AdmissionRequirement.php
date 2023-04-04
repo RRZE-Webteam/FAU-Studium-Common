@@ -107,4 +107,9 @@ final class AdmissionRequirement
     {
         return $this->parent;
     }
+
+    public function isEmpty(): bool
+    {
+        return !$this->current->id();
+    }
 }

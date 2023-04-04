@@ -615,5 +615,23 @@
       "de": "https:\/\/fau.localhost\/notes-for-intl-applicants",
       "en": "https:\/\/fau.localhost\/notes-for-intl-applicants-en"
     }
+  },
+  "apply_now_link": {
+    "id": "term:39",
+    "name": {
+      "id": "term:39:name",
+      "de": "Campo",
+      "en": "Campo"
+    },
+    "link_text": {
+      "id": "term_meta:39:link_text",
+      "de": "Apply now",
+      "en": "Apply now"
+    },
+    "link_url": {
+      "id": "term_meta:39:link_url",
+      "de": "https://campo.fau.de",
+      "en": "https://campo.fau.de"
+    }
   }
 }

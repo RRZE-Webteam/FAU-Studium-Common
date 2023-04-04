@@ -80,6 +80,9 @@ final class StubDegreeProgramRepository implements DegreeProgramRepository, Degr
 
         return new DegreeProgramViewTranslated(
             id: $raw->id(),
+            link: '',
+            slug: '',
+            lang: $languageCode,
             featuredImage: $raw->featuredImage(),
             teaserImage: $raw->teaserImage(),
             title: $raw->title()->asString($languageCode),
@@ -97,7 +100,10 @@ final class StubDegreeProgramRepository implements DegreeProgramRepository, Degr
             videos: $raw->videos(),
             metaDescription: $raw->metaDescription()->asString($languageCode),
             content: ContentTranslated::fromContent($raw->content(), $languageCode),
-            application: Link::fromMultilingualLink($raw->admissionRequirements()->requirementsForDegree($raw->degree()), $languageCode),
+            admissionRequirementLink: Link::fromMultilingualLink($raw->admissionRequirements()->asLink(), $languageCode),
+            admissionRequirementsList: $raw->admissionRequirements()
+                ->asMultilingualList()
+                ->asArrayOfStrings($languageCode),
             contentRelatedMasterRequirements: $raw->contentRelatedMasterRequirements()->asString($languageCode),
             applicationDeadlineWinterSemester: $raw->applicationDeadlineWinterSemester(),
             applicationDeadlineSummerSemester: $raw->applicationDeadlineSummerSemester(),
@@ -122,9 +128,12 @@ final class StubDegreeProgramRepository implements DegreeProgramRepository, Degr
             semesterFee: Link::fromMultilingualLink($raw->semesterFee(), $languageCode),
             degreeProgramFees: $raw->degreeProgramFees()->asString($languageCode),
             abroadOpportunities: Link::fromMultilingualLink($raw->abroadOpportunities(), $languageCode),
+            keywords: $raw->keywords()->asArrayOfStrings($languageCode),
+            areaOfStudy: Links::fromMultilingualLinks($raw->areaOfStudy(), $languageCode),
             combinations: RelatedDegreePrograms::new(),
             limitedCombinations: RelatedDegreePrograms::new(),
             notesForInternationalApplicants: Link::fromMultilingualLink($raw->notesForInternationalApplicants(), $languageCode),
+            applyNowLink: Link::fromMultilingualLink($raw->applyNowLink(), $languageCode),
         );
     }
 

@@ -188,6 +188,7 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
             DegreeProgram::COMBINATIONS,
             DegreeProgram::LIMITED_COMBINATIONS,
             DegreeProgram::NOTES_FOR_INTERNATIONAL_APPLICANTS,
+            DegreeProgram::APPLY_NOW_LINK,
         ],
         'properties' => [
             DegreeProgram::ID => [
@@ -335,6 +336,7 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
             DegreeProgram::COMBINATIONS => self::ARRAY_OF_IDS,
             DegreeProgram::LIMITED_COMBINATIONS => self::ARRAY_OF_IDS,
             DegreeProgram::NOTES_FOR_INTERNATIONAL_APPLICANTS => self::MULTILINGUAL_LINK,
+            DegreeProgram::APPLY_NOW_LINK => self::MULTILINGUAL_LINK,
         ],
     ];
 

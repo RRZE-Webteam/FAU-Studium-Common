@@ -20,6 +20,7 @@ final class TaxonomiesList extends ArrayObject
     private function __construct()
     {
         parent::__construct([
+            ApplyNowLinkTaxonomy::class,
             AreaOfStudyTaxonomy::class,
             AttributeTaxonomy::class,
             BachelorOrTeachingDegreeAdmissionRequirementTaxonomy::class,

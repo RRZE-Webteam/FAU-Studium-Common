@@ -72,6 +72,7 @@ use JsonSerializable;
  *     combinations: array<int>,
  *     limited_combinations: array<int>,
  *     notes_for_international_applicants: MultilingualLinkType,
+ *     apply_now_link: MultilingualLinkType,
  * }
  */
 final class DegreeProgramViewRaw implements JsonSerializable
@@ -123,9 +124,13 @@ final class DegreeProgramViewRaw implements JsonSerializable
         private DegreeProgramIds $combinations,
         private DegreeProgramIds $limitedCombinations,
         private MultilingualLink $notesForInternationalApplicants,
+        private MultilingualLink $applyNowLink,
     ) {
     }
 
+    /**
+     * phpcs:disable Inpsyde.CodeQuality.FunctionLength.TooLong
+     */
     public static function fromDegreeProgram(DegreeProgram $degreeProgram): self
     {
         $data = $degreeProgram->asArray();
@@ -176,6 +181,7 @@ final class DegreeProgramViewRaw implements JsonSerializable
             $data[DegreeProgram::COMBINATIONS],
             $data[DegreeProgram::LIMITED_COMBINATIONS],
             $data[DegreeProgram::NOTES_FOR_INTERNATIONAL_APPLICANTS],
+            $data[DegreeProgram::APPLY_NOW_LINK],
         );
     }
 
@@ -235,6 +241,7 @@ final class DegreeProgramViewRaw implements JsonSerializable
             notesForInternationalApplicants: MultilingualLink::fromArray(
                 $data[DegreeProgram::NOTES_FOR_INTERNATIONAL_APPLICANTS]
             ),
+            applyNowLink: MultilingualLink::fromArray($data[DegreeProgram::APPLY_NOW_LINK]),
         );
     }
 
@@ -295,6 +302,7 @@ final class DegreeProgramViewRaw implements JsonSerializable
             DegreeProgram::COMBINATIONS => $this->combinations->asArray(),
             DegreeProgram::LIMITED_COMBINATIONS => $this->limitedCombinations->asArray(),
             DegreeProgram::NOTES_FOR_INTERNATIONAL_APPLICANTS => $this->notesForInternationalApplicants->asArray(),
+            DegreeProgram::APPLY_NOW_LINK => $this->applyNowLink->asArray(),
         ];
     }
 
@@ -531,5 +539,10 @@ final class DegreeProgramViewRaw implements JsonSerializable
     public function notesForInternationalApplicants(): MultilingualLink
     {
         return $this->notesForInternationalApplicants;
+    }
+
+    public function applyNowLink(): MultilingualLink
+    {
+        return $this->applyNowLink;
     }
 }

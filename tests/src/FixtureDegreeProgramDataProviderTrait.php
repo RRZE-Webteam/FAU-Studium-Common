@@ -55,7 +55,6 @@ trait FixtureDegreeProgramDataProviderTrait
             title: MultilingualString::empty(),
             subtitle: MultilingualString::empty(),
             standardDuration: '',
-            feeRequired: false,
             start: MultilingualList::new(),
             numberOfStudents: NumberOfStudents::empty(),
             teachingLanguage: MultilingualString::empty(),
@@ -66,6 +65,8 @@ trait FixtureDegreeProgramDataProviderTrait
             subjectGroups: MultilingualList::new(),
             videos: ArrayOfStrings::new(),
             metaDescription: MultilingualString::empty(),
+            keywords: MultilingualList::new(),
+            areaOfStudy: MultilingualLinks::new(),
             content: Content::new(
                 about: ContentItem::new(MultilingualString::empty(), MultilingualString::empty()),
                 structure: ContentItem::new(MultilingualString::empty(), MultilingualString::empty()),
@@ -100,13 +101,13 @@ trait FixtureDegreeProgramDataProviderTrait
             serviceCenters: MultilingualLink::empty(),
             studentRepresentatives: '',
             semesterFee: MultilingualLink::empty(),
+            feeRequired: false,
             degreeProgramFees: MultilingualString::empty(),
             abroadOpportunities: MultilingualLink::empty(),
-            keywords: MultilingualList::new(),
-            areaOfStudy: MultilingualLinks::new(),
+            notesForInternationalApplicants: MultilingualLink::empty(),
+            applyNowLink: MultilingualLink::empty(),
             combinations: DegreeProgramIds::new(),
             limitedCombinations: DegreeProgramIds::new(),
-            notesForInternationalApplicants: MultilingualLink::empty(),
         );
     }
 }

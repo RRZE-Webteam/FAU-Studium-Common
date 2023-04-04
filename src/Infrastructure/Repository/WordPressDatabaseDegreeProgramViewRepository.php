@@ -17,7 +17,6 @@ use Fau\DegreeProgram\Common\Domain\DegreeProgramId;
 use Fau\DegreeProgram\Common\Domain\DegreeProgramRepository;
 use Fau\DegreeProgram\Common\Domain\MultilingualString;
 use Fau\DegreeProgram\Common\Infrastructure\Sanitizer\HtmlDegreeProgramSanitizer;
-use Fau\DegreeProgram\Common\LanguageExtension\ArrayOfStrings;
 use RuntimeException;
 use WP_Post;
 
@@ -105,7 +104,13 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
             metaDescription: $raw->metaDescription()->asString($languageCode),
             content: ContentTranslated::fromContent($raw->content(), $languageCode)
                 ->mapDescriptions([$this, 'formatContentField']),
-            application: Link::fromMultilingualLink($raw->admissionRequirements()->requirementsForDegree($raw->degree()), $languageCode),
+            admissionRequirementLink: Link::fromMultilingualLink(
+                $raw->admissionRequirements()->asLink(),
+                $languageCode
+            ),
+            admissionRequirementsList: $raw->admissionRequirements()
+                ->asMultilingualList()
+                ->asArrayOfStrings($languageCode),
             contentRelatedMasterRequirements: $this->formatContentField(
                 $raw->contentRelatedMasterRequirements()->asString($languageCode)
             ),
@@ -149,6 +154,7 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
             combinations: $this->relatedDegreePrograms($raw->combinations()->asArray(), $languageCode),
             limitedCombinations: $this->relatedDegreePrograms($raw->limitedCombinations()->asArray(), $languageCode),
             notesForInternationalApplicants: Link::fromMultilingualLink($raw->notesForInternationalApplicants(), $languageCode),
+            applyNowLink: Link::fromMultilingualLink($raw->applyNowLink(), $languageCode),
         );
     }
 
