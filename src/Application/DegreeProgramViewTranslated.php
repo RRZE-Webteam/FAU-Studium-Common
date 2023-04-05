@@ -67,6 +67,7 @@ use JsonSerializable;
  *     limited_combinations: array<RelatedDegreeProgramType>,
  *     notes_for_international_applicants: LinkType,
  *     apply_now_link: LinkType,
+ *     entry_text: string,
  * }
  * @psalm-type DegreeProgramViewTranslatedArrayType = DegreeProgramTranslation & array{
  *      id: int,
@@ -138,6 +139,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
         private RelatedDegreePrograms $limitedCombinations,
         private Link $notesForInternationalApplicants,
         private Link $applyNowLink,
+        private string $entryText,
     ) {
     }
 
@@ -202,6 +204,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             limitedCombinations: RelatedDegreePrograms::fromArray($data[DegreeProgram::LIMITED_COMBINATIONS]),
             notesForInternationalApplicants: Link::fromArray($data[DegreeProgram::NOTES_FOR_INTERNATIONAL_APPLICANTS]),
             applyNowLink: Link::fromArray($data[DegreeProgram::APPLY_NOW_LINK]),
+            entryText: $data[DegreeProgram::ENTRY_TEXT],
         );
 
         if (empty($data[self::TRANSLATIONS])) {
@@ -273,6 +276,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             DegreeProgram::LIMITED_COMBINATIONS => $this->limitedCombinations->asArray(),
             DegreeProgram::NOTES_FOR_INTERNATIONAL_APPLICANTS => $this->notesForInternationalApplicants->asArray(),
             DegreeProgram::APPLY_NOW_LINK => $this->applyNowLink->asArray(),
+            DegreeProgram::ENTRY_TEXT => $this->entryText,
             self::TRANSLATIONS => $this->translationsAsArray(),
         ];
     }
@@ -578,5 +582,10 @@ final class DegreeProgramViewTranslated implements JsonSerializable
     public function applyNowLink(): Link
     {
         return $this->applyNowLink;
+    }
+
+    public function entryText(): string
+    {
+        return $this->entryText;
     }
 }

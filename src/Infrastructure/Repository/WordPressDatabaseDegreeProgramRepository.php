@@ -128,6 +128,7 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             metaDescription: $this->bilingualPostMeta($post, DegreeProgram::META_DESCRIPTION),
             keywords: $this->bilingualTermsList($post, KeywordTaxonomy::KEY),
             areaOfStudy: $this->bilingualTermLinks($post, AreaOfStudyTaxonomy::KEY),
+            entryText: $this->bilingualPostMeta($post, DegreeProgram::ENTRY_TEXT),
             content: Content::new(
                 about: $this->contentItem($post, Content::ABOUT),
                 structure: $this->contentItem($post, Content::STRUCTURE),
@@ -424,6 +425,7 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             $this->fieldsSanitizer->sanitizeMultilingualUrlField(
                 $degreeProgramViewRaw->department()
             ),
+            $degreeProgramViewRaw->entryText(),
         ];
 
         foreach ($bilingualMetas as $bilingualMeta) {

@@ -633,5 +633,10 @@
       "de": "https://campo.fau.de",
       "en": "https://campo.fau.de"
     }
+  },
+  "entry_text": {
+    "id": "post_meta:25:entry_text",
+    "de": "Einstiegtext (werbend)",
+    "en": "Entry text (promotional)"
   }
 }

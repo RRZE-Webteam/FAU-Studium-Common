@@ -67,6 +67,7 @@ trait FixtureDegreeProgramDataProviderTrait
             metaDescription: MultilingualString::empty(),
             keywords: MultilingualList::new(),
             areaOfStudy: MultilingualLinks::new(),
+            entryText: MultilingualString::empty(),
             content: Content::new(
                 about: ContentItem::new(MultilingualString::empty(), MultilingualString::empty()),
                 structure: ContentItem::new(MultilingualString::empty(), MultilingualString::empty()),

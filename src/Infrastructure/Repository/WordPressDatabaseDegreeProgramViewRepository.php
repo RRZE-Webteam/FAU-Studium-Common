@@ -155,6 +155,7 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
             limitedCombinations: $this->relatedDegreePrograms($raw->limitedCombinations()->asArray(), $languageCode),
             notesForInternationalApplicants: Link::fromMultilingualLink($raw->notesForInternationalApplicants(), $languageCode),
             applyNowLink: Link::fromMultilingualLink($raw->applyNowLink(), $languageCode),
+            entryText: $this->formatContentField($raw->entryText()->asString($languageCode)),
         );
     }
 

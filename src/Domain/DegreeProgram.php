@@ -55,6 +55,7 @@ final class DegreeProgram
     public const ABROAD_OPPORTUNITIES = 'abroad_opportunities';
     public const KEYWORDS = 'keywords';
     public const AREA_OF_STUDY = 'area_of_study';
+    public const ENTRY_TEXT = 'entry_text';
     public const COMBINATIONS = 'combinations';
     public const LIMITED_COMBINATIONS = 'limited_combinations';
     public const COMBINATIONS_CHANGESET = 'combinations_changeset';
@@ -125,6 +126,10 @@ final class DegreeProgram
          * Studienbereich
          */
         private MultilingualLinks $areaOfStudy,
+        /**
+         * Einstiegtext (werbend)
+         */
+        private MultilingualString $entryText,
         //--- Content (“Inhalte”) ---//
         private Content $content,
         //--- Admission requirements, application and enrollment (“Zugangsvoraussetzungen, Bewerbung und Einschreibung”) ---//
@@ -327,6 +332,8 @@ final class DegreeProgram
         $this->limitedCombinations = DegreeProgramIds::fromArray($data[self::LIMITED_COMBINATIONS]);
         $this->notesForInternationalApplicants = MultilingualLink::fromArray($data[self::NOTES_FOR_INTERNATIONAL_APPLICANTS]);
         $this->applyNowLink = MultilingualLink::fromArray($data[self::APPLY_NOW_LINK]);
+        $this->entryText = MultilingualString::fromArray($data[self::ENTRY_TEXT])
+            ->mapTranslations([$contentSanitizer, 'sanitizeContentField']);
 
         $this->combinationsChangeset = $this
             ->combinationsChangeset
@@ -389,6 +396,7 @@ final class DegreeProgram
      *     limited_combinations_changeset: IntegersListChangeset,
      *     notes_for_international_applicants: MultilingualLink,
      *     apply_now_link: MultilingualLink,
+     *     entry_text: MultilingualString,
      * }
      * @internal Only for repositories usage
      */
@@ -445,6 +453,7 @@ final class DegreeProgram
             self::LIMITED_COMBINATIONS_CHANGESET => $this->limitedCombinationsChangeset,
             self::NOTES_FOR_INTERNATIONAL_APPLICANTS => $this->notesForInternationalApplicants,
             self::APPLY_NOW_LINK => $this->applyNowLink,
+            self::ENTRY_TEXT => $this->entryText,
         ];
     }
 

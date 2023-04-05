@@ -73,6 +73,7 @@ use JsonSerializable;
  *     limited_combinations: array<int>,
  *     notes_for_international_applicants: MultilingualLinkType,
  *     apply_now_link: MultilingualLinkType,
+ *     entry_text: MultilingualStringType,
  * }
  */
 final class DegreeProgramViewRaw implements JsonSerializable
@@ -125,6 +126,7 @@ final class DegreeProgramViewRaw implements JsonSerializable
         private DegreeProgramIds $limitedCombinations,
         private MultilingualLink $notesForInternationalApplicants,
         private MultilingualLink $applyNowLink,
+        private MultilingualString $entryText,
     ) {
     }
 
@@ -182,6 +184,7 @@ final class DegreeProgramViewRaw implements JsonSerializable
             $data[DegreeProgram::LIMITED_COMBINATIONS],
             $data[DegreeProgram::NOTES_FOR_INTERNATIONAL_APPLICANTS],
             $data[DegreeProgram::APPLY_NOW_LINK],
+            $data[DegreeProgram::ENTRY_TEXT],
         );
     }
 
@@ -242,6 +245,7 @@ final class DegreeProgramViewRaw implements JsonSerializable
                 $data[DegreeProgram::NOTES_FOR_INTERNATIONAL_APPLICANTS]
             ),
             applyNowLink: MultilingualLink::fromArray($data[DegreeProgram::APPLY_NOW_LINK]),
+            entryText: MultilingualString::fromArray($data[DegreeProgram::ENTRY_TEXT]),
         );
     }
 
@@ -303,6 +307,7 @@ final class DegreeProgramViewRaw implements JsonSerializable
             DegreeProgram::LIMITED_COMBINATIONS => $this->limitedCombinations->asArray(),
             DegreeProgram::NOTES_FOR_INTERNATIONAL_APPLICANTS => $this->notesForInternationalApplicants->asArray(),
             DegreeProgram::APPLY_NOW_LINK => $this->applyNowLink->asArray(),
+            DegreeProgram::ENTRY_TEXT => $this->entryText->asArray(),
         ];
     }
 
@@ -544,5 +549,10 @@ final class DegreeProgramViewRaw implements JsonSerializable
     public function applyNowLink(): MultilingualLink
     {
         return $this->applyNowLink;
+    }
+
+    public function entryText(): MultilingualString
+    {
+        return $this->entryText;
     }
 }
