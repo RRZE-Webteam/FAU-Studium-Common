@@ -142,11 +142,11 @@ class DegreeProgramTest extends UnitTestCase
             $result['content_related_master_requirements']->inGerman()
         );
         $this->assertSame(
-            '[Was sanitized]1/12',
+            '01.12.',
             $result['application_deadline_winter_semester']
         );
         $this->assertSame(
-            '[Was sanitized]1/07',
+            '01.07.',
             $result['application_deadline_summer_semester']
         );
         $this->assertSame(

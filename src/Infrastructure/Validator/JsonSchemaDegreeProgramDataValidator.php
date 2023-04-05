@@ -138,6 +138,8 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
         ],
     ];
 
+    private const DEADLINE_PATTERN = '^((0[1-9]|[12][0-9]|3[01])\.(0[13578]|1[02])|(0[1-9]|[12][0-9]|30)\.(0[469]|11)|(0[1-9]|1[0-9]|2[0-8])\.02)\.$';
+
     public const SCHEMA = [
         'type' => 'object',
         'additionalProperties' => false,
@@ -303,9 +305,11 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
             DegreeProgram::CONTENT_RELATED_MASTER_REQUIREMENTS => self::MULTILINGUAL_STRING,
             DegreeProgram::APPLICATION_DEADLINE_WINTER_SEMESTER => [
                 'type' => 'string',
+                'pattern' => self::DEADLINE_PATTERN,
             ],
             DegreeProgram::APPLICATION_DEADLINE_SUMMER_SEMESTER => [
                 'type' => 'string',
+                'pattern' => self::DEADLINE_PATTERN,
             ],
             DegreeProgram::DETAILS_AND_NOTES => self::MULTILINGUAL_STRING,
             DegreeProgram::LANGUAGE_SKILLS => self::MULTILINGUAL_STRING,

@@ -344,8 +344,8 @@
     "de": "Master requirements.",
     "en": "Master requirements EN."
   },
-  "application_deadline_winter_semester": "1/12",
-  "application_deadline_summer_semester": "1/07",
+  "application_deadline_winter_semester": "01.12.",
+  "application_deadline_summer_semester": "01.07.",
   "details_and_notes": {
     "id": "post_meta:25:details_and_notes",
     "de": "Notes.",

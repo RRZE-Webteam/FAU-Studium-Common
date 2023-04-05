@@ -304,8 +304,8 @@ final class DegreeProgram
         $this->admissionRequirements = AdmissionRequirements::fromArray($data[self::ADMISSION_REQUIREMENTS]);
         $this->contentRelatedMasterRequirements = MultilingualString::fromArray($data[self::CONTENT_RELATED_MASTER_REQUIREMENTS])
             ->mapTranslations([$contentSanitizer, 'sanitizeContentField']);
-        $this->applicationDeadlineWinterSemester = $contentSanitizer->sanitizeContentField($data[self::APPLICATION_DEADLINE_WINTER_SEMESTER]);
-        $this->applicationDeadlineSummerSemester = $contentSanitizer->sanitizeContentField($data[self::APPLICATION_DEADLINE_SUMMER_SEMESTER]);
+        $this->applicationDeadlineWinterSemester = $data[self::APPLICATION_DEADLINE_WINTER_SEMESTER];
+        $this->applicationDeadlineSummerSemester = $data[self::APPLICATION_DEADLINE_SUMMER_SEMESTER];
         $this->detailsAndNotes = MultilingualString::fromArray($data[self::DETAILS_AND_NOTES])
             ->mapTranslations([$contentSanitizer, 'sanitizeContentField']);
         $this->languageSkills = MultilingualString::fromArray($data[self::LANGUAGE_SKILLS])
