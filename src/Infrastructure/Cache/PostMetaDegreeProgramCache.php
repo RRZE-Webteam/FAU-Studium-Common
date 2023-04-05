@@ -6,6 +6,7 @@ namespace Fau\DegreeProgram\Common\Infrastructure\Cache;
 
 use DateInterval;
 use Fau\DegreeProgram\Common\Application\Cache\CacheKeyGenerator;
+use Fau\DegreeProgram\Common\Infrastructure\Content\PostType\DegreeProgramPostType;
 use JsonException;
 use Psr\SimpleCache\CacheInterface;
 
@@ -69,9 +70,36 @@ final class PostMetaDegreeProgramCache implements CacheInterface
 
     public function clear(): bool
     {
+        /** @var array<int> $ids */
+        $ids = get_posts([
+            'numberposts' => -1,
+            'post_type' => DegreeProgramPostType::KEY,
+            'post_status' => 'any',
+            'meta_query' => [
+                'relation' => 'OR',
+                [
+                    'key' => self::postMetaKey(CacheKeyGenerator::RAW_TYPE),
+                    'compare' => 'EXISTS',
+                ],
+                [
+                    'key' => self::postMetaKey(CacheKeyGenerator::TRANSLATED_TYPE),
+                    'compare' => 'EXISTS',
+                ],
+            ],
+            'fields' => 'ids',
+        ]);
+
         $result = [];
-        $result[] = delete_post_meta_by_key(self::postMetaKey(CacheKeyGenerator::RAW_TYPE));
-        $result[] = delete_post_meta_by_key(self::postMetaKey(CacheKeyGenerator::TRANSLATED_TYPE));
+        foreach ($ids as $id) {
+            $result[] = delete_post_meta(
+                $id,
+                self::postMetaKey(CacheKeyGenerator::RAW_TYPE)
+            );
+            $result[] = delete_post_meta(
+                $id,
+                self::postMetaKey(CacheKeyGenerator::TRANSLATED_TYPE)
+            );
+        }
 
         return !in_array(false, $result, true);
     }
