@@ -87,6 +87,7 @@ class JsonSchemaDegreeProgramDataValidatorTest extends WpDbLessTestCase
             ['30.04.'],
             ['31.08.'],
             ['20.02.'],
+            [''],
         ];
     }
 }

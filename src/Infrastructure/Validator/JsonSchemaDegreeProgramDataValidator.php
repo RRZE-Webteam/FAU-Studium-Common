@@ -138,7 +138,7 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
         ],
     ];
 
-    private const DEADLINE_PATTERN = '^((0[1-9]|[12][0-9]|3[01])\.(0[13578]|1[02])|(0[1-9]|[12][0-9]|30)\.(0[469]|11)|(0[1-9]|1[0-9]|2[0-8])\.02)\.$';
+    private const DEADLINE_PATTERN = '^((0[1-9]|[12][0-9]|3[01])\.(0[13578]|1[02])|(0[1-9]|[12][0-9]|30)\.(0[469]|11)|(0[1-9]|1[0-9]|2[0-8])\.02)\.$|^$';
 
     public const SCHEMA = [
         'type' => 'object',
