@@ -191,9 +191,10 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             examinationsOffice: $this->bilingualLinkFromTerm(
                 $this->firstTerm($post, ExaminationsOfficeTaxonomy::KEY)
             ),
-            examinationRegulations: $this->bilingualPostMeta(
-                $post,
-                DegreeProgram::EXAMINATION_REGULATIONS
+            examinationRegulations: (string) get_post_meta(
+                $postId,
+                DegreeProgram::EXAMINATION_REGULATIONS,
+                true
             ),
             moduleHandbook: (string) get_post_meta(
                 $postId,
@@ -392,6 +393,10 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
                 $this->fieldsSanitizer->sanitizeUrlField(
                     $degreeProgramViewRaw->studentRepresentatives()
                 ),
+            DegreeProgram::EXAMINATION_REGULATIONS =>
+                $this->fieldsSanitizer->sanitizeUrlField(
+                    $degreeProgramViewRaw->examinationRegulations()
+                ),
         ];
 
         foreach ($metas as $key => $value) {
@@ -404,7 +409,6 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             $this->fieldsSanitizer->sanitizeMultiLingualTextField(
                 $degreeProgramViewRaw->metaDescription()
             ),
-            $degreeProgramViewRaw->examinationRegulations(),
             $content->about()->description(),
             $content->structure()->description(),
             $content->specializations()->description(),

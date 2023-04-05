@@ -429,11 +429,7 @@
       "en": "https:\/\/fau.localhost\/examinations-office-en"
     }
   },
-  "examination_regulations": {
-    "id": "post_meta:25:examination_regulations",
-    "de": "https:\/\/fau.localhost\/examinations-regulations",
-    "en": "https:\/\/fau.localhost\/examinations-regulations-en"
-  },
+  "examination_regulations": "https://fau.localhost/examinations-regulations",
   "module_handbook": "Module handbook value",
   "url": {
     "id": "post_meta:25:url",
