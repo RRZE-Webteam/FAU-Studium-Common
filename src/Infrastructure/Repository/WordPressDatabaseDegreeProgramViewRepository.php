@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Infrastructure\Repository;
 
+use Fau\DegreeProgram\Common\Application\AdmissionRequirementsTranslated;
+use Fau\DegreeProgram\Common\Application\ConditionalFieldsFilter;
 use Fau\DegreeProgram\Common\Application\ContentTranslated;
 use Fau\DegreeProgram\Common\Application\DegreeProgramViewRaw;
 use Fau\DegreeProgram\Common\Application\DegreeProgramViewTranslated;
@@ -16,7 +18,9 @@ use Fau\DegreeProgram\Common\Application\Repository\DegreeProgramViewRepository;
 use Fau\DegreeProgram\Common\Domain\DegreeProgramId;
 use Fau\DegreeProgram\Common\Domain\DegreeProgramRepository;
 use Fau\DegreeProgram\Common\Domain\MultilingualString;
+use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\FacultyTaxonomy;
 use Fau\DegreeProgram\Common\Infrastructure\Sanitizer\HtmlDegreeProgramSanitizer;
+use Fau\DegreeProgram\Common\LanguageExtension\ArrayOfStrings;
 use RuntimeException;
 use WP_Post;
 
@@ -28,6 +32,7 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
     public function __construct(
         private DegreeProgramRepository $degreeProgramRepository,
         private HtmlDegreeProgramSanitizer $htmlContentSanitizer,
+        private ConditionalFieldsFilter $conditionalFieldsFilter,
     ) {
     }
 
@@ -54,6 +59,11 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
             return null;
         }
 
+        $raw = $this->conditionalFieldsFilter->filter(
+            $raw,
+            $this->findFacultySlugs($raw),
+        );
+
         $main = $this->translateDegreeProgram($raw, $languageCode);
         foreach (MultilingualString::LANGUAGES as $code => $name) {
             if ($code === $languageCode) {
@@ -67,6 +77,23 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
         }
 
         return $main;
+    }
+
+    private function findFacultySlugs(DegreeProgramViewRaw $raw): ArrayOfStrings
+    {
+        $terms = get_the_terms(
+            $raw->id()->asInt(),
+            FacultyTaxonomy::KEY
+        );
+
+        if (!is_array($terms)) {
+            return ArrayOfStrings::new();
+        }
+
+        /** @var array<string> $slugs */
+        $slugs = wp_list_pluck($terms, 'slug');
+
+        return ArrayOfStrings::new(...$slugs);
     }
 
     /**
@@ -104,13 +131,10 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
             metaDescription: $raw->metaDescription()->asString($languageCode),
             content: ContentTranslated::fromContent($raw->content(), $languageCode)
                 ->mapDescriptions([$this, 'formatContentField']),
-            admissionRequirementLink: Link::fromMultilingualLink(
-                $raw->admissionRequirements()->asLink(),
+            admissionRequirements: AdmissionRequirementsTranslated::fromAdmissionRequirements(
+                $raw->admissionRequirements(),
                 $languageCode
             ),
-            admissionRequirementsList: $raw->admissionRequirements()
-                ->asMultilingualList()
-                ->asArrayOfStrings($languageCode),
             contentRelatedMasterRequirements: $this->formatContentField(
                 $raw->contentRelatedMasterRequirements()->asString($languageCode)
             ),

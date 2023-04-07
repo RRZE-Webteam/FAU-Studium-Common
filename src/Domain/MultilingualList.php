@@ -61,4 +61,13 @@ final class MultilingualList extends ArrayObject implements \JsonSerializable
     {
         return $this->asArray();
     }
+
+    public function containGermanString(string $string): bool
+    {
+        return in_array(
+            $string,
+            $this->asArrayOfStrings(MultilingualString::DE)->getArrayCopy(),
+            true
+        );
+    }
 }

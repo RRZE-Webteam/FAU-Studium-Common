@@ -62,7 +62,7 @@ final class DegreeTranslated
     }
 
     /**
-     * @return DegreeTranslatedType $data
+     * @return DegreeTranslatedType
      */
     public function asArray(): array
     {

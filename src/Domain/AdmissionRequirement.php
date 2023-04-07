@@ -112,4 +112,22 @@ final class AdmissionRequirement
     {
         return !$this->current->id();
     }
+
+    public function current(): MultilingualLink
+    {
+        return $this->current;
+    }
+
+    public function hasGermanName(string $name): bool
+    {
+        if ($this->name()->inGerman() === $name) {
+            return true;
+        }
+
+        if (!$this->parent) {
+            return false;
+        }
+
+        return $this->parent->name()->inGerman() === $name;
+    }
 }

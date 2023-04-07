@@ -13,6 +13,8 @@ use JsonSerializable;
 
 /**
  * @psalm-import-type DegreeTranslatedType from DegreeTranslated
+ * @psalm-import-type AdmissionRequirementsTranslatedType from AdmissionRequirementsTranslated
+ * @psalm-import-type AdmissionRequirementTranslatedType from AdmissionRequirementTranslated
  * @psalm-import-type LinkType from Link
  * @psalm-import-type ContentTranslatedType from ContentTranslated
  * @psalm-import-type RelatedDegreeProgramType from RelatedDegreeProgram
@@ -38,8 +40,8 @@ use JsonSerializable;
  *     videos: array<array-key, string>,
  *     meta_description: string,
  *     content: ContentTranslatedType,
- *     admission_requirement_link: LinkType,
- *     admission_requirements_list: array<string>,
+ *     admission_requirements: AdmissionRequirementsTranslatedType,
+ *     admission_requirement_link: AdmissionRequirementTranslatedType|null,
  *     content_related_master_requirements: string,
  *     application_deadline_winter_semester: string,
  *     application_deadline_summer_semester: string,
@@ -79,7 +81,6 @@ final class DegreeProgramViewTranslated implements JsonSerializable
     public const LINK = 'link';
     public const LANG = 'lang';
     public const ADMISSION_REQUIREMENT_LINK = 'admission_requirement_link';
-    public const ADMISSION_REQUIREMENTS_LIST = 'admission_requirements_list';
     public const TRANSLATIONS = 'translations';
 
     /** @var array<LanguageCodes, DegreeProgramViewTranslated> */
@@ -110,8 +111,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
         private ArrayOfStrings $videos,
         private string $metaDescription,
         private ContentTranslated $content,
-        private Link $admissionRequirementLink,
-        private ArrayOfStrings $admissionRequirementsList,
+        private AdmissionRequirementsTranslated $admissionRequirements,
         private string $contentRelatedMasterRequirements,
         private string $applicationDeadlineWinterSemester,
         private string $applicationDeadlineSummerSemester,
@@ -175,8 +175,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             videos: ArrayOfStrings::new(...$data[DegreeProgram::VIDEOS]),
             metaDescription: $data[DegreeProgram::META_DESCRIPTION],
             content: ContentTranslated::fromArray($data[DegreeProgram::CONTENT]),
-            admissionRequirementLink: Link::fromArray($data[self::ADMISSION_REQUIREMENT_LINK]),
-            admissionRequirementsList: ArrayOfStrings::new(...$data[self::ADMISSION_REQUIREMENTS_LIST]),
+            admissionRequirements: AdmissionRequirementsTranslated::fromArray($data[DegreeProgram::ADMISSION_REQUIREMENTS]),
             contentRelatedMasterRequirements: $data[DegreeProgram::CONTENT_RELATED_MASTER_REQUIREMENTS],
             applicationDeadlineWinterSemester: $data[DegreeProgram::APPLICATION_DEADLINE_WINTER_SEMESTER],
             applicationDeadlineSummerSemester: $data[DegreeProgram::APPLICATION_DEADLINE_SUMMER_SEMESTER],
@@ -246,8 +245,8 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             DegreeProgram::VIDEOS => $this->videos->getArrayCopy(),
             DegreeProgram::META_DESCRIPTION => $this->metaDescription,
             DegreeProgram::CONTENT => $this->content->asArray(),
-            self::ADMISSION_REQUIREMENT_LINK => $this->admissionRequirementLink->asArray(),
-            self::ADMISSION_REQUIREMENTS_LIST => $this->admissionRequirementsList->getArrayCopy(),
+            DegreeProgram::ADMISSION_REQUIREMENTS => $this->admissionRequirements->asArray(),
+            self::ADMISSION_REQUIREMENT_LINK => $this->admissionRequirementLink()?->asArray(),
             DegreeProgram::CONTENT_RELATED_MASTER_REQUIREMENTS => $this->contentRelatedMasterRequirements,
             DegreeProgram::APPLICATION_DEADLINE_WINTER_SEMESTER => $this->applicationDeadlineWinterSemester,
             DegreeProgram::APPLICATION_DEADLINE_SUMMER_SEMESTER => $this->applicationDeadlineSummerSemester,
@@ -439,14 +438,14 @@ final class DegreeProgramViewTranslated implements JsonSerializable
         return $this->content;
     }
 
-    public function admissionRequirementLink(): Link
+    public function admissionRequirements(): AdmissionRequirementsTranslated
     {
-        return $this->admissionRequirementLink;
+        return $this->admissionRequirements;
     }
 
-    public function admissionRequirementsList(): ArrayOfStrings
+    public function admissionRequirementLink(): ?AdmissionRequirementTranslated
     {
-        return $this->admissionRequirementsList;
+        return $this->admissionRequirements->mainLink();
     }
 
     public function contentRelatedMasterRequirements(): string

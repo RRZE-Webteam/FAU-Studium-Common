@@ -112,4 +112,17 @@ final class Degree implements JsonSerializable
     {
         return $this->parent;
     }
+
+    public function hasGermanAbbreviation(string $abbreviation): bool
+    {
+        if ($this->abbreviation->inGerman() === $abbreviation) {
+            return true;
+        }
+
+        if (!$this->parent) {
+            return false;
+        }
+
+        return $this->parent->abbreviation->inGerman() === $abbreviation;
+    }
 }

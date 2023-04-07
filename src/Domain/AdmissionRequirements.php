@@ -18,11 +18,6 @@ final class AdmissionRequirements
     public const TEACHING_DEGREE_HIGHER_SEMESTER = 'teaching_degree_higher_semester';
     public const MASTER = 'master';
 
-    /**
-     * @var array<AdmissionRequirement>
-     */
-    private array $requirements;
-
     private function __construct(
         /** Admission requirements for Bachelor’s/teaching degrees
          * (“Zugangsvoraussetzungen Bachelor/Lehramt”)
@@ -37,12 +32,6 @@ final class AdmissionRequirements
          */
         private AdmissionRequirement $master,
     ) {
-        // The order does matter because bachelorOrTeachingDegree wins over teachingDegreeHigherSemester
-        $this->requirements = [
-            $this->bachelorOrTeachingDegree,
-            $this->teachingDegreeHigherSemester,
-            $this->master,
-        ];
     }
 
     public static function new(
@@ -80,29 +69,6 @@ final class AdmissionRequirements
             self::TEACHING_DEGREE_HIGHER_SEMESTER => $this->teachingDegreeHigherSemester->asArray(),
             self::MASTER => $this->master->asArray(),
         ];
-    }
-
-    public function asLink(): AdmissionRequirement
-    {
-        foreach ($this->requirements as $requirement) {
-            if (!$requirement->isEmpty()) {
-                return $requirement;
-            }
-        }
-
-        return AdmissionRequirement::empty();
-    }
-
-    public function asMultilingualList(): MultilingualList
-    {
-        $strings = [];
-        foreach ($this->requirements as $requirement) {
-            if (!$requirement->isEmpty()) {
-                $strings[] = $requirement->name();
-            }
-        }
-
-        return MultilingualList::new(...$strings);
     }
 
     public function bachelorOrTeachingDegree(): AdmissionRequirement
