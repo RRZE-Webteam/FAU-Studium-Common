@@ -10,6 +10,7 @@
 
     <rule ref="Inpsyde">
         <exclude name="Inpsyde.CodeQuality.ElementNameMinimalLength.TooShort"/>
+        <exclude name="WordPress.NamingConventions.ValidHookName.UseUnderscores"/>
     </rule>
 
     <rule ref="Inpsyde.CodeQuality.Psr4">

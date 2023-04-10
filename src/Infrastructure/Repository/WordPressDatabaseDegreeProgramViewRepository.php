@@ -209,7 +209,7 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
             wp_get_attachment_image(
                 $image->id(),
                 (string) apply_filters(
-                    sprintf('fau.image_size.%s', $type),
+                    'fau.image_size',
                     'full',
                     $type,
                 ),
