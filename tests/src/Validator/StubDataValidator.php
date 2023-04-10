@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace Fau\DegreeProgram\Common\Tests\Validator;
 
 use Fau\DegreeProgram\Common\Domain\DegreeProgramDataValidator;
-use Fau\DegreeProgram\Common\LanguageExtension\ArrayOfStrings;
+use Fau\DegreeProgram\Common\Domain\Violations;
 
 final class StubDataValidator implements DegreeProgramDataValidator
 {
     public function __construct(
-        private ArrayOfStrings $result
+        private Violations $result
     ) {
     }
 
-    public function validate(array $data): ArrayOfStrings
+    public function validate(array $data): Violations
     {
         return $this->result;
     }

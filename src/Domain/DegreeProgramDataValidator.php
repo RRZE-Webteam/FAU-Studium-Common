@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Domain;
 
-use Fau\DegreeProgram\Common\LanguageExtension\ArrayOfStrings;
-
 interface DegreeProgramDataValidator
 {
     /**
-     * @param array $data
-     * @return ArrayOfStrings Violations array
+     * @param array<string, mixed> $data
+     * @return Violations Violations array
      */
-    public function validate(array $data): ArrayOfStrings;
+    public function validate(array $data): Violations;
 }

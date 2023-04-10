@@ -20,6 +20,45 @@ final class MultilingualLink
     public const LINK_TEXT = 'link_text';
     public const LINK_URL = 'link_url';
 
+    public const SCHEMA = [
+        'type' => 'object',
+        'additionalProperties' => false,
+        'required' => [
+            MultilingualLink::ID,
+            MultilingualLink::NAME,
+            MultilingualLink::LINK_TEXT,
+            MultilingualLink::LINK_URL,
+        ],
+        'properties' => [
+            MultilingualLink::ID => [
+                'type' => 'string',
+            ],
+            MultilingualLink::NAME => MultilingualString::SCHEMA,
+            MultilingualLink::LINK_TEXT => MultilingualString::SCHEMA,
+            MultilingualLink::LINK_URL => MultilingualString::SCHEMA,
+        ],
+    ];
+
+    public const SCHEMA_REQUIRED = [
+        'type' => 'object',
+        'additionalProperties' => false,
+        'required' => [
+            MultilingualLink::ID,
+            MultilingualLink::NAME,
+            MultilingualLink::LINK_TEXT,
+            MultilingualLink::LINK_URL,
+        ],
+        'properties' => [
+            MultilingualLink::ID => [
+                'type' => 'string',
+                'minLength' => 1,
+            ],
+            MultilingualLink::NAME => MultilingualString::SCHEMA,
+            MultilingualLink::LINK_TEXT => MultilingualString::SCHEMA,
+            MultilingualLink::LINK_URL => MultilingualString::SCHEMA,
+        ],
+    ];
+
     private function __construct(
         private string $id,
         private MultilingualString $name,

@@ -259,6 +259,7 @@ final class DegreeProgram
     }
 
     /**
+     * @param array<string, mixed> $data
      * phpcs:disable Inpsyde.CodeQuality.FunctionLength.TooLong
      * @psalm-suppress MixedArgument
      */
@@ -269,11 +270,11 @@ final class DegreeProgram
     ): void {
 
         $violations = $dataValidator->validate($data);
-        if (count($violations) > 0) {
+        if ($violations->count() > 0) {
             throw new InvalidArgumentException(
                 sprintf(
                     'Invalid degree program data. Violations: %s.',
-                    implode('|', $violations->getArrayCopy())
+                    implode('|', array_keys($violations->getArrayCopy()))
                 )
             );
         }

@@ -13,123 +13,16 @@ use Fau\DegreeProgram\Common\Domain\DegreeProgram;
 use Fau\DegreeProgram\Common\Domain\DegreeProgramDataValidator;
 use Fau\DegreeProgram\Common\Domain\Image;
 use Fau\DegreeProgram\Common\Domain\MultilingualLink;
+use Fau\DegreeProgram\Common\Domain\MultilingualLinks;
+use Fau\DegreeProgram\Common\Domain\MultilingualList;
 use Fau\DegreeProgram\Common\Domain\MultilingualString;
 use Fau\DegreeProgram\Common\Domain\NumberOfStudents;
-use Fau\DegreeProgram\Common\LanguageExtension\ArrayOfStrings;
+use Fau\DegreeProgram\Common\Domain\Violation;
+use Fau\DegreeProgram\Common\Domain\Violations;
+use WP_Error;
 
 final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataValidator
 {
-    private const IMAGE = [
-        'type' => 'object',
-        'additionalProperties' => false,
-        'required' => [Image::ID, Image::URL],
-        'properties' => [
-            Image::ID => [
-                'type' => 'integer',
-                'minimum' => 0,
-            ],
-            Image::URL => [
-                'type' => 'string',
-            ],
-        ],
-    ];
-
-    private const MULTILINGUAL_STRING = [
-        'type' => 'object',
-        'additionalProperties' => false,
-        'required' => ['id', MultilingualString::DE, MultilingualString::EN],
-        'properties' => [
-            'id' => [
-                'type' => 'string',
-            ],
-            MultilingualString::DE => [
-                'type' => 'string',
-            ],
-            MultilingualString::EN => [
-                'type' => 'string',
-            ],
-        ],
-    ];
-
-    private const MULTILINGUAL_LIST = [
-        'type' => 'array',
-        'items' => self::MULTILINGUAL_STRING,
-    ];
-
-    private const MULTILINGUAL_LINK = [
-        'type' => 'object',
-        'additionalProperties' => false,
-        'required' => [
-            MultilingualLink::ID,
-            MultilingualLink::NAME,
-            MultilingualLink::LINK_TEXT,
-            MultilingualLink::LINK_URL,
-        ],
-        'properties' => [
-            MultilingualLink::ID => [
-                'type' => 'string',
-            ],
-            MultilingualLink::NAME => self::MULTILINGUAL_STRING,
-            MultilingualLink::LINK_TEXT => self::MULTILINGUAL_STRING,
-            MultilingualLink::LINK_URL => self::MULTILINGUAL_STRING,
-        ],
-    ];
-
-    private const ADMISSION_REQUIREMENT = [
-        'type' => 'object',
-        'additionalProperties' => false,
-        'required' => [
-            AdmissionRequirement::ID,
-            AdmissionRequirement::NAME,
-            AdmissionRequirement::LINK_TEXT,
-            AdmissionRequirement::LINK_URL,
-        ],
-        'properties' => [
-            AdmissionRequirement::ID => [
-                'type' => 'string',
-            ],
-            AdmissionRequirement::NAME => self::MULTILINGUAL_STRING,
-            AdmissionRequirement::LINK_TEXT => self::MULTILINGUAL_STRING,
-            AdmissionRequirement::LINK_URL => self::MULTILINGUAL_STRING,
-            AdmissionRequirement::PARENT => [
-                'oneOf' => [
-                    [
-                        'type' => 'object',
-                        'additionalProperties' => true,
-                        'required' => [
-                            AdmissionRequirement::ID,
-                            AdmissionRequirement::NAME,
-                        ],
-                        'properties' => [
-                            AdmissionRequirement::ID => [
-                                'type' => 'string',
-                            ],
-                            AdmissionRequirement::NAME => self::MULTILINGUAL_STRING,
-                        ],
-                    ],
-                    [
-                        'type' => 'null',
-                    ],
-                ],
-            ],
-        ],
-    ];
-
-    private const MULTILINGUAL_LINKS = [
-        'type' => 'array',
-        'items' => self::MULTILINGUAL_LINK,
-    ];
-
-    private const CONTENT_ITEM = [
-        'type' => 'object',
-        'additionalProperties' => false,
-        'required' => [ContentItem::TITLE, ContentItem::DESCRIPTION],
-        'properties' => [
-            ContentItem::TITLE => self::MULTILINGUAL_STRING,
-            ContentItem::DESCRIPTION => self::MULTILINGUAL_STRING,
-        ],
-    ];
-
     private const ARRAY_OF_IDS = [
         'type' => 'array',
         'items' => [
@@ -197,19 +90,19 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
                 'type' => 'integer',
                 'minimum' => 1,
             ],
-            DegreeProgram::SLUG => self::MULTILINGUAL_STRING,
-            DegreeProgram::FEATURED_IMAGE => self::IMAGE,
-            DegreeProgram::TEASER_IMAGE => self::IMAGE,
-            DegreeProgram::TITLE => self::MULTILINGUAL_STRING,
-            DegreeProgram::SUBTITLE => self::MULTILINGUAL_STRING,
+            DegreeProgram::SLUG => MultilingualString::SCHEMA,
+            DegreeProgram::FEATURED_IMAGE => Image::SCHEMA_REQUIRED,
+            DegreeProgram::TEASER_IMAGE => Image::SCHEMA,
+            DegreeProgram::TITLE => MultilingualString::SCHEMA_REQUIRED,
+            DegreeProgram::SUBTITLE => MultilingualString::SCHEMA_REQUIRED,
             DegreeProgram::STANDARD_DURATION => [
                 'type' => 'string',
-                'minimum' => 0,
+                'minLength' => 0,
             ],
             DegreeProgram::FEE_REQUIRED => [
                 'type' => 'boolean',
             ],
-            DegreeProgram::START => self::MULTILINGUAL_LIST,
+            DegreeProgram::START => MultilingualList::SCHEMA_REQUIRED,
             DegreeProgram::NUMBER_OF_STUDENTS => [
                 'type' => 'object',
                 'additionalProperties' => false,
@@ -217,14 +110,15 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
                 'properties' => [
                     NumberOfStudents::ID => [
                         'type' => 'string',
+                        'minLength' => 1,
                     ],
                     NumberOfStudents::DESCRIPTION => [
                         'type' => 'string',
                     ],
                 ],
             ],
-            DegreeProgram::TEACHING_LANGUAGE => self::MULTILINGUAL_STRING,
-            DegreeProgram::ATTRIBUTES => self::MULTILINGUAL_LIST,
+            DegreeProgram::TEACHING_LANGUAGE => MultilingualString::SCHEMA_ID_REQUIRED,
+            DegreeProgram::ATTRIBUTES => MultilingualList::SCHEMA_REQUIRED,
             DegreeProgram::DEGREE => [
                 'type' => 'object',
                 'additionalProperties' => false,
@@ -232,9 +126,10 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
                 'properties' => [
                     Degree::ID => [
                         'type' => 'string',
+                        'minLength' => 1,
                     ],
-                    Degree::NAME => self::MULTILINGUAL_STRING,
-                    Degree::ABBREVIATION => self::MULTILINGUAL_STRING,
+                    Degree::NAME => MultilingualString::SCHEMA,
+                    Degree::ABBREVIATION => MultilingualString::SCHEMA,
                     Degree::PARENT => [
                         'oneOf' => [
                             [
@@ -254,16 +149,16 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
                     ],
                 ],
             ],
-            DegreeProgram::FACULTY => self::MULTILINGUAL_LINKS,
-            DegreeProgram::LOCATION => self::MULTILINGUAL_LIST,
-            DegreeProgram::SUBJECT_GROUPS => self::MULTILINGUAL_LIST,
+            DegreeProgram::FACULTY => MultilingualLinks::SCHEMA_REQUIRED,
+            DegreeProgram::LOCATION => MultilingualList::SCHEMA_REQUIRED,
+            DegreeProgram::SUBJECT_GROUPS => MultilingualList::SCHEMA_REQUIRED,
             DegreeProgram::VIDEOS => [
                 'type' => 'array',
                 'items' => [
                     'type' => 'string',
                 ],
             ],
-            DegreeProgram::META_DESCRIPTION => self::MULTILINGUAL_STRING,
+            DegreeProgram::META_DESCRIPTION => MultilingualString::SCHEMA,
             DegreeProgram::CONTENT => [
                 'type' => 'object',
                 'additionalProperties' => false,
@@ -278,14 +173,14 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
                     Content::TESTIMONIALS,
                 ],
                 'properties' => [
-                    Content::ABOUT => self::CONTENT_ITEM,
-                    Content::STRUCTURE => self::CONTENT_ITEM,
-                    Content::SPECIALIZATIONS => self::CONTENT_ITEM,
-                    Content::QUALITIES_AND_SKILLS => self::CONTENT_ITEM,
-                    Content::WHY_SHOULD_STUDY => self::CONTENT_ITEM,
-                    Content::CAREER_PROSPECTS => self::CONTENT_ITEM,
-                    Content::SPECIAL_FEATURES => self::CONTENT_ITEM,
-                    Content::TESTIMONIALS => self::CONTENT_ITEM,
+                    Content::ABOUT => ContentItem::SCHEMA_REQUIRED,
+                    Content::STRUCTURE => ContentItem::SCHEMA_REQUIRED,
+                    Content::SPECIALIZATIONS => ContentItem::SCHEMA,
+                    Content::QUALITIES_AND_SKILLS => ContentItem::SCHEMA,
+                    Content::WHY_SHOULD_STUDY => ContentItem::SCHEMA,
+                    Content::CAREER_PROSPECTS => ContentItem::SCHEMA,
+                    Content::SPECIAL_FEATURES => ContentItem::SCHEMA,
+                    Content::TESTIMONIALS => ContentItem::SCHEMA,
                 ],
             ],
             DegreeProgram::ADMISSION_REQUIREMENTS => [
@@ -297,12 +192,12 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
                     AdmissionRequirements::MASTER,
                 ],
                 'properties' => [
-                    AdmissionRequirements::BACHELOR_OR_TEACHING_DEGREE => self::ADMISSION_REQUIREMENT,
-                    AdmissionRequirements::TEACHING_DEGREE_HIGHER_SEMESTER => self::ADMISSION_REQUIREMENT,
-                    AdmissionRequirements::MASTER => self::ADMISSION_REQUIREMENT,
+                    AdmissionRequirements::BACHELOR_OR_TEACHING_DEGREE => AdmissionRequirement::SCHEMA,
+                    AdmissionRequirements::TEACHING_DEGREE_HIGHER_SEMESTER => AdmissionRequirement::SCHEMA,
+                    AdmissionRequirements::MASTER => AdmissionRequirement::SCHEMA,
                 ],
             ],
-            DegreeProgram::CONTENT_RELATED_MASTER_REQUIREMENTS => self::MULTILINGUAL_STRING,
+            DegreeProgram::CONTENT_RELATED_MASTER_REQUIREMENTS => MultilingualString::SCHEMA,
             DegreeProgram::APPLICATION_DEADLINE_WINTER_SEMESTER => [
                 'type' => 'string',
                 'pattern' => self::DEADLINE_PATTERN,
@@ -311,49 +206,131 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
                 'type' => 'string',
                 'pattern' => self::DEADLINE_PATTERN,
             ],
-            DegreeProgram::DETAILS_AND_NOTES => self::MULTILINGUAL_STRING,
-            DegreeProgram::LANGUAGE_SKILLS => self::MULTILINGUAL_STRING,
+            DegreeProgram::DETAILS_AND_NOTES => MultilingualString::SCHEMA_REQUIRED,
+            DegreeProgram::LANGUAGE_SKILLS => MultilingualString::SCHEMA_REQUIRED,
             DegreeProgram::LANGUAGE_SKILLS_HUMANITIES_FACULTY => [
                 'type' => 'string',
             ],
-            DegreeProgram::GERMAN_LANGUAGE_SKILLS_FOR_INTERNATIONAL_STUDENTS => self::MULTILINGUAL_LINK,
-            DegreeProgram::START_OF_SEMESTER => self::MULTILINGUAL_LINK,
-            DegreeProgram::SEMESTER_DATES => self::MULTILINGUAL_LINK,
-            DegreeProgram::EXAMINATIONS_OFFICE => self::MULTILINGUAL_LINK,
+            DegreeProgram::GERMAN_LANGUAGE_SKILLS_FOR_INTERNATIONAL_STUDENTS => MultilingualLink::SCHEMA_REQUIRED,
+            DegreeProgram::START_OF_SEMESTER => MultilingualLink::SCHEMA,
+            DegreeProgram::SEMESTER_DATES => MultilingualLink::SCHEMA,
+            DegreeProgram::EXAMINATIONS_OFFICE => MultilingualLink::SCHEMA_REQUIRED,
             DegreeProgram::EXAMINATION_REGULATIONS => [
                 'type' => 'string',
+                'minLength' => 1,
+                'format' => 'uri',
             ],
             DegreeProgram::MODULE_HANDBOOK => [
                 'type' => 'string',
+                'minLength' => 1,
+                'format' => 'uri',
             ],
-            DegreeProgram::URL => self::MULTILINGUAL_STRING,
-            DegreeProgram::DEPARTMENT => self::MULTILINGUAL_STRING,
-            DegreeProgram::STUDENT_ADVICE => self::MULTILINGUAL_LINK,
-            DegreeProgram::SUBJECT_SPECIFIC_ADVICE => self::MULTILINGUAL_LINK,
-            DegreeProgram::SERVICE_CENTERS => self::MULTILINGUAL_LINK,
+            DegreeProgram::URL => MultilingualString::SCHEMA_URL_REQUIRED,
+            DegreeProgram::DEPARTMENT => MultilingualString::SCHEMA_URL_REQUIRED,
+            DegreeProgram::STUDENT_ADVICE => MultilingualLink::SCHEMA,
+            DegreeProgram::SUBJECT_SPECIFIC_ADVICE => MultilingualLink::SCHEMA_REQUIRED,
+            DegreeProgram::SERVICE_CENTERS => MultilingualLink::SCHEMA,
             DegreeProgram::STUDENT_REPRESENTATIVES => [
                 'type' => 'string',
+                'minLength' => 1,
+                'format' => 'uri',
             ],
-            DegreeProgram::SEMESTER_FEE => self::MULTILINGUAL_LINK,
-            DegreeProgram::DEGREE_PROGRAM_FEES => self::MULTILINGUAL_STRING,
-            DegreeProgram::ABROAD_OPPORTUNITIES => self::MULTILINGUAL_LINK,
-            DegreeProgram::KEYWORDS => self::MULTILINGUAL_LIST,
-            DegreeProgram::AREA_OF_STUDY => self::MULTILINGUAL_LINKS,
+            DegreeProgram::SEMESTER_FEE => MultilingualLink::SCHEMA,
+            DegreeProgram::DEGREE_PROGRAM_FEES => MultilingualString::SCHEMA,
+            DegreeProgram::ABROAD_OPPORTUNITIES => MultilingualLink::SCHEMA,
+            DegreeProgram::KEYWORDS => MultilingualList::SCHEMA_REQUIRED,
+            DegreeProgram::AREA_OF_STUDY => MultilingualLinks::SCHEMA_REQUIRED,
             DegreeProgram::COMBINATIONS => self::ARRAY_OF_IDS,
             DegreeProgram::LIMITED_COMBINATIONS => self::ARRAY_OF_IDS,
-            DegreeProgram::NOTES_FOR_INTERNATIONAL_APPLICANTS => self::MULTILINGUAL_LINK,
-            DegreeProgram::APPLY_NOW_LINK => self::MULTILINGUAL_LINK,
-            DegreeProgram::ENTRY_TEXT => self::MULTILINGUAL_STRING,
+            DegreeProgram::NOTES_FOR_INTERNATIONAL_APPLICANTS => MultilingualLink::SCHEMA,
+            DegreeProgram::APPLY_NOW_LINK => MultilingualLink::SCHEMA_REQUIRED,
+            DegreeProgram::ENTRY_TEXT => MultilingualString::SCHEMA_REQUIRED,
         ],
     ];
 
-    public function validate(array $data): ArrayOfStrings
+    /**
+     * @param array<string, mixed> $data
+     */
+    public function validate(array $data): Violations
     {
-        $result = rest_validate_value_from_schema($data, self::SCHEMA, 'degree_program');
-        if ($result === true) {
-            return ArrayOfStrings::new();
+        $violations = Violations::new();
+
+        $generalResult = rest_validate_value_from_schema(
+            $data,
+            self::SCHEMA,
+            'degree_program',
+        );
+
+        if (!$generalResult instanceof WP_Error) {
+            return $violations;
         }
 
-        return ArrayOfStrings::new(...$result->get_error_messages());
+        // Find missing required properties violations
+        if ($generalResult->get_error_code() === 'rest_property_required') {
+            $violations->offsetSet(
+                'degree_program',
+                Violation::new(
+                    'degree_program',
+                    $generalResult->get_error_message(),
+                    (string) $generalResult->get_error_code(),
+                )
+            );
+        }
+
+        // Go through each property recursively and populate rest of violations.
+        $this->populateViolations(
+            $data,
+            self::SCHEMA['properties'],
+            $violations,
+        );
+
+        return $violations;
+    }
+
+    /**
+     * @param array<string, mixed> $fields
+     * @param array $schema
+     */
+    private function populateViolations(
+        mixed $fields,
+        array $schema,
+        Violations $violations,
+        string $prefixKey = '',
+    ): void {
+
+        foreach ($fields as $key => $field) {
+            /** @var array{properties: array[], type: string} $fieldSchema */
+            $fieldSchema = $schema[$key];
+
+            $path = $prefixKey ? $prefixKey . '.' . $key : $key;
+
+            $error = rest_validate_value_from_schema(
+                $field,
+                $fieldSchema,
+                $path,
+            );
+
+            if (!$error instanceof WP_Error) {
+                continue;
+            }
+
+            if ($fieldSchema['type'] === 'object' && ! empty($fieldSchema['properties'])) {
+                /** @var array<string, mixed> $field */
+                $this->populateViolations($field, $fieldSchema['properties'], $violations, $path);
+                continue;
+            }
+
+            /** @var string $errorCode */
+            $errorCode = $error->get_error_code();
+
+            $violations->offsetSet(
+                $path,
+                Violation::new(
+                    $path,
+                    $error->get_error_message(),
+                    $errorCode,
+                )
+            );
+        }
     }
 }

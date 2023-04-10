@@ -16,6 +16,26 @@ final class ContentItem
     public const TITLE = 'title';
     public const DESCRIPTION = 'description';
 
+    public const SCHEMA = [
+        'type' => 'object',
+        'additionalProperties' => false,
+        'required' => [ContentItem::TITLE, ContentItem::DESCRIPTION],
+        'properties' => [
+            ContentItem::TITLE => MultilingualString::SCHEMA,
+            ContentItem::DESCRIPTION => MultilingualString::SCHEMA,
+        ],
+    ];
+
+    public const SCHEMA_REQUIRED = [
+        'type' => 'object',
+        'additionalProperties' => false,
+        'required' => [ContentItem::TITLE, ContentItem::DESCRIPTION],
+        'properties' => [
+            ContentItem::TITLE => MultilingualString::SCHEMA,
+            ContentItem::DESCRIPTION => MultilingualString::SCHEMA_REQUIRED,
+        ],
+    ];
+
     private function __construct(
         private MultilingualString $title,
         private MultilingualString $description,

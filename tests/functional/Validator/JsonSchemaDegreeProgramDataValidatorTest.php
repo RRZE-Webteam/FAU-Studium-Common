@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Tests\Validator;
 
+use Fau\DegreeProgram\Common\Domain\Violations;
 use Fau\DegreeProgram\Common\Infrastructure\Validator\JsonSchemaDegreeProgramDataValidator;
 use Fau\DegreeProgram\Common\Tests\FixtureDegreeProgramDataProviderTrait;
 use Fau\DegreeProgram\Common\Tests\WpDbLess\WpDbLessTestCase;
@@ -33,7 +34,7 @@ class JsonSchemaDegreeProgramDataValidatorTest extends WpDbLessTestCase
         $this->assertCount(1, $violations->getArrayCopy());
         $this->assertSame(
             'content is a required property of degree_program.',
-            $violations[0]
+            $violations['degree_program']->errorMessage()
         );
     }
 
@@ -49,8 +50,8 @@ class JsonSchemaDegreeProgramDataValidatorTest extends WpDbLessTestCase
         $violations = $sut->validate($fixtureData);
         $this->assertCount(1, $violations->getArrayCopy());
         $this->assertStringStartsWith(
-            'degree_program[application_deadline_winter_semester] does not match pattern',
-            $violations[0]
+            'application_deadline_winter_semester does not match pattern',
+            $violations['application_deadline_winter_semester']->errorMessage(),
         );
     }
     /**

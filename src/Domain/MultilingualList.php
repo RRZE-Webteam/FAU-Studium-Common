@@ -13,6 +13,17 @@ use Fau\DegreeProgram\Common\LanguageExtension\ArrayOfStrings;
  */
 final class MultilingualList extends ArrayObject implements \JsonSerializable
 {
+    public const SCHEMA = [
+        'type' => 'array',
+        'items' => MultilingualString::SCHEMA,
+    ];
+
+    public const SCHEMA_REQUIRED = [
+        'type' => 'array',
+        'items' => MultilingualString::SCHEMA,
+        'minItems' => 1,
+    ];
+
     private function __construct(MultilingualString ...$strings)
     {
         parent::__construct($strings);

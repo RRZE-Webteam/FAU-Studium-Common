@@ -27,6 +27,46 @@ final class AdmissionRequirement
 
     public const PARENT = 'parent';
 
+    public const SCHEMA = [
+        'type' => 'object',
+        'additionalProperties' => false,
+        'required' => [
+            AdmissionRequirement::ID,
+            AdmissionRequirement::NAME,
+            AdmissionRequirement::LINK_TEXT,
+            AdmissionRequirement::LINK_URL,
+        ],
+        'properties' => [
+            AdmissionRequirement::ID => [
+                'type' => 'string',
+            ],
+            AdmissionRequirement::NAME => MultilingualString::SCHEMA,
+            AdmissionRequirement::LINK_TEXT => MultilingualString::SCHEMA,
+            AdmissionRequirement::LINK_URL => MultilingualString::SCHEMA,
+            AdmissionRequirement::PARENT => [
+                'oneOf' => [
+                    [
+                        'type' => 'object',
+                        'additionalProperties' => true,
+                        'required' => [
+                            AdmissionRequirement::ID,
+                            AdmissionRequirement::NAME,
+                        ],
+                        'properties' => [
+                            AdmissionRequirement::ID => [
+                                'type' => 'string',
+                            ],
+                            AdmissionRequirement::NAME => MultilingualString::SCHEMA,
+                        ],
+                    ],
+                    [
+                        'type' => 'null',
+                    ],
+                ],
+            ],
+        ],
+    ];
+
     private function __construct(
         private MultilingualLink $current,
         private ?AdmissionRequirement $parent,

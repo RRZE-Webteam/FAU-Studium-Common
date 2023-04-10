@@ -15,6 +15,81 @@ final class MultilingualString implements JsonSerializable
     public const DE = 'de';
     public const EN = 'en';
 
+    public const SCHEMA = [
+        'type' => 'object',
+        'additionalProperties' => false,
+        'required' => ['id', MultilingualString::DE, MultilingualString::EN],
+        'properties' => [
+            'id' => [
+                'type' => 'string',
+            ],
+            MultilingualString::DE => [
+                'type' => 'string',
+            ],
+            MultilingualString::EN => [
+                'type' => 'string',
+            ],
+        ],
+    ];
+
+    public const SCHEMA_REQUIRED = [
+        'type' => 'object',
+        'additionalProperties' => false,
+        'required' => ['id', MultilingualString::DE, MultilingualString::EN],
+        'properties' => [
+            'id' => [
+                'type' => 'string',
+            ],
+            MultilingualString::DE => [
+                'type' => 'string',
+                'minLength' => 1,
+            ],
+            MultilingualString::EN => [
+                'type' => 'string',
+                'minLength' => 1,
+            ],
+        ],
+    ];
+
+    public const SCHEMA_URL_REQUIRED = [
+        'type' => 'object',
+        'additionalProperties' => false,
+        'required' => ['id', MultilingualString::DE, MultilingualString::EN],
+        'properties' => [
+            'id' => [
+                'type' => 'string',
+            ],
+            MultilingualString::DE => [
+                'type' => 'string',
+                'minLength' => 1,
+                'format' => 'uri',
+            ],
+            MultilingualString::EN => [
+                'type' => 'string',
+                'minLength' => 1,
+                'format' => 'uri',
+            ],
+        ],
+    ];
+
+    public const SCHEMA_ID_REQUIRED = [
+        'type' => 'object',
+        'additionalProperties' => false,
+        'required' => ['id', MultilingualString::DE, MultilingualString::EN],
+        'properties' => [
+            'id' => [
+                'type' => 'string',
+                'minLength' => 1,
+            ],
+            MultilingualString::DE => [
+                'type' => 'string',
+            ],
+            MultilingualString::EN => [
+                'type' => 'string',
+            ],
+        ],
+    ];
+
     public const LANGUAGES = [
         self::DE => 'Deutsch',
         self::EN => 'English',

@@ -13,6 +13,17 @@ use JsonSerializable;
  */
 final class MultilingualLinks extends ArrayObject implements JsonSerializable
 {
+    public const SCHEMA = [
+        'type' => 'array',
+        'items' => MultilingualLink::SCHEMA,
+    ];
+
+    public const SCHEMA_REQUIRED = [
+        'type' => 'array',
+        'items' => MultilingualLink::SCHEMA_REQUIRED,
+        'minItems' => 1,
+    ];
+
     private function __construct(MultilingualLink ...$multilingualLinks)
     {
         parent::__construct($multilingualLinks);

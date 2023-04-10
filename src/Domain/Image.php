@@ -12,6 +12,36 @@ final class Image implements JsonSerializable
     public const ID = 'id';
     public const URL = 'url';
 
+    public const SCHEMA = [
+        'type' => 'object',
+        'additionalProperties' => false,
+        'required' => [Image::ID, Image::URL],
+        'properties' => [
+            Image::ID => [
+                'type' => 'integer',
+                'minimum' => 0,
+            ],
+            Image::URL => [
+                'type' => 'string',
+            ],
+        ],
+    ];
+
+    public const SCHEMA_REQUIRED = [
+        'type' => 'object',
+        'additionalProperties' => false,
+        'required' => [Image::ID, Image::URL],
+        'properties' => [
+            Image::ID => [
+                'type' => 'integer',
+                'minimum' => 1,
+            ],
+            Image::URL => [
+                'type' => 'string',
+            ],
+        ],
+    ];
+
     private function __construct(
         private int $id,
         private string $url,
