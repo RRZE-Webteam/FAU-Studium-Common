@@ -10,13 +10,16 @@ use Fau\DegreeProgram\Common\Application\ContentTranslated;
 use Fau\DegreeProgram\Common\Application\DegreeProgramViewRaw;
 use Fau\DegreeProgram\Common\Application\DegreeProgramViewTranslated;
 use Fau\DegreeProgram\Common\Application\DegreeTranslated;
+use Fau\DegreeProgram\Common\Application\ImageView;
 use Fau\DegreeProgram\Common\Application\Link;
 use Fau\DegreeProgram\Common\Application\Links;
 use Fau\DegreeProgram\Common\Application\RelatedDegreeProgram;
 use Fau\DegreeProgram\Common\Application\RelatedDegreePrograms;
 use Fau\DegreeProgram\Common\Application\Repository\DegreeProgramViewRepository;
+use Fau\DegreeProgram\Common\Domain\DegreeProgram;
 use Fau\DegreeProgram\Common\Domain\DegreeProgramId;
 use Fau\DegreeProgram\Common\Domain\DegreeProgramRepository;
+use Fau\DegreeProgram\Common\Domain\Image;
 use Fau\DegreeProgram\Common\Domain\MultilingualString;
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\FacultyTaxonomy;
 use Fau\DegreeProgram\Common\Infrastructure\Sanitizer\HtmlDegreeProgramSanitizer;
@@ -104,6 +107,8 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
         string $languageCode
     ): DegreeProgramViewTranslated {
 
+        $title = $raw->title()->asString($languageCode);
+
         return new DegreeProgramViewTranslated(
             id: $raw->id(),
             link: $this->link(
@@ -113,8 +118,16 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
             ),
             slug: $raw->slug()->asString($languageCode),
             lang: $languageCode,
-            featuredImage: $raw->featuredImage(),
-            teaserImage: $raw->teaserImage(),
+            featuredImage: $this->imageView(
+                $raw->featuredImage(),
+                DegreeProgram::FEATURED_IMAGE,
+                $title
+            ),
+            teaserImage: $this->imageView(
+                $raw->teaserImage(),
+                DegreeProgram::TEASER_IMAGE,
+                $title
+            ),
             title: $raw->title()->asString($languageCode),
             subtitle: $raw->subtitle()->asString($languageCode),
             standardDuration: $raw->standardDuration(),
@@ -178,6 +191,33 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
             notesForInternationalApplicants: Link::fromMultilingualLink($raw->notesForInternationalApplicants(), $languageCode),
             applyNowLink: Link::fromMultilingualLink($raw->applyNowLink(), $languageCode),
             entryText: $this->formatContentField($raw->entryText()->asString($languageCode)),
+        );
+    }
+
+    /**
+     * @psalm-param 'featured_image' | 'teaser_image' $type
+     */
+    private function imageView(Image $image, string $type, string $alt): ImageView
+    {
+        if (!$image->id()) {
+            return ImageView::empty();
+        }
+
+        return ImageView::new(
+            $image->id(),
+            $image->url(),
+            wp_get_attachment_image(
+                $image->id(),
+                (string) apply_filters(
+                    sprintf('fau.image_size.%s', $type),
+                    'full',
+                    $type,
+                ),
+                false,
+                [
+                    'alt' => $alt,
+                ]
+            )
         );
     }
 

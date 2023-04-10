@@ -6,7 +6,6 @@ namespace Fau\DegreeProgram\Common\Application;
 
 use Fau\DegreeProgram\Common\Domain\DegreeProgram;
 use Fau\DegreeProgram\Common\Domain\DegreeProgramId;
-use Fau\DegreeProgram\Common\Domain\Image;
 use Fau\DegreeProgram\Common\Domain\MultilingualString;
 use Fau\DegreeProgram\Common\LanguageExtension\ArrayOfStrings;
 use JsonSerializable;
@@ -19,12 +18,13 @@ use JsonSerializable;
  * @psalm-import-type ContentTranslatedType from ContentTranslated
  * @psalm-import-type RelatedDegreeProgramType from RelatedDegreeProgram
  * @psalm-import-type LanguageCodes from MultilingualString
+ * @psalm-import-type ImageViewType from ImageView
  * @psalm-type DegreeProgramTranslation = array{
  *     link: string,
  *     slug: string,
  *     lang: LanguageCodes,
- *     featured_image: array{id: int, url: string},
- *     teaser_image: array{id: int, url: string},
+ *     featured_image: ImageViewType,
+ *     teaser_image: ImageViewType,
  *     title: string,
  *     subtitle: string,
  *     standard_duration: string,
@@ -94,8 +94,8 @@ final class DegreeProgramViewTranslated implements JsonSerializable
          * @var LanguageCodes $lang
          */
         private string $lang,
-        private Image $featuredImage,
-        private Image $teaserImage,
+        private ImageView $featuredImage,
+        private ImageView $teaserImage,
         private string $title,
         private string $subtitle,
         private string $standardDuration,
@@ -158,8 +158,8 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             link: $data[self::LINK],
             slug: $data[DegreeProgram::SLUG],
             lang: $data[self::LANG],
-            featuredImage: Image::fromArray($data[DegreeProgram::FEATURED_IMAGE]),
-            teaserImage: Image::fromArray($data[DegreeProgram::TEASER_IMAGE]),
+            featuredImage: ImageView::fromArray($data[DegreeProgram::FEATURED_IMAGE]),
+            teaserImage: ImageView::fromArray($data[DegreeProgram::TEASER_IMAGE]),
             title: $data[DegreeProgram::TITLE],
             subtitle: $data[DegreeProgram::SUBTITLE],
             standardDuration: $data[DegreeProgram::STANDARD_DURATION],
@@ -353,12 +353,12 @@ final class DegreeProgramViewTranslated implements JsonSerializable
         return $this->lang;
     }
 
-    public function featuredImage(): Image
+    public function featuredImage(): ImageView
     {
         return $this->featuredImage;
     }
 
-    public function teaserImage(): Image
+    public function teaserImage(): ImageView
     {
         return $this->teaserImage;
     }
