@@ -119,36 +119,7 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
             ],
             DegreeProgram::TEACHING_LANGUAGE => MultilingualString::SCHEMA_ID_REQUIRED,
             DegreeProgram::ATTRIBUTES => MultilingualList::SCHEMA_REQUIRED,
-            DegreeProgram::DEGREE => [
-                'type' => 'object',
-                'additionalProperties' => false,
-                'required' => [Degree::ID, Degree::NAME, Degree::ABBREVIATION],
-                'properties' => [
-                    Degree::ID => [
-                        'type' => 'string',
-                        'minLength' => 1,
-                    ],
-                    Degree::NAME => MultilingualString::SCHEMA,
-                    Degree::ABBREVIATION => MultilingualString::SCHEMA,
-                    Degree::PARENT => [
-                        'oneOf' => [
-                            [
-                                'type' => 'object',
-                                'additionalProperties' => true,
-                                'required' => [Degree::ID],
-                                'properties' => [
-                                    Degree::ID => [
-                                        'type' => 'string',
-                                    ],
-                                ],
-                            ],
-                            [
-                                'type' => 'null',
-                            ],
-                        ],
-                    ],
-                ],
-            ],
+            DegreeProgram::DEGREE => Degree::SCHEMA,
             DegreeProgram::FACULTY => MultilingualLinks::SCHEMA_REQUIRED,
             DegreeProgram::LOCATION => MultilingualList::SCHEMA_REQUIRED,
             DegreeProgram::SUBJECT_GROUPS => MultilingualList::SCHEMA_REQUIRED,
@@ -192,9 +163,24 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
                     AdmissionRequirements::MASTER,
                 ],
                 'properties' => [
-                    AdmissionRequirements::BACHELOR_OR_TEACHING_DEGREE => AdmissionRequirement::SCHEMA,
-                    AdmissionRequirements::TEACHING_DEGREE_HIGHER_SEMESTER => AdmissionRequirement::SCHEMA,
-                    AdmissionRequirements::MASTER => AdmissionRequirement::SCHEMA,
+                    AdmissionRequirements::BACHELOR_OR_TEACHING_DEGREE => [
+                        'oneOf' => [
+                            AdmissionRequirement::SCHEMA,
+                            AdmissionRequirement::SCHEMA_EMPTY,
+                        ],
+                    ],
+                    AdmissionRequirements::TEACHING_DEGREE_HIGHER_SEMESTER => [
+                        'oneOf' => [
+                            AdmissionRequirement::SCHEMA,
+                            AdmissionRequirement::SCHEMA_EMPTY,
+                        ],
+                    ],
+                    AdmissionRequirements::MASTER => [
+                        'oneOf' => [
+                            AdmissionRequirement::SCHEMA,
+                            AdmissionRequirement::SCHEMA_EMPTY,
+                        ],
+                    ],
                 ],
             ],
             DegreeProgram::CONTENT_RELATED_MASTER_REQUIREMENTS => MultilingualString::SCHEMA,

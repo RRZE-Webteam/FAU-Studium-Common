@@ -269,7 +269,6 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
 
     private function degree(WP_Post $post): Degree
     {
-        // TODO: should we verify if is this not a parent term?
         $term = $this->firstTerm($post, DegreeTaxonomy::KEY);
 
         if (!$term instanceof WP_Term) {

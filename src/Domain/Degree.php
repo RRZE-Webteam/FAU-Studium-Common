@@ -25,6 +25,36 @@ final class Degree implements JsonSerializable
     public const ABBREVIATION = 'abbreviation';
     public const PARENT = 'parent';
 
+    public const SCHEMA = [
+        'type' => 'object',
+        'additionalProperties' => false,
+        'required' => [
+            Degree::ID,
+            Degree::NAME,
+            Degree::ABBREVIATION,
+            Degree::PARENT,
+        ],
+        'properties' => [
+            Degree::ID => [
+                'type' => 'string',
+                'minLength' => 1,
+            ],
+            Degree::NAME => MultilingualString::SCHEMA,
+            Degree::ABBREVIATION => MultilingualString::SCHEMA,
+            Degree::PARENT => [
+                'type' => 'object',
+                'additionalProperties' => true,
+                'required' => [Degree::ID],
+                'properties' => [
+                    Degree::ID => [
+                        'type' => 'string',
+                        'minLength' => 1,
+                    ],
+                ],
+            ],
+        ],
+    ];
+
     private function __construct(
         private string $id,
         private MultilingualString $name,

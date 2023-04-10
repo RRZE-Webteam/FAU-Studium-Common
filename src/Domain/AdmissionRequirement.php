@@ -35,34 +35,53 @@ final class AdmissionRequirement
             AdmissionRequirement::NAME,
             AdmissionRequirement::LINK_TEXT,
             AdmissionRequirement::LINK_URL,
+            AdmissionRequirement::PARENT,
         ],
         'properties' => [
             AdmissionRequirement::ID => [
                 'type' => 'string',
+                'minLength' => 1,
             ],
             AdmissionRequirement::NAME => MultilingualString::SCHEMA,
             AdmissionRequirement::LINK_TEXT => MultilingualString::SCHEMA,
             AdmissionRequirement::LINK_URL => MultilingualString::SCHEMA,
             AdmissionRequirement::PARENT => [
-                'oneOf' => [
-                    [
-                        'type' => 'object',
-                        'additionalProperties' => true,
-                        'required' => [
-                            AdmissionRequirement::ID,
-                            AdmissionRequirement::NAME,
-                        ],
-                        'properties' => [
-                            AdmissionRequirement::ID => [
-                                'type' => 'string',
-                            ],
-                            AdmissionRequirement::NAME => MultilingualString::SCHEMA,
-                        ],
-                    ],
-                    [
-                        'type' => 'null',
-                    ],
+                'type' => 'object',
+                'additionalProperties' => true,
+                'required' => [
+                    AdmissionRequirement::ID,
+                    AdmissionRequirement::NAME,
                 ],
+                'properties' => [
+                    AdmissionRequirement::ID => [
+                        'type' => 'string',
+                        'minLength' => 1,
+                    ],
+                    AdmissionRequirement::NAME => MultilingualString::SCHEMA,
+                ],
+            ],
+        ],
+    ];
+
+    public const SCHEMA_EMPTY = [
+        'type' => 'object',
+        'additionalProperties' => false,
+        'required' => [
+            AdmissionRequirement::ID,
+            AdmissionRequirement::NAME,
+            AdmissionRequirement::LINK_TEXT,
+            AdmissionRequirement::LINK_URL,
+        ],
+        'properties' => [
+            AdmissionRequirement::ID => [
+                'type' => 'string',
+                'maxLength' => 0,
+            ],
+            AdmissionRequirement::NAME => MultilingualString::SCHEMA,
+            AdmissionRequirement::LINK_TEXT => MultilingualString::SCHEMA,
+            AdmissionRequirement::LINK_URL => MultilingualString::SCHEMA,
+            AdmissionRequirement::PARENT => [
+                'type' => 'null',
             ],
         ],
     ];
