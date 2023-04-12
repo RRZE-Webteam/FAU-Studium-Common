@@ -121,7 +121,7 @@ final class AdmissionRequirement
         ];
 
         /** @var AdmissionRequirementType|null  $parentData */
-        $parentData = $data[self::PARENT];
+        $parentData = $data[self::PARENT] ?? null;
 
         return new self(
             MultilingualLink::fromArray($currentData),

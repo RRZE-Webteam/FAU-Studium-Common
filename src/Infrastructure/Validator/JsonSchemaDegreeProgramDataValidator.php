@@ -92,12 +92,12 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
             ],
             DegreeProgram::SLUG => MultilingualString::SCHEMA,
             DegreeProgram::FEATURED_IMAGE => Image::SCHEMA_REQUIRED,
-            DegreeProgram::TEASER_IMAGE => Image::SCHEMA,
+            DegreeProgram::TEASER_IMAGE => Image::SCHEMA_REQUIRED,
             DegreeProgram::TITLE => MultilingualString::SCHEMA_REQUIRED,
             DegreeProgram::SUBTITLE => MultilingualString::SCHEMA_REQUIRED,
             DegreeProgram::STANDARD_DURATION => [
                 'type' => 'string',
-                'minLength' => 0,
+                'minLength' => 1,
             ],
             DegreeProgram::FEE_REQUIRED => [
                 'type' => 'boolean',
@@ -129,7 +129,7 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
                     'type' => 'string',
                 ],
             ],
-            DegreeProgram::META_DESCRIPTION => MultilingualString::SCHEMA,
+            DegreeProgram::META_DESCRIPTION => MultilingualString::SCHEMA_REQUIRED,
             DegreeProgram::CONTENT => [
                 'type' => 'object',
                 'additionalProperties' => false,

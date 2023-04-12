@@ -21,9 +21,7 @@ use Fau\DegreeProgram\Common\Domain\DegreeProgramId;
 use Fau\DegreeProgram\Common\Domain\DegreeProgramRepository;
 use Fau\DegreeProgram\Common\Domain\Image;
 use Fau\DegreeProgram\Common\Domain\MultilingualString;
-use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\FacultyTaxonomy;
 use Fau\DegreeProgram\Common\Infrastructure\Sanitizer\HtmlDegreeProgramSanitizer;
-use Fau\DegreeProgram\Common\LanguageExtension\ArrayOfStrings;
 use RuntimeException;
 use WP_Post;
 
@@ -36,6 +34,7 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
         private DegreeProgramRepository $degreeProgramRepository,
         private HtmlDegreeProgramSanitizer $htmlContentSanitizer,
         private ConditionalFieldsFilter $conditionalFieldsFilter,
+        private FacultyRepository $facultyRepository,
     ) {
     }
 
@@ -64,7 +63,7 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
 
         $raw = $this->conditionalFieldsFilter->filter(
             $raw,
-            $this->findFacultySlugs($raw),
+            $this->facultyRepository->findFacultySlugs($raw),
         );
 
         $main = $this->translateDegreeProgram($raw, $languageCode);
@@ -80,23 +79,6 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
         }
 
         return $main;
-    }
-
-    private function findFacultySlugs(DegreeProgramViewRaw $raw): ArrayOfStrings
-    {
-        $terms = get_the_terms(
-            $raw->id()->asInt(),
-            FacultyTaxonomy::KEY
-        );
-
-        if (!is_array($terms)) {
-            return ArrayOfStrings::new();
-        }
-
-        /** @var array<string> $slugs */
-        $slugs = wp_list_pluck($terms, 'slug');
-
-        return ArrayOfStrings::new(...$slugs);
     }
 
     /**

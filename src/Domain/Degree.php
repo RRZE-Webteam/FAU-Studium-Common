@@ -94,7 +94,7 @@ final class Degree implements JsonSerializable
     public static function fromArray(array $data): self
     {
         /** @var DegreeType|null  $parentData */
-        $parentData = $data[self::PARENT];
+        $parentData = $data[self::PARENT] ?? null;
         return new self(
             $data[self::ID],
             MultilingualString::fromArray($data[self::NAME]),

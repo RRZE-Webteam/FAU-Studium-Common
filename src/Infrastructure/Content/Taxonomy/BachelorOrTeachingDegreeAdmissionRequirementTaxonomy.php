@@ -25,7 +25,7 @@ final class BachelorOrTeachingDegreeAdmissionRequirementTaxonomy extends Taxonom
     protected function pluralName(): string
     {
         return _x(
-            'Admission requirements Bachelor’s/Teaching degrees',
+            "Admission requirements Bachelor's/Teaching degrees",
             'backoffice: taxonomy plural name',
             'fau-degree-program-common'
         );
@@ -34,7 +34,7 @@ final class BachelorOrTeachingDegreeAdmissionRequirementTaxonomy extends Taxonom
     protected function singularName(): string
     {
         return _x(
-            'Admission requirement Bachelor’s/Teaching degrees',
+            "Admission requirement Bachelor's/Teaching degrees",
             'backoffice: taxonomy singular name',
             'fau-degree-program-common'
         );

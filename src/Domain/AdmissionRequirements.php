@@ -19,11 +19,11 @@ final class AdmissionRequirements
     public const MASTER = 'master';
 
     private function __construct(
-        /** Admission requirements for Bachelor’s/teaching degrees
+        /** Admission requirements for Bachelor's/teaching degrees
          * (“Zugangsvoraussetzungen Bachelor/Lehramt”)
          */
         private AdmissionRequirement $bachelorOrTeachingDegree,
-        /** Admission requirements for entering a teaching degree at a higher semester
+        /** Admission requirements for entering a Bachelor's/teaching degree at a higher semester
          * (“Zugangsvoraussetzungen Lehramt höheres Semester”)
          */
         private AdmissionRequirement $teachingDegreeHigherSemester,

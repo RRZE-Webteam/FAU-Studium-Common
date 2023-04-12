@@ -25,7 +25,7 @@ final class TeachingDegreeHigherSemesterAdmissionRequirementTaxonomy extends Tax
     protected function pluralName(): string
     {
         return _x(
-            'Admission requirements for entering a teaching degree at a higher semester',
+            "Admission requirements for entering a Bachelor's/teaching degree at a higher semester",
             'backoffice: taxonomy plural name',
             'fau-degree-program-common'
         );
@@ -34,7 +34,7 @@ final class TeachingDegreeHigherSemesterAdmissionRequirementTaxonomy extends Tax
     protected function singularName(): string
     {
         return _x(
-            'Admission requirement for entering a teaching degree at a higher semester',
+            "Admission requirement for entering a Bachelor's/teaching degree at a higher semester",
             'backoffice: taxonomy singular name',
             'fau-degree-program-common'
         );

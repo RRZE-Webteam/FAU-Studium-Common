@@ -45,7 +45,11 @@ final class ConditionalFieldsFilter
             $raw->degree()
         );
 
-        if (!$this->isLanguageSkillForFacultyOfHumanitiesOnlyEnabled($facultySlugs, $raw->degree())) {
+        if (!self::isMasterContext($raw->degree())) {
+            $data[DegreeProgram::CONTENT_RELATED_MASTER_REQUIREMENTS] = MultilingualString::empty()->asArray();
+        }
+
+        if (!self::isLanguageSkillForFacultyOfHumanitiesOnlyEnabled($facultySlugs, $raw->degree())) {
             $data[DegreeProgram::LANGUAGE_SKILLS_HUMANITIES_FACULTY] = '';
         }
 
@@ -60,27 +64,32 @@ final class ConditionalFieldsFilter
         return DegreeProgramViewRaw::fromArray($data);
     }
 
-    private function isBachelorContext(Degree $degree): bool
+    public static function isBachelorContext(Degree $degree): bool
     {
         return (
             $degree->hasGermanAbbreviation(self::DEGREE_ABBREVIATION_GERMAN_BACHELOR)
-            || $degree->name()->inGerman() === self::ADDITIONAL_DEGREE_NAME
+            || self::isAdditionalDegree($degree)
         );
     }
 
-    private function isTeachingDegreeContext(Degree $degree): bool
+    public static function isAdditionalDegree(Degree $degree): bool
+    {
+        return $degree->name()->inGerman() === self::ADDITIONAL_DEGREE_NAME;
+    }
+
+    public static function isTeachingDegreeContext(Degree $degree): bool
     {
         return $degree->hasGermanAbbreviation(self::DEGREE_ABBREVIATION_GERMAN_TEACHING_DEGREE);
     }
 
-    private function isMasterContext(Degree $degree): bool
+    public static function isMasterContext(Degree $degree): bool
     {
         return $degree->hasGermanAbbreviation(self::DEGREE_ABBREVIATION_GERMAN_MASTERS);
     }
 
-    private function isBachelorOrTeachingDegreeContext(Degree $degree): bool
+    public static function isBachelorOrTeachingDegreeContext(Degree $degree): bool
     {
-        return $this->isBachelorContext($degree) || $this->isTeachingDegreeContext($degree);
+        return self::isBachelorContext($degree) || self::isTeachingDegreeContext($degree);
     }
 
     /**
@@ -94,11 +103,11 @@ final class ConditionalFieldsFilter
         $result = $admissionRequirements->asArray();
         $empty = AdmissionRequirement::empty()->asArray();
 
-        if (!$this->isMasterContext($degree)) {
+        if (!self::isMasterContext($degree)) {
             $result[AdmissionRequirements::MASTER] = $empty;
         }
 
-        if (!$this->isBachelorOrTeachingDegreeContext($degree)) {
+        if (!self::isBachelorOrTeachingDegreeContext($degree)) {
             $result[AdmissionRequirements::BACHELOR_OR_TEACHING_DEGREE] = $empty;
             $result[AdmissionRequirements::TEACHING_DEGREE_HIGHER_SEMESTER] = $empty;
             return $result;
@@ -120,10 +129,10 @@ final class ConditionalFieldsFilter
         return array_intersect(
             $facultySlugs->getArrayCopy(),
             self::ALLOWED_FACULTY_SLUGS_FOR_COMBINATION
-        ) && $this->isBachelorContext($degree);
+        ) && self::isBachelorContext($degree);
     }
 
-    private function isLanguageSkillForFacultyOfHumanitiesOnlyEnabled(
+    public static function isLanguageSkillForFacultyOfHumanitiesOnlyEnabled(
         ArrayOfStrings $facultySlugs,
         Degree $degree
     ): bool {
@@ -132,6 +141,6 @@ final class ConditionalFieldsFilter
             self::FACULTY_PHILOSOPHY,
             $facultySlugs->getArrayCopy(),
             true
-        ) && $this->isBachelorOrTeachingDegreeContext($degree);
+        ) && self::isBachelorOrTeachingDegreeContext($degree);
     }
 }

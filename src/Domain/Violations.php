@@ -52,4 +52,11 @@ final class Violations extends ArrayObject implements JsonSerializable
     {
         throw new BadMethodCallException("Invalid append call");
     }
+
+    public function add(Violation ...$violations): void
+    {
+        foreach ($violations as $violation) {
+            $this->offsetSet($violation->path(), $violation);
+        }
+    }
 }

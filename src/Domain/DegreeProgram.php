@@ -134,7 +134,7 @@ final class DegreeProgram
         private Content $content,
         //--- Admission requirements, application and enrollment (“Zugangsvoraussetzungen, Bewerbung und Einschreibung”) ---//
         /**
-         * Bachelor’s/teaching degrees, teaching degree at a higher semester, Master’s degree
+         * Bachelor's/teaching degrees, teaching degree at a higher semester, Master’s degree
          */
         private AdmissionRequirements $admissionRequirements,
         /**
