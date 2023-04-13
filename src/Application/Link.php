@@ -83,21 +83,20 @@ final class Link
         ];
     }
 
-    /**
-     * @TODO: reconsider if this method is required
-     */
     public function asHtml(): string
     {
-        if ($this->linkText && $this->linkUrl) {
+        $linkText = $this->linkText ?: $this->name;
+
+        if ($linkText && $this->linkUrl) {
             return sprintf(
                 '<a href="%s">%s</a>',
                 $this->linkUrl,
-                $this->linkText
+                $linkText
             );
         }
 
-        if ($this->linkText) {
-            return $this->linkText;
+        if ($linkText) {
+            return $linkText;
         }
 
         return '';

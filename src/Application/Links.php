@@ -54,4 +54,12 @@ final class Links extends ArrayObject
             $this->getArrayCopy()
         );
     }
+
+    public function asHtml(): string
+    {
+        return implode(', ', array_map(
+            static fn(Link $link) => $link->asHtml(),
+            $this->getArrayCopy()
+        ));
+    }
 }
