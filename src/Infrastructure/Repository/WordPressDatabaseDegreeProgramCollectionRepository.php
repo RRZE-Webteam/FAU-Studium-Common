@@ -11,10 +11,14 @@ use Fau\DegreeProgram\Common\Application\Repository\DegreeProgramCollectionRepos
 use Fau\DegreeProgram\Common\Application\Repository\DegreeProgramViewRepository;
 use Fau\DegreeProgram\Common\Application\Repository\PaginationAwareCollection;
 use Fau\DegreeProgram\Common\Domain\DegreeProgramId;
+use Fau\DegreeProgram\Common\Domain\MultilingualString;
 use Fau\DegreeProgram\Common\Infrastructure\Content\PostType\DegreeProgramPostType;
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\TaxonomiesList;
 use WP_Query;
 
+/**
+ * @psalm-import-type LanguageCodes from MultilingualString
+ */
 final class WordPressDatabaseDegreeProgramCollectionRepository implements DegreeProgramCollectionRepository
 {
     public function __construct(
@@ -50,7 +54,7 @@ final class WordPressDatabaseDegreeProgramCollectionRepository implements Degree
         $query = new WP_Query();
         /** @var array<int> $ids */
         $ids = $query->query(
-            $this->prepareWpQueryArgs($criteria)
+            $this->prepareWpQueryArgs($criteria, $languageCode)
         );
 
         $items = [];
@@ -71,8 +75,10 @@ final class WordPressDatabaseDegreeProgramCollectionRepository implements Degree
     /**
      * The permanent degree program cache is used
      * instead of WordPress internal cache.
+     *
+     * @psalm-param ?LanguageCodes $languageCode
      */
-    private function prepareWpQueryArgs(CollectionCriteria $criteria): array
+    private function prepareWpQueryArgs(CollectionCriteria $criteria, ?string $languageCode = null): array
     {
         /** @var array<string, string> $aliases */
         static $aliases = [
@@ -92,10 +98,23 @@ final class WordPressDatabaseDegreeProgramCollectionRepository implements Degree
 
         $normalizedArgs = [];
         foreach ($criteria->args() as $key => $value) {
+            if ($key === 'search') {
+                continue;
+            }
+
             $normalizedArgs[$aliases[$key] ?? $key] = $value;
         }
 
         $normalizedArgs['tax_query'] = $this->buildTaxQuery($criteria);
+        $normalizedArgs['meta_query'] = ['relation' => 'AND'];
+        $searchKeyword = $criteria->args()['search'] ?? null;
+
+        if ($searchKeyword) {
+            $normalizedArgs['meta_query'][] = $this->buildSearchMetaQuery(
+                $searchKeyword,
+                $languageCode,
+            );
+        }
 
         return array_merge($normalizedArgs, $requiredArgs);
     }
@@ -116,5 +135,34 @@ final class WordPressDatabaseDegreeProgramCollectionRepository implements Degree
         }
 
         return $taxQuery;
+    }
+
+    /**
+     * @psalm-param ?LanguageCodes $languageCode
+     */
+    private function buildSearchMetaQuery(string $keyword, ?string $languageCode = null): array
+    {
+        // Finding raw (un-translated) collection? include searchable content in both languages
+        if ($languageCode === null) {
+            return [
+                'relation' => 'OR',
+                [
+                    'key' => 'fau_degree_program_searchable_content_' . MultilingualString::EN,
+                    'value' => $keyword,
+                    'compare' => 'LIKE',
+                ],
+                [
+                    'key' => 'fau_degree_program_searchable_content_' . MultilingualString::DE,
+                    'value' => $keyword,
+                    'compare' => 'LIKE',
+                ],
+            ];
+        }
+
+        return [
+            'key' => 'fau_degree_program_searchable_content_' . $languageCode,
+            'value' => $keyword,
+            'compare' => 'LIKE',
+        ];
     }
 }

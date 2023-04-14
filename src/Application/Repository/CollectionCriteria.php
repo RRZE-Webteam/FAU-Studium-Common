@@ -12,6 +12,7 @@ use Webmozart\Assert\Assert;
  *    page: int,
  *    per_page: int,
  *    include?: array<int>,
+ *    search?: string,
  * }
  */
 final class CollectionCriteria
@@ -108,6 +109,14 @@ final class CollectionCriteria
     public function withDegree(int ...$values): self
     {
         return $this->withFilter('degree', ...$values);
+    }
+
+    public function withSearchKeyword(string $keyword): self
+    {
+        $instance = clone $this;
+        $instance->args['search'] = $keyword;
+
+        return $instance;
     }
 
     /**
