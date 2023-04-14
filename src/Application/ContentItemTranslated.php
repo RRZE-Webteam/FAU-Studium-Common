@@ -64,12 +64,13 @@ final class ContentItemTranslated
         ];
     }
 
-    public function asString(): string
+    public function title(): string
     {
-        return sprintf(
-            '%s: %s',
-            $this->title,
-            $this->description
-        );
+        return $this->title;
+    }
+
+    public function description(): string
+    {
+        return $this->description;
     }
 }
