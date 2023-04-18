@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Application\Repository;
 
+use Fau\DegreeProgram\Common\Domain\DegreeProgram;
 use Webmozart\Assert\Assert;
 
 /**
@@ -13,10 +14,22 @@ use Webmozart\Assert\Assert;
  *    per_page: int,
  *    include?: array<int>,
  *    search?: string,
+ *    orderby?: string,
+ *    order?: 'asc' | 'desc',
  * }
  */
 final class CollectionCriteria
 {
+    public const SORTABLE_PROPERTIES = [
+        DegreeProgram::ID,
+        DegreeProgram::TITLE,
+        DegreeProgram::DEGREE,
+        DegreeProgram::START,
+        DegreeProgram::LOCATION,
+        DegreeProgram::ADMISSION_REQUIREMENTS,
+    ];
+    public const DEFAULT_ORDERBY = ['date', 'desc'];
+
     /**
      * @param SupportedArgs $args
      * @param array<SupportedFilterTypes, array<int>> $filters
@@ -115,6 +128,24 @@ final class CollectionCriteria
     {
         $instance = clone $this;
         $instance->args['search'] = $keyword;
+
+        return $instance;
+    }
+
+    /**
+     * @param 'asc' | 'desc' $order
+     */
+    public function withOrderby(string $orderBy, string $order = 'desc'): self
+    {
+        $instance = clone $this;
+
+        if (!in_array($orderBy, self::SORTABLE_PROPERTIES, true)) {
+            $instance->args['orderby'] = self::DEFAULT_ORDERBY[0];
+            $instance->args['order'] = self::DEFAULT_ORDERBY[1];
+        }
+
+        $instance->args['orderby'] = $orderBy;
+        $instance->args['order'] = $order === 'asc' ? 'asc' : 'desc';
 
         return $instance;
     }

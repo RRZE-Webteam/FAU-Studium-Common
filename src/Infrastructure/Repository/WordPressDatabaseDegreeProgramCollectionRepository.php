@@ -10,6 +10,7 @@ use Fau\DegreeProgram\Common\Application\Repository\CollectionCriteria;
 use Fau\DegreeProgram\Common\Application\Repository\DegreeProgramCollectionRepository;
 use Fau\DegreeProgram\Common\Application\Repository\DegreeProgramViewRepository;
 use Fau\DegreeProgram\Common\Application\Repository\PaginationAwareCollection;
+use Fau\DegreeProgram\Common\Domain\DegreeProgram;
 use Fau\DegreeProgram\Common\Domain\DegreeProgramId;
 use Fau\DegreeProgram\Common\Domain\MultilingualString;
 use Fau\DegreeProgram\Common\Infrastructure\Content\PostType\DegreeProgramPostType;
@@ -116,6 +117,8 @@ final class WordPressDatabaseDegreeProgramCollectionRepository implements Degree
             );
         }
 
+        $normalizedArgs = array_merge($normalizedArgs, $this->orderbyArgs($criteria, $languageCode));
+
         return array_merge($normalizedArgs, $requiredArgs);
     }
 
@@ -164,5 +167,39 @@ final class WordPressDatabaseDegreeProgramCollectionRepository implements Degree
             'value' => $keyword,
             'compare' => 'LIKE',
         ];
+    }
+
+    private function orderbyArgs(CollectionCriteria $criteria, ?string $languageCode = null): array
+    {
+        $orderBy = $criteria->args()['orderby'] ?? '';
+        $languageCode = $languageCode ?? MultilingualString::DE;
+
+        return match ($orderBy) {
+            DegreeProgram::TITLE => $languageCode === MultilingualString::DE ?
+                [
+                    'orderby' => 'title',
+                ]
+                : [
+                    'meta_key' => 'title_' . $languageCode,
+                    'orderby' => 'meta_value',
+                ],
+            DegreeProgram::DEGREE => [
+                'meta_key' => DegreeProgram::DEGREE . '_' . $languageCode,
+                'orderby' => 'meta_value',
+            ],
+            DegreeProgram::START => [
+                'meta_key' => DegreeProgram::START . '_' . $languageCode,
+                'orderby' => 'meta_value',
+            ],
+            DegreeProgram::LOCATION => [
+                'meta_key' => DegreeProgram::LOCATION . '_' . $languageCode,
+                'orderby' => 'meta_value',
+            ],
+            DegreeProgram::ADMISSION_REQUIREMENTS => [
+                'meta_key' => DegreeProgram::ADMISSION_REQUIREMENTS . '_' . $languageCode,
+                'orderby' => 'meta_value',
+            ],
+            default => [],
+        };
     }
 }
