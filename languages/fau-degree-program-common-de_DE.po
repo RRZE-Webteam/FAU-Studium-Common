@@ -1,0 +1,447 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-04-18T11:51:52+00:00\n"
+"PO-Revision-Date: 2023-04-19 10:14+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.2.2\n"
+"X-Domain: fau-degree-program-common\n"
+
+#: src/Infrastructure/Content/PostType/DegreeProgramPostType.php:21
+#: src/Infrastructure/Content/PostType/DegreeProgramPostType.php:66
+msgctxt "backoffice: post type label"
+msgid "Degree Programs"
+msgstr "Studiengänge"
+
+#: src/Infrastructure/Content/PostType/DegreeProgramPostType.php:71
+msgctxt "backoffice: post type label"
+msgid "Degree Program"
+msgstr "Studiengang"
+
+#: src/Infrastructure/Content/PostType/DegreeProgramPostType.php:76
+msgctxt "backoffice: post type label"
+msgid "Add New Degree Program"
+msgstr "Neuen Studiengang erstellen"
+
+#: src/Infrastructure/Content/PostType/DegreeProgramPostType.php:81
+msgctxt "backoffice: post type label"
+msgid "Edit Degree Program"
+msgstr "Studiengang bearbeiten"
+
+#: src/Infrastructure/Content/PostType/DegreeProgramPostType.php:86
+msgctxt "backoffice: post type label"
+msgid "New Degree Program"
+msgstr "Neuer Studiengang"
+
+#: src/Infrastructure/Content/PostType/DegreeProgramPostType.php:91
+msgctxt "backoffice: post type label"
+msgid "View Degree Program"
+msgstr "Studiengang ansehen"
+
+#: src/Infrastructure/Content/PostType/DegreeProgramPostType.php:96
+msgctxt "backoffice: post type label"
+msgid "View Degree Programs"
+msgstr "Studiengänge ansehen"
+
+#: src/Infrastructure/Content/PostType/DegreeProgramPostType.php:101
+msgctxt "backoffice: post type label"
+msgid "Search Degree Programs"
+msgstr "Studiengänge durchsuchen"
+
+#: src/Infrastructure/Content/PostType/DegreeProgramPostType.php:106
+msgctxt "backoffice: post type label"
+msgid "No degree programs found."
+msgstr "Keine Studiengänge gefunden."
+
+#: src/Infrastructure/Content/PostType/DegreeProgramPostType.php:111
+msgctxt "backoffice: post type label"
+msgid "No degree programs found in Trash."
+msgstr "Keine Studiengänge im Papierkorb gefunden."
+
+#: src/Infrastructure/Content/PostType/DegreeProgramPostType.php:116
+msgctxt "backoffice: post type label"
+msgid "All Degree Programs"
+msgstr "Alle Studiengänge"
+
+#: src/Infrastructure/Content/PostType/DegreeProgramPostType.php:121
+msgctxt "backoffice: post type label"
+msgid "Degree Program Archives"
+msgstr "Studiengangsarchive"
+
+#: src/Infrastructure/Content/PostType/DegreeProgramPostType.php:126
+msgctxt "backoffice: post type label"
+msgid "Degree Program Attributes"
+msgstr "Studiengangsattribute"
+
+#: src/Infrastructure/Content/PostType/DegreeProgramPostType.php:131
+msgctxt "backoffice: post type label"
+msgid "Insert into degree program"
+msgstr "In den Studiengang einfügen"
+
+#: src/Infrastructure/Content/PostType/DegreeProgramPostType.php:136
+msgctxt "backoffice: post type label"
+msgid "Uploaded to this degree program"
+msgstr "Zu diesem Studiengang hochgeladen"
+
+#: src/Infrastructure/Content/PostType/DegreeProgramPostType.php:141
+msgctxt "backoffice: post type label"
+msgid "Filter degree programs list"
+msgstr "Studiengangsliste filtern"
+
+#: src/Infrastructure/Content/PostType/DegreeProgramPostType.php:146
+msgctxt "backoffice: post type label"
+msgid "Degree programs list navigation"
+msgstr "Navigation der Studiengangsliste"
+
+#: src/Infrastructure/Content/PostType/DegreeProgramPostType.php:151
+msgctxt "backoffice: post type label"
+msgid "Degree programs list"
+msgstr "Studiengangsliste"
+
+#: src/Infrastructure/Content/PostType/DegreeProgramPostType.php:156
+msgctxt "backoffice: post type label"
+msgid "Degree program published."
+msgstr "Studiengang veröffentlicht."
+
+#: src/Infrastructure/Content/PostType/DegreeProgramPostType.php:161
+msgctxt "backoffice: post type label"
+msgid "Degree program published privately."
+msgstr "Studiengang privat veröffentlicht."
+
+#: src/Infrastructure/Content/PostType/DegreeProgramPostType.php:166
+msgctxt "backoffice: post type label"
+msgid "Degree program reverted to draft."
+msgstr "Studiengang auf Entwurf zurückgesetzt."
+
+#: src/Infrastructure/Content/PostType/DegreeProgramPostType.php:171
+msgctxt "backoffice: post type label"
+msgid "Degree program scheduled."
+msgstr "Studiengang geplant."
+
+#: src/Infrastructure/Content/PostType/DegreeProgramPostType.php:176
+msgctxt "backoffice: post type label"
+msgid "Degree program updated."
+msgstr "Studiengang aktualisiert."
+
+#: src/Infrastructure/Content/PostType/DegreeProgramPostType.php:181
+msgctxt "backoffice: navigation link block title"
+msgid "Degree Program Link."
+msgstr "Studiengangslink."
+
+#: src/Infrastructure/Content/PostType/DegreeProgramPostType.php:186
+msgctxt "backoffice: navigation link block description"
+msgid "A link to a degree program."
+msgstr "Ein Link zu einem Studiengang."
+
+#: src/Infrastructure/Content/Taxonomy/ApplyNowLinkTaxonomy.php:24
+msgctxt "backoffice: taxonomy plural name"
+msgid "\"Apply now\" links"
+msgstr "„Jetzt bewerben“-Links"
+
+#: src/Infrastructure/Content/Taxonomy/ApplyNowLinkTaxonomy.php:33
+msgctxt "backoffice: taxonomy singular name"
+msgid "\"Apply now\" link"
+msgstr "„Jetzt bewerben“-Link"
+
+#: src/Infrastructure/Content/Taxonomy/AreaOfStudyTaxonomy.php:27
+msgctxt "backoffice: taxonomy plural name"
+msgid "Areas of study"
+msgstr "Studienbereiche"
+
+#: src/Infrastructure/Content/Taxonomy/AreaOfStudyTaxonomy.php:36
+msgctxt "backoffice: taxonomy singular name"
+msgid "Area of study"
+msgstr "Studienbereich"
+
+#: src/Infrastructure/Content/Taxonomy/AttributeTaxonomy.php:27
+msgctxt "backoffice: taxonomy plural name"
+msgid "Attributes"
+msgstr "Attribute"
+
+#: src/Infrastructure/Content/Taxonomy/AttributeTaxonomy.php:36
+msgctxt "backoffice: taxonomy singular name"
+msgid "Attribute"
+msgstr "Attribut"
+
+#: src/Infrastructure/Content/Taxonomy/DegreeTaxonomy.php:27
+msgctxt "backoffice: taxonomy plural name"
+msgid "Degrees"
+msgstr "Abschlüsse"
+
+#: src/Infrastructure/Content/Taxonomy/DegreeTaxonomy.php:36
+msgctxt "backoffice: taxonomy singular name"
+msgid "Degree"
+msgstr "Abschluss"
+
+#: src/Infrastructure/Content/Taxonomy/ExaminationsOfficeTaxonomy.php:27
+msgctxt "backoffice: taxonomy plural name"
+msgid "Examinations Offices"
+msgstr "Prüfungsämter"
+
+#: src/Infrastructure/Content/Taxonomy/ExaminationsOfficeTaxonomy.php:36
+msgctxt "backoffice: taxonomy singular name"
+msgid "Examinations Office"
+msgstr "Prüfungsamt"
+
+#: src/Infrastructure/Content/Taxonomy/FacultyTaxonomy.php:27
+msgctxt "backoffice: taxonomy plural name"
+msgid "Faculties"
+msgstr "Fakultäten"
+
+#: src/Infrastructure/Content/Taxonomy/FacultyTaxonomy.php:36
+msgctxt "backoffice: taxonomy singular name"
+msgid "Faculty"
+msgstr "Fakultät"
+
+#: src/Infrastructure/Content/Taxonomy/GermanLanguageSkillsForInternationalStudentsTaxonomy.php:27
+msgctxt "backoffice: taxonomy plural name"
+msgid "German language skills for international students"
+msgstr "Deutschkenntnisse für ausländische Studierende"
+
+#: src/Infrastructure/Content/Taxonomy/GermanLanguageSkillsForInternationalStudentsTaxonomy.php:36
+msgctxt "backoffice: taxonomy singular name"
+msgid "German language skills for international students"
+msgstr "Deutschkenntnisse für ausländische Studierende"
+
+#: src/Infrastructure/Content/Taxonomy/KeywordTaxonomy.php:27
+msgctxt "backoffice: taxonomy plural name"
+msgid "Keywords"
+msgstr "Schlagwörter"
+
+#: src/Infrastructure/Content/Taxonomy/KeywordTaxonomy.php:36
+msgctxt "backoffice: taxonomy singular name"
+msgid "Keyword"
+msgstr "Schlagwort"
+
+#: src/Infrastructure/Content/Taxonomy/MasterDegreeAdmissionRequirementTaxonomy.php:27
+msgctxt "backoffice: taxonomy plural name"
+msgid "Admission requirements Master’s degree"
+msgstr "Inhaltliche Zugangsvoraussetzungen Master"
+
+#: src/Infrastructure/Content/Taxonomy/MasterDegreeAdmissionRequirementTaxonomy.php:36
+msgctxt "backoffice: taxonomy singular name"
+msgid "Admission requirement Master’s degree"
+msgstr "Inhaltliche Zugangsvoraussetzung Master"
+
+#: src/Infrastructure/Content/Taxonomy/NumberOfStudentsTaxonomy.php:27
+msgctxt "backoffice: taxonomy plural name"
+msgid "Number of students"
+msgstr "Studierendenzahl"
+
+#: src/Infrastructure/Content/Taxonomy/NumberOfStudentsTaxonomy.php:36
+msgctxt "backoffice: taxonomy singular name"
+msgid "Number of students"
+msgstr "Studierendenzahl"
+
+#: src/Infrastructure/Content/Taxonomy/SemesterTaxonomy.php:27
+msgctxt "backoffice: taxonomy plural name"
+msgid "Semesters"
+msgstr "Semester"
+
+#: src/Infrastructure/Content/Taxonomy/SemesterTaxonomy.php:36
+msgctxt "backoffice: taxonomy singular name"
+msgid "Semester"
+msgstr "Semester"
+
+#: src/Infrastructure/Content/Taxonomy/StudyLocationTaxonomy.php:27
+msgctxt "backoffice: taxonomy plural name"
+msgid "Study locations"
+msgstr "Studienorte"
+
+#: src/Infrastructure/Content/Taxonomy/StudyLocationTaxonomy.php:36
+msgctxt "backoffice: taxonomy singular name"
+msgid "Study location"
+msgstr "Studienort"
+
+#: src/Infrastructure/Content/Taxonomy/SubjectGroupTaxonomy.php:27
+msgctxt "backoffice: taxonomy plural name"
+msgid "Subject groups"
+msgstr "Fächergruppen"
+
+#: src/Infrastructure/Content/Taxonomy/SubjectGroupTaxonomy.php:36
+msgctxt "backoffice: taxonomy singular name"
+msgid "Subject group"
+msgstr "Fächergruppe"
+
+#: src/Infrastructure/Content/Taxonomy/SubjectSpecificAdviceTaxonomy.php:27
+msgctxt "backoffice: taxonomy plural name"
+msgid "Subject-specific advices"
+msgstr "Beratung aus dem Fach"
+
+#: src/Infrastructure/Content/Taxonomy/SubjectSpecificAdviceTaxonomy.php:36
+msgctxt "backoffice: taxonomy singular name"
+msgid "Subject-specific advice"
+msgstr "Beratung aus dem Fach"
+
+#. translators: %s - taxonomy plural name
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:77
+msgctxt "backoffice: taxonomy label"
+msgid "Search %s"
+msgstr "%s suchen"
+
+#. translators: %s - taxonomy plural name
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:82
+msgctxt "backoffice: taxonomy label"
+msgid "Popular %s"
+msgstr "Beliebte %s"
+
+#. translators: %s - taxonomy plural name
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:87
+msgctxt "backoffice: taxonomy label"
+msgid "All %s"
+msgstr "Alle %s"
+
+#. translators: %s - taxonomy singular name
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:92
+msgctxt "backoffice: taxonomy label"
+msgid "Parent %s"
+msgstr "Übergeordnete %s"
+
+#. translators: %s - taxonomy singular name
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:97
+msgctxt "backoffice: taxonomy label"
+msgid "Parent %s:"
+msgstr "Übergeordnete %s:"
+
+#. translators: %s - taxonomy singular name
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:102
+msgctxt "backoffice: taxonomy label"
+msgid "Edit %s"
+msgstr "%s bearbeiten"
+
+#. translators: %s - taxonomy singular name
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:107
+msgctxt "backoffice: taxonomy label"
+msgid "View %s"
+msgstr "%s ansehen"
+
+#. translators: %s - taxonomy singular name
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:112
+msgctxt "backoffice: taxonomy label"
+msgid "Update %s"
+msgstr "%s aktualisieren"
+
+#. translators: %s - taxonomy singular name
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:117
+msgctxt "backoffice: taxonomy label"
+msgid "Add New %s"
+msgstr "Neue/s %s hinzufügen"
+
+#. translators: %s - taxonomy singular name
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:122
+msgctxt "backoffice: taxonomy label"
+msgid "New %s Name"
+msgstr "Neue/s &s-Name"
+
+#. translators: %s - taxonomy plural name
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:127
+msgctxt "backoffice: taxonomy label"
+msgid "Separate %s with commas"
+msgstr "%s durch Kommas trennen"
+
+#. translators: %s - taxonomy plural name
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:136
+msgctxt "backoffice: taxonomy label"
+msgid "Add or remove %s"
+msgstr "%s hinzufügen oder entfernen"
+
+#. translators: %s - taxonomy plural name
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:141
+msgctxt "backoffice: taxonomy label"
+msgid "Choose from the most used %s"
+msgstr "Wähle aus den meistgenutzten %s"
+
+#. translators: %s - taxonomy plural name
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:150
+msgctxt "backoffice: taxonomy label"
+msgid "No %s found."
+msgstr "Keine %s gefunden."
+
+#. translators: %s - taxonomy plural name
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:155
+msgctxt "backoffice: taxonomy label"
+msgid "No %s"
+msgstr "Keine %s"
+
+#. translators: %s - taxonomy singular name
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:160
+msgctxt "backoffice: taxonomy label"
+msgid "Filter by %s"
+msgstr "Nach %s filtern"
+
+#. translators: %s - taxonomy plural name
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:165
+msgctxt "backoffice: taxonomy label"
+msgid "%s list navigation"
+msgstr "Navigation der %s-Liste"
+
+#. translators: %s - taxonomy plural name
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:174
+msgctxt "backoffice: taxonomy label"
+msgid "%s list"
+msgstr "%s-Liste"
+
+#. translators: %s - taxonomy plural name
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:179
+msgctxt "backoffice: taxonomy label"
+msgid "&larr; Go to %s"
+msgstr "&larr; Weiter zu den %s"
+
+#. translators: %s - taxonomy singular name
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:184
+msgctxt "backoffice: taxonomy label"
+msgid "%s Link"
+msgstr "%s-Link"
+
+#. translators: %s - taxonomy singular name
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:189
+msgctxt "backoffice: taxonomy label"
+msgid "A link to a %s."
+msgstr "Ein Link zu eine/r %s."
+
+#: src/Infrastructure/Content/Taxonomy/TeachingLanguageTaxonomy.php:27
+msgctxt "backoffice: taxonomy plural name"
+msgid "Teaching languages"
+msgstr "Unterrichtssprachen"
+
+#: src/Infrastructure/Content/Taxonomy/TeachingLanguageTaxonomy.php:36
+msgctxt "backoffice: taxonomy singular name"
+msgid "Teaching language"
+msgstr "Unterrichtssprache"
+
+#: src/Infrastructure/Dashboard/AdminBar/AdminBarMenu.php:49
+msgctxt "backoffice: admin bar menu item"
+msgid "FAU Degree Program"
+msgstr "FAU Studiengang"
+
+#: src/Infrastructure/Content/Taxonomy/BachelorOrTeachingDegreeAdmissionRequirementTaxonomy.php:27
+msgctxt "backoffice: taxonomy plural name"
+msgid "Admission requirements Bachelor's/Teaching degrees"
+msgstr "Zugangsvoraussetzungen Bachelor/Lehramt"
+
+#: src/Infrastructure/Content/Taxonomy/BachelorOrTeachingDegreeAdmissionRequirementTaxonomy.php:36
+msgctxt "backoffice: taxonomy singular name"
+msgid "Admission requirement Bachelor's/Teaching degrees"
+msgstr "Zugangsvoraussetzung Bachelor/Lehramt"
+
+#: src/Infrastructure/Content/Taxonomy/TeachingDegreeHigherSemesterAdmissionRequirementTaxonomy.php:27
+msgctxt "backoffice: taxonomy plural name"
+msgid "Admission requirements for entering a Bachelor's/teaching degree at a higher semester"
+msgstr "Zugangsvoraussetzungen Bachelor/Lehramt höheres Semester"
+
+#: src/Infrastructure/Content/Taxonomy/TeachingDegreeHigherSemesterAdmissionRequirementTaxonomy.php:36
+msgctxt "backoffice: taxonomy singular name"
+msgid "Admission requirement for entering a Bachelor's/teaching degree at a higher semester"
+msgstr "Zugangsvoraussetzung Bachelor/Lehramt höheres Semester"
+
+#: src/Infrastructure/Validator/ConditionalFieldsValidator.php:118
+msgctxt "backoffice: REST API error message"
+msgid "This field can not be empty."
+msgstr "Dieses Feld darf nicht leer sein."
