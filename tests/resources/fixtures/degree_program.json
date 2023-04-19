@@ -495,7 +495,7 @@
       "en": "https:\/\/fau.localhost\/counseling-en"
     }
   },
-  "student_representatives": "John Doe",
+  "info_brochure": "Info Brochure 2023",
   "semester_fee": {
     "id": "option:fau_semester_fee",
     "name": {
@@ -598,18 +598,36 @@
     "id": "option:fau_notes_for_international_applicants",
     "name": {
       "id": "option:fau_notes_for_international_applicants:name",
-      "de": "Notes for International Applicants",
-      "en": "Notes for International Applicants EN"
+      "de": "Notes for international applicants",
+      "en": "Notes for international applicants EN"
     },
     "link_text": {
       "id": "option:fau_notes_for_international_applicants:link_text",
-      "de": "Link Notes for International Applicants",
-      "en": "Link Notes for International Applicants EN"
+      "de": "Link to notes for international applicants",
+      "en": "Link to notes for international applicants EN"
     },
     "link_url": {
       "id": "option:fau_notes_for_international_applicants:link_url",
       "de": "https:\/\/fau.localhost\/notes-for-intl-applicants",
       "en": "https:\/\/fau.localhost\/notes-for-intl-applicants-en"
+    }
+  },
+  "student_initiatives": {
+    "id": "option:student_initiatives",
+    "name": {
+      "id": "option:student_initiatives:name",
+      "de": "Students' Union\/Student Initiatives",
+      "en": "Students' Union/Student Initiatives EN"
+    },
+    "link_text": {
+      "id": "option:student_initiatives:link_text",
+      "de": "Link Students' Union\/Student Initiatives",
+      "en": "Link Students' Union\/Student Initiatives EN"
+    },
+    "link_url": {
+      "id": "option:student_initiatives:link_url",
+      "de": "https:\/\/fau.localhost\/fsi",
+      "en": "https:\/\/fau.localhost\/fsi-en"
     }
   },
   "apply_now_link": {

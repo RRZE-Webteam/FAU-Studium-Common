@@ -74,7 +74,7 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
             DegreeProgram::STUDENT_ADVICE,
             DegreeProgram::SUBJECT_SPECIFIC_ADVICE,
             DegreeProgram::SERVICE_CENTERS,
-            DegreeProgram::STUDENT_REPRESENTATIVES,
+            DegreeProgram::INFO_BROCHURE,
             DegreeProgram::SEMESTER_FEE,
             DegreeProgram::DEGREE_PROGRAM_FEES,
             DegreeProgram::ABROAD_OPPORTUNITIES,
@@ -216,7 +216,7 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
             DegreeProgram::STUDENT_ADVICE => MultilingualLink::SCHEMA,
             DegreeProgram::SUBJECT_SPECIFIC_ADVICE => MultilingualLink::SCHEMA_REQUIRED,
             DegreeProgram::SERVICE_CENTERS => MultilingualLink::SCHEMA,
-            DegreeProgram::STUDENT_REPRESENTATIVES => [
+            DegreeProgram::INFO_BROCHURE => [
                 'type' => 'string',
                 'minLength' => 1,
                 'format' => 'uri',
@@ -229,6 +229,7 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
             DegreeProgram::COMBINATIONS => self::ARRAY_OF_IDS,
             DegreeProgram::LIMITED_COMBINATIONS => self::ARRAY_OF_IDS,
             DegreeProgram::NOTES_FOR_INTERNATIONAL_APPLICANTS => MultilingualLink::SCHEMA,
+            DegreeProgram::STUDENT_INITIATIVES => MultilingualLink::SCHEMA,
             DegreeProgram::APPLY_NOW_LINK => MultilingualLink::SCHEMA_REQUIRED,
             DegreeProgram::ENTRY_TEXT => MultilingualString::SCHEMA_REQUIRED,
         ],

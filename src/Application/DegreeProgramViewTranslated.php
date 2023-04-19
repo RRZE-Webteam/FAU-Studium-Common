@@ -59,7 +59,7 @@ use JsonSerializable;
  *     student_advice: LinkType,
  *     subject_specific_advice: LinkType,
  *     service_centers: LinkType,
- *     student_representatives: string,
+ *     info_brochure: string,
  *     semester_fee: LinkType,
  *     degree_program_fees: string,
  *     abroad_opportunities: LinkType,
@@ -68,6 +68,7 @@ use JsonSerializable;
  *     combinations: array<RelatedDegreeProgramType>,
  *     limited_combinations: array<RelatedDegreeProgramType>,
  *     notes_for_international_applicants: LinkType,
+ *     student_initiatives: LinkType,
  *     apply_now_link: LinkType,
  *     entry_text: string,
  * }
@@ -129,7 +130,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
         private Link $studentAdvice,
         private Link $subjectSpecificAdvice,
         private Link $serviceCenters,
-        private string $studentRepresentatives,
+        private string $infoBrochure,
         private Link $semesterFee,
         private string $degreeProgramFees,
         private Link $abroadOpportunities,
@@ -138,6 +139,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
         private RelatedDegreePrograms $combinations,
         private RelatedDegreePrograms $limitedCombinations,
         private Link $notesForInternationalApplicants,
+        private Link $studentInitiatives,
         private Link $applyNowLink,
         private string $entryText,
     ) {
@@ -193,7 +195,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             studentAdvice: Link::fromArray($data[DegreeProgram::STUDENT_ADVICE]),
             subjectSpecificAdvice: Link::fromArray($data[DegreeProgram::SUBJECT_SPECIFIC_ADVICE]),
             serviceCenters: Link::fromArray($data[DegreeProgram::SERVICE_CENTERS]),
-            studentRepresentatives: $data[DegreeProgram::STUDENT_REPRESENTATIVES],
+            infoBrochure: $data[DegreeProgram::INFO_BROCHURE],
             semesterFee: Link::fromArray($data[DegreeProgram::SEMESTER_FEE]),
             degreeProgramFees: $data[DegreeProgram::DEGREE_PROGRAM_FEES],
             abroadOpportunities: Link::fromArray($data[DegreeProgram::ABROAD_OPPORTUNITIES]),
@@ -202,6 +204,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             combinations:  RelatedDegreePrograms::fromArray($data[DegreeProgram::COMBINATIONS]),
             limitedCombinations: RelatedDegreePrograms::fromArray($data[DegreeProgram::LIMITED_COMBINATIONS]),
             notesForInternationalApplicants: Link::fromArray($data[DegreeProgram::NOTES_FOR_INTERNATIONAL_APPLICANTS]),
+            studentInitiatives: Link::fromArray($data[DegreeProgram::STUDENT_INITIATIVES]),
             applyNowLink: Link::fromArray($data[DegreeProgram::APPLY_NOW_LINK]),
             entryText: $data[DegreeProgram::ENTRY_TEXT],
         );
@@ -265,7 +268,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             DegreeProgram::STUDENT_ADVICE => $this->studentAdvice->asArray(),
             DegreeProgram::SUBJECT_SPECIFIC_ADVICE => $this->subjectSpecificAdvice->asArray(),
             DegreeProgram::SERVICE_CENTERS => $this->serviceCenters->asArray(),
-            DegreeProgram::STUDENT_REPRESENTATIVES => $this->studentRepresentatives,
+            DegreeProgram::INFO_BROCHURE => $this->infoBrochure,
             DegreeProgram::SEMESTER_FEE => $this->semesterFee->asArray(),
             DegreeProgram::DEGREE_PROGRAM_FEES => $this->degreeProgramFees,
             DegreeProgram::ABROAD_OPPORTUNITIES => $this->abroadOpportunities->asArray(),
@@ -274,6 +277,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             DegreeProgram::COMBINATIONS => $this->combinations->asArray(),
             DegreeProgram::LIMITED_COMBINATIONS => $this->limitedCombinations->asArray(),
             DegreeProgram::NOTES_FOR_INTERNATIONAL_APPLICANTS => $this->notesForInternationalApplicants->asArray(),
+            DegreeProgram::STUDENT_INITIATIVES => $this->studentInitiatives->asArray(),
             DegreeProgram::APPLY_NOW_LINK => $this->applyNowLink->asArray(),
             DegreeProgram::ENTRY_TEXT => $this->entryText,
             self::TRANSLATIONS => $this->translationsAsArray(),
@@ -533,9 +537,9 @@ final class DegreeProgramViewTranslated implements JsonSerializable
         return $this->serviceCenters;
     }
 
-    public function studentRepresentatives(): string
+    public function infoBrochure(): string
     {
-        return $this->studentRepresentatives;
+        return $this->infoBrochure;
     }
 
     public function semesterFee(): Link
@@ -576,6 +580,11 @@ final class DegreeProgramViewTranslated implements JsonSerializable
     public function notesForInternationalApplicants(): Link
     {
         return $this->notesForInternationalApplicants;
+    }
+
+    public function studentInitiatives(): Link
+    {
+        return $this->studentInitiatives;
     }
 
     public function applyNowLink(): Link

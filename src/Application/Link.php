@@ -32,6 +32,12 @@ final class Link
         return new self($name, $linkText, $linkUrl);
     }
 
+    public static function empty(): self
+    {
+
+        return new self('', '', '');
+    }
+
     public static function fromMultilingualLink(
         MultilingualLink|AdmissionRequirement $multilingualLink,
         string $languageCode

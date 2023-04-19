@@ -49,7 +49,7 @@ final class DegreeProgram
     public const STUDENT_ADVICE = 'student_advice';
     public const SUBJECT_SPECIFIC_ADVICE = 'subject_specific_advice';
     public const SERVICE_CENTERS = 'service_centers';
-    public const STUDENT_REPRESENTATIVES = 'student_representatives';
+    public const INFO_BROCHURE = 'info_brochure';
     public const SEMESTER_FEE = 'semester_fee';
     public const DEGREE_PROGRAM_FEES = 'degree_program_fees';
     public const ABROAD_OPPORTUNITIES = 'abroad_opportunities';
@@ -61,6 +61,7 @@ final class DegreeProgram
     public const COMBINATIONS_CHANGESET = 'combinations_changeset';
     public const LIMITED_COMBINATIONS_CHANGESET = 'limited_combinations_changeset';
     public const NOTES_FOR_INTERNATIONAL_APPLICANTS = 'notes_for_international_applicants';
+    public const STUDENT_INITIATIVES = 'student_initiatives';
     public const APPLY_NOW_LINK = 'apply_now_link';
 
     private IntegersListChangeset $combinationsChangeset;
@@ -192,6 +193,9 @@ final class DegreeProgram
          * Studiengang-URL
          */
         private MultilingualString $url,
+        /**
+         * Department/Institut (URL)
+         */
         private MultilingualString $department,
         /**
          * Allgemeine Studienberatung
@@ -208,9 +212,9 @@ final class DegreeProgram
          */
         private MultilingualLink $serviceCenters,
         /**
-         * Studierendenvertretung/FSI
+         * Infobroschüre Studiengang
          */
-        private string $studentRepresentatives,
+        private string $infoBrochure,
         /**
          * Semesterbeitrag
          * Shared property
@@ -234,6 +238,11 @@ final class DegreeProgram
          * Shared property
          */
         private MultilingualLink $notesForInternationalApplicants,
+        /**
+         * StuVe/FSI
+         * Shared property
+         */
+        private MultilingualLink $studentInitiatives,
         /**
          * Bewerben
          */
@@ -323,7 +332,7 @@ final class DegreeProgram
         $this->studentAdvice = MultilingualLink::fromArray($data[self::STUDENT_ADVICE]);
         $this->subjectSpecificAdvice = MultilingualLink::fromArray($data[self::SUBJECT_SPECIFIC_ADVICE]);
         $this->serviceCenters = MultilingualLink::fromArray($data[self::SERVICE_CENTERS]);
-        $this->studentRepresentatives = $data[self::STUDENT_REPRESENTATIVES];
+        $this->infoBrochure = $data[self::INFO_BROCHURE];
         $this->semesterFee = MultilingualLink::fromArray($data[self::SEMESTER_FEE]);
         $this->degreeProgramFees = MultilingualString::fromArray($data[self::DEGREE_PROGRAM_FEES]);
         $this->abroadOpportunities = MultilingualLink::fromArray($data[self::ABROAD_OPPORTUNITIES]);
@@ -332,6 +341,7 @@ final class DegreeProgram
         $this->combinations = DegreeProgramIds::fromArray($data[self::COMBINATIONS]);
         $this->limitedCombinations = DegreeProgramIds::fromArray($data[self::LIMITED_COMBINATIONS]);
         $this->notesForInternationalApplicants = MultilingualLink::fromArray($data[self::NOTES_FOR_INTERNATIONAL_APPLICANTS]);
+        $this->studentInitiatives = MultilingualLink::fromArray($data[self::STUDENT_INITIATIVES]);
         $this->applyNowLink = MultilingualLink::fromArray($data[self::APPLY_NOW_LINK]);
         $this->entryText = MultilingualString::fromArray($data[self::ENTRY_TEXT])
             ->mapTranslations([$contentSanitizer, 'sanitizeContentField']);
@@ -385,7 +395,7 @@ final class DegreeProgram
      *     student_advice: MultilingualLink,
      *     subject_specific_advice: MultilingualLink,
      *     service_centers: MultilingualLink,
-     *     student_representatives: string,
+     *     info_brochure: string,
      *     semester_fee: MultilingualLink,
      *     degree_program_fees: MultilingualString,
      *     abroad_opportunities: MultilingualLink,
@@ -396,6 +406,7 @@ final class DegreeProgram
      *     combinations_changeset: IntegersListChangeset,
      *     limited_combinations_changeset: IntegersListChangeset,
      *     notes_for_international_applicants: MultilingualLink,
+     *     student_initiatives: MultilingualLink,
      *     apply_now_link: MultilingualLink,
      *     entry_text: MultilingualString,
      * }
@@ -442,7 +453,7 @@ final class DegreeProgram
             self::STUDENT_ADVICE => $this->studentAdvice,
             self::SUBJECT_SPECIFIC_ADVICE => $this->subjectSpecificAdvice,
             self::SERVICE_CENTERS => $this->serviceCenters,
-            self::STUDENT_REPRESENTATIVES => $this->studentRepresentatives,
+            self::INFO_BROCHURE => $this->infoBrochure,
             self::SEMESTER_FEE => $this->semesterFee,
             self::DEGREE_PROGRAM_FEES => $this->degreeProgramFees,
             self::ABROAD_OPPORTUNITIES => $this->abroadOpportunities,
@@ -453,6 +464,7 @@ final class DegreeProgram
             self::COMBINATIONS_CHANGESET => $this->combinationsChangeset,
             self::LIMITED_COMBINATIONS_CHANGESET => $this->limitedCombinationsChangeset,
             self::NOTES_FOR_INTERNATIONAL_APPLICANTS => $this->notesForInternationalApplicants,
+            self::STUDENT_INITIATIVES => $this->studentInitiatives,
             self::APPLY_NOW_LINK => $this->applyNowLink,
             self::ENTRY_TEXT => $this->entryText,
         ];

@@ -9,6 +9,7 @@ use Fau\DegreeProgram\Common\Application\ContentTranslated;
 use Fau\DegreeProgram\Common\Application\DegreeProgramViewRaw;
 use Fau\DegreeProgram\Common\Application\DegreeProgramViewTranslated;
 use Fau\DegreeProgram\Common\Application\DegreeTranslated;
+use Fau\DegreeProgram\Common\Application\ImageView;
 use Fau\DegreeProgram\Common\Application\Link;
 use Fau\DegreeProgram\Common\Application\Links;
 use Fau\DegreeProgram\Common\Application\RelatedDegreePrograms;
@@ -84,8 +85,16 @@ final class StubDegreeProgramRepository implements DegreeProgramRepository, Degr
             link: '',
             slug: '',
             lang: $languageCode,
-            featuredImage: $raw->featuredImage(),
-            teaserImage: $raw->teaserImage(),
+            featuredImage: ImageView::new(
+                $raw->featuredImage()->id(),
+                $raw->featuredImage()->url(),
+                '',
+            ),
+            teaserImage: ImageView::new(
+                $raw->teaserImage()->id(),
+                $raw->teaserImage()->url(),
+                '',
+            ),
             title: $raw->title()->asString($languageCode),
             subtitle: $raw->subtitle()->asString($languageCode),
             standardDuration: $raw->standardDuration(),
@@ -125,7 +134,7 @@ final class StubDegreeProgramRepository implements DegreeProgramRepository, Degr
             studentAdvice: Link::fromMultilingualLink($raw->studentAdvice(), $languageCode),
             subjectSpecificAdvice: Link::fromMultilingualLink($raw->subjectSpecificAdvice(), $languageCode),
             serviceCenters: Link::fromMultilingualLink($raw->serviceCenters(), $languageCode),
-            studentRepresentatives: $raw->studentRepresentatives(),
+            infoBrochure: $raw->infoBrochure(),
             semesterFee: Link::fromMultilingualLink($raw->semesterFee(), $languageCode),
             degreeProgramFees: $raw->degreeProgramFees()->asString($languageCode),
             abroadOpportunities: Link::fromMultilingualLink($raw->abroadOpportunities(), $languageCode),

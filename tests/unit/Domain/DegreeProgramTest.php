@@ -203,8 +203,8 @@ class DegreeProgramTest extends UnitTestCase
             $result['service_centers']->linkText()->inEnglish()
         );
         $this->assertSame(
-            'John Doe',
-            $result['student_representatives']
+            'Info Brochure 2023',
+            $result['info_brochure']
         );
         $this->assertSame(
             'https://fau.localhost/semester-fee',
@@ -248,8 +248,12 @@ class DegreeProgramTest extends UnitTestCase
             $result['limited_combinations_changeset']->removed()
         );
         $this->assertSame(
-            'Notes for International Applicants',
-            $result['notes_for_international_applicants']->name()->inGerman()
+            'Notes for international applicants EN',
+            $result['notes_for_international_applicants']->name()->inEnglish()
+        );
+        $this->assertSame(
+            'Students\' Union/Student Initiatives',
+            $result['student_initiatives']->name()->inGerman()
         );
     }
 }

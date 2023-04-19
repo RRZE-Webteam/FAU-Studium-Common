@@ -208,9 +208,9 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
                 $this->firstTerm($post, SubjectSpecificAdviceTaxonomy::KEY)
             ),
             serviceCenters: $this->bilingualLinkFromOption(DegreeProgram::SERVICE_CENTERS),
-            studentRepresentatives: (string) get_post_meta(
+            infoBrochure: (string) get_post_meta(
                 $postId,
-                DegreeProgram::STUDENT_REPRESENTATIVES,
+                DegreeProgram::INFO_BROCHURE,
                 true
             ),
             semesterFee: $this->bilingualLinkFromOption(DegreeProgram::SEMESTER_FEE),
@@ -228,6 +228,9 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             ),
             notesForInternationalApplicants: $this->bilingualLinkFromOption(
                 DegreeProgram::NOTES_FOR_INTERNATIONAL_APPLICANTS
+            ),
+            studentInitiatives: $this->bilingualLinkFromOption(
+                DegreeProgram::STUDENT_INITIATIVES
             ),
             applyNowLink: $this->bilingualLinkFromTerm(
                 $this->firstTerm($post, ApplyNowLinkTaxonomy::KEY),
@@ -388,9 +391,9 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
                 $this->fieldsSanitizer->sanitizeUrlField(
                     $degreeProgramViewRaw->moduleHandbook()
                 ),
-            DegreeProgram::STUDENT_REPRESENTATIVES =>
+            DegreeProgram::INFO_BROCHURE =>
                 $this->fieldsSanitizer->sanitizeUrlField(
-                    $degreeProgramViewRaw->studentRepresentatives()
+                    $degreeProgramViewRaw->infoBrochure()
                 ),
             DegreeProgram::EXAMINATION_REGULATIONS =>
                 $this->fieldsSanitizer->sanitizeUrlField(

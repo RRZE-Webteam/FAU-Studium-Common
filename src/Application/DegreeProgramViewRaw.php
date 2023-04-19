@@ -63,7 +63,7 @@ use JsonSerializable;
  *     student_advice: MultilingualLinkType,
  *     subject_specific_advice: MultilingualLinkType,
  *     service_centers: MultilingualLinkType,
- *     student_representatives: string,
+ *     info_brochure: string,
  *     semester_fee: MultilingualLinkType,
  *     degree_program_fees: MultilingualStringType,
  *     abroad_opportunities: MultilingualLinkType,
@@ -72,6 +72,7 @@ use JsonSerializable;
  *     combinations: array<int>,
  *     limited_combinations: array<int>,
  *     notes_for_international_applicants: MultilingualLinkType,
+ *     student_initiatives: MultilingualLinkType,
  *     apply_now_link: MultilingualLinkType,
  *     entry_text: MultilingualStringType,
  * }
@@ -116,7 +117,7 @@ final class DegreeProgramViewRaw implements JsonSerializable
         private MultilingualLink $studentAdvice,
         private MultilingualLink $subjectSpecificAdvice,
         private MultilingualLink $serviceCenters,
-        private string $studentRepresentatives,
+        private string $infoBrochure,
         private MultilingualLink $semesterFee,
         private MultilingualString $degreeProgramFees,
         private MultilingualLink $abroadOpportunities,
@@ -125,6 +126,7 @@ final class DegreeProgramViewRaw implements JsonSerializable
         private DegreeProgramIds $combinations,
         private DegreeProgramIds $limitedCombinations,
         private MultilingualLink $notesForInternationalApplicants,
+        private MultilingualLink $studentInitiatives,
         private MultilingualLink $applyNowLink,
         private MultilingualString $entryText,
     ) {
@@ -174,7 +176,7 @@ final class DegreeProgramViewRaw implements JsonSerializable
             $data[DegreeProgram::STUDENT_ADVICE],
             $data[DegreeProgram::SUBJECT_SPECIFIC_ADVICE],
             $data[DegreeProgram::SERVICE_CENTERS],
-            $data[DegreeProgram::STUDENT_REPRESENTATIVES],
+            $data[DegreeProgram::INFO_BROCHURE],
             $data[DegreeProgram::SEMESTER_FEE],
             $data[DegreeProgram::DEGREE_PROGRAM_FEES],
             $data[DegreeProgram::ABROAD_OPPORTUNITIES],
@@ -183,6 +185,7 @@ final class DegreeProgramViewRaw implements JsonSerializable
             $data[DegreeProgram::COMBINATIONS],
             $data[DegreeProgram::LIMITED_COMBINATIONS],
             $data[DegreeProgram::NOTES_FOR_INTERNATIONAL_APPLICANTS],
+            $data[DegreeProgram::STUDENT_INITIATIVES],
             $data[DegreeProgram::APPLY_NOW_LINK],
             $data[DegreeProgram::ENTRY_TEXT],
         );
@@ -233,7 +236,7 @@ final class DegreeProgramViewRaw implements JsonSerializable
             studentAdvice: MultilingualLink::fromArray($data[DegreeProgram::STUDENT_ADVICE]),
             subjectSpecificAdvice: MultilingualLink::fromArray($data[DegreeProgram::SUBJECT_SPECIFIC_ADVICE]),
             serviceCenters: MultilingualLink::fromArray($data[DegreeProgram::SERVICE_CENTERS]),
-            studentRepresentatives: $data[DegreeProgram::STUDENT_REPRESENTATIVES],
+            infoBrochure: $data[DegreeProgram::INFO_BROCHURE],
             semesterFee: MultilingualLink::fromArray($data[DegreeProgram::SEMESTER_FEE]),
             degreeProgramFees: MultilingualString::fromArray($data[DegreeProgram::DEGREE_PROGRAM_FEES]),
             abroadOpportunities: MultilingualLink::fromArray($data[DegreeProgram::ABROAD_OPPORTUNITIES]),
@@ -243,6 +246,9 @@ final class DegreeProgramViewRaw implements JsonSerializable
             limitedCombinations: DegreeProgramIds::fromArray($data[DegreeProgram::LIMITED_COMBINATIONS]),
             notesForInternationalApplicants: MultilingualLink::fromArray(
                 $data[DegreeProgram::NOTES_FOR_INTERNATIONAL_APPLICANTS]
+            ),
+            studentInitiatives: MultilingualLink::fromArray(
+                $data[DegreeProgram::STUDENT_INITIATIVES]
             ),
             applyNowLink: MultilingualLink::fromArray($data[DegreeProgram::APPLY_NOW_LINK]),
             entryText: MultilingualString::fromArray($data[DegreeProgram::ENTRY_TEXT]),
@@ -297,7 +303,7 @@ final class DegreeProgramViewRaw implements JsonSerializable
             DegreeProgram::STUDENT_ADVICE => $this->studentAdvice->asArray(),
             DegreeProgram::SUBJECT_SPECIFIC_ADVICE => $this->subjectSpecificAdvice->asArray(),
             DegreeProgram::SERVICE_CENTERS => $this->serviceCenters->asArray(),
-            DegreeProgram::STUDENT_REPRESENTATIVES => $this->studentRepresentatives,
+            DegreeProgram::INFO_BROCHURE => $this->infoBrochure,
             DegreeProgram::SEMESTER_FEE => $this->semesterFee->asArray(),
             DegreeProgram::DEGREE_PROGRAM_FEES => $this->degreeProgramFees->asArray(),
             DegreeProgram::ABROAD_OPPORTUNITIES => $this->abroadOpportunities->asArray(),
@@ -306,6 +312,7 @@ final class DegreeProgramViewRaw implements JsonSerializable
             DegreeProgram::COMBINATIONS => $this->combinations->asArray(),
             DegreeProgram::LIMITED_COMBINATIONS => $this->limitedCombinations->asArray(),
             DegreeProgram::NOTES_FOR_INTERNATIONAL_APPLICANTS => $this->notesForInternationalApplicants->asArray(),
+            DegreeProgram::STUDENT_INITIATIVES => $this->studentInitiatives->asArray(),
             DegreeProgram::APPLY_NOW_LINK => $this->applyNowLink->asArray(),
             DegreeProgram::ENTRY_TEXT => $this->entryText->asArray(),
         ];
@@ -501,9 +508,9 @@ final class DegreeProgramViewRaw implements JsonSerializable
         return $this->serviceCenters;
     }
 
-    public function studentRepresentatives(): string
+    public function infoBrochure(): string
     {
-        return $this->studentRepresentatives;
+        return $this->infoBrochure;
     }
 
     public function semesterFee(): MultilingualLink
@@ -544,6 +551,11 @@ final class DegreeProgramViewRaw implements JsonSerializable
     public function notesForInternationalApplicants(): MultilingualLink
     {
         return $this->notesForInternationalApplicants;
+    }
+
+    public function studentInitiatives(): MultilingualLink
+    {
+        return $this->studentInitiatives;
     }
 
     public function applyNowLink(): MultilingualLink

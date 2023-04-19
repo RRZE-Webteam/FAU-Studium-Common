@@ -162,7 +162,7 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
             studentAdvice: Link::fromMultilingualLink($raw->studentAdvice(), $languageCode),
             subjectSpecificAdvice: Link::fromMultilingualLink($raw->subjectSpecificAdvice(), $languageCode),
             serviceCenters: Link::fromMultilingualLink($raw->serviceCenters(), $languageCode),
-            studentRepresentatives: $raw->studentRepresentatives(),
+            infoBrochure: $raw->infoBrochure(),
             semesterFee: Link::fromMultilingualLink($raw->semesterFee(), $languageCode),
             degreeProgramFees: $raw->degreeProgramFees()->asString($languageCode),
             abroadOpportunities: Link::fromMultilingualLink($raw->abroadOpportunities(), $languageCode),
@@ -171,6 +171,7 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
             combinations: $this->relatedDegreePrograms($raw->combinations()->asArray(), $languageCode),
             limitedCombinations: $this->relatedDegreePrograms($raw->limitedCombinations()->asArray(), $languageCode),
             notesForInternationalApplicants: Link::fromMultilingualLink($raw->notesForInternationalApplicants(), $languageCode),
+            studentInitiatives: Link::fromMultilingualLink($raw->studentInitiatives(), $languageCode),
             applyNowLink: Link::fromMultilingualLink($raw->applyNowLink(), $languageCode),
             entryText: $this->formatContentField($raw->entryText()->asString($languageCode)),
         );
