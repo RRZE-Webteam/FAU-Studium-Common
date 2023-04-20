@@ -94,7 +94,7 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
             DegreeProgram::FEATURED_IMAGE => Image::SCHEMA_REQUIRED,
             DegreeProgram::TEASER_IMAGE => Image::SCHEMA_REQUIRED,
             DegreeProgram::TITLE => MultilingualString::SCHEMA_REQUIRED,
-            DegreeProgram::SUBTITLE => MultilingualString::SCHEMA_REQUIRED,
+            DegreeProgram::SUBTITLE => MultilingualString::SCHEMA,
             DegreeProgram::STANDARD_DURATION => [
                 'type' => 'string',
                 'minLength' => 1,
