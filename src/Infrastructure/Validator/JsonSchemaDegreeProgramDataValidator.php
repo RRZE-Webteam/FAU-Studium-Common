@@ -125,8 +125,10 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
             DegreeProgram::SUBJECT_GROUPS => MultilingualList::SCHEMA_REQUIRED,
             DegreeProgram::VIDEOS => [
                 'type' => 'array',
+                'maxItems' => 3,
                 'items' => [
                     'type' => 'string',
+                    'format' => 'uri',
                 ],
             ],
             DegreeProgram::META_DESCRIPTION => MultilingualString::SCHEMA_REQUIRED,
