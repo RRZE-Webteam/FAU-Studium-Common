@@ -194,8 +194,8 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
                 'type' => 'string',
                 'pattern' => self::DEADLINE_PATTERN,
             ],
-            DegreeProgram::DETAILS_AND_NOTES => MultilingualString::SCHEMA_REQUIRED,
-            DegreeProgram::LANGUAGE_SKILLS => MultilingualString::SCHEMA_REQUIRED,
+            DegreeProgram::DETAILS_AND_NOTES => MultilingualString::SCHEMA,
+            DegreeProgram::LANGUAGE_SKILLS => MultilingualString::SCHEMA,
             DegreeProgram::LANGUAGE_SKILLS_HUMANITIES_FACULTY => [
                 'type' => 'string',
             ],
