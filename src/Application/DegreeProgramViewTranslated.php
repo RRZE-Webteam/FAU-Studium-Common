@@ -146,6 +146,69 @@ final class DegreeProgramViewTranslated implements JsonSerializable
     }
 
     /**
+     * @psalm-param LanguageCodes $languageCode
+     * phpcs:disable Inpsyde.CodeQuality.FunctionLength.TooLong
+     */
+    public static function empty(int $id, string $languageCode): self
+    {
+        return new self(
+            DegreeProgramId::fromInt($id),
+            link: '',
+            slug: '',
+            lang: $languageCode,
+            featuredImage: ImageView::empty(),
+            teaserImage: ImageView::empty(),
+            title: '',
+            subtitle: '',
+            standardDuration: '',
+            feeRequired: false,
+            start: ArrayOfStrings::new(),
+            numberOfStudents: '',
+            teachingLanguage: '',
+            attributes: ArrayOfStrings::new(),
+            degree: DegreeTranslated::new('', '', null),
+            faculty: Links::new(),
+            location: ArrayOfStrings::new(),
+            subjectGroups: ArrayOfStrings::new(),
+            videos: ArrayOfStrings::new(),
+            metaDescription: '',
+            content: ContentTranslated::new(
+                ...array_fill(0, 8, ContentItemTranslated::new('', ''))
+            ),
+            admissionRequirements: AdmissionRequirementsTranslated::new([]),
+            contentRelatedMasterRequirements: '',
+            applicationDeadlineWinterSemester: '',
+            applicationDeadlineSummerSemester: '',
+            detailsAndNotes: '',
+            languageSkills: '',
+            languageSkillsHumanitiesFaculty: '',
+            germanLanguageSkillsForInternationalStudents: Link::empty(),
+            startOfSemester: Link::empty(),
+            semesterDates: Link::empty(),
+            examinationsOffice: Link::empty(),
+            examinationRegulations: '',
+            moduleHandbook: '',
+            url: '',
+            department: '',
+            studentAdvice: Link::empty(),
+            subjectSpecificAdvice: Link::empty(),
+            serviceCenters: Link::empty(),
+            infoBrochure: '',
+            semesterFee: Link::empty(),
+            degreeProgramFees: '',
+            abroadOpportunities: Link::empty(),
+            keywords: ArrayOfStrings::new(),
+            areaOfStudy: Links::new(),
+            combinations:  RelatedDegreePrograms::new(),
+            limitedCombinations: RelatedDegreePrograms::new(),
+            notesForInternationalApplicants: Link::empty(),
+            studentInitiatives: Link::empty(),
+            applyNowLink: Link::empty(),
+            entryText: '',
+        );
+    }
+
+    /**
      * @psalm-param DegreeProgramTranslation & array{
      *      id: int | numeric-string,
      *      translations?: array<LanguageCodes, DegreeProgramTranslation>,
@@ -352,6 +415,9 @@ final class DegreeProgramViewTranslated implements JsonSerializable
         return $this->slug;
     }
 
+    /**
+     * @return LanguageCodes
+     */
     public function lang(): string
     {
         return $this->lang;
