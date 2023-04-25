@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Application\Repository;
 
+use Fau\DegreeProgram\Common\Application\Filter\Filter;
 use Fau\DegreeProgram\Common\Domain\DegreeProgram;
+use Fau\DegreeProgram\Common\Domain\MultilingualString;
 use Webmozart\Assert\Assert;
 
 /**
- * @psalm-type SupportedFilterTypes = 'degree';
+ * @psalm-import-type LanguageCodes from MultilingualString
  * @psalm-type SupportedArgs = array{
  *    page: int,
  *    per_page: int,
@@ -31,12 +33,20 @@ final class CollectionCriteria
     public const DEFAULT_ORDERBY = ['date', 'desc'];
 
     /**
+     * @var Filter[]
+     */
+    private array $filters = [];
+
+    /**
+     * @var LanguageCodes|null
+     */
+    private ?string $languageCode = null;
+
+    /**
      * @param SupportedArgs $args
-     * @param array<SupportedFilterTypes, array<int>> $filters
      */
     private function __construct(
         private array $args,
-        private array $filters
     ) {
     }
 
@@ -45,7 +55,7 @@ final class CollectionCriteria
         return new self([
             'page' => 1,
             'per_page' => 10,
-        ], []);
+        ]);
     }
 
     public function toNextPage(): self
@@ -87,6 +97,21 @@ final class CollectionCriteria
         return $this->args['per_page'];
     }
 
+    /**
+     * @psalm-return LanguageCodes|null
+     */
+    public function languageCode(): ?string
+    {
+        return $this->languageCode;
+    }
+
+    public function addFilter(Filter ...$filters): self
+    {
+        $this->filters = array_merge($this->filters(), $filters);
+
+        return $this;
+    }
+
     public function withoutPagination(): self
     {
         $instance = clone $this;
@@ -109,25 +134,14 @@ final class CollectionCriteria
     }
 
     /**
-     * @psalm-param SupportedFilterTypes $filterType
+     * @param LanguageCodes $languageCode
+     * @return self
      */
-    public function withFilter(string $filterType, int ...$values): self
+    public function withLanguage(string $languageCode): self
     {
         $instance = clone $this;
-        $instance->filters[$filterType] = $values;
 
-        return $instance;
-    }
-
-    public function withDegree(int ...$values): self
-    {
-        return $this->withFilter('degree', ...$values);
-    }
-
-    public function withSearchKeyword(string $keyword): self
-    {
-        $instance = clone $this;
-        $instance->args['search'] = $keyword;
+        $this->languageCode = $languageCode;
 
         return $instance;
     }
@@ -159,7 +173,7 @@ final class CollectionCriteria
     }
 
     /**
-     * @psalm-return array<SupportedFilterTypes, array<int>>
+     * @psalm-return Filter[]
      */
     public function filters(): array
     {

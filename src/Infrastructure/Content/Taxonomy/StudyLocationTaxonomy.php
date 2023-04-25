@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy;
 
+use Fau\DegreeProgram\Common\Application\Filter\StudyLocationFilter;
+
 /**
  * Studienorte
  */
 final class StudyLocationTaxonomy extends Taxonomy
 {
     public const KEY = 'standort';
-    public const REST_BASE = 'study-location';
+    public const REST_BASE = StudyLocationFilter::KEY;
 
     public function key(): string
     {

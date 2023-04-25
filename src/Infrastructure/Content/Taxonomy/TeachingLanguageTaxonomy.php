@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy;
 
+use Fau\DegreeProgram\Common\Application\Filter\TeachingLanguageFilter;
+
 /**
  * Unterrichtssprache
  */
 final class TeachingLanguageTaxonomy extends Taxonomy
 {
     public const KEY = 'sprache';
-    public const REST_BASE = 'teaching-language';
+    public const REST_BASE = TeachingLanguageFilter::KEY;
 
     public function key(): string
     {

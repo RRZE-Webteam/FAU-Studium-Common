@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy;
 
+use Fau\DegreeProgram\Common\Application\Filter\FacultyFilter;
+
 /**
  * Fakultäten
  */
 final class FacultyTaxonomy extends Taxonomy
 {
     public const KEY = 'faculty';
-    public const REST_BASE = 'faculty';
+    public const REST_BASE = FacultyFilter::KEY;
 
     public function key(): string
     {

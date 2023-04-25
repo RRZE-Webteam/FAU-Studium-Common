@@ -10,21 +10,14 @@ use Fau\DegreeProgram\Common\Application\Repository\CollectionCriteria;
 use Fau\DegreeProgram\Common\Application\Repository\DegreeProgramCollectionRepository;
 use Fau\DegreeProgram\Common\Application\Repository\DegreeProgramViewRepository;
 use Fau\DegreeProgram\Common\Application\Repository\PaginationAwareCollection;
-use Fau\DegreeProgram\Common\Domain\DegreeProgram;
 use Fau\DegreeProgram\Common\Domain\DegreeProgramId;
-use Fau\DegreeProgram\Common\Domain\MultilingualString;
-use Fau\DegreeProgram\Common\Infrastructure\Content\PostType\DegreeProgramPostType;
-use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\TaxonomiesList;
 use WP_Query;
 
-/**
- * @psalm-import-type LanguageCodes from MultilingualString
- */
 final class WordPressDatabaseDegreeProgramCollectionRepository implements DegreeProgramCollectionRepository
 {
     public function __construct(
         private DegreeProgramViewRepository $degreeProgramViewRepository,
-        private TaxonomiesList $taxonomiesList,
+        private WpQueryArgsBuilder $queryArgsBuilder
     ) {
     }
 
@@ -33,7 +26,9 @@ final class WordPressDatabaseDegreeProgramCollectionRepository implements Degree
         $query = new WP_Query();
         /** @var array<int> $ids */
         $ids = $query->query(
-            $this->prepareWpQueryArgs($criteria)
+            $this->queryArgsBuilder
+                ->build($criteria)
+                ->args()
         );
 
         $items = [];
@@ -55,7 +50,9 @@ final class WordPressDatabaseDegreeProgramCollectionRepository implements Degree
         $query = new WP_Query();
         /** @var array<int> $ids */
         $ids = $query->query(
-            $this->prepareWpQueryArgs($criteria, $languageCode)
+            $this->queryArgsBuilder
+                ->build($criteria->withLanguage($languageCode))
+                ->args()
         );
 
         $items = [];
@@ -71,135 +68,5 @@ final class WordPressDatabaseDegreeProgramCollectionRepository implements Degree
         }
 
         return new WpQueryPaginationAwareCollection($query, ...$items);
-    }
-
-    /**
-     * The permanent degree program cache is used
-     * instead of WordPress internal cache.
-     *
-     * @psalm-param ?LanguageCodes $languageCode
-     */
-    private function prepareWpQueryArgs(CollectionCriteria $criteria, ?string $languageCode = null): array
-    {
-        /** @var array<string, string> $aliases */
-        static $aliases = [
-            'page' => 'paged',
-            'per_page' => 'posts_per_page',
-            'include' => 'post__in',
-        ];
-
-        /** @var array<string, mixed> $requiredArgs */
-        static $requiredArgs = [
-            'post_type' => DegreeProgramPostType::KEY,
-            'post_status' => 'publish',
-            'fields' => 'ids',
-            'update_post_meta_cache' => false,
-            'update_post_term_cache' => false,
-        ];
-
-        $normalizedArgs = [];
-        foreach ($criteria->args() as $key => $value) {
-            if ($key === 'search') {
-                continue;
-            }
-
-            $normalizedArgs[$aliases[$key] ?? $key] = $value;
-        }
-
-        $normalizedArgs['tax_query'] = $this->buildTaxQuery($criteria);
-        $normalizedArgs['meta_query'] = ['relation' => 'AND'];
-        $searchKeyword = $criteria->args()['search'] ?? null;
-
-        if ($searchKeyword) {
-            $normalizedArgs['meta_query'][] = $this->buildSearchMetaQuery(
-                $searchKeyword,
-                $languageCode,
-            );
-        }
-
-        $normalizedArgs = array_merge($normalizedArgs, $this->orderbyArgs($criteria, $languageCode));
-
-        return array_merge($normalizedArgs, $requiredArgs);
-    }
-
-    private function buildTaxQuery(CollectionCriteria $criteria): array
-    {
-        $taxQuery = [];
-        foreach ($criteria->filters() as $filterType => $values) {
-            $taxonomyKey = $this->taxonomiesList->convertRestBaseToSlug($filterType);
-            if (!$taxonomyKey) {
-                continue;
-            }
-
-            $taxQuery[] = [
-                'taxonomy' => $taxonomyKey,
-                'terms' => $values,
-            ];
-        }
-
-        return $taxQuery;
-    }
-
-    /**
-     * @psalm-param ?LanguageCodes $languageCode
-     */
-    private function buildSearchMetaQuery(string $keyword, ?string $languageCode = null): array
-    {
-        // Finding raw (un-translated) collection? include searchable content in both languages
-        if ($languageCode === null) {
-            return [
-                'relation' => 'OR',
-                [
-                    'key' => 'fau_degree_program_searchable_content_' . MultilingualString::EN,
-                    'value' => $keyword,
-                    'compare' => 'LIKE',
-                ],
-                [
-                    'key' => 'fau_degree_program_searchable_content_' . MultilingualString::DE,
-                    'value' => $keyword,
-                    'compare' => 'LIKE',
-                ],
-            ];
-        }
-
-        return [
-            'key' => 'fau_degree_program_searchable_content_' . $languageCode,
-            'value' => $keyword,
-            'compare' => 'LIKE',
-        ];
-    }
-
-    private function orderbyArgs(CollectionCriteria $criteria, ?string $languageCode = null): array
-    {
-        $orderBy = $criteria->args()['orderby'] ?? '';
-        $languageCode = $languageCode ?? MultilingualString::DE;
-
-        return match ($orderBy) {
-            DegreeProgram::TITLE => $languageCode === MultilingualString::DE ?
-                [
-                    'orderby' => 'title',
-                ]
-                : [
-                    'meta_key' => 'title_' . $languageCode,
-                    'orderby' => 'meta_value',
-                ],
-            DegreeProgram::DEGREE => [
-                'meta_key' => DegreeProgram::DEGREE . '_' . $languageCode,
-                'orderby' => 'meta_value',
-            ],
-            DegreeProgram::START => [
-                'meta_key' => DegreeProgram::START . '_' . $languageCode,
-                'orderby' => 'meta_value',
-            ],
-            DegreeProgram::LOCATION => [
-                'meta_key' => DegreeProgram::LOCATION . '_' . $languageCode,
-                'orderby' => 'meta_value',
-            ],
-            DegreeProgram::ADMISSION_REQUIREMENTS => [
-                'meta_key' => DegreeProgram::ADMISSION_REQUIREMENTS . '_' . $languageCode,
-                'orderby' => 'meta_value',
-            ],
-            default => [],
-        };
     }
 }

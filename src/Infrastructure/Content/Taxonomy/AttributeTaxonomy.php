@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy;
 
+use Fau\DegreeProgram\Common\Application\Filter\AttributeFilter;
+
 /**
  * Attribute
  */
 final class AttributeTaxonomy extends Taxonomy
 {
     public const KEY = 'attribute';
-    public const REST_BASE = 'attribute';
+    public const REST_BASE = AttributeFilter::KEY;
 
     public function key(): string
     {

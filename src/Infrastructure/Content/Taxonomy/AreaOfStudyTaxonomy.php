@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy;
 
+use Fau\DegreeProgram\Common\Application\Filter\AreaOfStudyFilter;
+
 /**
  * Studienbereich
  */
 final class AreaOfStudyTaxonomy extends Taxonomy
 {
     public const KEY = 'area_of_study';
-    public const REST_BASE = 'area-of-study';
+    public const REST_BASE = AreaOfStudyFilter::KEY;
 
     public function key(): string
     {
