@@ -21,4 +21,20 @@ final class SearchKeywordFilter implements Filter
     {
         return self::KEY;
     }
+
+    public static function fromInput(mixed $value): static
+    {
+        $sanitizedValue = self::sanitize($value);
+        return $sanitizedValue ? new self($sanitizedValue) : self::empty();
+    }
+
+    public static function empty(): static
+    {
+        return new self('');
+    }
+
+    private static function sanitize(mixed $value): ?string
+    {
+        return is_string($value) ? $value : null;
+    }
 }
