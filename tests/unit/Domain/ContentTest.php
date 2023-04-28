@@ -56,10 +56,12 @@ class ContentTest extends UnitTestCase
      */
     public function testMapDescriptions(array $contentData): void
     {
-        $sut = Content::fromArray($contentData)
-            ->mapDescriptions(
+        $sut = Content::fromArray(
+            Content::mapDescriptions(
+                $contentData,
                 static fn(string $description) => '[Was processed]' . $description
-            );
+            )
+        );
 
         $this->assertSame(
             'About Title DE',

@@ -5,7 +5,8 @@ declare(strict_types=1);
 //phpcs:disable Inpsyde.CodeQuality.NoTopLevelDefine.Found
 
 define('TESTS_DIR', __DIR__);
-define('VENDOR_DIR', dirname(__DIR__) . '/vendor');
+define('ROOT_DIR', dirname(__DIR__));
+define('VENDOR_DIR', ROOT_DIR . '/vendor');
 define('RESOURCES_DIR', TESTS_DIR . '/resources');
 define('TEMPLATES_DIR', TESTS_DIR . '/resources/templates');
 #

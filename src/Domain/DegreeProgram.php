@@ -10,6 +10,64 @@ use Fau\DegreeProgram\Common\LanguageExtension\IntegersListChangeset;
 use InvalidArgumentException;
 use RuntimeException;
 
+/**
+ * @psalm-import-type MultilingualStringType from MultilingualString
+ * @psalm-import-type MultilingualLinkType from MultilingualLink
+ * @psalm-import-type ContentType from Content
+ * @psalm-import-type AdmissionRequirementsType from AdmissionRequirements
+ * @psalm-import-type DegreeType from Degree
+ * @psalm-type DegreeProgramArrayType = array{
+ *     id: int,
+ *     slug: MultilingualStringType,
+ *     featured_image: array{id: int, url: string},
+ *     teaser_image: array{id: int, url: string},
+ *     title: MultilingualStringType,
+ *     subtitle: MultilingualStringType,
+ *     standard_duration: string,
+ *     fee_required: bool,
+ *     start: array<MultilingualStringType>,
+ *     number_of_students: array{id: string, description: string},
+ *     teaching_language: MultilingualStringType,
+ *     attributes: array<MultilingualStringType>,
+ *     degree: DegreeType,
+ *     faculty: array<MultilingualLinkType>,
+ *     location: array<MultilingualStringType>,
+ *     subject_groups: array<MultilingualStringType>,
+ *     videos: array<array-key, string>,
+ *     meta_description: MultilingualStringType,
+ *     content: ContentType,
+ *     admission_requirements: AdmissionRequirementsType,
+ *     content_related_master_requirements: MultilingualStringType,
+ *     application_deadline_winter_semester: string,
+ *     application_deadline_summer_semester: string,
+ *     details_and_notes: MultilingualStringType,
+ *     language_skills: MultilingualStringType,
+ *     language_skills_humanities_faculty: string,
+ *     german_language_skills_for_international_students: MultilingualLinkType,
+ *     start_of_semester: MultilingualLinkType,
+ *     semester_dates: MultilingualLinkType,
+ *     examinations_office: MultilingualLinkType,
+ *     examination_regulations: string,
+ *     module_handbook: string,
+ *     url: MultilingualStringType,
+ *     department: MultilingualStringType,
+ *     student_advice: MultilingualLinkType,
+ *     subject_specific_advice: MultilingualLinkType,
+ *     service_centers: MultilingualLinkType,
+ *     info_brochure: string,
+ *     semester_fee: MultilingualLinkType,
+ *     degree_program_fees: MultilingualStringType,
+ *     abroad_opportunities: MultilingualLinkType,
+ *     keywords: array<MultilingualStringType>,
+ *     area_of_study: array<MultilingualLinkType>,
+ *     combinations: array<int>,
+ *     limited_combinations: array<int>,
+ *     notes_for_international_applicants: MultilingualLinkType,
+ *     student_initiatives: MultilingualLinkType,
+ *     apply_now_link: MultilingualLinkType,
+ *     entry_text: MultilingualStringType,
+ * }
+ */
 final class DegreeProgram
 {
     public const ID = 'id';
@@ -268,26 +326,75 @@ final class DegreeProgram
     }
 
     /**
-     * @param array<string, mixed> $data
-     * phpcs:disable Inpsyde.CodeQuality.FunctionLength.TooLong
-     * @psalm-suppress MixedArgument
+     * @psalm-param DegreeProgramArrayType $data
      */
-    public function update(
+    public function updateDraft(
+        array $data,
+        DegreeProgramDataValidator $dataValidator,
+    ): void {
+
+        $violations = $dataValidator->validateDraft($data);
+        if ($violations->count() > 0) {
+            throw new InvalidArgumentException('Invalid draft degree program data.');
+        }
+
+        $this->update($data);
+    }
+
+    /**
+     * @psalm-param DegreeProgramArrayType $data
+     */
+    public function publish(
         array $data,
         DegreeProgramDataValidator $dataValidator,
         DegreeProgramSanitizer $contentSanitizer,
     ): void {
 
-        $violations = $dataValidator->validate($data);
+        $violations = $dataValidator->validatePublish($data);
         if ($violations->count() > 0) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    'Invalid degree program data. Violations: %s.',
-                    implode('|', array_keys($violations->getArrayCopy()))
-                )
-            );
+            throw new InvalidArgumentException('Invalid publish degree program data.');
         }
 
+        $data = $this->sanitize($data, $contentSanitizer);
+
+        $this->update($data);
+    }
+
+    /**
+     * @psalm-param DegreeProgramArrayType $data
+     * @psalm-return DegreeProgramArrayType $data
+     */
+    private function sanitize(array $data, DegreeProgramSanitizer $contentSanitizer): array
+    {
+        $data[self::CONTENT] = Content::mapDescriptions(
+            $data[self::CONTENT],
+            [$contentSanitizer, 'sanitizeContentField']
+        );
+        foreach (
+            [
+                self::CONTENT_RELATED_MASTER_REQUIREMENTS,
+                self::DETAILS_AND_NOTES,
+                self::LANGUAGE_SKILLS,
+                self::ENTRY_TEXT,
+            ] as $key
+        ) {
+            $data[$key] = MultilingualString::mapTranslations(
+                $data[$key],
+                [$contentSanitizer, 'sanitizeContentField']
+            );
+        }
+        $data[self::LANGUAGE_SKILLS_HUMANITIES_FACULTY] = $contentSanitizer
+            ->sanitizeContentField($data[self::LANGUAGE_SKILLS_HUMANITIES_FACULTY]);
+
+        return $data;
+    }
+
+    /**
+     * @psalm-param DegreeProgramArrayType $data
+     * phpcs:disable Inpsyde.CodeQuality.FunctionLength.TooLong
+     */
+    private function update(array $data): void
+    {
         if ($data[self::ID] !== $this->id->asInt()) {
             throw new RuntimeException('Invalid entity id.');
         }
@@ -309,18 +416,14 @@ final class DegreeProgram
         $this->subjectGroups = MultilingualList::fromArray($data[self::SUBJECT_GROUPS]);
         $this->videos = ArrayOfStrings::new(...$data[self::VIDEOS]);
         $this->metaDescription = MultilingualString::fromArray($data[self::META_DESCRIPTION]);
-        $this->content = Content::fromArray($data[self::CONTENT])
-            ->mapDescriptions([$contentSanitizer, 'sanitizeContentField']);
+        $this->content = Content::fromArray($data[self::CONTENT]);
         $this->admissionRequirements = AdmissionRequirements::fromArray($data[self::ADMISSION_REQUIREMENTS]);
-        $this->contentRelatedMasterRequirements = MultilingualString::fromArray($data[self::CONTENT_RELATED_MASTER_REQUIREMENTS])
-            ->mapTranslations([$contentSanitizer, 'sanitizeContentField']);
+        $this->contentRelatedMasterRequirements = MultilingualString::fromArray($data[self::CONTENT_RELATED_MASTER_REQUIREMENTS]);
         $this->applicationDeadlineWinterSemester = $data[self::APPLICATION_DEADLINE_WINTER_SEMESTER];
         $this->applicationDeadlineSummerSemester = $data[self::APPLICATION_DEADLINE_SUMMER_SEMESTER];
-        $this->detailsAndNotes = MultilingualString::fromArray($data[self::DETAILS_AND_NOTES])
-            ->mapTranslations([$contentSanitizer, 'sanitizeContentField']);
-        $this->languageSkills = MultilingualString::fromArray($data[self::LANGUAGE_SKILLS])
-            ->mapTranslations([$contentSanitizer, 'sanitizeContentField']);
-        $this->languageSkillsHumanitiesFaculty = $contentSanitizer->sanitizeContentField($data[self::LANGUAGE_SKILLS_HUMANITIES_FACULTY]);
+        $this->detailsAndNotes = MultilingualString::fromArray($data[self::DETAILS_AND_NOTES]);
+        $this->languageSkills = MultilingualString::fromArray($data[self::LANGUAGE_SKILLS]);
+        $this->languageSkillsHumanitiesFaculty = $data[self::LANGUAGE_SKILLS_HUMANITIES_FACULTY];
         $this->germanLanguageSkillsForInternationalStudents = MultilingualLink::fromArray($data[self::GERMAN_LANGUAGE_SKILLS_FOR_INTERNATIONAL_STUDENTS]);
         $this->startOfSemester = MultilingualLink::fromArray($data[self::START_OF_SEMESTER]);
         $this->semesterDates = MultilingualLink::fromArray($data[self::SEMESTER_DATES]);
@@ -343,8 +446,7 @@ final class DegreeProgram
         $this->notesForInternationalApplicants = MultilingualLink::fromArray($data[self::NOTES_FOR_INTERNATIONAL_APPLICANTS]);
         $this->studentInitiatives = MultilingualLink::fromArray($data[self::STUDENT_INITIATIVES]);
         $this->applyNowLink = MultilingualLink::fromArray($data[self::APPLY_NOW_LINK]);
-        $this->entryText = MultilingualString::fromArray($data[self::ENTRY_TEXT])
-            ->mapTranslations([$contentSanitizer, 'sanitizeContentField']);
+        $this->entryText = MultilingualString::fromArray($data[self::ENTRY_TEXT]);
 
         $this->combinationsChangeset = $this
             ->combinationsChangeset
@@ -411,6 +513,7 @@ final class DegreeProgram
      *     entry_text: MultilingualString,
      * }
      * @internal Only for repositories usage
+     * phpcs:disable Inpsyde.CodeQuality.FunctionLength.TooLong
      */
     public function asArray(): array
     {

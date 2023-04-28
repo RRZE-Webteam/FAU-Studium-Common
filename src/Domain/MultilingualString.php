@@ -144,15 +144,16 @@ final class MultilingualString implements JsonSerializable
     }
 
     /**
+     * @psalm-param MultilingualStringType $data
      * @psalm-param callable(string): string $callback
+     * @psalm-return MultilingualStringType
      */
-    public function mapTranslations(callable $callback): self
+    public static function mapTranslations(array $data, callable $callback): array
     {
-        return self::fromTranslations(
-            $this->id,
-            $callback($this->inGerman()),
-            $callback($this->inEnglish()),
-        );
+        $data[self::DE] = $callback($data[self::DE]);
+        $data[self::EN] = $callback($data[self::EN]);
+
+        return $data;
     }
 
     public function asString(string $languageCode): string

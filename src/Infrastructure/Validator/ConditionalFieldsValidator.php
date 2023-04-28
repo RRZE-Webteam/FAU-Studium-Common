@@ -27,7 +27,7 @@ final class ConditionalFieldsValidator implements DegreeProgramDataValidator
     /**
      * phpcs:disable Inpsyde.CodeQuality.FunctionLength.TooLong
      */
-    public function validate(array $data): Violations
+    public function validatePublish(array $data): Violations
     {
         /** @var DegreeProgramViewRawArrayType $data */
         $raw = DegreeProgramViewRaw::fromArray($data);
@@ -136,5 +136,10 @@ final class ConditionalFieldsValidator implements DegreeProgramDataValidator
             or $violations->add(self::makeEmptyFieldViolation($root, MultilingualString::EN));
 
         return $violations;
+    }
+
+    public function validateDraft(array $data): Violations
+    {
+        return Violations::new();
     }
 }

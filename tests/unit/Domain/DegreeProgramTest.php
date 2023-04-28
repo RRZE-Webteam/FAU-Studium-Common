@@ -26,7 +26,7 @@ class DegreeProgramTest extends UnitTestCase
         $wrongId = 12312;
         $data['id'] = $wrongId;
 
-        $sut->update(
+        $sut->publish(
             $data,
             new StubDataValidator(Violations::new()),
             new StubSanitizer(),
@@ -37,14 +37,11 @@ class DegreeProgramTest extends UnitTestCase
     {
         $violations = Violations::new(Violation::new('title', 'Empty title', 'empty_title'));
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(sprintf(
-            'Invalid degree program data. Violations: %s.',
-            implode('|', array_keys($violations->getArrayCopy()))
-        ));
+        $this->expectExceptionMessage('Invalid publish degree program data.');
         $sut = $this->createEmptyDegreeProgram(25);
         $data = $this->fixtureData();
 
-        $sut->update(
+        $sut->publish(
             $data,
             new StubDataValidator($violations),
             new StubSanitizer(),
@@ -55,7 +52,7 @@ class DegreeProgramTest extends UnitTestCase
     {
         $sut = $this->createEmptyDegreeProgram(25);
         $data = $this->fixtureData();
-        $sut->update(
+        $sut->publish(
             $data,
             new StubDataValidator(Violations::new()),
             new StubSanitizer('[Was sanitized]'),

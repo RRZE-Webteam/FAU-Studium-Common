@@ -14,8 +14,13 @@ final class StubDataValidator implements DegreeProgramDataValidator
     ) {
     }
 
-    public function validate(array $data): Violations
+    public function validatePublish(array $data): Violations
     {
         return $this->result;
+    }
+
+    public function validateDraft(array $data): Violations
+    {
+        return Violations::new();
     }
 }

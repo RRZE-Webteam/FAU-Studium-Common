@@ -69,8 +69,11 @@ class MultilingualStringTest extends UnitTestCase
             'de' => 'Keyword 1',
             'en' => 'Keyword 1 EN',
         ];
-        $sut = MultilingualString::fromTranslations(...$array)
-            ->mapTranslations(static fn(string $translation) => '[Was processed]' . $translation);
+        $data = MultilingualString::mapTranslations(
+            $array,
+            (static fn(string $translation) => '[Was processed]' . $translation)
+        );
+        $sut = MultilingualString::fromArray($data);
 
         $this->assertSame('term:17', $sut->id());
         $this->assertSame('[Was processed]Keyword 1', $sut->inGerman());

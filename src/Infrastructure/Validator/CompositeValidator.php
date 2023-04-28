@@ -17,11 +17,21 @@ final class CompositeValidator implements DegreeProgramDataValidator
         $this->validators = $validators;
     }
 
-    public function validate(array $data): Violations
+    public function validatePublish(array $data): Violations
     {
         $violations = Violations::new();
         foreach ($this->validators as $validator) {
-            $violations->add(...$validator->validate($data));
+            $violations->add(...$validator->validatePublish($data));
+        }
+
+        return $violations;
+    }
+
+    public function validateDraft(array $data): Violations
+    {
+        $violations = Violations::new();
+        foreach ($this->validators as $validator) {
+            $violations->add(...$validator->validateDraft($data));
         }
 
         return $violations;

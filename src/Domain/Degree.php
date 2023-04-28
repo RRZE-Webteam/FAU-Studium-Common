@@ -27,6 +27,23 @@ final class Degree implements JsonSerializable
 
     public const SCHEMA = [
         'type' => 'object',
+        'additionalProperties' => true,
+        'required' => [
+            Degree::ID,
+            Degree::NAME,
+            Degree::ABBREVIATION,
+        ],
+        'properties' => [
+            Degree::ID => [
+                'type' => 'string',
+            ],
+            Degree::NAME => MultilingualString::SCHEMA,
+            Degree::ABBREVIATION => MultilingualString::SCHEMA,
+        ],
+    ];
+
+    public const SCHEMA_REQUIRED = [
+        'type' => 'object',
         'additionalProperties' => false,
         'required' => [
             Degree::ID,

@@ -10,5 +10,11 @@ interface DegreeProgramDataValidator
      * @param array<string, mixed> $data
      * @return Violations Violations array
      */
-    public function validate(array $data): Violations;
+    public function validatePublish(array $data): Violations;
+
+    /**
+     * @param array<string, mixed> $data
+     * @return Violations Violations array
+     */
+    public function validateDraft(array $data): Violations;
 }

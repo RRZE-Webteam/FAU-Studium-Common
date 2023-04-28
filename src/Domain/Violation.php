@@ -53,6 +53,13 @@ final class Violation implements JsonSerializable
         return $this->path;
     }
 
+    public function readablePath(): string
+    {
+        $result = str_replace('.id', '', $this->path);
+        $result = ucwords($result, '.');
+        return str_replace(['_', '.'], [' ', ' - '], $result);
+    }
+
     public function errorMessage(): string
     {
         return $this->errorMessage;

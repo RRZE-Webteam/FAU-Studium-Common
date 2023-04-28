@@ -20,62 +20,8 @@ use Fau\DegreeProgram\Common\LanguageExtension\ArrayOfStrings;
 use JsonSerializable;
 
 /**
- * @psalm-import-type MultilingualStringType from MultilingualString
- * @psalm-import-type MultilingualLinkType from MultilingualLink
- * @psalm-import-type ContentType from Content
- * @psalm-import-type AdmissionRequirementsType from AdmissionRequirements
- * @psalm-import-type DegreeType from Degree
- * @psalm-type DegreeProgramViewRawArrayType = array{
- *     id: int,
- *     slug: MultilingualStringType,
- *     featured_image: array{id: int, url: string},
- *     teaser_image: array{id: int, url: string},
- *     title: MultilingualStringType,
- *     subtitle: MultilingualStringType,
- *     standard_duration: string,
- *     fee_required: bool,
- *     start: array<MultilingualStringType>,
- *     number_of_students: array{id: string, description: string},
- *     teaching_language: MultilingualStringType,
- *     attributes: array<MultilingualStringType>,
- *     degree: DegreeType,
- *     faculty: array<MultilingualLinkType>,
- *     location: array<MultilingualStringType>,
- *     subject_groups: array<MultilingualStringType>,
- *     videos: array<array-key, string>,
- *     meta_description: MultilingualStringType,
- *     content: ContentType,
- *     admission_requirements: AdmissionRequirementsType,
- *     content_related_master_requirements: MultilingualStringType,
- *     application_deadline_winter_semester: string,
- *     application_deadline_summer_semester: string,
- *     details_and_notes: MultilingualStringType,
- *     language_skills: MultilingualStringType,
- *     language_skills_humanities_faculty: string,
- *     german_language_skills_for_international_students: MultilingualLinkType,
- *     start_of_semester: MultilingualLinkType,
- *     semester_dates: MultilingualLinkType,
- *     examinations_office: MultilingualLinkType,
- *     examination_regulations: string,
- *     module_handbook: string,
- *     url: MultilingualStringType,
- *     department: MultilingualStringType,
- *     student_advice: MultilingualLinkType,
- *     subject_specific_advice: MultilingualLinkType,
- *     service_centers: MultilingualLinkType,
- *     info_brochure: string,
- *     semester_fee: MultilingualLinkType,
- *     degree_program_fees: MultilingualStringType,
- *     abroad_opportunities: MultilingualLinkType,
- *     keywords: array<MultilingualStringType>,
- *     area_of_study: array<MultilingualLinkType>,
- *     combinations: array<int>,
- *     limited_combinations: array<int>,
- *     notes_for_international_applicants: MultilingualLinkType,
- *     student_initiatives: MultilingualLinkType,
- *     apply_now_link: MultilingualLinkType,
- *     entry_text: MultilingualStringType,
- * }
+ * @psalm-import-type DegreeProgramArrayType from DegreeProgram
+ * @psalm-type DegreeProgramViewRawArrayType = DegreeProgramArrayType
  */
 final class DegreeProgramViewRaw implements JsonSerializable
 {

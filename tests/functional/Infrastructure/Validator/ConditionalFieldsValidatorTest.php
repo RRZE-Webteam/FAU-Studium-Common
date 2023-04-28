@@ -24,7 +24,7 @@ class ConditionalFieldsValidatorTest extends WpDbLessTestCase
         $sut = new ConditionalFieldsValidator(
             new FacultyRepository(),
         );
-        $result = $sut->validate($data);
+        $result = $sut->validatePublish($data);
         $this->assertSame($result->count(), 0);
     }
 
@@ -35,7 +35,7 @@ class ConditionalFieldsValidatorTest extends WpDbLessTestCase
         $sut = new ConditionalFieldsValidator(
             new FacultyRepository(),
         );
-        $violations = $sut->validate($data);
+        $violations = $sut->validatePublish($data);
         $this->assertSame($violations->count(), 2);
         $this->assertSame([
             'degree_program_fees.de' => [
@@ -59,7 +59,7 @@ class ConditionalFieldsValidatorTest extends WpDbLessTestCase
         $sut = new ConditionalFieldsValidator(
             new FacultyRepository(),
         );
-        $violations = $sut->validate($data);
+        $violations = $sut->validatePublish($data);
         $this->assertSame($violations->count(), 1);
         $this->assertSame([
             'admission_requirements.master' => [
@@ -78,7 +78,7 @@ class ConditionalFieldsValidatorTest extends WpDbLessTestCase
         $sut = new ConditionalFieldsValidator(
             new FacultyRepository(),
         );
-        $violations = $sut->validate($data);
+        $violations = $sut->validatePublish($data);
         $this->assertSame($violations->count(), 0);
     }
 }
