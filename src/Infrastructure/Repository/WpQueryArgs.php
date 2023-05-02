@@ -45,6 +45,11 @@ final class WpQueryArgs
         return $instance;
     }
 
+    public function withOrderby(string $value): self
+    {
+        return $this->withArg('orderby', $value);
+    }
+
     public function withTaxQueryItem(array $item): self
     {
         $instance = clone $this;

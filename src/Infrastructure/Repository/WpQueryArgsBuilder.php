@@ -76,24 +76,23 @@ final class WpQueryArgsBuilder
         return $queryArgs;
     }
 
-    private function applyOrderBy(string $orderBy, WpQueryArgs $queryArgs, ?string $languageCode = null): WpQueryArgs
-    {
+    private function applyOrderBy(
+        string $orderBy,
+        WpQueryArgs $queryArgs,
+        ?string $languageCode = null
+    ): WpQueryArgs {
+
         $languageCode = $languageCode ?? MultilingualString::DE;
 
         return match ($orderBy) {
             DegreeProgram::TITLE => $languageCode === MultilingualString::DE
                 ? $queryArgs->orderbyTitle()
-                : $queryArgs->withMetaKey('title_' . $languageCode)
-                    ->orderbyMeta(),
-
+                : $queryArgs->withOrderby('title_' . $languageCode),
             DegreeProgram::DEGREE,
             DegreeProgram::START,
             DegreeProgram::LOCATION,
             DegreeProgram::ADMISSION_REQUIREMENTS =>
-                $queryArgs->withMetaKey(
-                    $orderBy . '_' . $languageCode
-                )
-                    ->orderbyMeta(),
+                $queryArgs->withOrderby($orderBy . '_' . $languageCode),
             default => $queryArgs,
         };
     }
