@@ -107,7 +107,13 @@ final class CollectionCriteria
 
     public function addFilter(Filter ...$filters): self
     {
-        $this->filters = array_merge($this->filters(), $filters);
+        $this->filters = array_merge(
+            $this->filters(),
+            array_filter(
+                $filters,
+                static fn (Filter $filter) => !empty($filter->value()),
+            )
+        );
 
         return $this;
     }
