@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Infrastructure\Repository;
 
+use Fau\DegreeProgram\Common\Application\Filter\AdmissionRequirementTypeFilter;
 use Fau\DegreeProgram\Common\Application\Filter\AreaOfStudyFilter;
 use Fau\DegreeProgram\Common\Application\Filter\AttributeFilter;
 use Fau\DegreeProgram\Common\Application\Filter\DegreeFilter;
@@ -18,7 +19,10 @@ use Fau\DegreeProgram\Common\Application\Repository\CollectionCriteria;
 use Fau\DegreeProgram\Common\Domain\DegreeProgram;
 use Fau\DegreeProgram\Common\Domain\MultilingualString;
 use Fau\DegreeProgram\Common\Infrastructure\Content\PostType\DegreeProgramPostType;
+use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\BachelorOrTeachingDegreeAdmissionRequirementTaxonomy;
+use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\MasterDegreeAdmissionRequirementTaxonomy;
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\TaxonomiesList;
+use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\TeachingDegreeHigherSemesterAdmissionRequirementTaxonomy;
 
 final class WpQueryArgsBuilder
 {
@@ -108,8 +112,49 @@ final class WpQueryArgsBuilder
                 $queryArgs,
                 $languageCode
             ),
+            $filter instanceof AdmissionRequirementTypeFilter => $this->applyAdmissionRequirementFilter(
+                $filter,
+                $queryArgs,
+                $languageCode
+            ),
             default => $queryArgs,
         };
+    }
+
+    private function applyAdmissionRequirementFilter(
+        AdmissionRequirementTypeFilter $filter,
+        WpQueryArgs $queryArgs,
+        ?string $languageCode = null
+    ): WpQueryArgs {
+
+        $languageCode = $languageCode ?: MultilingualString::DE;
+
+        return $queryArgs->withTaxQueryItem(
+            [
+                'relation' => 'OR',
+                [
+                    'taxonomy' => BachelorOrTeachingDegreeAdmissionRequirementTaxonomy::KEY,
+                    'terms' => $filter->value(),
+                    'field' => 'slug',
+                    'compare' => 'IN',
+                    'include_children' => true,
+                ],
+                [
+                    'taxonomy' => TeachingDegreeHigherSemesterAdmissionRequirementTaxonomy::KEY,
+                    'terms' => $filter->value(),
+                    'field' => 'slug',
+                    'compare' => 'IN',
+                    'include_children' => true,
+                ],
+                [
+                    'taxonomy' => MasterDegreeAdmissionRequirementTaxonomy::KEY,
+                    'terms' => $filter->value(),
+                    'field' => 'slug',
+                    'compare' => 'IN',
+                    'include_children' => true,
+                ],
+            ]
+        );
     }
 
     private function applyTaxonomyFilter(Filter $filter, WpQueryArgs $queryArgs): WpQueryArgs

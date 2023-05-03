@@ -16,6 +16,7 @@ final class FilterFactory
         StudyLocationFilter::KEY => StudyLocationFilter::class,
         SubjectGroupFilter::KEY => SubjectGroupFilter::class,
         TeachingLanguageFilter::KEY => TeachingLanguageFilter::class,
+        AdmissionRequirementTypeFilter::KEY => AdmissionRequirementTypeFilter::class,
     ];
 
     public function create(string $filterName, mixed $value): ?Filter
