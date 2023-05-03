@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-05-02T11:30:59+00:00\n"
+"POT-Creation-Date: 2023-05-03T14:23:29+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: fau-degree-program-common\n"
@@ -186,6 +186,16 @@ msgstr ""
 #: src/Infrastructure/Content/Taxonomy/DegreeTaxonomy.php:38
 msgctxt "backoffice: taxonomy singular name"
 msgid "Degree"
+msgstr ""
+
+#: src/Infrastructure/Content/Taxonomy/ExaminationRegulationsTaxonomy.php:27
+msgctxt "backoffice: taxonomy plural name"
+msgid "Degree program and examination regulations"
+msgstr ""
+
+#: src/Infrastructure/Content/Taxonomy/ExaminationRegulationsTaxonomy.php:36
+msgctxt "backoffice: taxonomy singular name"
+msgid "Degree program and examination regulations"
 msgstr ""
 
 #: src/Infrastructure/Content/Taxonomy/ExaminationsOfficeTaxonomy.php:27

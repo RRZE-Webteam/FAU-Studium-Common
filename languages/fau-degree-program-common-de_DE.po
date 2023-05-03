@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-18T11:51:52+00:00\n"
-"PO-Revision-Date: 2023-04-25 12:23+0200\n"
+"PO-Revision-Date: 2023-05-03 16:26+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -150,32 +150,32 @@ msgctxt "backoffice: taxonomy singular name"
 msgid "\"Apply now\" link"
 msgstr "„Jetzt bewerben“-Link"
 
-#: src/Infrastructure/Content/Taxonomy/AreaOfStudyTaxonomy.php:27
+#: src/Infrastructure/Content/Taxonomy/AreaOfStudyTaxonomy.php:29
 msgctxt "backoffice: taxonomy plural name"
 msgid "Areas of study"
 msgstr "Studienbereiche"
 
-#: src/Infrastructure/Content/Taxonomy/AreaOfStudyTaxonomy.php:36
+#: src/Infrastructure/Content/Taxonomy/AreaOfStudyTaxonomy.php:38
 msgctxt "backoffice: taxonomy singular name"
 msgid "Area of study"
 msgstr "Studienbereich"
 
-#: src/Infrastructure/Content/Taxonomy/AttributeTaxonomy.php:27
+#: src/Infrastructure/Content/Taxonomy/AttributeTaxonomy.php:29
 msgctxt "backoffice: taxonomy plural name"
 msgid "Attributes"
 msgstr "Attribute"
 
-#: src/Infrastructure/Content/Taxonomy/AttributeTaxonomy.php:36
+#: src/Infrastructure/Content/Taxonomy/AttributeTaxonomy.php:38
 msgctxt "backoffice: taxonomy singular name"
 msgid "Attribute"
 msgstr "Attribut"
 
-#: src/Infrastructure/Content/Taxonomy/DegreeTaxonomy.php:27
+#: src/Infrastructure/Content/Taxonomy/DegreeTaxonomy.php:29
 msgctxt "backoffice: taxonomy plural name"
 msgid "Degrees"
 msgstr "Abschlüsse"
 
-#: src/Infrastructure/Content/Taxonomy/DegreeTaxonomy.php:36
+#: src/Infrastructure/Content/Taxonomy/DegreeTaxonomy.php:38
 msgctxt "backoffice: taxonomy singular name"
 msgid "Degree"
 msgstr "Abschluss"
@@ -190,12 +190,12 @@ msgctxt "backoffice: taxonomy singular name"
 msgid "Examinations Office"
 msgstr "Prüfungsamt"
 
-#: src/Infrastructure/Content/Taxonomy/FacultyTaxonomy.php:27
+#: src/Infrastructure/Content/Taxonomy/FacultyTaxonomy.php:29
 msgctxt "backoffice: taxonomy plural name"
 msgid "Faculties"
 msgstr "Fakultäten"
 
-#: src/Infrastructure/Content/Taxonomy/FacultyTaxonomy.php:36
+#: src/Infrastructure/Content/Taxonomy/FacultyTaxonomy.php:38
 msgctxt "backoffice: taxonomy singular name"
 msgid "Faculty"
 msgstr "Fakultät"
@@ -240,32 +240,32 @@ msgctxt "backoffice: taxonomy singular name"
 msgid "Number of students"
 msgstr "Studierendenzahl"
 
-#: src/Infrastructure/Content/Taxonomy/SemesterTaxonomy.php:27
+#: src/Infrastructure/Content/Taxonomy/SemesterTaxonomy.php:29
 msgctxt "backoffice: taxonomy plural name"
 msgid "Semesters"
 msgstr "Semester"
 
-#: src/Infrastructure/Content/Taxonomy/SemesterTaxonomy.php:36
+#: src/Infrastructure/Content/Taxonomy/SemesterTaxonomy.php:38
 msgctxt "backoffice: taxonomy singular name"
 msgid "Semester"
 msgstr "Semester"
 
-#: src/Infrastructure/Content/Taxonomy/StudyLocationTaxonomy.php:27
+#: src/Infrastructure/Content/Taxonomy/StudyLocationTaxonomy.php:29
 msgctxt "backoffice: taxonomy plural name"
 msgid "Study locations"
 msgstr "Studienorte"
 
-#: src/Infrastructure/Content/Taxonomy/StudyLocationTaxonomy.php:36
+#: src/Infrastructure/Content/Taxonomy/StudyLocationTaxonomy.php:38
 msgctxt "backoffice: taxonomy singular name"
 msgid "Study location"
 msgstr "Studienort"
 
-#: src/Infrastructure/Content/Taxonomy/SubjectGroupTaxonomy.php:27
+#: src/Infrastructure/Content/Taxonomy/SubjectGroupTaxonomy.php:29
 msgctxt "backoffice: taxonomy plural name"
 msgid "Subject groups"
 msgstr "Fächergruppen"
 
-#: src/Infrastructure/Content/Taxonomy/SubjectGroupTaxonomy.php:36
+#: src/Infrastructure/Content/Taxonomy/SubjectGroupTaxonomy.php:38
 msgctxt "backoffice: taxonomy singular name"
 msgid "Subject group"
 msgstr "Fächergruppe"
@@ -406,12 +406,12 @@ msgctxt "backoffice: taxonomy label"
 msgid "A link to a %s."
 msgstr "Ein Link zu eine/r %s."
 
-#: src/Infrastructure/Content/Taxonomy/TeachingLanguageTaxonomy.php:27
+#: src/Infrastructure/Content/Taxonomy/TeachingLanguageTaxonomy.php:29
 msgctxt "backoffice: taxonomy plural name"
 msgid "Teaching languages"
 msgstr "Unterrichtssprachen"
 
-#: src/Infrastructure/Content/Taxonomy/TeachingLanguageTaxonomy.php:36
+#: src/Infrastructure/Content/Taxonomy/TeachingLanguageTaxonomy.php:38
 msgctxt "backoffice: taxonomy singular name"
 msgid "Teaching language"
 msgstr "Unterrichtssprache"
@@ -445,3 +445,13 @@ msgstr "Zugangsvoraussetzung Bachelor/Lehramt höheres Semester"
 msgctxt "backoffice: REST API error message"
 msgid "This field can not be empty."
 msgstr "Dieses Feld darf nicht leer sein."
+
+#: src/Infrastructure/Content/Taxonomy/ExaminationRegulationsTaxonomy.php:27
+msgctxt "backoffice: taxonomy plural name"
+msgid "Degree program and examination regulations"
+msgstr "Studien- und Prüfungsordnungen"
+
+#: src/Infrastructure/Content/Taxonomy/ExaminationRegulationsTaxonomy.php:36
+msgctxt "backoffice: taxonomy singular name"
+msgid "Degree program and examination regulations"
+msgstr "Studien- und Prüfungsordnungen"
