@@ -331,12 +331,15 @@ final class DegreeProgram
     public function updateDraft(
         array $data,
         DegreeProgramDataValidator $dataValidator,
+        DegreeProgramSanitizer $contentSanitizer,
     ): void {
 
         $violations = $dataValidator->validateDraft($data);
         if ($violations->count() > 0) {
             throw new InvalidArgumentException('Invalid draft degree program data.');
         }
+
+        $data = $this->sanitize($data, $contentSanitizer);
 
         $this->update($data);
     }
