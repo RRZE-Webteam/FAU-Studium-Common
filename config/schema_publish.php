@@ -155,7 +155,6 @@ return [
         DegreeProgram::SERVICE_CENTERS => MultilingualLink::SCHEMA,
         DegreeProgram::INFO_BROCHURE => [
             'type' => 'string',
-            'minLength' => 1,
             'format' => 'uri',
         ],
         DegreeProgram::SEMESTER_FEE => MultilingualLink::SCHEMA,
