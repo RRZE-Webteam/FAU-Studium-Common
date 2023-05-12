@@ -77,18 +77,6 @@ final class ConditionalFieldsValidator implements DegreeProgramDataValidator
             ));
         }
 
-        if (
-            ConditionalFieldsFilter::isLanguageSkillForFacultyOfHumanitiesOnlyEnabled(
-                $this->facultyRepository->findFacultySlugs($raw),
-                $raw->degree()
-            )
-        ) {
-            $raw->languageSkillsHumanitiesFaculty()
-                or $violations->add(self::makeEmptyFieldViolation(
-                    DegreeProgram::LANGUAGE_SKILLS_HUMANITIES_FACULTY,
-                ));
-        }
-
         return $violations;
     }
 
