@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Infrastructure\Repository;
 
-use Fau\DegreeProgram\Common\Domain\DegreeProgram;
 use Fau\DegreeProgram\Common\Domain\MultilingualString;
 
 /**
@@ -19,6 +18,11 @@ final class WpQueryArgs
     public function args(): array
     {
         return $this->args;
+    }
+
+    public function arg(string $key): mixed
+    {
+        return $this->args[$key] ?? null;
     }
 
     public function orderbyTitle(): self

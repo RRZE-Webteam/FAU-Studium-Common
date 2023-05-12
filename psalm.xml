@@ -31,4 +31,7 @@
         <ParadoxicalCondition errorLevel="suppress"/>
         <UnusedForeachValue errorLevel="suppress" />
     </issueHandlers>
+    <globals>
+        <var name="wpdb" type="\wpdb"/>
+    </globals>
 </psalm>

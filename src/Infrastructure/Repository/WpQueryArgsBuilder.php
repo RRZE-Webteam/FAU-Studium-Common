@@ -77,7 +77,7 @@ final class WpQueryArgsBuilder
             $queryArgs = $this->applyFilter($filter, $queryArgs, $criteria->languageCode());
         }
 
-        return $queryArgs;
+        return $this->applyOrderingByTerm($criteria, $queryArgs);
     }
 
     private function applyOrderBy(
@@ -103,10 +103,8 @@ final class WpQueryArgsBuilder
 
     private function applyFilter(Filter $filter, WpQueryArgs $queryArgs, ?string $languageCode = null): WpQueryArgs
     {
-        $isTaxonomyFilter = in_array(get_class($filter), self::TAXONOMY_BASED_FILTERS, true);
-
         return match (true) {
-            $isTaxonomyFilter => $this->applyTaxonomyFilter($filter, $queryArgs),
+            $this->isTaxonomyFilter($filter) => $this->applyTaxonomyFilter($filter, $queryArgs),
             $filter instanceof SearchKeywordFilter => $this->applySearchFilter(
                 $filter,
                 $queryArgs,
@@ -119,6 +117,11 @@ final class WpQueryArgsBuilder
             ),
             default => $queryArgs,
         };
+    }
+
+    private function isTaxonomyFilter(Filter $filter): bool
+    {
+        return in_array(get_class($filter), self::TAXONOMY_BASED_FILTERS, true);
     }
 
     private function applyAdmissionRequirementFilter(
@@ -194,5 +197,40 @@ final class WpQueryArgsBuilder
                 'compare' => 'LIKE',
             ]
         );
+    }
+
+    private function applyOrderingByTerm(CollectionCriteria $criteria, WpQueryArgs $queryArgs): WpQueryArgs
+    {
+        if ($queryArgs->arg('orderby') !== CollectionCriteria::DEFAULT_ORDERBY[0]) {
+            // Collection is sorted explicitly
+            return $queryArgs;
+        }
+
+        if (count($criteria->filters()) !== 1) {
+            // We have not defined order for multiple filters
+            return $queryArgs;
+        }
+
+        $filter = $criteria->filters()[0];
+        if (!$this->isTaxonomyFilter($filter)) {
+            // We can order only by terms
+            return $queryArgs;
+        }
+
+        $values = $filter->value();
+        if (!is_array($values) || count($values) !== 1) {
+            // We have not defined order for multiple terms
+            return $queryArgs;
+        }
+
+        $taxonomy = $this->taxonomiesList->convertRestBaseToSlug($filter->id());
+        $term = (int) $values[0];
+        if (!$taxonomy || !$term) {
+            return $queryArgs;
+        }
+
+        $queryArgs = $queryArgs->withOrderby(OrderRepository::orderByTermKey($taxonomy, $term));
+
+        return $queryArgs->withArg('order', 'asc');
     }
 }

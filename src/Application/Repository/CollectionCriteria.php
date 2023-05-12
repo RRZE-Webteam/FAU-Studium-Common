@@ -30,7 +30,7 @@ final class CollectionCriteria
         DegreeProgram::LOCATION,
         DegreeProgram::ADMISSION_REQUIREMENTS,
     ];
-    public const DEFAULT_ORDERBY = ['date', 'desc'];
+    public const DEFAULT_ORDERBY = ['menu_order', 'asc'];
 
     /**
      * @var Filter[]
