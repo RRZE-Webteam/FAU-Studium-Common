@@ -13,13 +13,14 @@ class NumberOfStudentsTest extends TestCase
     {
         $array = [
             'id' => 'term:16',
+            'name' => '>200',
             'description' => 'Many',
         ];
 
         $sut = NumberOfStudents::fromArray($array);
         $this->assertSame($array, $sut->asArray());
         $this->assertSame('Many', $sut->description());
-        $this->assertSame('Many', $sut->asString());
+        $this->assertSame('>200', $sut->asString());
         $this->assertSame('term:16', $sut->id());
     }
 }

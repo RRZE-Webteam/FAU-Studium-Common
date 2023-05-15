@@ -38,20 +38,7 @@ return [
             'type' => 'boolean',
         ],
         DegreeProgram::START => MultilingualList::SCHEMA_REQUIRED,
-        DegreeProgram::NUMBER_OF_STUDENTS => [
-            'type' => 'object',
-            'additionalProperties' => false,
-            'required' => [NumberOfStudents::ID, NumberOfStudents::DESCRIPTION],
-            'properties' => [
-                NumberOfStudents::ID => [
-                    'type' => 'string',
-                    'minLength' => 1,
-                ],
-                NumberOfStudents::DESCRIPTION => [
-                    'type' => 'string',
-                ],
-            ],
-        ],
+        DegreeProgram::NUMBER_OF_STUDENTS => NumberOfStudents::SCHEMA_REQUIRED,
         DegreeProgram::TEACHING_LANGUAGE => MultilingualString::SCHEMA_ID_REQUIRED,
         DegreeProgram::ATTRIBUTES => MultilingualList::SCHEMA,
         DegreeProgram::DEGREE => Degree::SCHEMA_REQUIRED,

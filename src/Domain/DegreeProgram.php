@@ -16,6 +16,7 @@ use RuntimeException;
  * @psalm-import-type ContentType from Content
  * @psalm-import-type AdmissionRequirementsType from AdmissionRequirements
  * @psalm-import-type DegreeType from Degree
+ * @psalm-import-type NumberOfStudentsType from NumberOfStudents
  * @psalm-type DegreeProgramArrayType = array{
  *     id: int,
  *     slug: MultilingualStringType,
@@ -26,7 +27,7 @@ use RuntimeException;
  *     standard_duration: string,
  *     fee_required: bool,
  *     start: array<MultilingualStringType>,
- *     number_of_students: array{id: string, description: string},
+ *     number_of_students: NumberOfStudentsType,
  *     teaching_language: MultilingualStringType,
  *     attributes: array<MultilingualStringType>,
  *     degree: DegreeType,

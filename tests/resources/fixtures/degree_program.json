@@ -39,6 +39,7 @@
   ],
   "number_of_students": {
     "id": "term:9",
+    "name": ">50",
     "description": "<p>Less<\/p>"
   },
   "teaching_language": {

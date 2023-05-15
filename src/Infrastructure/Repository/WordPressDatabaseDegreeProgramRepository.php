@@ -252,6 +252,7 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
 
         return NumberOfStudents::new(
             $this->idGenerator->generateTermId($firstTerm),
+            $firstTerm->name,
             term_description($firstTerm->term_id)
         );
     }

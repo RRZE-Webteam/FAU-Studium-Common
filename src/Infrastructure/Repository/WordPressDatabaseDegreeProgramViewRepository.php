@@ -115,7 +115,7 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
             standardDuration: $raw->standardDuration(),
             feeRequired: $raw->isFeeRequired(),
             start: $raw->start()->asArrayOfStrings($languageCode),
-            numberOfStudents: $raw->numberOfStudents()->asString(),
+            numberOfStudents: $raw->numberOfStudents(),
             teachingLanguage: $raw->teachingLanguage()->asString($languageCode),
             attributes: $raw->attributes()->asArrayOfStrings($languageCode),
             degree: DegreeTranslated::fromDegree($raw->degree(), $languageCode),

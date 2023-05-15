@@ -149,7 +149,7 @@ final class IdGeneratorTest extends WpDbLessTestCase
         ];
 
         yield 'number_of_students' => [
-            NumberOfStudents::new('term:25', ''),
+            NumberOfStudents::new('term:25', '>10', ''),
             [25],
         ];
 
