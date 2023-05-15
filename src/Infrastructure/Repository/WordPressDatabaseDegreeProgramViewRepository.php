@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fau\DegreeProgram\Common\Infrastructure\Repository;
 
 use Fau\DegreeProgram\Common\Application\AdmissionRequirementsTranslated;
+use Fau\DegreeProgram\Common\Application\AdmissionRequirementTranslated;
 use Fau\DegreeProgram\Common\Application\ConditionalFieldsFilter;
 use Fau\DegreeProgram\Common\Application\ContentTranslated;
 use Fau\DegreeProgram\Common\Application\DegreeProgramViewRaw;
@@ -16,6 +17,7 @@ use Fau\DegreeProgram\Common\Application\Links;
 use Fau\DegreeProgram\Common\Application\RelatedDegreeProgram;
 use Fau\DegreeProgram\Common\Application\RelatedDegreePrograms;
 use Fau\DegreeProgram\Common\Application\Repository\DegreeProgramViewRepository;
+use Fau\DegreeProgram\Common\Domain\AdmissionRequirement;
 use Fau\DegreeProgram\Common\Domain\DegreeProgram;
 use Fau\DegreeProgram\Common\Domain\DegreeProgramId;
 use Fau\DegreeProgram\Common\Domain\DegreeProgramRepository;
@@ -90,6 +92,10 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
     ): DegreeProgramViewTranslated {
 
         $title = $raw->title()->asString($languageCode);
+        $admissionRequirementsTranslated = AdmissionRequirementsTranslated::fromAdmissionRequirements(
+            $raw->admissionRequirements(),
+            $languageCode
+        );
 
         return new DegreeProgramViewTranslated(
             id: $raw->id(),
@@ -126,8 +132,9 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
             metaDescription: $raw->metaDescription()->asString($languageCode),
             content: ContentTranslated::fromContent($raw->content(), $languageCode)
                 ->mapDescriptions([$this, 'formatContentField']),
-            admissionRequirements: AdmissionRequirementsTranslated::fromAdmissionRequirements(
-                $raw->admissionRequirements(),
+            admissionRequirements: $admissionRequirementsTranslated,
+            admissionRequirementLink: $this->admissionRequirementLink(
+                $admissionRequirementsTranslated,
                 $languageCode
             ),
             contentRelatedMasterRequirements: $this->formatContentField(
@@ -216,6 +223,27 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
         }
 
         return str_replace($slug->inGerman(), $slug->inEnglish(), $permalink);
+    }
+
+    private function admissionRequirementLink(
+        AdmissionRequirementsTranslated $admissionRequirementsTranslated,
+        string $languageCode,
+    ): ?AdmissionRequirementTranslated {
+
+        $mainLink = $admissionRequirementsTranslated->mainLink();
+        if (!$mainLink) {
+            return null;
+        }
+
+        $data = $mainLink->asArray();
+        $data[AdmissionRequirement::LINK_TEXT] = (string) (get_option(
+            BilingualRepository::addOptionPrefix(
+                'admission_requirement_link_text'
+            ),
+            [],
+        )[$languageCode] ?? '');
+
+        return AdmissionRequirementTranslated::fromArray($data);
     }
 
     public function formatContentField(string $content): string
