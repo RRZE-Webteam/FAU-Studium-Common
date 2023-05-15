@@ -104,4 +104,19 @@ final class AdmissionRequirementsTranslated
             ?? $this->requirements[AdmissionRequirements::TEACHING_DEGREE_HIGHER_SEMESTER]
             ?? null;
     }
+
+    public function bachelorOrTeachingDegree(): ?AdmissionRequirementTranslated
+    {
+        return $this->requirements[AdmissionRequirements::BACHELOR_OR_TEACHING_DEGREE] ?? null;
+    }
+
+    public function teachingDegreeHigherSemester(): ?AdmissionRequirementTranslated
+    {
+        return $this->requirements[AdmissionRequirements::TEACHING_DEGREE_HIGHER_SEMESTER] ?? null;
+    }
+
+    public function master(): ?AdmissionRequirementTranslated
+    {
+        return $this->requirements[AdmissionRequirements::MASTER] ?? null;
+    }
 }

@@ -96,4 +96,9 @@ final class AdmissionRequirementTranslated
     {
         return !$this->linkUrl();
     }
+
+    public function asHtml(): string
+    {
+        return $this->current->asHtml();
+    }
 }
