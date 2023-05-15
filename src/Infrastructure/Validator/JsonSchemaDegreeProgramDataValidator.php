@@ -8,6 +8,7 @@ use Fau\DegreeProgram\Common\Domain\DegreeProgram;
 use Fau\DegreeProgram\Common\Domain\DegreeProgramDataValidator;
 use Fau\DegreeProgram\Common\Domain\Violation;
 use Fau\DegreeProgram\Common\Domain\Violations;
+use Fau\DegreeProgram\Common\Infrastructure\Sanitizer\SerializedBlocksDegreeProgramSanitizer;
 use WP_Error;
 
 /**
@@ -84,6 +85,7 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
     public function __construct(
         private array $draftSchema,
         private array $publishSchema,
+        private SerializedBlocksDegreeProgramSanitizer $blocksSanitizer,
     ) {
     }
 
@@ -104,6 +106,18 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
     private function validate(array $data, array $schema): Violations
     {
         $violations = Violations::new();
+
+        // It's important to sanitize content fields before validation to clear fields
+        // with empty paragraphs only.
+        array_walk_recursive(
+            $data,
+            function (mixed &$value) {
+                $value = is_string($value)
+                ? $this->blocksSanitizer->sanitizeContentField($value)
+                : $value;
+            }
+        );
+        /** @psalm-var array<string, mixed> $data */
 
         $generalResult = rest_validate_value_from_schema(
             $data,

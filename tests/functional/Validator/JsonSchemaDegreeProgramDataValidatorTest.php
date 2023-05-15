@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Tests\Validator;
 
+use Fau\DegreeProgram\Common\Infrastructure\Sanitizer\SerializedBlocksDegreeProgramSanitizer;
 use Fau\DegreeProgram\Common\Infrastructure\Validator\JsonSchemaDegreeProgramDataValidator;
 use Fau\DegreeProgram\Common\Tests\FixtureDegreeProgramDataProviderTrait;
 use Fau\DegreeProgram\Common\Tests\WpDbLess\WpDbLessTestCase;
@@ -19,6 +20,7 @@ class JsonSchemaDegreeProgramDataValidatorTest extends WpDbLessTestCase
         $this->sut = new JsonSchemaDegreeProgramDataValidator(
             require ROOT_DIR . '/config/schema_draft.php',
             require ROOT_DIR . '/config/schema_publish.php',
+            new SerializedBlocksDegreeProgramSanitizer(),
         );
 
         parent::setUp();

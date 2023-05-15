@@ -28,6 +28,11 @@ final class SerializedBlocksDegreeProgramSanitizer implements DegreeProgramSanit
             $result .= $this->isValidBlock($block) ? serialize_block($block) : '';
         }
 
+        $filteredContent = trim((string) apply_filters('the_content', $result));
+        if (!$filteredContent) {
+            return '';
+        }
+
         return $result;
     }
 
