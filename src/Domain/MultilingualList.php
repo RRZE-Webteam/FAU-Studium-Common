@@ -68,7 +68,7 @@ final class MultilingualList extends ArrayObject implements \JsonSerializable
         );
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->asArray();
     }

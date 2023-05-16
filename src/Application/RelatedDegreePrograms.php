@@ -47,7 +47,7 @@ final class RelatedDegreePrograms extends ArrayObject implements JsonSerializabl
         );
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->asArray();
     }

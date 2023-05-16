@@ -43,7 +43,7 @@ final class Violation implements JsonSerializable
         ];
     }
 
-    public function jsonSerialize(): mixed
+    public function jsonSerialize(): array
     {
         return $this->asArray();
     }
