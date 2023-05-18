@@ -272,6 +272,12 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
             $result[] = $this->relatedDegreeProgram($post, $languageCode);
         }
 
+        usort(
+            $result,
+            static fn (RelatedDegreeProgram $degreeProgram1, RelatedDegreeProgram $degreeProgram2)
+                => strcasecmp($degreeProgram1->title(), $degreeProgram2->title()),
+        );
+
         return RelatedDegreePrograms::new(...$result);
     }
 
