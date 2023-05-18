@@ -22,9 +22,14 @@ jobs:
       COMPOSER_AUTH_JSON: ${{ secrets.PACKAGIST_AUTH_JSON }}
     with:
       PHP_VERSION: "8.0"
+  lint-php:
+    uses: inpsyde/reusable-workflows/.github/workflows/lint-php.yml@main
+    with:
+      PHP_MATRIX: >-
+        ["8.0", "8.1", "8.2"]
   tests-unit-php:
     needs: [ coding-standards-analysis-php, static-code-analysis-php ]
     uses: inpsyde/reusable-workflows/.github/workflows/tests-unit-php.yml@main
     with:
       PHP_MATRIX: >-
-        ["8.0"]
+        ["8.0", "8.1", "8.2"]
