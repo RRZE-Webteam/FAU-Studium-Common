@@ -23,6 +23,7 @@ use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\BachelorOrTeachingD
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\MasterDegreeAdmissionRequirementTaxonomy;
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\TaxonomiesList;
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\TeachingDegreeHigherSemesterAdmissionRequirementTaxonomy;
+use WP_Term;
 
 final class WpQueryArgsBuilder
 {
@@ -63,30 +64,52 @@ final class WpQueryArgsBuilder
             $queryArgs = $queryArgs->withArg(self::ALIASES[$key] ?? $key, $arg);
         }
 
-        // Apply ordering
-        $orderBy = $criteria->args()['orderby'] ?? '';
-        $order = $criteria->args()['order'] ?? '';
-
-        if ($orderBy) {
-            $queryArgs = $this->applyOrderBy($orderBy, $queryArgs, $criteria->languageCode());
-            $queryArgs = $queryArgs->withArg('order', $order);
-        }
+        $queryArgs = $this->applyOrderBy($criteria, $queryArgs);
+        $queryArgs = $this->translateOrderBy($criteria, $queryArgs);
 
         // Apply filters
         foreach ($criteria->filters() as $filter) {
             $queryArgs = $this->applyFilter($filter, $queryArgs, $criteria->languageCode());
         }
 
-        return $this->applyOrderingByTerm($criteria, $queryArgs);
+        return $queryArgs;
     }
 
     private function applyOrderBy(
-        string $orderBy,
-        WpQueryArgs $queryArgs,
-        ?string $languageCode = null
+        CollectionCriteria $criteria,
+        WpQueryArgs $queryArgs
     ): WpQueryArgs {
 
-        $languageCode = $languageCode ?? MultilingualString::DE;
+        $orderBy = $criteria->args()['orderby'] ?? null;
+        $order = $criteria->args()['order'] ?? null;
+        if ($orderBy && $order) {
+            // Order is defined explicitly
+            return $queryArgs;
+        }
+
+        $currentTerm = $this->currentTerm($criteria);
+        $hasSearch = !empty($criteria->args()['search']);
+        $hasFilters = count($criteria->filters()) > 0;
+        $hasTerm = $currentTerm instanceof WP_Term;
+        if ($hasSearch || ($hasFilters && !$hasTerm)) {
+            // We can not detect current term
+            $queryArgs = $queryArgs->withOrderby(CollectionCriteria::DEFAULT_ORDERBY[0]);
+            return $queryArgs->withArg('order', CollectionCriteria::DEFAULT_ORDERBY[1]);
+        }
+
+        // No filters or single filter with detected term
+        $stickyKey = StickyDegreeProgramRepository::stickyKey($currentTerm);
+        $queryArgs = $queryArgs->withOrderby($stickyKey);
+        return $queryArgs->withArg('order', 'desc');
+    }
+
+    private function translateOrderBy(
+        CollectionCriteria $criteria,
+        WpQueryArgs $queryArgs,
+    ): WpQueryArgs {
+
+        $languageCode = $criteria->languageCode() ?? MultilingualString::DE;
+        $orderBy = $queryArgs->args()['orderby'] ?? null;
 
         return match ($orderBy) {
             DegreeProgram::TITLE => $languageCode === MultilingualString::DE
@@ -96,7 +119,7 @@ final class WpQueryArgsBuilder
             DegreeProgram::START,
             DegreeProgram::LOCATION,
             DegreeProgram::ADMISSION_REQUIREMENTS =>
-                $queryArgs->withOrderby($orderBy . '_' . $languageCode),
+            $queryArgs->withOrderby($orderBy . '_' . $languageCode),
             default => $queryArgs,
         };
     }
@@ -199,38 +222,33 @@ final class WpQueryArgsBuilder
         );
     }
 
-    private function applyOrderingByTerm(CollectionCriteria $criteria, WpQueryArgs $queryArgs): WpQueryArgs
+    private function currentTerm(CollectionCriteria $criteria): ?WP_Term
     {
-        if ($queryArgs->arg('orderby') !== CollectionCriteria::DEFAULT_ORDERBY[0]) {
-            // Collection is sorted explicitly
-            return $queryArgs;
-        }
-
         if (count($criteria->filters()) !== 1) {
-            // We have not defined order for multiple filters
-            return $queryArgs;
+            return null;
         }
 
         $filter = $criteria->filters()[0];
         if (!$this->isTaxonomyFilter($filter)) {
-            // We can order only by terms
-            return $queryArgs;
+            return null;
         }
 
         $values = $filter->value();
         if (!is_array($values) || count($values) !== 1) {
-            // We have not defined order for multiple terms
-            return $queryArgs;
+            // Multiple terms are ignored
+            return null;
         }
 
-        $taxonomy = $this->taxonomiesList->convertRestBaseToSlug($filter->id());
         $term = (int) $values[0];
-        if (!$taxonomy || !$term) {
-            return $queryArgs;
+        if (!$term) {
+            return null;
         }
+        $taxonomy = $this->taxonomiesList->convertRestBaseToSlug($filter->id());
+        if (!$taxonomy) {
+            return null;
+        }
+        $term = get_term($term, $taxonomy);
 
-        $queryArgs = $queryArgs->withOrderby(OrderRepository::orderByTermKey($taxonomy, $term));
-
-        return $queryArgs->withArg('order', 'asc');
+        return $term instanceof WP_Term ? $term : null;
     }
 }

@@ -30,7 +30,7 @@ final class CollectionCriteria
         DegreeProgram::LOCATION,
         DegreeProgram::ADMISSION_REQUIREMENTS,
     ];
-    public const DEFAULT_ORDERBY = ['menu_order', 'asc'];
+    public const DEFAULT_ORDERBY = ['title', 'asc'];
 
     /**
      * @var Filter[]
@@ -153,20 +153,18 @@ final class CollectionCriteria
     }
 
     /**
-     * @param 'asc' | 'desc' $order
+     * @psalm-param 'asc' | 'desc' | null $order
      */
-    public function withOrderby(string $orderBy, string $order = 'desc'): self
+    public function withOrderby(?string $orderBy, ?string $order): self
     {
         $instance = clone $this;
 
         if (!in_array($orderBy, self::SORTABLE_PROPERTIES, true)) {
-            $instance->args['orderby'] = self::DEFAULT_ORDERBY[0];
-            $instance->args['order'] = self::DEFAULT_ORDERBY[1];
+            return $instance;
         }
 
         $instance->args['orderby'] = $orderBy;
         $instance->args['order'] = $order === 'asc' ? 'asc' : 'desc';
-
         return $instance;
     }
 
