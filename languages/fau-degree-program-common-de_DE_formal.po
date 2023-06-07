@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-18T11:51:52+00:00\n"
-"PO-Revision-Date: 2023-05-03 16:26+0200\n"
+"PO-Revision-Date: 2023-06-07 09:41+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.1\n"
 "X-Domain: fau-degree-program-common\n"
 
 #: src/Infrastructure/Content/PostType/DegreeProgramPostType.php:21
@@ -441,17 +441,7 @@ msgctxt "backoffice: taxonomy singular name"
 msgid "Admission requirement for entering a Bachelor's/teaching degree at a higher semester"
 msgstr "Zugangsvoraussetzung Bachelor/Lehramt höheres Semester"
 
-#: src/Infrastructure/Validator/ConditionalFieldsValidator.php:118
+#: src/Infrastructure/Validator/ConditionalFieldsValidator.php:92
 msgctxt "backoffice: REST API error message"
 msgid "This field can not be empty."
 msgstr "Dieses Feld darf nicht leer sein."
-
-#: src/Infrastructure/Content/Taxonomy/ExaminationRegulationsTaxonomy.php:27
-msgctxt "backoffice: taxonomy plural name"
-msgid "Degree program and examination regulations"
-msgstr "Studien- und Prüfungsordnungen"
-
-#: src/Infrastructure/Content/Taxonomy/ExaminationRegulationsTaxonomy.php:36
-msgctxt "backoffice: taxonomy singular name"
-msgid "Degree program and examination regulations"
-msgstr "Studien- und Prüfungsordnungen"
