@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fau\DegreeProgram\Common\Tests\Application\Repository;
 
 use Fau\DegreeProgram\Common\Application\Repository\CollectionCriteria;
