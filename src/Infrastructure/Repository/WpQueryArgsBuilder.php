@@ -25,6 +25,10 @@ use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\TaxonomiesList;
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\TeachingDegreeHigherSemesterAdmissionRequirementTaxonomy;
 use WP_Term;
 
+/**
+ * @psalm-import-type LanguageCodes from MultilingualString
+ * @psalm-import-type OrderBy from CollectionCriteria
+ */
 final class WpQueryArgsBuilder
 {
     private const TAXONOMY_BASED_FILTERS = [
@@ -42,6 +46,7 @@ final class WpQueryArgsBuilder
         'page' => 'paged',
         'per_page' => 'posts_per_page',
         'include' => 'post__in',
+        'order_by' => 'orderby',
     ];
 
     private const DEFAULTS = [
@@ -51,6 +56,8 @@ final class WpQueryArgsBuilder
         'update_post_meta_cache' => false,
         'update_post_term_cache' => false,
     ];
+
+    private const DEFAULT_ORDER_BY = [DegreeProgram::TITLE => 'asc'];
 
     public function __construct(private TaxonomiesList $taxonomiesList)
     {
@@ -80,9 +87,8 @@ final class WpQueryArgsBuilder
         WpQueryArgs $queryArgs
     ): WpQueryArgs {
 
-        $orderBy = $criteria->args()['orderby'] ?? null;
-        $order = $criteria->args()['order'] ?? null;
-        if ($orderBy && $order) {
+        $orderBy = $criteria->args()['order_by'] ?? null;
+        if ($orderBy) {
             // Order is defined explicitly
             return $queryArgs;
         }
@@ -93,35 +99,59 @@ final class WpQueryArgsBuilder
         $hasTerm = $currentTerm instanceof WP_Term;
         if ($hasSearch || ($hasFilters && !$hasTerm)) {
             // We can not detect current term
-            $queryArgs = $queryArgs->withOrderby(CollectionCriteria::DEFAULT_ORDERBY[0]);
-            return $queryArgs->withArg('order', CollectionCriteria::DEFAULT_ORDERBY[1]);
+            return $queryArgs->withOrderBy(self::DEFAULT_ORDER_BY);
         }
 
         // No filters or single filter with detected term
         $stickyKey = StickyDegreeProgramRepository::stickyKey($currentTerm);
-        $queryArgs = $queryArgs->withOrderby($stickyKey);
-        return $queryArgs->withArg('order', 'desc');
+        return $queryArgs->withOrderBy(array_merge(
+            [$stickyKey => 'desc'],
+            self::DEFAULT_ORDER_BY,
+        ));
     }
 
     private function translateOrderBy(
         CollectionCriteria $criteria,
-        WpQueryArgs $queryArgs,
+        WpQueryArgs $queryArgs
     ): WpQueryArgs {
 
         $languageCode = $criteria->languageCode() ?? MultilingualString::DE;
+        /** @var OrderBy | null $orderBy */
         $orderBy = $queryArgs->args()['orderby'] ?? null;
+        if (!$orderBy) {
+            return $queryArgs;
+        }
 
-        return match ($orderBy) {
-            DegreeProgram::TITLE => $languageCode === MultilingualString::DE
-                ? $queryArgs->orderbyTitle()
-                : $queryArgs->withOrderby('title_' . $languageCode),
-            DegreeProgram::DEGREE,
-            DegreeProgram::START,
-            DegreeProgram::LOCATION,
-            DegreeProgram::ADMISSION_REQUIREMENTS =>
-            $queryArgs->withOrderby($orderBy . '_' . $languageCode),
-            default => $queryArgs,
-        };
+        $translatedOrderBy = [];
+        foreach ($orderBy as $property => $order) {
+            $key = $this->translateOrderByProperty($property, $languageCode);
+            $translatedOrderBy[$key] = $order;
+        }
+
+        return $queryArgs->withOrderBy($translatedOrderBy);
+    }
+
+    /**
+     * @psalm-param string $property
+     * @psalm-param LanguageCodes $languageCode
+     */
+    private function translateOrderByProperty(
+        string $property,
+        string $languageCode,
+    ): string {
+
+        if (!in_array($property, CollectionCriteria::SORTABLE_PROPERTIES, true)) {
+            return $property;
+        }
+
+        if (
+            $property === DegreeProgram::TITLE
+            && $languageCode === MultilingualString::DE
+        ) {
+            return $property;
+        }
+
+        return implode('_', [$property, $languageCode]);
     }
 
     private function applyFilter(Filter $filter, WpQueryArgs $queryArgs, ?string $languageCode = null): WpQueryArgs

@@ -11,26 +11,24 @@ use Webmozart\Assert\Assert;
 
 /**
  * @psalm-import-type LanguageCodes from MultilingualString
+ * @psalm-type OrderBy = array<string, 'asc' | 'desc'>
  * @psalm-type SupportedArgs = array{
  *    page: int,
  *    per_page: int,
  *    include?: array<int>,
  *    search?: string,
- *    orderby?: string,
- *    order?: 'asc' | 'desc',
+ *    order_by: OrderBy,
  * }
  */
 final class CollectionCriteria
 {
     public const SORTABLE_PROPERTIES = [
-        DegreeProgram::ID,
         DegreeProgram::TITLE,
         DegreeProgram::DEGREE,
         DegreeProgram::START,
         DegreeProgram::LOCATION,
         DegreeProgram::ADMISSION_REQUIREMENTS,
     ];
-    public const DEFAULT_ORDERBY = ['title', 'asc'];
 
     /**
      * @var Filter[]
@@ -55,6 +53,7 @@ final class CollectionCriteria
         return new self([
             'page' => 1,
             'per_page' => 10,
+            'order_by' => [],
         ]);
     }
 
@@ -140,31 +139,33 @@ final class CollectionCriteria
     }
 
     /**
-     * @param LanguageCodes $languageCode
-     * @return self
+     * @psalm-param LanguageCodes $languageCode
      */
     public function withLanguage(string $languageCode): self
     {
         $instance = clone $this;
 
-        $this->languageCode = $languageCode;
+        $instance->languageCode = $languageCode;
 
         return $instance;
     }
 
     /**
-     * @psalm-param 'asc' | 'desc' | null $order
+     * @psalm-param OrderBy $orderBy
      */
-    public function withOrderby(?string $orderBy, ?string $order): self
+    public function withOrderBy(array $orderBy): self
     {
         $instance = clone $this;
+        $sanitizedValue = [];
+        foreach ($orderBy as $property => $order) {
+            if (!in_array($property, self::SORTABLE_PROPERTIES, true)) {
+                continue;
+            }
 
-        if (!in_array($orderBy, self::SORTABLE_PROPERTIES, true)) {
-            return $instance;
+            $sanitizedValue[$property] = $order === 'asc' ? 'asc' : 'desc';
         }
 
-        $instance->args['orderby'] = $orderBy;
-        $instance->args['order'] = $order === 'asc' ? 'asc' : 'desc';
+        $instance->args['order_by'] = $sanitizedValue;
         return $instance;
     }
 

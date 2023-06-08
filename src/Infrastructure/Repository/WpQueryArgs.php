@@ -25,21 +25,6 @@ final class WpQueryArgs
         return $this->args[$key] ?? null;
     }
 
-    public function orderbyTitle(): self
-    {
-        return $this->withArg('orderby', 'title');
-    }
-
-    public function orderbyMeta(): self
-    {
-        return $this->withArg('orderby', 'meta_value');
-    }
-
-    public function orderbyMetaNumeric(): self
-    {
-        return $this->withArg('orderby', 'meta_value_num');
-    }
-
     public function withArg(string $key, mixed $value): self
     {
         $instance = clone $this;
@@ -49,9 +34,9 @@ final class WpQueryArgs
         return $instance;
     }
 
-    public function withOrderby(string $value): self
+    public function withOrderBy(array $orderBy): self
     {
-        return $this->withArg('orderby', $value);
+        return $this->withArg('orderby', $orderBy);
     }
 
     public function withTaxQueryItem(array $item): self
