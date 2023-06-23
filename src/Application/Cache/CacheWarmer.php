@@ -93,10 +93,16 @@ final class CacheWarmer
      */
     private function warm(CollectionCriteria $criteria): bool
     {
-        $result = [];
-
         $rawCollection = $this->collectionRepository->findRawCollection($criteria);
-        if (!$rawCollection instanceof PaginationAwareCollection) {
+        $translatedCollection = $this->collectionRepository->findTranslatedCollection(
+            $criteria,
+            MultilingualString::DE
+        );
+
+        if (
+            !$rawCollection instanceof PaginationAwareCollection
+            || !$translatedCollection instanceof PaginationAwareCollection
+        ) {
             return false;
         }
 
@@ -105,17 +111,7 @@ final class CacheWarmer
             $key = $this->cacheKeyGenerator->generateForDegreeProgram($item->id());
             $values[$key] = $item->asArray();
         }
-        $result[] = $this->cache->setMultiple($values);
 
-        $translatedCollection = $this->collectionRepository->findTranslatedCollection(
-            $criteria,
-            MultilingualString::DE
-        );
-        if (!$translatedCollection instanceof PaginationAwareCollection) {
-            return false;
-        }
-
-        $values = [];
         foreach ($translatedCollection as $item) {
             $key = $this->cacheKeyGenerator->generateForDegreeProgram(
                 DegreeProgramId::fromInt($item->id()),
@@ -124,8 +120,7 @@ final class CacheWarmer
 
             $values[$key] = $item->asArray();
         }
-        $result[] = $this->cache->setMultiple($values);
 
-        return !in_array(false, $result, true);
+        return $this->cache->setMultiple($values);
     }
 }
