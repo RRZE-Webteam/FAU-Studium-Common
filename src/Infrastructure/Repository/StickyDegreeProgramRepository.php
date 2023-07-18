@@ -10,9 +10,9 @@ final class StickyDegreeProgramRepository
 {
     public function toggleSticky(int $postId, ?WP_Term $term): bool
     {
-        $isSticky = $this->isSticky($postId, $term);
-
-        return update_post_meta($postId, self::stickyKey($term), !$isSticky) !== false;
+        return $this->isSticky($postId, $term)
+            ? delete_post_meta($postId, self::stickyKey($term)) !== false
+            : update_post_meta($postId, self::stickyKey($term), true) !== false;
     }
 
     public function isSticky(int $postId, ?WP_Term $term): bool
