@@ -57,7 +57,10 @@ final class WpQueryArgsBuilder
         'update_post_term_cache' => false,
     ];
 
-    private const DEFAULT_ORDER_BY = [DegreeProgram::TITLE => 'asc'];
+    private const DEFAULT_ORDER_BY = [
+        DegreeProgram::TITLE => 'asc',
+        'date' => 'desc',
+    ];
 
     public function __construct(private TaxonomiesList $taxonomiesList)
     {
