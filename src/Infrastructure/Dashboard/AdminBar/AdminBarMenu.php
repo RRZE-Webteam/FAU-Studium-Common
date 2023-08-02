@@ -30,6 +30,10 @@ final class AdminBarMenu
 
     public function render(WP_Admin_Bar $adminBar): void
     {
+        if (! current_user_can('delete_users')) {
+            return;
+        }
+
         if (count($this->menuItems) === 1) {
             $menuItem = $this->menuItems[0];
 

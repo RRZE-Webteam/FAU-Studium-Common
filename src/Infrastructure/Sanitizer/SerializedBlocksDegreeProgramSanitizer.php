@@ -55,6 +55,9 @@ final class SerializedBlocksDegreeProgramSanitizer implements DegreeProgramSanit
         };
     }
 
+    /**
+     * @return non-empty-string
+     */
     private function allowedShortcodeRegexpPattern(): string
     {
         return sprintf(
