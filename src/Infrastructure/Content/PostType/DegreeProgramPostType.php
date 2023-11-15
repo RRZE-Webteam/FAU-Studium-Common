@@ -73,6 +73,11 @@ class DegreeProgramPostType
                 'backoffice: post type label',
                 'fau-degree-program-common'
             ),
+            'add_new' => _x(
+                'Add New Degree Program',
+                'backoffice: post type label',
+                'fau-degree-program-common'
+            ),
             'add_new_item' => _x(
                 'Add New Degree Program',
                 'backoffice: post type label',
