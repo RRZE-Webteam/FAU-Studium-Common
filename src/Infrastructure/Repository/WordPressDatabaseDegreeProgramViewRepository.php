@@ -23,6 +23,7 @@ use Fau\DegreeProgram\Common\Domain\DegreeProgramId;
 use Fau\DegreeProgram\Common\Domain\DegreeProgramRepository;
 use Fau\DegreeProgram\Common\Domain\Image;
 use Fau\DegreeProgram\Common\Domain\MultilingualString;
+use Fau\DegreeProgram\Common\Infrastructure\Content\PostType\DegreeProgramPostType;
 use Fau\DegreeProgram\Common\Infrastructure\Sanitizer\HtmlDegreeProgramSanitizer;
 use RuntimeException;
 use WP_Post;
@@ -299,10 +300,14 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
                 true
             ),
             home_url(
-                (string) get_post_meta(
-                    $post->ID,
-                    BilingualRepository::addEnglishSuffix('post_name'),
-                    true
+                sprintf(
+                    '%s/%s',
+                    DegreeProgramPostType::KEY,
+                    (string) get_post_meta(
+                        $post->ID,
+                        BilingualRepository::addEnglishSuffix('post_name'),
+                        true
+                    )
                 )
             ),
         );
