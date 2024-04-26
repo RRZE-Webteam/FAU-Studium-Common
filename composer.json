@@ -1,5 +1,5 @@
 {
-    "name": "inpsyde/fau-degree-program-common",
+    "name": "rrze-webteam/fau-studium-common",
     "description": "Shared kernel for FAU Degree Program and FAU Degree Program Output plugins.",
     "license": "GPL-2.0-or-later",
     "type": "library",
