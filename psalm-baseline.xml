@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="5.23.1@8471a896ccea3526b26d082f4461eeea467f10a4">
+  <file src="src/Application/AdmissionRequirementTranslated.php">
+    <InvalidArrayOffset>
+      <code><![CDATA[$data[AdmissionRequirement::PARENT]]]></code>
+    </InvalidArrayOffset>
+    <InvalidReturnStatement>
+      <code><![CDATA[$currentData]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[AdmissionRequirementTranslatedType]]></code>
+    </InvalidReturnType>
+  </file>
+  <file src="src/Application/DegreeProgramViewTranslated.php">
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[empty($data[self::TRANSLATIONS])]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/Application/Filter/AdmissionRequirementTypeFilter.php">
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[$sanitizedValue]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/Application/Filter/ArrayOfIdsFilterTrait.php">
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[$sanitizedValue]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/Application/Filter/SearchKeywordFilter.php">
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[$sanitizedValue]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/Infrastructure/Content/Meta/MetaFieldsList.php">
+    <MixedArgumentTypeCoercion>
+      <code><![CDATA[[
+            DegreeProgram::TEASER_IMAGE,
+            BilingualRepository::addEnglishSuffix('title'),
+            DegreeProgram::STANDARD_DURATION,
+            DegreeProgram::FEE_REQUIRED,
+            DegreeProgram::SUBTITLE,
+            BilingualRepository::addEnglishSuffix(DegreeProgram::SUBTITLE),
+            DegreeProgram::VIDEOS,
+            DegreeProgram::META_DESCRIPTION,
+            BilingualRepository::addEnglishSuffix(DegreeProgram::META_DESCRIPTION),
+            Content::ABOUT,
+            BilingualRepository::addEnglishSuffix(Content::ABOUT),
+            Content::STRUCTURE,
+            BilingualRepository::addEnglishSuffix(Content::STRUCTURE),
+            Content::SPECIALIZATIONS,
+            BilingualRepository::addEnglishSuffix(Content::SPECIALIZATIONS),
+            Content::QUALITIES_AND_SKILLS,
+            BilingualRepository::addEnglishSuffix(Content::QUALITIES_AND_SKILLS),
+            Content::WHY_SHOULD_STUDY,
+            BilingualRepository::addEnglishSuffix(Content::WHY_SHOULD_STUDY),
+            Content::CAREER_PROSPECTS,
+            BilingualRepository::addEnglishSuffix(Content::CAREER_PROSPECTS),
+            Content::SPECIAL_FEATURES,
+            BilingualRepository::addEnglishSuffix(Content::SPECIAL_FEATURES),
+            Content::TESTIMONIALS,
+            BilingualRepository::addEnglishSuffix(Content::TESTIMONIALS),
+            DegreeProgram::CONTENT_RELATED_MASTER_REQUIREMENTS,
+            DegreeProgram::APPLICATION_DEADLINE_WINTER_SEMESTER,
+            DegreeProgram::APPLICATION_DEADLINE_SUMMER_SEMESTER,
+            DegreeProgram::DETAILS_AND_NOTES,
+            BilingualRepository::addEnglishSuffix(DegreeProgram::DETAILS_AND_NOTES),
+            DegreeProgram::LANGUAGE_SKILLS,
+            BilingualRepository::addEnglishSuffix(DegreeProgram::LANGUAGE_SKILLS),
+            DegreeProgram::LANGUAGE_SKILLS_HUMANITIES_FACULTY,
+            DegreeProgram::MODULE_HANDBOOK,
+            DegreeProgram::URL,
+            BilingualRepository::addEnglishSuffix(DegreeProgram::URL),
+            DegreeProgram::STUDENT_REPRESENTATIVES,
+            DegreeProgram::DEGREE_PROGRAM_FEES,
+            BilingualRepository::addEnglishSuffix(DegreeProgram::DEGREE_PROGRAM_FEES),
+        ]]]></code>
+    </MixedArgumentTypeCoercion>
+    <UndefinedConstant>
+      <code><![CDATA[DegreeProgram::STUDENT_REPRESENTATIVES]]></code>
+    </UndefinedConstant>
+  </file>
+  <file src="src/Infrastructure/Repository/BilingualRepository.php">
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[!$key]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/Infrastructure/Repository/WordPressDatabaseDegreeProgramViewRepository.php">
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[!$permalink]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/Infrastructure/Repository/WpQueryArgsBuilder.php">
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[!$languageCode]]></code>
+      <code><![CDATA[!$orderBy]]></code>
+      <code><![CDATA[!$taxonomy]]></code>
+      <code><![CDATA[$languageCode]]></code>
+      <code><![CDATA[$orderBy]]></code>
+      <code><![CDATA[empty($criteria->args()['search'])]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/Infrastructure/TemplateRenderer/TemplateRenderer.php">
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[ob_get_clean()]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+</files>
