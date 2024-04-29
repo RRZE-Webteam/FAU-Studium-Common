@@ -24,12 +24,16 @@ jobs:
       PHP_VERSION: "8.0"
   lint-php:
     uses: inpsyde/reusable-workflows/.github/workflows/lint-php.yml@main
+    strategy:
+      matrix:
+        php-versions: [ "8.0", "8.1", "8.2" ]
     with:
-      PHP_MATRIX: >-
-        ["8.0", "8.1", "8.2"]
+      PHP_VERSION: ${{ matrix.php-versions }}
   tests-unit-php:
     needs: [ coding-standards-analysis-php, static-code-analysis-php ]
     uses: inpsyde/reusable-workflows/.github/workflows/tests-unit-php.yml@main
+    strategy:
+      matrix:
+        php-versions: [ "8.0", "8.1", "8.2" ]
     with:
-      PHP_MATRIX: >-
-        ["8.0", "8.1", "8.2"]
+      PHP_VERSION: ${{ matrix.php-versions }}

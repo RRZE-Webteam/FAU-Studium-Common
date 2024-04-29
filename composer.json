@@ -1,13 +1,13 @@
 {
-    "name": "inpsyde/fau-degree-program-common",
+    "name": "rrze/fau-studium-common",
     "description": "Shared kernel for FAU Degree Program and FAU Degree Program Output plugins.",
     "license": "GPL-2.0-or-later",
     "type": "library",
     "authors": [
         {
-            "name": "Inpsyde GmbH",
-            "email": "hello@inpsyde.com",
-            "homepage": "https://inpsyde.com/",
+            "name": "Syde GmbH",
+            "email": "hello@syde.com",
+            "homepage": "https://syde.com/",
             "role": "Company"
         }
     ],
