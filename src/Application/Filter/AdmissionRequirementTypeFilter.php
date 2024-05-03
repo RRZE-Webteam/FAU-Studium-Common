@@ -10,6 +10,7 @@ namespace Fau\DegreeProgram\Common\Application\Filter;
 final class AdmissionRequirementTypeFilter implements Filter
 {
     public const FREE = 'frei';
+    public const FREE_WITH_RESTRICTION = 'frei-mit-einschrankung';
     public const RESTRICTED = 'eingeschraenkt';
 
     public const KEY = 'admission-requirement';
@@ -70,7 +71,7 @@ final class AdmissionRequirementTypeFilter implements Filter
         /** @psalm-var array<AdmissionRequirementType> $value */
         $value = array_filter(
             $value,
-            static fn ($item) => in_array($item, [self::FREE, self::RESTRICTED], true),
+            static fn ($item) => in_array($item, [self::FREE, self::FREE_WITH_RESTRICTION, self::RESTRICTED], true),
         );
 
         return $value;
