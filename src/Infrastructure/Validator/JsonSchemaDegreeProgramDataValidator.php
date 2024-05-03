@@ -180,7 +180,8 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
 
             if (
                 $fieldSchema['type'] === 'object'
-                && ! empty($fieldSchema['properties'])
+                && isset($fieldSchema['properties'])
+                && $fieldSchema['properties']
                 && is_array($field)
             ) {
                 /** @var array<string, mixed> $field */
