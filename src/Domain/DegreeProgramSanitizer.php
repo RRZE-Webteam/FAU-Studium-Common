@@ -50,10 +50,10 @@ interface DegreeProgramSanitizer
     ];
 
     public const ALLOWED_BLOCKS = [
-        'core/paragraph',
+        'core/heading',
         'core/image',
         'core/list',
-        'core/heading',
+        'core/paragraph',
         'core/shortcode',
         'fau/description-list',
     ];
