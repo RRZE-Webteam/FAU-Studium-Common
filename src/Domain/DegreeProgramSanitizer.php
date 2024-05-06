@@ -29,6 +29,10 @@ interface DegreeProgramSanitizer
             'href' => [],
             'target' => [],
         ],
+        'blockquote' => [
+            'class' => [],
+        ],
+        'cite' => [],
         'br' => [],
         'p' => [],
         'strong' => [],
@@ -55,6 +59,7 @@ interface DegreeProgramSanitizer
         'core/list',
         'core/paragraph',
         'core/shortcode',
+        'core/quote',
         'fau/description-list',
     ];
 
