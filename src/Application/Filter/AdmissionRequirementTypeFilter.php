@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Fau\DegreeProgram\Common\Application\Filter;
 
 /**
- * @psalm-type AdmissionRequirementType = 'frei' | 'eingeschraenkt'
+ * @psalm-type AdmissionRequirementType = 'frei' | 'eingeschraenkt' | 'frei-mit-einschraenkung'
  */
 final class AdmissionRequirementTypeFilter implements Filter
 {
     public const FREE = 'frei';
-    public const FREE_WITH_RESTRICTION = 'frei-mit-einschrankung';
+    public const FREE_WITH_RESTRICTION = 'frei-mit-einschraenkung';
     public const RESTRICTED = 'eingeschraenkt';
 
     public const KEY = 'admission-requirement';
