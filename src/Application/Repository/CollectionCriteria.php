@@ -28,6 +28,7 @@ final class CollectionCriteria
         DegreeProgram::START,
         DegreeProgram::LOCATION,
         DegreeProgram::ADMISSION_REQUIREMENTS,
+        DegreeProgram::GERMAN_LANGUAGE_SKILLS_FOR_INTERNATIONAL_STUDENTS,
     ];
 
     /**
