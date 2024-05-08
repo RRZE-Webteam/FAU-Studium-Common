@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy;
 
+use Fau\DegreeProgram\Common\Application\Filter\GermanLanguageSkillsForInternationalStudentsFilter;
+
 /**
  * Deutschkenntnisse für ausländische Studierende
  */
 final class GermanLanguageSkillsForInternationalStudentsTaxonomy extends Taxonomy
 {
     public const KEY = 'german_for_int_students';
-    public const REST_BASE = 'german-language-skills-for-international-students';
+    public const REST_BASE = GermanLanguageSkillsForInternationalStudentsFilter::KEY;
 
     public function key(): string
     {
