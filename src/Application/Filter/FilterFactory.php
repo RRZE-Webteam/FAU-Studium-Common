@@ -7,16 +7,17 @@ namespace Fau\DegreeProgram\Common\Application\Filter;
 final class FilterFactory
 {
     public const SUPPORTED_FILTERS = [
+        AdmissionRequirementTypeFilter::KEY => AdmissionRequirementTypeFilter::class,
         AreaOfStudyFilter::KEY => AreaOfStudyFilter::class,
         AttributeFilter::KEY => AttributeFilter::class,
         DegreeFilter::KEY => DegreeFilter::class,
         FacultyFilter::KEY => FacultyFilter::class,
+        GermanLanguageSkillsForInternationalStudentsFilter::KEY => GermanLanguageSkillsForInternationalStudentsFilter::class,
         SearchKeywordFilter::KEY => SearchKeywordFilter::class,
         SemesterFilter::KEY => SemesterFilter::class,
         StudyLocationFilter::KEY => StudyLocationFilter::class,
         SubjectGroupFilter::KEY => SubjectGroupFilter::class,
         TeachingLanguageFilter::KEY => TeachingLanguageFilter::class,
-        AdmissionRequirementTypeFilter::KEY => AdmissionRequirementTypeFilter::class,
     ];
 
     public function create(string $filterName, mixed $value): ?Filter
