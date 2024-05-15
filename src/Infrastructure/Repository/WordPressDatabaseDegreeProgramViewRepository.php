@@ -182,6 +182,7 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
             studentInitiatives: Link::fromMultilingualLink($raw->studentInitiatives(), $languageCode),
             applyNowLink: Link::fromMultilingualLink($raw->applyNowLink(), $languageCode),
             entryText: $this->formatContentField($raw->entryText()->asString($languageCode)),
+            campoKeys: $raw->campoKeys(),
         );
     }
 

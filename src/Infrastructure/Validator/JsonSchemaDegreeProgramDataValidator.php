@@ -76,6 +76,7 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
         DegreeProgram::LIMITED_COMBINATIONS,
         DegreeProgram::NOTES_FOR_INTERNATIONAL_APPLICANTS,
         DegreeProgram::APPLY_NOW_LINK,
+        DegreeProgram::CAMPO_KEYS,
     ];
 
     /**

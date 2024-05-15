@@ -17,6 +17,7 @@ use Fau\DegreeProgram\Common\Application\Filter\StudyLocationFilter;
 use Fau\DegreeProgram\Common\Application\Filter\SubjectGroupFilter;
 use Fau\DegreeProgram\Common\Application\Filter\TeachingLanguageFilter;
 use Fau\DegreeProgram\Common\Application\Repository\CollectionCriteria;
+use Fau\DegreeProgram\Common\Domain\CampoKeys;
 use Fau\DegreeProgram\Common\Domain\DegreeProgram;
 use Fau\DegreeProgram\Common\Domain\MultilingualString;
 use Fau\DegreeProgram\Common\Infrastructure\Content\PostType\DegreeProgramPostType;
@@ -64,8 +65,10 @@ final class WpQueryArgsBuilder
         'date' => 'desc',
     ];
 
-    public function __construct(private TaxonomiesList $taxonomiesList)
-    {
+    public function __construct(
+        private TaxonomiesList $taxonomiesList,
+        private CampoKeysRepository $campoKeysRepository,
+    ){
     }
 
     public function build(CollectionCriteria $criteria): WpQueryArgs
@@ -84,7 +87,37 @@ final class WpQueryArgsBuilder
             $queryArgs = $this->applyFilter($filter, $queryArgs, $criteria->languageCode());
         }
 
+        foreach ($criteria->hisCodes() as $hisCode) {
+            $queryArgs = $this->applyHisCode($hisCode, $queryArgs);
+        }
+
         return $queryArgs;
+    }
+
+    public function applyHisCode(string $hisCode, WpQueryArgs $queryArgs): WpQueryArgs
+    {
+        $taxQueryItem = [
+            'relation' => 'AND',
+        ];
+
+        $taxonomyToTermMapping = $this->campoKeysRepository->taxonomyToTermsMapFromCampoKeys(
+            CampoKeys::fromHisCode($hisCode)
+        );
+
+        if (count($taxonomyToTermMapping) === 0) {
+            return $queryArgs;
+        }
+
+        foreach ($taxonomyToTermMapping as $taxonomy => $termId) {
+            $taxQueryItem[] = [
+                'taxonomy' => $taxonomy,
+                'terms' => [
+                    $termId,
+                ],
+            ];
+        }
+
+        return $queryArgs->withTaxQueryItem($taxQueryItem);
     }
 
     private function applyOrderBy(

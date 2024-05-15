@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Application;
 
+use Fau\DegreeProgram\Common\Domain\CampoKeys;
 use Fau\DegreeProgram\Common\Domain\DegreeProgram;
 use Fau\DegreeProgram\Common\Domain\DegreeProgramId;
 use Fau\DegreeProgram\Common\Domain\MultilingualString;
@@ -73,6 +74,7 @@ use JsonSerializable;
  *     student_initiatives: LinkType,
  *     apply_now_link: LinkType,
  *     entry_text: string,
+ *     campo_keys: array<string, string>
  * }
  * @psalm-type DegreeProgramViewTranslatedArrayType = DegreeProgramTranslation & array{
  *      id: int,
@@ -145,6 +147,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
         private Link $studentInitiatives,
         private Link $applyNowLink,
         private string $entryText,
+        private CampoKeys $campoKeys,
     ) {
     }
 
@@ -209,6 +212,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             studentInitiatives: Link::empty(),
             applyNowLink: Link::empty(),
             entryText: '',
+            campoKeys: CampoKeys::empty(),
         );
     }
 
@@ -277,6 +281,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             studentInitiatives: Link::fromArray($data[DegreeProgram::STUDENT_INITIATIVES]),
             applyNowLink: Link::fromArray($data[DegreeProgram::APPLY_NOW_LINK]),
             entryText: $data[DegreeProgram::ENTRY_TEXT],
+            campoKeys: CampoKeys::fromArray($data[DegreeProgram::CAMPO_KEYS]),
         );
 
         if (empty($data[self::TRANSLATIONS])) {
@@ -350,6 +355,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             DegreeProgram::STUDENT_INITIATIVES => $this->studentInitiatives->asArray(),
             DegreeProgram::APPLY_NOW_LINK => $this->applyNowLink->asArray(),
             DegreeProgram::ENTRY_TEXT => $this->entryText,
+            DegreeProgram::CAMPO_KEYS => $this->campoKeys->asArray(),
             self::TRANSLATIONS => $this->translationsAsArray(),
         ];
     }
@@ -668,5 +674,10 @@ final class DegreeProgramViewTranslated implements JsonSerializable
     public function entryText(): string
     {
         return $this->entryText;
+    }
+
+    public function campoKeys(): CampoKeys
+    {
+        return $this->campoKeys;
     }
 }
