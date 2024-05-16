@@ -67,6 +67,8 @@
     "scripts": {
         "check-coding-standards": "vendor/bin/phpcs",
         "check-psalm": "vendor/bin/psalm --no-cache",
-        "fix-coding-standards": "vendor/bin/phpcbf"
+        "fix-coding-standards": "vendor/bin/phpcbf",
+        "tests": "@php ./vendor/phpunit/phpunit/phpunit --coverage-text",
+        "tests:no-cov": "@php ./vendor/phpunit/phpunit/phpunit --no-coverage"
     }
 }
