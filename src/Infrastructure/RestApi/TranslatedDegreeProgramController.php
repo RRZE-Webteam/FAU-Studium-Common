@@ -10,6 +10,7 @@ use Fau\DegreeProgram\Common\Application\Filter\AreaOfStudyFilter;
 use Fau\DegreeProgram\Common\Application\Filter\AttributeFilter;
 use Fau\DegreeProgram\Common\Application\Filter\DegreeFilter;
 use Fau\DegreeProgram\Common\Application\Filter\FacultyFilter;
+use Fau\DegreeProgram\Common\Application\Filter\GermanLanguageSkillsForInternationalStudentsFilter;
 use Fau\DegreeProgram\Common\Application\Filter\SearchKeywordFilter;
 use Fau\DegreeProgram\Common\Application\Filter\SemesterFilter;
 use Fau\DegreeProgram\Common\Application\Filter\StudyLocationFilter;
@@ -108,7 +109,8 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 SemesterFilter::fromInput((array) $request->get_param(SemesterFilter::KEY)),
                 StudyLocationFilter::fromInput((array) $request->get_param(StudyLocationFilter::KEY)),
                 SubjectGroupFilter::fromInput((array) $request->get_param(SubjectGroupFilter::KEY)),
-                TeachingLanguageFilter::fromInput((array) $request->get_param(TeachingLanguageFilter::KEY))
+                TeachingLanguageFilter::fromInput((array) $request->get_param(TeachingLanguageFilter::KEY)),
+                GermanLanguageSkillsForInternationalStudentsFilter::fromInput((array) $request->get_param(GermanLanguageSkillsForInternationalStudentsFilter::KEY))
             );
 
         $views = $this->degreeProgramCollectionRepository->findTranslatedCollection(
