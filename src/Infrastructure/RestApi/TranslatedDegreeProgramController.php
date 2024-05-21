@@ -111,7 +111,11 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 SubjectGroupFilter::fromInput((array) $request->get_param(SubjectGroupFilter::KEY)),
                 TeachingLanguageFilter::fromInput((array) $request->get_param(TeachingLanguageFilter::KEY)),
                 GermanLanguageSkillsForInternationalStudentsFilter::fromInput((array) $request->get_param(GermanLanguageSkillsForInternationalStudentsFilter::KEY))
-            );
+            )
+            ->withOrderBy([
+                (string) $request->get_param('order_by') =>
+                    (string) $request->get_param('order') === 'asc' ? 'asc' : 'desc',
+            ]);
 
         $views = $this->degreeProgramCollectionRepository->findTranslatedCollection(
             $criteria,
