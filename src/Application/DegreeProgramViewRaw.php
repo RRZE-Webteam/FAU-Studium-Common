@@ -201,7 +201,7 @@ final class DegreeProgramViewRaw implements JsonSerializable
             ),
             applyNowLink: MultilingualLink::fromArray($data[DegreeProgram::APPLY_NOW_LINK]),
             entryText: MultilingualString::fromArray($data[DegreeProgram::ENTRY_TEXT]),
-            campoKeys: CampoKeys::fromArray($data[DegreeProgram::CAMPO_KEYS] ?? []), // TODO: check to see why undefined value is possible. It gives fatal on revision repository due to null value.
+            campoKeys: CampoKeys::fromArray($data[DegreeProgram::CAMPO_KEYS]),
         );
     }
 
