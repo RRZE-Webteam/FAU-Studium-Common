@@ -12,7 +12,7 @@
         <exclude name="Inpsyde.CodeQuality.ElementNameMinimalLength.TooShort"/>
         <exclude name="WordPress.NamingConventions.ValidHookName.UseUnderscores"/>
     </rule>
-<ini name="error_reporting" value="E_ALL &#38; ~E_DEPRECATED" />
+
     <rule ref="Inpsyde.CodeQuality.Psr4">
         <properties>
             <property
