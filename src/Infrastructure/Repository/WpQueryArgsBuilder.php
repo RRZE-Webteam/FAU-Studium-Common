@@ -68,7 +68,7 @@ final class WpQueryArgsBuilder
     public function __construct(
         private TaxonomiesList $taxonomiesList,
         private CampoKeysRepository $campoKeysRepository,
-    ){
+    ) {
     }
 
     public function build(CollectionCriteria $criteria): WpQueryArgs

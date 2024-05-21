@@ -81,7 +81,6 @@ final class CampoKeysRepository
         return $result;
     }
 
-
     private function findTermByCampoKey(string $taxonomy, string $campoKey): ?WP_Term
     {
         if ($campoKey === '') {

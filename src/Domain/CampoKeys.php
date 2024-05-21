@@ -95,7 +95,7 @@ final class CampoKeys
 
     public function set(string $key, string $value): self
     {
-        if (! in_array($key, self::SUPPORTED_CAMPO_KEYS)) {
+        if (! in_array($key, self::SUPPORTED_CAMPO_KEYS, true)) {
             throw new InvalidArgumentException('Unsupported field key.');
         }
 
