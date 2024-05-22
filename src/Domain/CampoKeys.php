@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Domain;
 
-use InvalidArgumentException;
-
+/**
+ * @psalm-type CampoKeysMap = array<value-of<self::SUPPORTED_CAMPO_KEYS>, string>
+ */
 final class CampoKeys
 {
     public const SCHEMA = [
@@ -46,85 +47,50 @@ final class CampoKeys
 
     private const HIS_CODE_DELIMITER = '|';
 
-    /** @var array<string, string> */
-    private array $map = [];
-
-    private function __construct()
-    {
+    private function __construct(
+        /**
+         * @var CampoKeysMap $map
+         */
+        private array $map
+    ) {
     }
 
     public static function empty(): self
     {
-        return new self();
+        return new self([]);
     }
 
     /**
-     * @psalm-param array<string, string> $data
+     * @param CampoKeysMap $map
      */
-    public static function fromArray(array $data): self
+    public static function fromArray(array $map): self
     {
-        $instance = new self();
-
-        foreach ($data as $key => $value) {
-            $instance->set($key, $value);
-        }
-
-        return $instance;
+        return new self($map);
     }
 
     public static function fromHisCode(string $hisCode): self
     {
         $parts = explode(self::HIS_CODE_DELIMITER, $hisCode);
+        $map = [];
 
-        $instance = new self();
 
         if (isset($parts[0])) {
-            $instance->set(DegreeProgram::DEGREE, $parts[0]);
+            $map[DegreeProgram::DEGREE] = $parts[0];
         }
 
         if (isset($parts[1])) {
-            $instance->set(DegreeProgram::AREA_OF_STUDY, $parts[1]);
+            $map[DegreeProgram::AREA_OF_STUDY] = $parts[1];
         }
 
         if (isset($parts[6])) {
-            $instance->set(DegreeProgram::LOCATION, $parts[6]);
+            $map[DegreeProgram::LOCATION] = $parts[6];
         }
 
-        return $instance;
-    }
-
-    public function set(string $key, string $value): self
-    {
-        if (! in_array($key, self::SUPPORTED_CAMPO_KEYS, true)) {
-            throw new InvalidArgumentException('Unsupported field key.');
-        }
-
-        $this->map[$key] = $value;
-        return $this;
-    }
-
-    public function degree(): ?string
-    {
-        return $this->get(DegreeProgram::DEGREE);
-    }
-
-    public function areaOfStudy(): ?string
-    {
-        return $this->get(DegreeProgram::AREA_OF_STUDY);
-    }
-
-    public function studyLocation(): ?string
-    {
-        return $this->get(DegreeProgram::LOCATION);
-    }
-
-    public function get(string $key): ?string
-    {
-        return $this->map[$key] ?? null;
+        return new self($map);
     }
 
     /**
-     * @return array<string, string>
+     * @return CampoKeysMap
      */
     public function asArray(): array
     {

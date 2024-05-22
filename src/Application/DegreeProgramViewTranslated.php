@@ -22,6 +22,7 @@ use JsonSerializable;
  * @psalm-import-type LanguageCodes from MultilingualString
  * @psalm-import-type ImageViewType from ImageView
  * @psalm-import-type NumberOfStudentsType from NumberOfStudents
+ * @psalm-import-type CampoKeysMap from CampoKeys
  * @psalm-type DegreeProgramTranslation = array{
  *     link: string,
  *     slug: string,
@@ -74,7 +75,7 @@ use JsonSerializable;
  *     student_initiatives: LinkType,
  *     apply_now_link: LinkType,
  *     entry_text: string,
- *     campo_keys: array<string, string>
+ *     campo_keys: CampoKeysMap
  * }
  * @psalm-type DegreeProgramViewTranslatedArrayType = DegreeProgramTranslation & array{
  *      id: int,

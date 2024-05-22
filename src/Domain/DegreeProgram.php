@@ -17,6 +17,7 @@ use RuntimeException;
  * @psalm-import-type AdmissionRequirementsType from AdmissionRequirements
  * @psalm-import-type DegreeType from Degree
  * @psalm-import-type NumberOfStudentsType from NumberOfStudents
+ * @psalm-import-type CampoKeysMap from CampoKeys
  * @psalm-type DegreeProgramArrayType = array{
  *     id: int,
  *     slug: MultilingualStringType,
@@ -67,7 +68,7 @@ use RuntimeException;
  *     student_initiatives: MultilingualLinkType,
  *     apply_now_link: MultilingualLinkType,
  *     entry_text: MultilingualStringType,
- *     campo_keys: array<string, string>,
+ *     campo_keys: CampoKeysMap,
  * }
  */
 final class DegreeProgram

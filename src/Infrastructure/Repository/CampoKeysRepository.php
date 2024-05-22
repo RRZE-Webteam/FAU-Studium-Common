@@ -25,8 +25,6 @@ final class CampoKeysRepository
 
     public function degreeProgramCampoKeys(DegreeProgramId $degreeProgramId): CampoKeys
     {
-        $campoKeys = CampoKeys::empty();
-
         /** @var WP_Error|array<WP_Term> $terms */
         $terms = wp_get_post_terms(
             $degreeProgramId->asInt(),
@@ -34,8 +32,10 @@ final class CampoKeysRepository
         );
 
         if ($terms instanceof WP_Error) {
-            return $campoKeys;
+            return CampoKeys::empty();
         }
+
+        $map = [];
 
         foreach ($terms as $term) {
             $campoKey = (string) get_term_meta($term->term_id, self::CAMPOKEY_TERM_META_KEY, true);
@@ -50,10 +50,10 @@ final class CampoKeysRepository
                 continue;
             }
 
-            $campoKeys->set($campoKeyType, $campoKey);
+            $map[$campoKeyType] = $campoKey;
         }
 
-        return $campoKeys;
+        return CampoKeys::fromArray($map);
     }
 
     /**
