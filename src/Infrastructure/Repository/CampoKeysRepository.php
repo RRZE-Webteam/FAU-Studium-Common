@@ -15,20 +15,20 @@ use WP_Term;
 
 final class CampoKeysRepository
 {
-    public const CAMPO_KEYS_TOTAXONOMY_MAP = [
+    public const TAXONOMY_TO_CAMPO_KEY_MAP = [
         DegreeTaxonomy::KEY => DegreeProgram::DEGREE,
         StudyLocationTaxonomy::KEY => DegreeProgram::LOCATION,
         AreaOfStudyTaxonomy::KEY => DegreeProgram::AREA_OF_STUDY,
     ];
 
-    public const CAMPOKEY_TERM_META_KEY = 'uniquename';
+    public const CAMPO_KEY_TERM_META_KEY = 'uniquename';
 
     public function degreeProgramCampoKeys(DegreeProgramId $degreeProgramId): CampoKeys
     {
         /** @var WP_Error|array<WP_Term> $terms */
         $terms = wp_get_post_terms(
             $degreeProgramId->asInt(),
-            array_keys(self::CAMPO_KEYS_TOTAXONOMY_MAP)
+            array_keys(self::TAXONOMY_TO_CAMPO_KEY_MAP)
         );
 
         if ($terms instanceof WP_Error) {
@@ -38,13 +38,13 @@ final class CampoKeysRepository
         $map = [];
 
         foreach ($terms as $term) {
-            $campoKey = (string) get_term_meta($term->term_id, self::CAMPOKEY_TERM_META_KEY, true);
+            $campoKey = (string) get_term_meta($term->term_id, self::CAMPO_KEY_TERM_META_KEY, true);
 
             if (empty($campoKey)) {
                 continue;
             }
 
-            $campoKeyType = self::CAMPO_KEYS_TOTAXONOMY_MAP[$term->taxonomy] ?? null;
+            $campoKeyType = self::TAXONOMY_TO_CAMPO_KEY_MAP[$term->taxonomy] ?? null;
 
             if (is_null($campoKeyType)) {
                 continue;
@@ -67,7 +67,7 @@ final class CampoKeysRepository
 
         $campoKeys = $campoKeys->asArray();
 
-        foreach (self::CAMPO_KEYS_TOTAXONOMY_MAP as $taxonomy => $campoKeyType) {
+        foreach (self::TAXONOMY_TO_CAMPO_KEY_MAP as $taxonomy => $campoKeyType) {
             $campoKey = $campoKeys[$campoKeyType] ?? '';
 
             if ($campoKey === '') {
@@ -90,7 +90,7 @@ final class CampoKeysRepository
         /** @var WP_Error|array<WP_Term> $terms */
         $terms = get_terms([
             'taxonomy' => $taxonomy,
-            'meta_key' => self::CAMPOKEY_TERM_META_KEY,
+            'meta_key' => self::CAMPO_KEY_TERM_META_KEY,
             'meta_value' => $campoKey,
         ]);
 
