@@ -25,6 +25,7 @@ use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\BachelorOrTeachingD
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\MasterDegreeAdmissionRequirementTaxonomy;
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\TaxonomiesList;
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\TeachingDegreeHigherSemesterAdmissionRequirementTaxonomy;
+use RuntimeException;
 use WP_Term;
 
 /**
@@ -100,24 +101,32 @@ final class WpQueryArgsBuilder
             'relation' => 'AND',
         ];
 
-        $taxonomyToTermMapping = $this->campoKeysRepository->taxonomyToTermsMapFromCampoKeys(
-            CampoKeys::fromHisCode($hisCode)
-        );
+        try {
+            $taxonomyToTermMapping = $this->campoKeysRepository->taxonomyToTermsMapFromCampoKeys(
+                CampoKeys::fromHisCode($hisCode)
+            );
 
-        if (count($taxonomyToTermMapping) === 0) {
-            return $queryArgs;
+            if (count($taxonomyToTermMapping) === 0) {
+                return $queryArgs;
+            }
+
+            foreach ($taxonomyToTermMapping as $taxonomy => $termId) {
+                $taxQueryItem[] = [
+                    'taxonomy' => $taxonomy,
+                    'terms' => [
+                        $termId,
+                    ],
+                ];
+            }
+
+            return $queryArgs->withTaxQueryItem($taxQueryItem);
+        } catch (RuntimeException) {
+            /*
+             * Return an empty result if one or more campo keys in HIS code are not matched to any terms.
+             * Otherwise invalid HIS codes would be matched to false results.
+             */
+            return $queryArgs->withArg('post__in', [0]);
         }
-
-        foreach ($taxonomyToTermMapping as $taxonomy => $termId) {
-            $taxQueryItem[] = [
-                'taxonomy' => $taxonomy,
-                'terms' => [
-                    $termId,
-                ],
-            ];
-        }
-
-        return $queryArgs->withTaxQueryItem($taxQueryItem);
     }
 
     private function applyOrderBy(

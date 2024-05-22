@@ -73,7 +73,6 @@ final class CampoKeys
         $parts = explode(self::HIS_CODE_DELIMITER, $hisCode);
         $map = [];
 
-
         if (isset($parts[0])) {
             $map[DegreeProgram::DEGREE] = $parts[0];
         }

@@ -10,6 +10,7 @@ use Fau\DegreeProgram\Common\Domain\DegreeProgramId;
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\AreaOfStudyTaxonomy;
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\DegreeTaxonomy;
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\StudyLocationTaxonomy;
+use RuntimeException;
 use WP_Error;
 use WP_Term;
 
@@ -59,6 +60,7 @@ final class CampoKeysRepository
     /**
      * Return a map of taxonomy keys to terms based on a given HIS code.
      *
+     * @throws RuntimeException
      * @return array<string, int>
      */
     public function taxonomyToTermsMapFromCampoKeys(CampoKeys $campoKeys): array
@@ -75,7 +77,12 @@ final class CampoKeysRepository
             }
 
             $term = $this->findTermByCampoKey($taxonomy, $campoKey);
-            $result[$taxonomy] = ! is_null($term) ? $term->term_id : 0;
+
+            if (! $term instanceof WP_Term) {
+                throw new RuntimeException('Could not find term for Campo key: ' . $campoKey);
+            }
+
+            $result[$taxonomy] = $term->term_id;
         }
 
         return $result;
