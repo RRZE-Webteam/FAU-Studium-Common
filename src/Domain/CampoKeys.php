@@ -71,21 +71,13 @@ final class CampoKeys
     public static function fromHisCode(string $hisCode): self
     {
         $parts = explode(self::HIS_CODE_DELIMITER, $hisCode);
-        $map = [];
+        $map = [
+            DegreeProgram::DEGREE => $parts[0] ?? null,
+            DegreeProgram::AREA_OF_STUDY => $parts[1] ?? null,
+            DegreeProgram::LOCATION => $parts[6] ?? null,
+        ];
 
-        if (isset($parts[0])) {
-            $map[DegreeProgram::DEGREE] = $parts[0];
-        }
-
-        if (isset($parts[1])) {
-            $map[DegreeProgram::AREA_OF_STUDY] = $parts[1];
-        }
-
-        if (isset($parts[6])) {
-            $map[DegreeProgram::LOCATION] = $parts[6];
-        }
-
-        return new self($map);
+        return new self(array_filter($map, fn($value) => !is_null($value)));
     }
 
     /**
