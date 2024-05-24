@@ -145,6 +145,7 @@ final class StubDegreeProgramRepository implements DegreeProgramRepository, Degr
             notesForInternationalApplicants: Link::fromMultilingualLink($raw->notesForInternationalApplicants(), $languageCode),
             applyNowLink: Link::fromMultilingualLink($raw->applyNowLink(), $languageCode),
             entryText: $raw->entryText()->asString($languageCode),
+            campoKeys: $raw->campoKeys()->asArray(),
         );
     }
 

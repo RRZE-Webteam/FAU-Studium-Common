@@ -18,6 +18,7 @@ use Webmozart\Assert\Assert;
  *    include?: array<int>,
  *    search?: string,
  *    order_by: OrderBy,
+ *    his_codes?: array<string>
  * }
  */
 final class CollectionCriteria
@@ -35,6 +36,11 @@ final class CollectionCriteria
      * @var Filter[]
      */
     private array $filters = [];
+
+    /**
+     * @var array<string>
+     */
+    private array $hisCodes = [];
 
     /**
      * @var LanguageCodes|null
@@ -171,6 +177,17 @@ final class CollectionCriteria
     }
 
     /**
+     * @param array<string> $hisCodes
+     * @return self
+     */
+    public function withHisCodes(array $hisCodes): self
+    {
+        $instance = clone $this;
+        $instance->hisCodes = $hisCodes;
+        return $instance;
+    }
+
+    /**
      * @psalm-return SupportedArgs
      */
     public function args(): array
@@ -184,5 +201,13 @@ final class CollectionCriteria
     public function filters(): array
     {
         return $this->filters;
+    }
+
+    /**
+     * @return array<string>
+     */
+    public function hisCodes(): array
+    {
+        return $this->hisCodes;
     }
 }

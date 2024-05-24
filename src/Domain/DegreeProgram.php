@@ -17,6 +17,7 @@ use RuntimeException;
  * @psalm-import-type AdmissionRequirementsType from AdmissionRequirements
  * @psalm-import-type DegreeType from Degree
  * @psalm-import-type NumberOfStudentsType from NumberOfStudents
+ * @psalm-import-type CampoKeysMap from CampoKeys
  * @psalm-type DegreeProgramArrayType = array{
  *     id: int,
  *     slug: MultilingualStringType,
@@ -67,6 +68,7 @@ use RuntimeException;
  *     student_initiatives: MultilingualLinkType,
  *     apply_now_link: MultilingualLinkType,
  *     entry_text: MultilingualStringType,
+ *     campo_keys: CampoKeysMap,
  * }
  */
 final class DegreeProgram
@@ -122,6 +124,7 @@ final class DegreeProgram
     public const NOTES_FOR_INTERNATIONAL_APPLICANTS = 'notes_for_international_applicants';
     public const STUDENT_INITIATIVES = 'student_initiatives';
     public const APPLY_NOW_LINK = 'apply_now_link';
+    public const CAMPO_KEYS = 'campo_keys';
 
     private IntegersListChangeset $combinationsChangeset;
     private IntegersListChangeset $limitedCombinationsChangeset;
@@ -315,6 +318,10 @@ final class DegreeProgram
          * Eingeschränkt Kombinationsmöglichkeiten
          */
         private DegreeProgramIds $limitedCombinations,
+        /**
+         * CampoKeys
+         */
+        private CampoKeys $campoKeys,
     ) {
 
         $this->combinationsChangeset = IntegersListChangeset::new(
@@ -451,6 +458,7 @@ final class DegreeProgram
         $this->studentInitiatives = MultilingualLink::fromArray($data[self::STUDENT_INITIATIVES]);
         $this->applyNowLink = MultilingualLink::fromArray($data[self::APPLY_NOW_LINK]);
         $this->entryText = MultilingualString::fromArray($data[self::ENTRY_TEXT]);
+        $this->campoKeys = CampoKeys::fromArray($data[self::CAMPO_KEYS]);
 
         $this->combinationsChangeset = $this
             ->combinationsChangeset
@@ -515,6 +523,7 @@ final class DegreeProgram
      *     student_initiatives: MultilingualLink,
      *     apply_now_link: MultilingualLink,
      *     entry_text: MultilingualString,
+     *     campo_keys: CampoKeys,
      * }
      * @internal Only for repositories usage
      * phpcs:disable Inpsyde.CodeQuality.FunctionLength.TooLong
@@ -574,6 +583,7 @@ final class DegreeProgram
             self::STUDENT_INITIATIVES => $this->studentInitiatives,
             self::APPLY_NOW_LINK => $this->applyNowLink,
             self::ENTRY_TEXT => $this->entryText,
+            self::CAMPO_KEYS => $this->campoKeys,
         ];
     }
 

@@ -653,5 +653,10 @@
     "id": "post_meta:25:entry_text",
     "de": "Einstiegtext (werbend)",
     "en": "Entry text (promotional)"
+  },
+  "campo_keys": {
+    "degree": "185",
+    "area_of_study": "85",
+    "location": "E"
   }
 }

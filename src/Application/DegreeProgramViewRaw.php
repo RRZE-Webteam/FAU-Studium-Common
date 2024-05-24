@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fau\DegreeProgram\Common\Application;
 
 use Fau\DegreeProgram\Common\Domain\AdmissionRequirements;
+use Fau\DegreeProgram\Common\Domain\CampoKeys;
 use Fau\DegreeProgram\Common\Domain\Content;
 use Fau\DegreeProgram\Common\Domain\Degree;
 use Fau\DegreeProgram\Common\Domain\DegreeProgram;
@@ -75,6 +76,7 @@ final class DegreeProgramViewRaw implements JsonSerializable
         private MultilingualLink $studentInitiatives,
         private MultilingualLink $applyNowLink,
         private MultilingualString $entryText,
+        private CampoKeys $campoKeys,
     ) {
     }
 
@@ -134,6 +136,7 @@ final class DegreeProgramViewRaw implements JsonSerializable
             $data[DegreeProgram::STUDENT_INITIATIVES],
             $data[DegreeProgram::APPLY_NOW_LINK],
             $data[DegreeProgram::ENTRY_TEXT],
+            $data[DegreeProgram::CAMPO_KEYS],
         );
     }
 
@@ -198,6 +201,7 @@ final class DegreeProgramViewRaw implements JsonSerializable
             ),
             applyNowLink: MultilingualLink::fromArray($data[DegreeProgram::APPLY_NOW_LINK]),
             entryText: MultilingualString::fromArray($data[DegreeProgram::ENTRY_TEXT]),
+            campoKeys: CampoKeys::fromArray($data[DegreeProgram::CAMPO_KEYS]),
         );
     }
 
@@ -261,6 +265,7 @@ final class DegreeProgramViewRaw implements JsonSerializable
             DegreeProgram::STUDENT_INITIATIVES => $this->studentInitiatives->asArray(),
             DegreeProgram::APPLY_NOW_LINK => $this->applyNowLink->asArray(),
             DegreeProgram::ENTRY_TEXT => $this->entryText->asArray(),
+            DegreeProgram::CAMPO_KEYS => $this->campoKeys->asArray(),
         ];
     }
 
@@ -512,5 +517,10 @@ final class DegreeProgramViewRaw implements JsonSerializable
     public function entryText(): MultilingualString
     {
         return $this->entryText;
+    }
+
+    public function campoKeys(): CampoKeys
+    {
+        return $this->campoKeys;
     }
 }

@@ -52,6 +52,7 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
         IdGenerator $idGenerator,
         private EventDispatcherInterface $eventDispatcher,
         private HtmlDegreeProgramSanitizer $fieldsSanitizer,
+        private CampoKeysRepository $campoKeysRepository,
     ) {
 
         parent::__construct($idGenerator);
@@ -240,6 +241,7 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
                 $postId,
                 DegreeProgram::LIMITED_COMBINATIONS
             ),
+            campoKeys: $this->campoKeysRepository->degreeProgramCampoKeys($degreeProgramId),
         );
     }
 

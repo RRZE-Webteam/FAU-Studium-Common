@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Fau\DegreeProgram\Common\Domain\AdmissionRequirement;
 use Fau\DegreeProgram\Common\Domain\AdmissionRequirements;
+use Fau\DegreeProgram\Common\Domain\CampoKeys;
 use Fau\DegreeProgram\Common\Domain\Content;
 use Fau\DegreeProgram\Common\Domain\ContentItem;
 use Fau\DegreeProgram\Common\Domain\Degree;
@@ -150,5 +151,6 @@ return [
         DegreeProgram::STUDENT_INITIATIVES => MultilingualLink::SCHEMA,
         DegreeProgram::APPLY_NOW_LINK => MultilingualLink::SCHEMA,
         DegreeProgram::ENTRY_TEXT => MultilingualString::SCHEMA,
+        DegreeProgram::CAMPO_KEYS => CampoKeys::SCHEMA,
     ],
 ];

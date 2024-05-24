@@ -6,6 +6,7 @@ namespace Fau\DegreeProgram\Common\Tests;
 
 use Fau\DegreeProgram\Common\Domain\AdmissionRequirement;
 use Fau\DegreeProgram\Common\Domain\AdmissionRequirements;
+use Fau\DegreeProgram\Common\Domain\CampoKeys;
 use Fau\DegreeProgram\Common\Domain\Content;
 use Fau\DegreeProgram\Common\Domain\ContentItem;
 use Fau\DegreeProgram\Common\Domain\Degree;
@@ -110,6 +111,7 @@ trait FixtureDegreeProgramDataProviderTrait
             applyNowLink: MultilingualLink::empty(),
             combinations: DegreeProgramIds::new(),
             limitedCombinations: DegreeProgramIds::new(),
+            campoKeys: CampoKeys::empty(),
         );
     }
 }
