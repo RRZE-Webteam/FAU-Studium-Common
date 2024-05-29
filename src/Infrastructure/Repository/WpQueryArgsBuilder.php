@@ -119,7 +119,7 @@ final class WpQueryArgsBuilder
                 ];
             }
 
-            return $queryArgs->withTaxQueryItem($taxQueryItem);
+            return $queryArgs->withTaxQueryItem($taxQueryItem, 'OR');
         } catch (RuntimeException) {
             /*
              * Return an empty result if one or more campo keys in HIS code are not matched to any terms.
