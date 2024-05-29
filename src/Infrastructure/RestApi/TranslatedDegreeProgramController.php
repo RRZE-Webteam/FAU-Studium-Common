@@ -128,7 +128,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 _x(
                     'Something went wrong. Please try again later.',
                     'rest_api: response status',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 ['status' => 500]
             );
@@ -148,7 +148,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 _x(
                     'The page number requested is larger than the number of pages available.',
                     'rest_api: response status',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 ['status' => 400]
             );
@@ -197,7 +197,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
             _x(
                 'Degree program not found.',
                 'rest_api: response status',
-                'fau-degree-program'
+                'fau-degree-program-common'
             ),
             ['status' => 404]
         );
@@ -217,7 +217,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
             _x(
                 'Degree program not found.',
                 'rest_api: response status',
-                'fau-degree-program'
+                'fau-degree-program-common'
             ),
             ['status' => 404]
         );
@@ -290,7 +290,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
             'description' => _x(
                 'Language code ("de" and "en" are supported).',
                 'rest_api: schema item description',
-                'fau-degree-program'
+                'fau-degree-program-common'
             ),
             'type' => 'string',
             'default' => MultilingualString::DE,
@@ -311,7 +311,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Unique identifier for the degree program.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'integer',
             ],
@@ -319,7 +319,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Feature image.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'object',
             ],
@@ -327,7 +327,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Teaser image.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'object',
             ],
@@ -335,7 +335,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Title.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'string',
             ],
@@ -343,7 +343,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Subtitle.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'string',
             ],
@@ -351,7 +351,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Standard duration of study.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'string',
             ],
@@ -359,7 +359,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Fee required.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'boolean',
             ],
@@ -367,7 +367,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Start of degree program.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'array',
             ],
@@ -375,7 +375,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Number of students.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'object',
             ],
@@ -383,7 +383,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Teaching language.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'string',
             ],
@@ -391,7 +391,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Attributes.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'array',
             ],
@@ -399,7 +399,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Degree.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'object',
             ],
@@ -407,7 +407,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Faculty.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'array',
             ],
@@ -415,7 +415,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Study location.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'array',
             ],
@@ -423,7 +423,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Subject groups.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'array',
             ],
@@ -431,7 +431,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Videos.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'array',
             ],
@@ -439,7 +439,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Meta description.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'string',
             ],
@@ -447,7 +447,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Content.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'array',
             ],
@@ -455,7 +455,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Admission requirement link.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'object',
             ],
@@ -463,7 +463,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Admission requirements.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'string',
             ],
@@ -471,7 +471,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Content-related admission requirements for Master’s degree.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'string',
             ],
@@ -479,7 +479,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Application deadline winter semester.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'string',
             ],
@@ -487,7 +487,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Application deadline summer semester.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'string',
             ],
@@ -495,7 +495,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Details and notes.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'string',
             ],
@@ -503,7 +503,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Language skills.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'string',
             ],
@@ -511,7 +511,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Language skills for Faculty of Humanities, Social Sciences, and Theology only.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'string',
             ],
@@ -520,7 +520,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                     'description' => _x(
                         'Language certificates/German language skills for international applicants.',
                         'rest_api: schema item description',
-                        'fau-degree-program'
+                        'fau-degree-program-common'
                     ),
                     'type' => 'object',
                 ],
@@ -528,7 +528,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Start of semester.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'object',
             ],
@@ -536,7 +536,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Semester dates.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'object',
             ],
@@ -544,7 +544,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Examinations Office.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'object',
             ],
@@ -552,7 +552,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Degree program and examination regulations.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'string',
             ],
@@ -560,7 +560,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Module handbook.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'string',
             ],
@@ -568,7 +568,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Degree program URL.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'string',
             ],
@@ -576,7 +576,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Department.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'string',
             ],
@@ -584,7 +584,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Student Advice and Career Service.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'object',
             ],
@@ -592,7 +592,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Subject-specific advice.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'object',
             ],
@@ -600,7 +600,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Counseling and Service Centers at FAU.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'object',
             ],
@@ -608,7 +608,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Info brochure degree program.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'string',
             ],
@@ -616,7 +616,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Semester fee.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'object',
             ],
@@ -624,7 +624,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Degree program fees.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'string',
             ],
@@ -632,7 +632,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Opportunities for spending time abroad.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'object',
             ],
@@ -640,7 +640,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Degree program possible combinations.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'array',
             ],
@@ -648,7 +648,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Degree program limited possible combinations.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'array',
             ],
@@ -656,7 +656,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Available translations.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'object',
             ],
@@ -664,7 +664,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Notes for international applicants.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'object',
             ],
@@ -672,7 +672,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Students\' Union/Student Initiatives.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'object',
             ],
@@ -680,7 +680,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'description' => _x(
                     'Degree program Campo Keys.',
                     'rest_api: schema item description',
-                    'fau-degree-program'
+                    'fau-degree-program-common'
                 ),
                 'type' => 'object',
             ],
