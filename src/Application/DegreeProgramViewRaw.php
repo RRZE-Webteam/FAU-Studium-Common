@@ -201,7 +201,7 @@ final class DegreeProgramViewRaw implements JsonSerializable
             ),
             applyNowLink: MultilingualLink::fromArray($data[DegreeProgram::APPLY_NOW_LINK]),
             entryText: MultilingualString::fromArray($data[DegreeProgram::ENTRY_TEXT]),
-            campoKeys: CampoKeys::fromArray($data[DegreeProgram::CAMPO_KEYS]),
+            campoKeys: CampoKeys::fromArray($data[DegreeProgram::CAMPO_KEYS] ?? []),
         );
     }
 
