@@ -39,12 +39,12 @@ final class WpQueryArgs
         return $this->withArg('orderby', $orderBy);
     }
 
-    public function withTaxQueryItem(array $item, string $relation = 'AND'): self
+    public function withTaxQueryItem(array $item): self
     {
         $instance = clone $this;
 
         $instance->args['tax_query'] = (array) ($instance->args['tax_query']
-            ?? ['relation' => $relation]);
+            ?? ['relation' => 'AND']);
 
         $instance->args['tax_query'][] = $item;
 
