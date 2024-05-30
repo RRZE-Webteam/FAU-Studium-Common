@@ -282,7 +282,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             studentInitiatives: Link::fromArray($data[DegreeProgram::STUDENT_INITIATIVES]),
             applyNowLink: Link::fromArray($data[DegreeProgram::APPLY_NOW_LINK]),
             entryText: $data[DegreeProgram::ENTRY_TEXT],
-            campoKeys: CampoKeys::fromArray($data[DegreeProgram::CAMPO_KEYS]),
+            campoKeys: CampoKeys::fromArray($data[DegreeProgram::CAMPO_KEYS] ?? []),
         );
 
         if (empty($data[self::TRANSLATIONS])) {
