@@ -107,9 +107,13 @@ final class WpQueryArgsBuilder
                 'relation' => 'AND',
             ];
 
-            $taxonomyToTermMapping = $this->campoKeysRepository->taxonomyToTermsMapFromCampoKeys(
-                CampoKeys::fromHisCode($hisCode)
-            );
+            try {
+                $taxonomyToTermMapping = $this->campoKeysRepository->taxonomyToTermsMapFromCampoKeys(
+                    CampoKeys::fromHisCode($hisCode)
+                );
+            } catch (RuntimeException) {
+                continue;
+            }
 
             if (count($taxonomyToTermMapping) === 0) {
                 continue;
