@@ -88,26 +88,35 @@ final class WpQueryArgsBuilder
             $queryArgs = $this->applyFilter($filter, $queryArgs, $criteria->languageCode());
         }
 
-        foreach ($criteria->hisCodes() as $hisCode) {
-            $queryArgs = $this->applyHisCode($hisCode, $queryArgs);
+        if (count($criteria->hisCodes()) > 0) {
+            $queryArgs = $this->applyHisCodes($criteria->hisCodes(), $queryArgs);
         }
 
         return $queryArgs;
     }
 
-    public function applyHisCode(string $hisCode, WpQueryArgs $queryArgs): WpQueryArgs
+    /**
+     * @param array<string> $hisCodes
+     */
+    public function applyHisCodes(array $hisCodes, WpQueryArgs $queryArgs): WpQueryArgs
     {
-        $taxQueryItem = [
-            'relation' => 'AND',
-        ];
+        $hisCodesQuery = [];
 
-        try {
-            $taxonomyToTermMapping = $this->campoKeysRepository->taxonomyToTermsMapFromCampoKeys(
-                CampoKeys::fromHisCode($hisCode)
-            );
+        foreach ($hisCodes as $hisCode) {
+            $taxQueryItem = [
+                'relation' => 'AND',
+            ];
+
+            try {
+                $taxonomyToTermMapping = $this->campoKeysRepository->taxonomyToTermsMapFromCampoKeys(
+                    CampoKeys::fromHisCode($hisCode)
+                );
+            } catch (RuntimeException) {
+                continue;
+            }
 
             if (count($taxonomyToTermMapping) === 0) {
-                return $queryArgs;
+                continue;
             }
 
             foreach ($taxonomyToTermMapping as $taxonomy => $termId) {
@@ -119,14 +128,16 @@ final class WpQueryArgsBuilder
                 ];
             }
 
-            return $queryArgs->withTaxQueryItem($taxQueryItem);
-        } catch (RuntimeException) {
-            /*
-             * Return an empty result if one or more campo keys in HIS code are not matched to any terms.
-             * Otherwise invalid HIS codes would be matched to false results.
-             */
-            return $queryArgs->withArg('post__in', [0]);
+            $hisCodesQuery[] = $taxQueryItem;
         }
+
+        if (count($hisCodesQuery) === 0) {
+            return $queryArgs;
+        }
+
+        $hisCodesQuery['relation'] = 'OR';
+
+        return $queryArgs->withTaxQueryItem($hisCodesQuery);
     }
 
     private function applyOrderBy(
