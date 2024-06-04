@@ -6,7 +6,7 @@ Shared kernel for FAU Degree Program and FAU Degree Program Output plugins.
 
 * [Installation](#installation)
 * [Design](#design)
-* [Crafted by Inpsyde](#crafted-by-inpsyde)
+* [Crafted by Syde](#crafted-by-syde)
 * [License](#license)
 * [Contributing](#contributing)
 
@@ -22,13 +22,13 @@ $ composer require inpsyde/fau-degree-program-common
 
 The taxonomies of the degree program post type are mapped to Degree program entity properties.
 
-## Crafted by Inpsyde
+## Crafted by Syde
 
-The team at [Inpsyde](https://inpsyde.com) is engineering the Web since 2006.
+The team at [Syde](https://syde.com) is engineering the Web since 2006.
 
 ## License
 
-Copyright (c) 2022, Inpsyde GmbH
+Copyright (c) 2022, Syde GmbH
 
 This software is released under the ["GNU General Public License v2.0 or later"](LICENSE) license.
 
