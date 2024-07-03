@@ -17,13 +17,15 @@ final class WordPressDatabaseDegreeProgramCollectionRepository implements Degree
 {
     public function __construct(
         private DegreeProgramViewRepository $degreeProgramViewRepository,
-        private WpQueryArgsBuilder $queryArgsBuilder
+        private WpQueryArgsBuilder $queryArgsBuilder,
+        private WpQuerySplitter $querySplitter
     ) {
     }
 
     public function findRawCollection(CollectionCriteria $criteria): PaginationAwareCollection
     {
         $query = new WP_Query();
+        $criteria = $this->querySplitter->maybeSplitQuery($criteria);
         /** @var array<int> $ids */
         $ids = $query->query(
             $this->queryArgsBuilder
@@ -48,6 +50,10 @@ final class WordPressDatabaseDegreeProgramCollectionRepository implements Degree
     public function findTranslatedCollection(CollectionCriteria $criteria, string $languageCode): PaginationAwareCollection
     {
         $query = new WP_Query();
+        $criteria = $this->querySplitter->maybeSplitQuery(
+            $criteria->withLanguage($languageCode)
+        );
+
         /** @var array<int> $ids */
         $ids = $query->query(
             $this->queryArgsBuilder
