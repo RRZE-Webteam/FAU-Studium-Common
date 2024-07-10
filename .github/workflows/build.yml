@@ -55,12 +55,3 @@ jobs:
           git tag ${{ github.ref_name }}
           git push origin --tags
 
-      - name: Git push to "dev" branch
-        run: |
-          git checkout dev
-          git pull
-          git rm -r -- assets vendor
-          git checkout main -- assets vendor
-          git commit -m "[BOT] Sync build package" --no-verify
-          git merge main 
-          git push
