@@ -30,6 +30,7 @@ class AdmissionRequirementsTest extends UnitTestCase
                     'en' => 'Link URL Bachelor EN',
                 ],
                 'parent' => null,
+                'slug' => 'name_bachelor',
             ],
             'teaching_degree_higher_semester' => [
                 'id' => 'term:6',
@@ -66,7 +67,9 @@ class AdmissionRequirementsTest extends UnitTestCase
                         'en' => '',
                     ],
                     'parent' => null,
+                    'slug' => 'frei',
                 ],
+                'slug' => 'name_higher_semester',
             ],
             'master' => [
                 'id' => 'term:7',
@@ -86,6 +89,7 @@ class AdmissionRequirementsTest extends UnitTestCase
                     'en' => 'Link URL Master EN',
                 ],
                 'parent' => null,
+                'slug' => 'name_master',
             ],
         ];
 

@@ -4,25 +4,18 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Application\Filter;
 
-/**
- * @psalm-type AdmissionRequirementType = 'frei' | 'eingeschraenkt' | 'frei-mit-einschraenkung'
- */
 final class AdmissionRequirementTypeFilter implements Filter
 {
     public const FREE = 'frei';
-    public const FREE_WITH_RESTRICTION = 'frei-mit-einschraenkung';
     public const RESTRICTED = 'eingeschraenkt';
 
     public const KEY = 'admission-requirement';
 
     /**
-     * @var array<AdmissionRequirementType>
+     * @var array<string>
      */
     private array $types;
 
-    /**
-     * @psalm-param AdmissionRequirementType $types
-     */
     private function __construct(
         string ...$types
     ) {
@@ -35,9 +28,6 @@ final class AdmissionRequirementTypeFilter implements Filter
         return self::KEY;
     }
 
-    /**
-     * @psalm-return array<AdmissionRequirementType>
-     */
     public function value(): array
     {
         return array_unique($this->types);
@@ -56,7 +46,7 @@ final class AdmissionRequirementTypeFilter implements Filter
     }
 
     /**
-     * @psalm-return ?array<AdmissionRequirementType>
+     * @return array<string>|null
      */
     private static function sanitize(mixed $value): ?array
     {
@@ -68,12 +58,9 @@ final class AdmissionRequirementTypeFilter implements Filter
             return null;
         }
 
-        /** @psalm-var array<AdmissionRequirementType> $value */
-        $value = array_filter(
+        return array_filter(
             $value,
-            static fn ($item) => in_array($item, [self::FREE, self::FREE_WITH_RESTRICTION, self::RESTRICTED], true),
+            'is_string',
         );
-
-        return $value;
     }
 }

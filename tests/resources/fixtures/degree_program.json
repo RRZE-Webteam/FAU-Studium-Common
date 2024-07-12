@@ -262,8 +262,10 @@
           "de": "",
           "en": ""
         },
-        "parent": null
-      }
+        "parent": null,
+        "slug": "frei"
+      },
+      "slug": "admission_bachelor"
     },
     "teaching_degree_higher_semester": {
       "id": "term:24",
@@ -299,8 +301,10 @@
           "de": "",
           "en": ""
         },
-        "parent": null
-      }
+        "parent": null,
+        "slug": "frei"
+      },
+      "slug": "admission_higher_semester"
     },
     "master": {
       "id": "term:19",
@@ -336,8 +340,10 @@
           "de": "",
           "en": ""
         },
-        "parent": null
-      }
+        "parent": null,
+        "slug": "nich_frei"
+      },
+      "slug": "admission_master"
     }
   },
   "content_related_master_requirements": {
