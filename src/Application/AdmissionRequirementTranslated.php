@@ -11,6 +11,7 @@ use Fau\DegreeProgram\Common\Domain\AdmissionRequirement;
  *     name: string,
  *     link_text: string,
  *     link_url: string,
+ *     slug: string
  * }
  * @psalm-type AdmissionRequirementTranslatedType = AdmissionRequirementTranslated
  *             & array{parent: AdmissionRequirementTranslated|null}
@@ -20,15 +21,17 @@ final class AdmissionRequirementTranslated
     private function __construct(
         private Link $current,
         private ?AdmissionRequirementTranslated $parent,
+        private string $slug
     ) {
     }
 
     public static function new(
         Link $current,
         ?AdmissionRequirementTranslated $parent,
+        string $slug = ''
     ): self {
 
-        return new self($current, $parent);
+        return new self($current, $parent, $slug);
     }
 
     public static function fromAdmissionRequirement(
@@ -41,6 +44,7 @@ final class AdmissionRequirementTranslated
             $admissionRequirement->parent()
                 ? self::fromAdmissionRequirement($admissionRequirement->parent(), $languageCode)
                 : null,
+            $admissionRequirement->slug()
         );
     }
 
@@ -57,10 +61,12 @@ final class AdmissionRequirementTranslated
 
         /** @var AdmissionRequirementTranslatedType|null  $parentData */
         $parentData = $data[AdmissionRequirement::PARENT];
+        $slug = $data[AdmissionRequirement::SLUG] ?? '';
 
         return new self(
             Link::fromArray($currentData),
-            $parentData ? self::fromArray($parentData) : null
+            $parentData ? self::fromArray($parentData) : null,
+            $slug
         );
     }
 
@@ -73,6 +79,7 @@ final class AdmissionRequirementTranslated
         $parentData = $this->parent?->asArray();
         $currentData = $this->current->asArray();
         $currentData[AdmissionRequirement::PARENT] = $parentData;
+        $currentData[AdmissionRequirement::SLUG] = $this->slug;
 
         return $currentData;
     }
@@ -80,6 +87,11 @@ final class AdmissionRequirementTranslated
     public function name(): string
     {
         return $this->current->name();
+    }
+
+    public function slug(): string
+    {
+        return $this->slug;
     }
 
     public function linkText(): string
