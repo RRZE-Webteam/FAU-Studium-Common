@@ -307,6 +307,7 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
         return AdmissionRequirement::new(
             $this->bilingualLinkFromTerm($term),
             $parent instanceof WP_Term ? $this->admissionRequirement($parent) : null,
+            $term->slug
         );
     }
 

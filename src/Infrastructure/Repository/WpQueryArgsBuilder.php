@@ -254,13 +254,6 @@ final class WpQueryArgsBuilder
                     'include_children' => true,
                 ],
                 [
-                    'taxonomy' => TeachingDegreeHigherSemesterAdmissionRequirementTaxonomy::KEY,
-                    'terms' => $filter->value(),
-                    'field' => 'slug',
-                    'compare' => 'IN',
-                    'include_children' => true,
-                ],
-                [
                     'taxonomy' => MasterDegreeAdmissionRequirementTaxonomy::KEY,
                     'terms' => $filter->value(),
                     'field' => 'slug',

@@ -12,6 +12,7 @@ namespace Fau\DegreeProgram\Common\Domain;
  *     name: MultilingualStringType,
  *     link_text: MultilingualStringType,
  *     link_url: MultilingualStringType,
+ *     slug: string
  * }
  *
  * @psalm-type AdmissionRequirementType = AdmissionRequirement & array{
@@ -22,6 +23,7 @@ final class AdmissionRequirement
 {
     public const ID = 'id';
     public const NAME = 'name';
+    public const SLUG = 'slug';
     public const LINK_TEXT = 'link_text';
     public const LINK_URL = 'link_url';
 
@@ -33,6 +35,7 @@ final class AdmissionRequirement
         'required' => [
             AdmissionRequirement::ID,
             AdmissionRequirement::NAME,
+            AdmissionRequirement::SLUG,
             AdmissionRequirement::LINK_TEXT,
             AdmissionRequirement::LINK_URL,
             AdmissionRequirement::PARENT,
@@ -43,6 +46,10 @@ final class AdmissionRequirement
                 'minLength' => 1,
             ],
             AdmissionRequirement::NAME => MultilingualString::SCHEMA,
+            AdmissionRequirement::SLUG => [
+                'type' => 'string',
+                'minLength' => 1,
+            ],
             AdmissionRequirement::LINK_TEXT => MultilingualString::SCHEMA,
             AdmissionRequirement::LINK_URL => MultilingualString::SCHEMA,
             AdmissionRequirement::PARENT => [
@@ -51,6 +58,7 @@ final class AdmissionRequirement
                 'required' => [
                     AdmissionRequirement::ID,
                     AdmissionRequirement::NAME,
+                    AdmissionRequirement::SLUG,
                 ],
                 'properties' => [
                     AdmissionRequirement::ID => [
@@ -58,6 +66,10 @@ final class AdmissionRequirement
                         'minLength' => 1,
                     ],
                     AdmissionRequirement::NAME => MultilingualString::SCHEMA,
+                    AdmissionRequirement::SLUG => [
+                        'type' => 'string',
+                        'minLength' => 1,
+                    ],
                 ],
             ],
         ],
@@ -69,6 +81,7 @@ final class AdmissionRequirement
         'required' => [
             AdmissionRequirement::ID,
             AdmissionRequirement::NAME,
+            AdmissionRequirement::SLUG,
             AdmissionRequirement::LINK_TEXT,
             AdmissionRequirement::LINK_URL,
         ],
@@ -78,6 +91,10 @@ final class AdmissionRequirement
                 'maxLength' => 0,
             ],
             AdmissionRequirement::NAME => MultilingualString::SCHEMA,
+            AdmissionRequirement::SLUG => [
+                'type' => 'string',
+                'maxLength' => 0,
+            ],
             AdmissionRequirement::LINK_TEXT => MultilingualString::SCHEMA,
             AdmissionRequirement::LINK_URL => MultilingualString::SCHEMA,
             AdmissionRequirement::PARENT => [
@@ -89,22 +106,25 @@ final class AdmissionRequirement
     private function __construct(
         private MultilingualLink $current,
         private ?AdmissionRequirement $parent,
+        private string $slug
     ) {
     }
 
     public static function new(
         MultilingualLink $current,
         ?AdmissionRequirement $parent,
+        string $slug = ''
     ): self {
 
-        return new self($current, $parent);
+        return new self($current, $parent, $slug);
     }
 
     public static function empty(): self
     {
         return new self(
             MultilingualLink::empty(),
-            null
+            null,
+            ''
         );
     }
 
@@ -122,10 +142,12 @@ final class AdmissionRequirement
 
         /** @var AdmissionRequirementType|null  $parentData */
         $parentData = $data[self::PARENT] ?? null;
+        $slug = $data[self::SLUG] ?? '';
 
         return new self(
             MultilingualLink::fromArray($currentData),
-            $parentData ? self::fromArray($parentData) : null
+            $parentData ? self::fromArray($parentData) : null,
+            $slug
         );
     }
 
@@ -138,6 +160,7 @@ final class AdmissionRequirement
         $parentData = $this->parent?->asArray();
         $currentData = $this->current->asArray();
         $currentData[self::PARENT] = $parentData;
+        $currentData[self::SLUG] = $this->slug;
 
         return $currentData;
     }
@@ -150,6 +173,11 @@ final class AdmissionRequirement
     public function name(): MultilingualString
     {
         return $this->current->name();
+    }
+
+    public function slug(): string
+    {
+        return $this->slug;
     }
 
     public function linkText(): MultilingualString
