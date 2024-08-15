@@ -60,7 +60,6 @@ final class CampoKeysRepository
     /**
      * Return a map of taxonomy keys to terms based on a given HIS code.
      *
-     * @throws RuntimeException
      * @return array<string, int>
      */
     public function taxonomyToTermsMapFromCampoKeys(CampoKeys $campoKeys): array
@@ -77,12 +76,7 @@ final class CampoKeysRepository
             }
 
             $term = $this->findTermByCampoKey($taxonomy, $campoKey);
-
-            if (! $term instanceof WP_Term) {
-                throw new RuntimeException('Could not find term for Campo key: ' . $campoKey);
-            }
-
-            $result[$taxonomy] = $term->term_id;
+            $result[$taxonomy] = $term instanceof WP_Term ? $term->term_id : 0;
         }
 
         return $result;
