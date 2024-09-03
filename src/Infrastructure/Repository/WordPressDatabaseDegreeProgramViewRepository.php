@@ -33,11 +33,14 @@ use WP_Post;
  */
 final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgramViewRepository
 {
+    private const DATE_TIME_FORMAT = 'Ymd\THis\Z';
+
     public function __construct(
         private DegreeProgramRepository $degreeProgramRepository,
         private HtmlDegreeProgramSanitizer $htmlContentSanitizer,
         private ConditionalFieldsFilter $conditionalFieldsFilter,
         private FacultyRepository $facultyRepository,
+        private TimestampRepository $timestampRepository,
     ) {
     }
 
@@ -100,6 +103,8 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
 
         return new DegreeProgramViewTranslated(
             id: $raw->id(),
+            date: (string) $this->timestampRepository->created($raw->id())?->format(self::DATE_TIME_FORMAT),
+            modified: (string) $this->timestampRepository->modified($raw->id())?->format(self::DATE_TIME_FORMAT),
             link: $this->link(
                 $raw->id()->asInt(),
                 $raw->slug(),
