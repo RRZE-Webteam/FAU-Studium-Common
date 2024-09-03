@@ -11,6 +11,9 @@ use Psr\Log\LoggerInterface;
 use Psr\SimpleCache\CacheInterface;
 use Psr\SimpleCache\InvalidArgumentException;
 
+/**
+ * @psalm-import-type Reason from CacheInvalidated
+ */
 final class CacheInvalidator
 {
     public function __construct(
@@ -21,7 +24,10 @@ final class CacheInvalidator
     ) {
     }
 
-    public function invalidateFully(): bool
+    /**
+     * @psalm-param Reason $reason
+     */
+    public function invalidateFully(string $reason = CacheInvalidated::ENFORCED): bool
     {
         $result = $this->cache->clear();
         if (!$result) {
@@ -30,16 +36,17 @@ final class CacheInvalidator
         }
 
         $this->logger->info('Successful degree program full cache invalidation.');
-        $this->eventDispatcher->dispatch(CacheInvalidated::fully());
+        $this->eventDispatcher->dispatch(CacheInvalidated::fully($reason));
         return true;
     }
 
     /**
      * @psalm-param array<int> $ids
+     * @psalm-param Reason $reason
      *
      * @throws InvalidArgumentException
      */
-    public function invalidatePartially(array $ids): bool
+    public function invalidatePartially(array $ids, string $reason = CacheInvalidated::ENFORCED): bool
     {
         if (count($ids) === 0) {
             $this->logger->debug(
@@ -81,7 +88,7 @@ final class CacheInvalidator
                 implode(', ', $ids)
             )
         );
-        $this->eventDispatcher->dispatch(CacheInvalidated::partially($ids));
+        $this->eventDispatcher->dispatch(CacheInvalidated::partially($ids, $reason));
 
         return true;
     }
