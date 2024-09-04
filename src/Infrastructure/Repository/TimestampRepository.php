@@ -20,9 +20,9 @@ final class TimestampRepository
     }
 
     /**
-     * The custom field is updated even if related settings or terms are updated.
-     * If the custom field is missing, we can use the native
-     * WordPress "post modified" property as a fallback.
+     * The custom field is updated when the degree program or related settings or terms are updated.
+     * If the custom field does not exist,
+     * we fall back to the core WordPress "post modified" property.
      */
     public function modified(DegreeProgramId $id): ?DateTimeInterface
     {
