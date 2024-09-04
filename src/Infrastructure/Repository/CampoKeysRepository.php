@@ -24,6 +24,8 @@ final class CampoKeysRepository
 
     public const CAMPO_KEY_TERM_META_KEY = 'uniquename';
 
+    private const HIS_CODE_DELIMITER = '|';
+
     public function degreeProgramCampoKeys(DegreeProgramId $degreeProgramId): CampoKeys
     {
         /** @var WP_Error|array<WP_Term> $terms */
@@ -62,11 +64,11 @@ final class CampoKeysRepository
      *
      * @return array<string, int>
      */
-    public function taxonomyToTermsMapFromCampoKeys(CampoKeys $campoKeys): array
+    public function taxonomyToTermsMapFromHisCode(string $hisCode): array
     {
         $result = [];
 
-        $campoKeys = $campoKeys->asArray();
+        $campoKeys = $this->campoKeysFromHisCode($hisCode);
 
         foreach (self::TAXONOMY_TO_CAMPO_KEY_MAP as $taxonomy => $campoKeyType) {
             $campoKey = $campoKeys[$campoKeyType] ?? null;
@@ -100,5 +102,17 @@ final class CampoKeysRepository
         }
 
         return $terms[0] ?? null;
+    }
+
+    public function campoKeysFromHisCode(string $hisCode): array
+    {
+        $parts = explode(self::HIS_CODE_DELIMITER, $hisCode);
+        $map = [
+            DegreeProgram::DEGREE => $parts[0] ?? null,
+            DegreeProgram::AREA_OF_STUDY => $parts[1] ?? null,
+            DegreeProgram::LOCATION => $parts[6] ?? null,
+        ];
+
+        return array_filter($map, fn($value) => !is_null($value));
     }
 }
