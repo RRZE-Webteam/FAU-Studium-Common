@@ -11,11 +11,6 @@
       <code><![CDATA[AdmissionRequirementTranslatedType]]></code>
     </InvalidReturnType>
   </file>
-  <file src="src/Application/DegreeProgramViewTranslated.php">
-    <RiskyTruthyFalsyComparison>
-      <code><![CDATA[empty($data[self::TRANSLATIONS])]]></code>
-    </RiskyTruthyFalsyComparison>
-  </file>
   <file src="src/Application/Filter/AdmissionRequirementTypeFilter.php">
     <RiskyTruthyFalsyComparison>
       <code><![CDATA[$sanitizedValue]]></code>
