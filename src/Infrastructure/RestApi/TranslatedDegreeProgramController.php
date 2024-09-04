@@ -70,6 +70,16 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'args' => $this->get_collection_params(),
             ],
         ]);
+        register_rest_route($this->namespace, '/' . $this->rest_base . '/index', [
+            [
+                'methods' => WP_REST_Server::READABLE,
+                'callback' => [$this, 'getIndex'],
+                'permission_callback' => [$this, 'get_items_permissions_check'],
+                'args' => [
+                    'lang' => self::languageParam(),
+                ],
+            ],
+        ]);
         register_rest_route($this->namespace, '/' . $this->rest_base . '/(?P<id>[\d]+)', [
             [
                 'methods' => WP_REST_Server::READABLE,
@@ -174,6 +184,38 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
         }
 
         return $response;
+    }
+
+    public function getIndex(WP_REST_Request $request): WP_Error|WP_REST_Response
+    {
+        $criteria = CollectionCriteria::new()
+            ->withoutPagination();
+
+        $views = $this->degreeProgramCollectionRepository->findTranslatedCollection(
+            $criteria,
+            $this->requestedLanguage($request)
+        );
+
+        if (!$views instanceof PaginationAwareCollection) {
+            return new WP_Error(
+                'unexpected_error',
+                _x(
+                    'Something went wrong. Please try again later.',
+                    'rest_api: response status',
+                    'fau-degree-program-common'
+                ),
+                ['status' => 500]
+            );
+        }
+
+        $data = [];
+        foreach ($views as $view) {
+            $data[] = $this->prepare_response_for_collection(
+                new WP_REST_Response($view->asSimplifiedArray())
+            );
+        }
+
+        return new WP_REST_Response($data);
     }
 
     /**
@@ -314,6 +356,24 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                     'fau-degree-program-common'
                 ),
                 'type' => 'integer',
+            ],
+            DegreeProgramViewTranslated::DATE => [
+                'description' => _x(
+                    'The date the degree program was created.',
+                    'rest_api: schema item description',
+                    'fau-degree-program-common'
+                ),
+                'type' => 'string',
+                'format' => 'date-time',
+            ],
+            DegreeProgramViewTranslated::MODIFIED => [
+                'description' => _x(
+                    'The date the degree program was last modified.',
+                    'rest_api: schema item description',
+                    'fau-degree-program-common'
+                ),
+                'type' => 'string',
+                'format' => 'date-time',
             ],
             DegreeProgram::FEATURED_IMAGE => [
                 'description' => _x(

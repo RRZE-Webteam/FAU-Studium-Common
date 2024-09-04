@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fau\DegreeProgram\Common\Infrastructure\Repository;
 
+use DateTimeInterface;
 use Fau\DegreeProgram\Common\Application\AdmissionRequirementsTranslated;
 use Fau\DegreeProgram\Common\Application\AdmissionRequirementTranslated;
 use Fau\DegreeProgram\Common\Application\ConditionalFieldsFilter;
@@ -33,11 +34,14 @@ use WP_Post;
  */
 final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgramViewRepository
 {
+    private const DATE_TIME_FORMAT = DateTimeInterface::RFC3339;
+
     public function __construct(
         private DegreeProgramRepository $degreeProgramRepository,
         private HtmlDegreeProgramSanitizer $htmlContentSanitizer,
         private ConditionalFieldsFilter $conditionalFieldsFilter,
         private FacultyRepository $facultyRepository,
+        private TimestampRepository $timestampRepository,
     ) {
     }
 
@@ -100,6 +104,8 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
 
         return new DegreeProgramViewTranslated(
             id: $raw->id(),
+            date: (string) $this->timestampRepository->created($raw->id())?->format(self::DATE_TIME_FORMAT),
+            modified: (string) $this->timestampRepository->modified($raw->id())?->format(self::DATE_TIME_FORMAT),
             link: $this->link(
                 $raw->id()->asInt(),
                 $raw->slug(),
