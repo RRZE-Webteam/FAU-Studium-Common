@@ -377,6 +377,18 @@ final class DegreeProgramViewTranslated implements JsonSerializable
         ];
     }
 
+    public function asSimplifiedArray(): array
+    {
+        return [
+            DegreeProgram::ID => $this->id->asInt(),
+            DegreeProgram::SLUG => $this->slug,
+            self::LINK => $this->link,
+            DegreeProgram::CAMPO_KEYS => $this->campoKeys->asArray(),
+            self::DATE => $this->date,
+            self::MODIFIED => $this->modified,
+        ];
+    }
+
     public function jsonSerialize(): array
     {
         return $this->asArray();
