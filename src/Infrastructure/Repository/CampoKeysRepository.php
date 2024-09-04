@@ -51,7 +51,7 @@ final class CampoKeysRepository
                 continue;
             }
 
-            $map[$campoKeyType] = $campoKey;
+            $map[$campoKeyType][$term->term_id] = $campoKey;
         }
 
         return CampoKeys::fromArray($map);
@@ -69,9 +69,9 @@ final class CampoKeysRepository
         $campoKeys = $campoKeys->asArray();
 
         foreach (self::TAXONOMY_TO_CAMPO_KEY_MAP as $taxonomy => $campoKeyType) {
-            $campoKey = $campoKeys[$campoKeyType] ?? '';
+            $campoKey = $campoKeys[$campoKeyType] ?? null;
 
-            if ($campoKey === '') {
+            if (!is_string($campoKey) || $campoKey === '') {
                 continue;
             }
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Fau\DegreeProgram\Common\Domain;
 
 /**
- * @psalm-type CampoKeysMap = array<value-of<self::SUPPORTED_CAMPO_KEYS>, string>
+ * @psalm-type CampoKeysMap = array<value-of<self::SUPPORTED_CAMPO_KEYS>, array<int, string>|string>
  */
 final class CampoKeys
 {
@@ -13,13 +13,13 @@ final class CampoKeys
         'type' => 'object',
         'properties' => [
             DegreeProgram::DEGREE => [
-                'type' => 'string',
+                'type' => 'array',
             ],
             DegreeProgram::AREA_OF_STUDY => [
-                'type' => 'string',
+                'type' => 'array',
             ],
             DegreeProgram::LOCATION => [
-                'type' => 'string',
+                'type' => 'array',
             ],
         ],
     ];
@@ -28,13 +28,13 @@ final class CampoKeys
         'type' => 'object',
         'properties' => [
             DegreeProgram::DEGREE => [
-                'type' => 'string',
+                'type' => 'array',
             ],
             DegreeProgram::AREA_OF_STUDY => [
-                'type' => 'string',
+                'type' => 'array',
             ],
             DegreeProgram::LOCATION => [
-                'type' => 'string',
+                'type' => 'array',
             ],
         ],
     ];
