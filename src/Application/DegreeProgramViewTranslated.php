@@ -239,8 +239,8 @@ final class DegreeProgramViewTranslated implements JsonSerializable
     {
         $main = new self(
             id: DegreeProgramId::fromInt((int) $data[DegreeProgram::ID]),
-            date: $data[self::DATE],
-            modified: $data[self::MODIFIED],
+            date: $data[self::DATE] ?? '',
+            modified: $data[self::MODIFIED] ?? '',
             link: $data[self::LINK],
             slug: $data[DegreeProgram::SLUG],
             lang: $data[self::LANG],

@@ -19,19 +19,27 @@ final class TimestampRepository
         return $postDateTime instanceof DateTimeInterface ? $postDateTime : null;
     }
 
+    /**
+     * The custom field is updated even if related settings or terms are updated.
+     * If the custom field is missing, we can use the native
+     * WordPress "post modified" property as a fallback.
+     */
     public function modified(DegreeProgramId $id): ?DateTimeInterface
     {
         $timestamp = (int) get_post_meta($id->asInt(), self::MODIFIED_META_KEY, true);
 
         if ($timestamp < 1) {
+            $timestamp = get_post_timestamp($id->asInt(), 'modified');
+        }
+
+        if (!is_int($timestamp)) {
             return null;
         }
 
         $dateTime = new DateTimeImmutable();
-        $dateTime->setTimestamp($timestamp);
-        $dateTime->setTimezone(wp_timezone());
+        $dateTime = $dateTime->setTimestamp($timestamp);
 
-        return $dateTime;
+        return $dateTime->setTimezone(wp_timezone());
     }
 
     public function updateModified(DegreeProgramId $id): void
