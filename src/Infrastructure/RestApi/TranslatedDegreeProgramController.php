@@ -315,6 +315,24 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 ),
                 'type' => 'integer',
             ],
+            DegreeProgramViewTranslated::DATE => [
+                'description' => _x(
+                    'The date the degree program was created.',
+                    'rest_api: schema item description',
+                    'fau-degree-program-common'
+                ),
+                'type' => 'string',
+                'format' => 'date-time',
+            ],
+            DegreeProgramViewTranslated::MODIFIED => [
+                'description' => _x(
+                    'The date the degree program was last modified.',
+                    'rest_api: schema item description',
+                    'fau-degree-program-common'
+                ),
+                'type' => 'string',
+                'format' => 'date-time',
+            ],
             DegreeProgram::FEATURED_IMAGE => [
                 'description' => _x(
                     'Feature image.',

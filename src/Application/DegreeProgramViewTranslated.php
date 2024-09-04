@@ -79,11 +79,15 @@ use JsonSerializable;
  * }
  * @psalm-type DegreeProgramViewTranslatedArrayType = DegreeProgramTranslation & array{
  *      id: int,
+ *      date: string,
+ *      modified: string,
  *      translations: array<LanguageCodes, DegreeProgramTranslation>,
  * }
  */
 final class DegreeProgramViewTranslated implements JsonSerializable
 {
+    public const DATE = 'date';
+    public const MODIFIED = 'modified';
     public const LINK = 'link';
     public const LANG = 'lang';
     public const ADMISSION_REQUIREMENT_LINK = 'admission_requirement_link';
@@ -94,6 +98,8 @@ final class DegreeProgramViewTranslated implements JsonSerializable
 
     public function __construct(
         private DegreeProgramId $id,
+        private string $date,
+        private string $modified,
         private string $link,
         private string $slug,
         /**
@@ -160,6 +166,8 @@ final class DegreeProgramViewTranslated implements JsonSerializable
     {
         return new self(
             DegreeProgramId::fromInt($id),
+            date: '',
+            modified: '',
             link: '',
             slug: '',
             lang: $languageCode,
@@ -220,6 +228,8 @@ final class DegreeProgramViewTranslated implements JsonSerializable
     /**
      * @psalm-param DegreeProgramTranslation & array{
      *      id: int | numeric-string,
+     *      date: string,
+     *      modified: string,
      *      translations?: array<LanguageCodes, DegreeProgramTranslation>,
      * } $data
      *
@@ -229,6 +239,8 @@ final class DegreeProgramViewTranslated implements JsonSerializable
     {
         $main = new self(
             id: DegreeProgramId::fromInt((int) $data[DegreeProgram::ID]),
+            date: $data[self::DATE] ?? '',
+            modified: $data[self::MODIFIED] ?? '',
             link: $data[self::LINK],
             slug: $data[DegreeProgram::SLUG],
             lang: $data[self::LANG],
@@ -285,12 +297,14 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             campoKeys: CampoKeys::fromArray($data[DegreeProgram::CAMPO_KEYS] ?? []),
         );
 
-        if (empty($data[self::TRANSLATIONS])) {
+        if (!isset($data[self::TRANSLATIONS]) || count($data[self::TRANSLATIONS]) === 0) {
             return $main;
         }
 
         foreach ($data[self::TRANSLATIONS] as $translationData) {
             $translationData[DegreeProgram::ID] = $data[DegreeProgram::ID];
+            $translationData[self::DATE] = $data[self::DATE];
+            $translationData[self::MODIFIED] = $data[self::MODIFIED];
             $main = $main->withTranslation(self::fromArray($translationData), $translationData[self::LANG]);
         }
 
@@ -304,6 +318,8 @@ final class DegreeProgramViewTranslated implements JsonSerializable
     {
         return [
             DegreeProgram::ID => $this->id->asInt(),
+            self::DATE => $this->date,
+            self::MODIFIED => $this->modified,
             self::LINK => $this->link,
             DegreeProgram::SLUG => $this->slug,
             self::LANG => $this->lang,
@@ -408,7 +424,12 @@ final class DegreeProgramViewTranslated implements JsonSerializable
     {
         return array_map(static function (DegreeProgramViewTranslated $view): array {
             $result = $view->asArray();
-            unset($result[DegreeProgram::ID], $result[self::TRANSLATIONS]);
+            unset(
+                $result[DegreeProgram::ID],
+                $result[self::DATE],
+                $result[self::MODIFIED],
+                $result[self::TRANSLATIONS]
+            );
 
             return $result;
         }, $this->translations);
@@ -417,6 +438,16 @@ final class DegreeProgramViewTranslated implements JsonSerializable
     public function id(): int
     {
         return $this->id->asInt();
+    }
+
+    public function date(): string
+    {
+        return $this->date;
+    }
+
+    public function modified(): string
+    {
+        return $this->modified;
     }
 
     public function link(): string
