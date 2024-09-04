@@ -75,6 +75,9 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 'methods' => WP_REST_Server::READABLE,
                 'callback' => [$this, 'getIndex'],
                 'permission_callback' => [$this, 'get_items_permissions_check'],
+                'args' => [
+                    'lang' => self::languageParam(),
+                ],
             ],
         ]);
         register_rest_route($this->namespace, '/' . $this->rest_base . '/(?P<id>[\d]+)', [
@@ -190,7 +193,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
 
         $views = $this->degreeProgramCollectionRepository->findTranslatedCollection(
             $criteria,
-            MultilingualString::DE
+            $this->requestedLanguage($request)
         );
 
         if (!$views instanceof PaginationAwareCollection) {
