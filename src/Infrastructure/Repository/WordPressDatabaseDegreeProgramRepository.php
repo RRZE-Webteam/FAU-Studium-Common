@@ -182,7 +182,7 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
                 true
             ),
             germanLanguageSkillsForInternationalStudents: $this->bilingualLinkFromTerm(
-                $this->firstTerm(
+                $this->firstTopTerm(
                     $post,
                     GermanLanguageSkillsForInternationalStudentsTaxonomy::KEY,
                 )
@@ -271,6 +271,27 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
         }
 
         return $terms[0];
+    }
+
+    private function firstTopTerm(WP_Post $post, string $taxonomy): ?WP_Term
+    {
+        $terms = get_the_terms($post, $taxonomy);
+
+        if (!is_array($terms)) {
+            return null;
+        }
+
+        if (!isset($terms[0]) || !$terms[0] instanceof WP_Term) {
+            return null;
+        }
+
+        if (!$terms[0]->parent) {
+            return $terms[0];
+        }
+
+        $parent = get_term($terms[0]->parent);
+
+        return $parent instanceof WP_Term ? $parent : $terms[0];
     }
 
     private function degree(WP_Post $post): Degree
