@@ -270,31 +270,28 @@ final class WpQueryArgsBuilder
 
     private function applySearchFilter(SearchKeywordFilter $filter, WpQueryArgs $queryArgs, ?string $languageCode = null): WpQueryArgs
     {
-        if (!$languageCode) {
-            return $queryArgs->withMetaQueryItem(
-                [
-                    'relation' => 'OR',
-                    [
-                        'key' => 'fau_degree_program_searchable_content_' . MultilingualString::EN,
-                        'value' => $filter->value(),
-                        'compare' => 'LIKE',
-                    ],
-                    [
-                        'key' => 'fau_degree_program_searchable_content_' . MultilingualString::DE,
-                        'value' => $filter->value(),
-                        'compare' => 'LIKE',
-                    ],
-                ]
-            );
-        }
+        $keywords = array_filter(array_map('trim', explode(' ', $filter->value())));
+        $metaKeyPrefix = 'fau_degree_program_searchable_content_';
+        $metaKeys = $languageCode
+            ? [$metaKeyPrefix . $languageCode]
+            : [$metaKeyPrefix . MultilingualString::EN, $metaKeyPrefix . MultilingualString::DE];
 
-        return $queryArgs->withMetaQueryItem(
-            [
-                'key' => 'fau_degree_program_searchable_content_' . $languageCode,
-                'value' => $filter->value(),
-                'compare' => 'LIKE',
-            ]
-        );
+        $metaQuery = array_reduce($keywords, static function ($metaQuery, $keyword) use ($metaKeys): array {
+            $keywordConditions = array_values(array_map(
+                static fn($key) => [
+                    'key' => $key,
+                    'value' => $keyword,
+                    'compare' => 'LIKE',
+                ],
+                $metaKeys
+            ));
+
+            $metaQuery[] = ['relation' => 'OR'] + $keywordConditions;
+
+            return $metaQuery;
+        }, ['relation' => 'AND']);
+
+        return $queryArgs->withMetaQueryItem($metaQuery);
     }
 
     private function currentTerm(CollectionCriteria $criteria): ?WP_Term
