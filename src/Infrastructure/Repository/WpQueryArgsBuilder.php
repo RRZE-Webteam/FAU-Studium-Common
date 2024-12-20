@@ -17,15 +17,12 @@ use Fau\DegreeProgram\Common\Application\Filter\StudyLocationFilter;
 use Fau\DegreeProgram\Common\Application\Filter\SubjectGroupFilter;
 use Fau\DegreeProgram\Common\Application\Filter\TeachingLanguageFilter;
 use Fau\DegreeProgram\Common\Application\Repository\CollectionCriteria;
-use Fau\DegreeProgram\Common\Domain\CampoKeys;
 use Fau\DegreeProgram\Common\Domain\DegreeProgram;
 use Fau\DegreeProgram\Common\Domain\MultilingualString;
 use Fau\DegreeProgram\Common\Infrastructure\Content\PostType\DegreeProgramPostType;
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\BachelorOrTeachingDegreeAdmissionRequirementTaxonomy;
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\MasterDegreeAdmissionRequirementTaxonomy;
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\TaxonomiesList;
-use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\TeachingDegreeHigherSemesterAdmissionRequirementTaxonomy;
-use RuntimeException;
 use WP_Term;
 
 /**
@@ -272,19 +269,19 @@ final class WpQueryArgsBuilder
     {
         $keywords = array_filter(array_map('trim', explode(' ', $filter->value())));
         $metaKeyPrefix = 'fau_degree_program_searchable_content_';
-        $metaKeys = $languageCode
+        $metaKeys = is_string($languageCode) && $languageCode
             ? [$metaKeyPrefix . $languageCode]
             : [$metaKeyPrefix . MultilingualString::EN, $metaKeyPrefix . MultilingualString::DE];
 
-        $metaQuery = array_reduce($keywords, static function ($metaQuery, $keyword) use ($metaKeys): array {
-            $keywordConditions = array_values(array_map(
+        $metaQuery = array_reduce($keywords, static function (array $metaQuery, string $keyword) use ($metaKeys): array {
+            $keywordConditions = array_map(
                 static fn($key) => [
                     'key' => $key,
                     'value' => $keyword,
                     'compare' => 'LIKE',
                 ],
                 $metaKeys
-            ));
+            );
 
             $metaQuery[] = ['relation' => 'OR'] + $keywordConditions;
 
