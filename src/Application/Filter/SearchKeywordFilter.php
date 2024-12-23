@@ -8,7 +8,7 @@ final class SearchKeywordFilter implements Filter
 {
     public const KEY = 'search';
 
-    public function __construct(private string $keyword)
+    public function __construct(private string $keyword, private bool $extended = false)
     {
     }
 
@@ -31,6 +31,11 @@ final class SearchKeywordFilter implements Filter
     public static function empty(): static
     {
         return new self('');
+    }
+
+    public function extended(): bool
+    {
+        return $this->extended;
     }
 
     private static function sanitize(mixed $value): ?string

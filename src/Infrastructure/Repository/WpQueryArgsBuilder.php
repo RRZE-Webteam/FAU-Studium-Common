@@ -268,10 +268,13 @@ final class WpQueryArgsBuilder
     private function applySearchFilter(SearchKeywordFilter $filter, WpQueryArgs $queryArgs, ?string $languageCode = null): WpQueryArgs
     {
         $keywords = array_filter(array_map('trim', explode(' ', $filter->value())));
-        $metaKeyPrefix = 'fau_degree_program_searchable_content_';
-        $metaKeys = is_string($languageCode) && $languageCode
-            ? [$metaKeyPrefix . $languageCode]
-            : [$metaKeyPrefix . MultilingualString::EN, $metaKeyPrefix . MultilingualString::DE];
+        $metaKeyPrefixes = ['fau_degree_program_searchable_content_'];
+
+        if ($filter->extended()) {
+            $metaKeyPrefixes[] = 'fau_degree_program_searchable_content_extended_';
+        }
+
+        $metaKeys = $this->generateMetaKeys($metaKeyPrefixes, $languageCode);
 
         $metaQuery = array_reduce($keywords, static function (array $metaQuery, string $keyword) use ($metaKeys): array {
             $keywordConditions = array_map(
@@ -289,6 +292,22 @@ final class WpQueryArgsBuilder
         }, ['relation' => 'AND']);
 
         return $queryArgs->withMetaQueryItem($metaQuery);
+    }
+
+    private function generateMetaKeys(array $prefixes, ?string $languageCode): array
+    {
+        $metaKeys = [];
+
+        foreach ($prefixes as $prefix) {
+            if ($languageCode) {
+                $metaKeys[] = $prefix . $languageCode;
+            } else {
+                $metaKeys[] = $prefix . MultilingualString::EN;
+                $metaKeys[] = $prefix . MultilingualString::DE;
+            }
+        }
+
+        return $metaKeys;
     }
 
     private function currentTerm(CollectionCriteria $criteria): ?WP_Term

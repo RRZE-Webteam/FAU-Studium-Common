@@ -109,7 +109,8 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
             ->withPerPage((int) $request->get_param('per_page'))
             ->addFilter(
                 new SearchKeywordFilter(
-                    (string) $request->get_param('search')
+                    (string) $request->get_param('search'),
+                    (bool) $request->get_param('extended')
                 ),
                 AdmissionRequirementTypeFilter::fromInput((array) $request->get_param(AdmissionRequirementTypeFilter::KEY)),
                 AreaOfStudyFilter::fromInput((array) $request->get_param(AreaOfStudyFilter::KEY)),
@@ -323,6 +324,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
             'per_page' => $perPage,
             'search' => $search,
             'lang' => self::languageParam(),
+            'extended' => self::extendedParam()
         ];
     }
 
@@ -336,6 +338,19 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
             ),
             'type' => 'string',
             'default' => MultilingualString::DE,
+        ];
+    }
+
+    private static function extendedParam(): array
+    {
+        return [
+            'description' => _x(
+                'Determine whether the search should include additional data.',
+                'rest_api: schema item description',
+                'fau-degree-program-common'
+            ),
+            'type' => 'bool',
+            'default' => false,
         ];
     }
 
