@@ -324,7 +324,7 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
             'per_page' => $perPage,
             'search' => $search,
             'lang' => self::languageParam(),
-            'extended' => self::extendedParam()
+            'extended' => self::extendedParam(),
         ];
     }
 

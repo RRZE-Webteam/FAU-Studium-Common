@@ -298,13 +298,15 @@ final class WpQueryArgsBuilder
     {
         $metaKeys = [];
 
+        /** @var string[] $prefixes */
         foreach ($prefixes as $prefix) {
-            if ($languageCode) {
+            if (is_string($languageCode) && $languageCode) {
                 $metaKeys[] = $prefix . $languageCode;
-            } else {
-                $metaKeys[] = $prefix . MultilingualString::EN;
-                $metaKeys[] = $prefix . MultilingualString::DE;
+                continue;
             }
+
+            $metaKeys[] = $prefix . MultilingualString::EN;
+            $metaKeys[] = $prefix . MultilingualString::DE;
         }
 
         return $metaKeys;
