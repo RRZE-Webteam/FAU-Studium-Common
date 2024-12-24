@@ -8,11 +8,12 @@ use Fau\DegreeProgram\Common\Domain\AdmissionRequirement;
 use Fau\DegreeProgram\Common\Domain\MultilingualLink;
 
 /**
- * @psalm-type LinkType = array{
+ * @psalm-type Link = array{
  *     name: string,
  *     link_text: string,
  *     link_url: string,
  * }
+ * @psalm-type LinkType = Link & array{parent?: Link|null}
  */
 final class Link
 {
@@ -20,6 +21,7 @@ final class Link
         private string $name,
         private string $linkText,
         private string $linkUrl,
+        private ?Link $parent,
     ) {
     }
 
@@ -27,15 +29,16 @@ final class Link
         string $name,
         string $linkText,
         string $linkUrl,
+        ?Link $parent = null
     ): self {
 
-        return new self($name, $linkText, $linkUrl);
+        return new self($name, $linkText, $linkUrl, $parent);
     }
 
     public static function empty(): self
     {
 
-        return new self('', '', '');
+        return new self('', '', '', null);
     }
 
     public static function fromMultilingualLink(
@@ -47,6 +50,7 @@ final class Link
             $multilingualLink->name()->asString($languageCode),
             $multilingualLink->linkText()->asString($languageCode),
             $multilingualLink->linkUrl()->asString($languageCode),
+            !is_null($multilingualLink->parent()) ? self::fromMultilingualLink($multilingualLink->parent(), $languageCode) : null,
         );
     }
 
@@ -55,10 +59,14 @@ final class Link
      */
     public static function fromArray(array $data): self
     {
+        /** @var Link|null $parentData */
+        $parentData = $data[MultilingualLink::PARENT] ?? null;
+
         return new self(
             $data[MultilingualLink::NAME],
             $data[MultilingualLink::LINK_TEXT],
             $data[MultilingualLink::LINK_URL],
+            !empty($parentData) ? self::fromArray($parentData) : null,
         );
     }
 
@@ -77,15 +85,24 @@ final class Link
         return $this->linkUrl;
     }
 
+    public function parent(): ?Link
+    {
+        return $this->parent;
+    }
+
     /**
      * @return LinkType $data
      */
     public function asArray(): array
     {
+        /** @var Link|null $parentData */
+        $parentData = $this->parent?->asArray();
+
         return [
             MultilingualLink::NAME => $this->name,
             MultilingualLink::LINK_TEXT => $this->linkText,
             MultilingualLink::LINK_URL => $this->linkUrl,
+            MultilingualLink::PARENT => $parentData,
         ];
     }
 

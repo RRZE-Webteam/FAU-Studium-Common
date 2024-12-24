@@ -103,7 +103,8 @@
         "id": "term_meta:11:link_url",
         "de": "https:\/\/fau.localhost\/faculty-math",
         "en": "https:\/\/fau.localhost\/faculty-math-en"
-      }
+      },
+      "parent": null
     }
   ],
   "location": [
@@ -380,6 +381,25 @@
       "id": "term_meta:16:link_url",
       "de": "https:\/\/fau.localhost\/german-language-skills-international-students",
       "en": "https:\/\/fau.localhost\/german-language-skills-international-students-en"
+    },
+    "parent": {
+      "id": "term:12",
+      "name": {
+        "id": "term:12:name",
+        "de": "German language skills for international students (parent)",
+        "en": "German language skills for international students EN (parent)"
+      },
+      "link_text": {
+        "id": "term_meta:12:link_text",
+        "de": "Link to german language skills for international students (parent)",
+        "en": "Link to german language skills for international students EN (parent)"
+      },
+      "link_url": {
+        "id": "term_meta:12:link_url",
+        "de": "https:\/\/fau.localhost\/german-language-skills-international-students-parent",
+        "en": "https:\/\/fau.localhost\/german-language-skills-international-students-en-parent"
+      },
+      "parent": null
     }
   },
   "start_of_semester": {
@@ -398,7 +418,8 @@
       "id": "option:fau_start_of_semester:link_url",
       "de": "https:\/\/fau.localhost\/start-of-semester",
       "en": "https:\/\/fau.localhost\/start-of-semester-en"
-    }
+    },
+    "parent": null
   },
   "semester_dates": {
     "id": "option:fau_semester_dates",
@@ -416,7 +437,8 @@
       "id": "option:fau_semester_dates:link_url",
       "de": "https:\/\/fau.localhost\/semester-dates",
       "en": "https:\/\/fau.localhost\/semester-dates-en"
-    }
+    },
+    "parent": null
   },
   "examinations_office": {
     "id": "term:15",
@@ -434,7 +456,8 @@
       "id": "term_meta:15:link_url",
       "de": "https:\/\/fau.localhost\/examinations-office",
       "en": "https:\/\/fau.localhost\/examinations-office-en"
-    }
+    },
+    "parent": null
   },
   "examination_regulations": "https://fau.localhost/examinations-regulations",
   "module_handbook": "Module handbook value",
@@ -464,7 +487,8 @@
       "id": "option:fau_student_advice:link_url",
       "de": "https:\/\/fau.localhost\/career-service",
       "en": "https:\/\/fau.localhost\/career-service-en"
-    }
+    },
+    "parent": null
   },
   "subject_specific_advice": {
     "id": "term:6",
@@ -482,7 +506,8 @@
       "id": "term_meta:6:link_url",
       "de": "https:\/\/fau.localhost\/advice",
       "en": "https:\/\/fau.localhost\/advice-en"
-    }
+    },
+    "parent": null
   },
   "service_centers": {
     "id": "option:fau_service_centers",
@@ -500,7 +525,8 @@
       "id": "option:fau_service_centers:link_url",
       "de": "https:\/\/fau.localhost\/counseling",
       "en": "https:\/\/fau.localhost\/counseling-en"
-    }
+    },
+    "parent": null
   },
   "info_brochure": "Info Brochure 2023",
   "semester_fee": {
@@ -519,7 +545,8 @@
       "id": "option:fau_semester_fee:link_url",
       "de": "https:\/\/fau.localhost\/semester-fee",
       "en": "https:\/\/fau.localhost\/semester-fee-en"
-    }
+    },
+    "parent": null
   },
   "degree_program_fees": {
     "id": "post_meta:25:degree_program_fees",
@@ -542,7 +569,8 @@
       "id": "option:fau_abroad_opportunities:link_url",
       "de": "https:\/\/fau.localhost\/abroad",
       "en": "https:\/\/fau.localhost\/abroad-en"
-    }
+    },
+    "parent": null
   },
   "keywords": [
     {
@@ -573,7 +601,8 @@
         "id": "term_meta:3:link_url",
         "de": "https:\/\/fau.localhost\/biology",
         "en": "https:\/\/fau.localhost\/biology-en"
-      }
+      },
+      "parent": null
     },
     {
       "id": "term:38",
@@ -591,7 +620,8 @@
         "id": "term_meta:38:link_url",
         "de": "https:\/\/fau.localhost\/biology-math",
         "en": "https:\/\/fau.localhost\/biology-math-en"
-      }
+      },
+      "parent": null
     }
   ],
   "combinations": [
@@ -617,7 +647,8 @@
       "id": "option:fau_notes_for_international_applicants:link_url",
       "de": "https:\/\/fau.localhost\/notes-for-intl-applicants",
       "en": "https:\/\/fau.localhost\/notes-for-intl-applicants-en"
-    }
+    },
+    "parent": null
   },
   "student_initiatives": {
     "id": "option:student_initiatives",
@@ -635,7 +666,8 @@
       "id": "option:student_initiatives:link_url",
       "de": "https:\/\/fau.localhost\/fsi",
       "en": "https:\/\/fau.localhost\/fsi-en"
-    }
+    },
+    "parent": null
   },
   "apply_now_link": {
     "id": "term:39",
@@ -653,7 +685,8 @@
       "id": "term_meta:39:link_url",
       "de": "https://campo.fau.de",
       "en": "https://campo.fau.de"
-    }
+    },
+    "parent": null
   },
   "entry_text": {
     "id": "post_meta:25:entry_text",

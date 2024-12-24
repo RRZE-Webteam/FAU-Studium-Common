@@ -125,13 +125,16 @@ abstract class BilingualRepository
         );
     }
 
-    final protected function bilingualLinkFromTerm(?WP_Term $term): MultilingualLink
+    final protected function bilingualLinkFromTerm(?WP_Term $term, string $taxonomy): MultilingualLink
     {
+        $parentTerm = $term instanceof WP_Term && $term->parent ? get_term($term->parent, $taxonomy) : null;
+
         return MultilingualLink::new(
             $term instanceof WP_Term ? $this->idGenerator->generateTermId($term) : '',
             name: $this->bilingualTermName($term),
             linkText: $this->bilingualTermMeta($term, MultilingualLink::LINK_TEXT),
             linkUrl: $this->bilingualTermMeta($term, MultilingualLink::LINK_URL),
+            parent: $parentTerm instanceof WP_Term ? $this->bilingualLinkFromTerm($parentTerm, $taxonomy) : null,
         );
     }
 
@@ -144,7 +147,7 @@ abstract class BilingualRepository
 
         $links = [];
         foreach ($terms as $term) {
-            $links[] = $this->bilingualLinkFromTerm($term);
+            $links[] = $this->bilingualLinkFromTerm($term, $taxonomy);
         }
 
         return MultilingualLinks::new(...$links);
