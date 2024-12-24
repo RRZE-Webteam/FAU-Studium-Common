@@ -28,7 +28,7 @@ class MultilingualLinkTest extends TestCase
                 'de' => 'https://fau.localhost/faculty-math',
                 'en' => 'https://fau.localhost/faculty-math-en',
             ],
-            'parent' => null
+            'parent' => null,
         ];
 
         $sut = MultilingualLink::fromArray($array);
