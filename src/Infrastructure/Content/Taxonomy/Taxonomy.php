@@ -48,6 +48,20 @@ abstract class Taxonomy
         );
     }
 
+    final public static function editableOnly(): static
+    {
+        return self::default()->merge(
+            [
+                'public' => false,
+                'show_ui' => true,
+                'show_in_menu' => true,
+                'show_in_nav_menus' => false,
+                'show_in_rest' => true,
+                'meta_box_cb' => false,
+            ]
+        );
+    }
+
     final public function args(): array
     {
         return $this->args;
