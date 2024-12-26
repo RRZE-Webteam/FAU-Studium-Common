@@ -38,7 +38,6 @@
   </file>
   <file src="src/Infrastructure/Repository/WpQueryArgsBuilder.php">
     <RiskyTruthyFalsyComparison>
-      <code><![CDATA[!$languageCode]]></code>
       <code><![CDATA[!$orderBy]]></code>
       <code><![CDATA[!$taxonomy]]></code>
       <code><![CDATA[$languageCode]]></code>

@@ -17,15 +17,12 @@ use Fau\DegreeProgram\Common\Application\Filter\StudyLocationFilter;
 use Fau\DegreeProgram\Common\Application\Filter\SubjectGroupFilter;
 use Fau\DegreeProgram\Common\Application\Filter\TeachingLanguageFilter;
 use Fau\DegreeProgram\Common\Application\Repository\CollectionCriteria;
-use Fau\DegreeProgram\Common\Domain\CampoKeys;
 use Fau\DegreeProgram\Common\Domain\DegreeProgram;
 use Fau\DegreeProgram\Common\Domain\MultilingualString;
 use Fau\DegreeProgram\Common\Infrastructure\Content\PostType\DegreeProgramPostType;
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\BachelorOrTeachingDegreeAdmissionRequirementTaxonomy;
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\MasterDegreeAdmissionRequirementTaxonomy;
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\TaxonomiesList;
-use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\TeachingDegreeHigherSemesterAdmissionRequirementTaxonomy;
-use RuntimeException;
 use WP_Term;
 
 /**
@@ -270,31 +267,28 @@ final class WpQueryArgsBuilder
 
     private function applySearchFilter(SearchKeywordFilter $filter, WpQueryArgs $queryArgs, ?string $languageCode = null): WpQueryArgs
     {
-        if (!$languageCode) {
-            return $queryArgs->withMetaQueryItem(
-                [
-                    'relation' => 'OR',
-                    [
-                        'key' => 'fau_degree_program_searchable_content_' . MultilingualString::EN,
-                        'value' => $filter->value(),
-                        'compare' => 'LIKE',
-                    ],
-                    [
-                        'key' => 'fau_degree_program_searchable_content_' . MultilingualString::DE,
-                        'value' => $filter->value(),
-                        'compare' => 'LIKE',
-                    ],
-                ]
-            );
-        }
+        $keywords = array_filter(array_map('trim', explode(' ', $filter->value())));
+        $metaKeyPrefix = 'fau_degree_program_searchable_content_';
+        $metaKeys = is_string($languageCode) && $languageCode
+            ? [$metaKeyPrefix . $languageCode]
+            : [$metaKeyPrefix . MultilingualString::EN, $metaKeyPrefix . MultilingualString::DE];
 
-        return $queryArgs->withMetaQueryItem(
-            [
-                'key' => 'fau_degree_program_searchable_content_' . $languageCode,
-                'value' => $filter->value(),
-                'compare' => 'LIKE',
-            ]
-        );
+        $metaQuery = array_reduce($keywords, static function (array $metaQuery, string $keyword) use ($metaKeys): array {
+            $keywordConditions = array_map(
+                static fn($key) => [
+                    'key' => $key,
+                    'value' => $keyword,
+                    'compare' => 'LIKE',
+                ],
+                $metaKeys
+            );
+
+            $metaQuery[] = ['relation' => 'OR'] + $keywordConditions;
+
+            return $metaQuery;
+        }, ['relation' => 'AND']);
+
+        return $queryArgs->withMetaQueryItem($metaQuery);
     }
 
     private function currentTerm(CollectionCriteria $criteria): ?WP_Term
