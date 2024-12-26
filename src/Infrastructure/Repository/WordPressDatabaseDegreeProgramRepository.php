@@ -146,21 +146,18 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
                         $post,
                         BachelorOrTeachingDegreeAdmissionRequirementTaxonomy::KEY,
                     ),
-                    BachelorOrTeachingDegreeAdmissionRequirementTaxonomy::KEY,
                 ),
                 teachingDegreeHigherSemester: $this->admissionRequirement(
                     $this->firstTerm(
                         $post,
                         TeachingDegreeHigherSemesterAdmissionRequirementTaxonomy::KEY,
                     ),
-                    TeachingDegreeHigherSemesterAdmissionRequirementTaxonomy::KEY,
                 ),
                 master: $this->admissionRequirement(
                     $this->firstTerm(
                         $post,
                         MasterDegreeAdmissionRequirementTaxonomy::KEY,
                     ),
-                    MasterDegreeAdmissionRequirementTaxonomy::KEY,
                 ),
             ),
             contentRelatedMasterRequirements: $this->bilingualPostMeta(
@@ -189,13 +186,11 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
                     $post,
                     GermanLanguageSkillsForInternationalStudentsTaxonomy::KEY,
                 ),
-                GermanLanguageSkillsForInternationalStudentsTaxonomy::KEY,
             ),
             startOfSemester: $this->bilingualLinkFromOption(DegreeProgram::START_OF_SEMESTER),
             semesterDates: $this->bilingualLinkFromOption(DegreeProgram::SEMESTER_DATES),
             examinationsOffice: $this->bilingualLinkFromTerm(
                 $this->firstTerm($post, ExaminationsOfficeTaxonomy::KEY),
-                ExaminationsOfficeTaxonomy::KEY,
             ),
             examinationRegulations: (string) get_post_meta(
                 $postId,
@@ -212,7 +207,6 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             studentAdvice: $this->bilingualLinkFromOption(DegreeProgram::STUDENT_ADVICE),
             subjectSpecificAdvice: $this->bilingualLinkFromTerm(
                 $this->firstTerm($post, SubjectSpecificAdviceTaxonomy::KEY),
-                SubjectSpecificAdviceTaxonomy::KEY,
             ),
             serviceCenters: $this->bilingualLinkFromOption(DegreeProgram::SERVICE_CENTERS),
             infoBrochure: (string) get_post_meta(
@@ -241,7 +235,6 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             ),
             applyNowLink: $this->bilingualLinkFromTerm(
                 $this->firstTerm($post, ApplyNowLinkTaxonomy::KEY),
-                ApplyNowLinkTaxonomy::KEY,
             ),
             combinations: $this->idsFromPostMeta($postId, DegreeProgram::COMBINATIONS),
             limitedCombinations: $this->idsFromPostMeta(
@@ -303,7 +296,7 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
         );
     }
 
-    private function admissionRequirement(?WP_Term $term, string $taxonomy): AdmissionRequirement
+    private function admissionRequirement(?WP_Term $term): AdmissionRequirement
     {
         if (!$term instanceof WP_Term) {
             return AdmissionRequirement::empty();
@@ -312,8 +305,8 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
         $parent = $term->parent ? get_term($term->parent) : null;
 
         return AdmissionRequirement::new(
-            $this->bilingualLinkFromTerm($term, $taxonomy),
-            $parent instanceof WP_Term ? $this->admissionRequirement($parent, $taxonomy) : null,
+            $this->bilingualLinkFromTerm($term),
+            $parent instanceof WP_Term ? $this->admissionRequirement($parent) : null,
             $term->slug
         );
     }
