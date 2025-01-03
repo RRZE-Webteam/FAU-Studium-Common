@@ -127,11 +127,14 @@ abstract class BilingualRepository
 
     final protected function bilingualLinkFromTerm(?WP_Term $term): MultilingualLink
     {
+        $parentTerm = $term instanceof WP_Term && $term->parent ? get_term($term->parent, $term->taxonomy) : null;
+
         return MultilingualLink::new(
             $term instanceof WP_Term ? $this->idGenerator->generateTermId($term) : '',
             name: $this->bilingualTermName($term),
             linkText: $this->bilingualTermMeta($term, MultilingualLink::LINK_TEXT),
             linkUrl: $this->bilingualTermMeta($term, MultilingualLink::LINK_URL),
+            parent: $parentTerm instanceof WP_Term ? $this->bilingualLinkFromTerm($parentTerm) : null,
         );
     }
 
