@@ -467,6 +467,16 @@ final class DegreeProgramViewTranslated implements JsonSerializable
         return $this->link;
     }
 
+    public function linkWithLang(): string
+    {
+        return add_query_arg(
+            [
+                'lang' => $this->lang,
+            ],
+            $this->link
+        );
+    }
+
     public function slug(): string
     {
         return $this->slug;
