@@ -51,6 +51,8 @@ interface DegreeProgramSanitizer
         'alert',
         'contact',
         'fau-video',
+        'fachanteile',
+        'faudir',
     ];
 
     public const ALLOWED_BLOCKS = [
@@ -61,6 +63,8 @@ interface DegreeProgramSanitizer
         'core/shortcode',
         'core/quote',
         'fau/description-list',
+        'fau/faudir-block',
+        'fau-degree-program/shares',
     ];
 
     public function sanitizeContentField(string $content): string;
