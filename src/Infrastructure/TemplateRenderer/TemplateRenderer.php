@@ -28,7 +28,7 @@ final class TemplateRenderer implements Renderer
     public function render(string $templateName, array $data = []): string
     {
         $level = ob_get_level();
-        /** @psalm-suppress TypeDoesNotContainType */
+        /** @psalm-suppress RedundantCondition */
         $isDebug = defined('WP_DEBUG') && WP_DEBUG;
 
         try {

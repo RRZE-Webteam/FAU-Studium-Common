@@ -66,7 +66,7 @@ final class WordPressLogger extends AbstractLogger
 
     private function isDebugMode(): bool
     {
-        /** @psalm-suppress TypeDoesNotContainType */
+        /** @psalm-suppress RedundantCondition */
         return defined('WP_DEBUG') && WP_DEBUG;
     }
 
