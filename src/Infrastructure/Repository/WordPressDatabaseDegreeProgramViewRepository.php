@@ -262,7 +262,7 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
         $content = $this->htmlContentSanitizer->sanitizeContentField($content);
         add_filter('the_content', 'do_shortcode', 11);
 
-        return do_shortcode($content);
+        return $content;
     }
 
     /**
