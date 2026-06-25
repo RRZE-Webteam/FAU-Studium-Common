@@ -93,7 +93,7 @@ final class Content
         $this->specialFeatures = $this->specialFeatures->withDefaultTitle(
             MultilingualString::fromTranslations(
                 'default',
-                'Besondere Hinweise',
+                'Besonderheiten des Studiengangs',
                 'Special features',
             )
         );
