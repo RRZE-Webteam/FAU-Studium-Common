@@ -36,21 +36,56 @@ interface DegreeProgramSanitizer
         'br' => [],
         'p' => [],
         'strong' => [],
-        'ul' => [],
+        'ul' => [
+            'class' => [],
+        ],
         'ol' => [],
-        'li' => [],
+        'li' => [
+            'style' => [],
+        ],
         'dl' => [],
         'dd' => [],
         'dt' => [],
-        'h3' => [],
+        'h3' => [
+            'class' => [],
+        ],
         'h4' => [],
         'h5' => [],
+        'div' => [
+            'class' => [],
+            'id' => [],
+        ],
+        'svg' => [
+            'class' => [],
+            'id' => [],
+            'height' => [],
+            'width' => [],
+            'viewbox' => [],
+            'aria-hidden' => [],
+        ],
+        'path' => [
+            'd' => [],
+            'fill' => [],
+            'style' => [],
+            'class' => [],
+            'data-label' => [],
+            'data-percent' => [],
+            'title' => [],
+        ],
+        'circle' => [
+            'r' => [],
+            'cx' => [],
+            'cy' => [],
+            'fill' => [],
+        ],
     ];
 
     public const ALLOWED_SHORTCODES = [
         'alert',
         'contact',
         'fau-video',
+        'fachanteile',
+        'faudir',
     ];
 
     public const ALLOWED_BLOCKS = [
@@ -61,6 +96,8 @@ interface DegreeProgramSanitizer
         'core/shortcode',
         'core/quote',
         'fau/description-list',
+        'fau/faudir-block',
+        'fau-degree-program/shares',
     ];
 
     public function sanitizeContentField(string $content): string;

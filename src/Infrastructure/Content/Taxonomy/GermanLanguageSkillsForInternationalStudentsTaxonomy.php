@@ -44,6 +44,6 @@ final class GermanLanguageSkillsForInternationalStudentsTaxonomy extends Taxonom
 
     protected function isHierarchical(): bool
     {
-        return false;
+        return true;
     }
 }

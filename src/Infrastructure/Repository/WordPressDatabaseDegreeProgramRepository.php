@@ -144,20 +144,20 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
                 bachelorOrTeachingDegree: $this->admissionRequirement(
                     $this->firstTerm(
                         $post,
-                        BachelorOrTeachingDegreeAdmissionRequirementTaxonomy::KEY
-                    )
+                        BachelorOrTeachingDegreeAdmissionRequirementTaxonomy::KEY,
+                    ),
                 ),
                 teachingDegreeHigherSemester: $this->admissionRequirement(
                     $this->firstTerm(
                         $post,
-                        TeachingDegreeHigherSemesterAdmissionRequirementTaxonomy::KEY
-                    )
+                        TeachingDegreeHigherSemesterAdmissionRequirementTaxonomy::KEY,
+                    ),
                 ),
                 master: $this->admissionRequirement(
                     $this->firstTerm(
                         $post,
                         MasterDegreeAdmissionRequirementTaxonomy::KEY,
-                    )
+                    ),
                 ),
             ),
             contentRelatedMasterRequirements: $this->bilingualPostMeta(
@@ -185,12 +185,12 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
                 $this->firstTerm(
                     $post,
                     GermanLanguageSkillsForInternationalStudentsTaxonomy::KEY,
-                )
+                ),
             ),
             startOfSemester: $this->bilingualLinkFromOption(DegreeProgram::START_OF_SEMESTER),
             semesterDates: $this->bilingualLinkFromOption(DegreeProgram::SEMESTER_DATES),
             examinationsOffice: $this->bilingualLinkFromTerm(
-                $this->firstTerm($post, ExaminationsOfficeTaxonomy::KEY)
+                $this->firstTerm($post, ExaminationsOfficeTaxonomy::KEY),
             ),
             examinationRegulations: (string) get_post_meta(
                 $postId,
@@ -206,7 +206,7 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             department: $this->bilingualPostMeta($post, DegreeProgram::DEPARTMENT),
             studentAdvice: $this->bilingualLinkFromOption(DegreeProgram::STUDENT_ADVICE),
             subjectSpecificAdvice: $this->bilingualLinkFromTerm(
-                $this->firstTerm($post, SubjectSpecificAdviceTaxonomy::KEY)
+                $this->firstTerm($post, SubjectSpecificAdviceTaxonomy::KEY),
             ),
             serviceCenters: $this->bilingualLinkFromOption(DegreeProgram::SERVICE_CENTERS),
             infoBrochure: (string) get_post_meta(

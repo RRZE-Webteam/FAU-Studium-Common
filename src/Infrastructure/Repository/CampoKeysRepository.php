@@ -24,6 +24,8 @@ final class CampoKeysRepository
 
     public const CAMPO_KEY_TERM_META_KEY = 'uniquename';
 
+    private const HIS_CODE_DELIMITER = '|';
+
     public function degreeProgramCampoKeys(DegreeProgramId $degreeProgramId): CampoKeys
     {
         /** @var WP_Error|array<WP_Term> $terms */
@@ -51,7 +53,7 @@ final class CampoKeysRepository
                 continue;
             }
 
-            $map[$campoKeyType] = $campoKey;
+            $map[$campoKeyType][$term->term_id] = $campoKey;
         }
 
         return CampoKeys::fromArray($map);
@@ -60,29 +62,23 @@ final class CampoKeysRepository
     /**
      * Return a map of taxonomy keys to terms based on a given HIS code.
      *
-     * @throws RuntimeException
      * @return array<string, int>
      */
-    public function taxonomyToTermsMapFromCampoKeys(CampoKeys $campoKeys): array
+    public function taxonomyToTermsMapFromHisCode(string $hisCode): array
     {
         $result = [];
 
-        $campoKeys = $campoKeys->asArray();
+        $campoKeys = $this->campoKeysFromHisCode($hisCode);
 
         foreach (self::TAXONOMY_TO_CAMPO_KEY_MAP as $taxonomy => $campoKeyType) {
-            $campoKey = $campoKeys[$campoKeyType] ?? '';
+            $campoKey = $campoKeys[$campoKeyType] ?? null;
 
-            if ($campoKey === '') {
+            if (!is_string($campoKey) || $campoKey === '') {
                 continue;
             }
 
             $term = $this->findTermByCampoKey($taxonomy, $campoKey);
-
-            if (! $term instanceof WP_Term) {
-                throw new RuntimeException('Could not find term for Campo key: ' . $campoKey);
-            }
-
-            $result[$taxonomy] = $term->term_id;
+            $result[$taxonomy] = $term instanceof WP_Term ? $term->term_id : 0;
         }
 
         return $result;
@@ -106,5 +102,17 @@ final class CampoKeysRepository
         }
 
         return $terms[0] ?? null;
+    }
+
+    public function campoKeysFromHisCode(string $hisCode): array
+    {
+        $parts = explode(self::HIS_CODE_DELIMITER, $hisCode);
+        $map = [
+            DegreeProgram::DEGREE => $parts[0] ?? null,
+            DegreeProgram::AREA_OF_STUDY => $parts[1] ?? null,
+            DegreeProgram::LOCATION => $parts[6] ?? null,
+        ];
+
+        return array_filter($map, fn($value) => !is_null($value));
     }
 }

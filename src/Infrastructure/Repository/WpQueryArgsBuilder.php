@@ -17,15 +17,12 @@ use Fau\DegreeProgram\Common\Application\Filter\StudyLocationFilter;
 use Fau\DegreeProgram\Common\Application\Filter\SubjectGroupFilter;
 use Fau\DegreeProgram\Common\Application\Filter\TeachingLanguageFilter;
 use Fau\DegreeProgram\Common\Application\Repository\CollectionCriteria;
-use Fau\DegreeProgram\Common\Domain\CampoKeys;
 use Fau\DegreeProgram\Common\Domain\DegreeProgram;
 use Fau\DegreeProgram\Common\Domain\MultilingualString;
 use Fau\DegreeProgram\Common\Infrastructure\Content\PostType\DegreeProgramPostType;
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\BachelorOrTeachingDegreeAdmissionRequirementTaxonomy;
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\MasterDegreeAdmissionRequirementTaxonomy;
 use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\TaxonomiesList;
-use Fau\DegreeProgram\Common\Infrastructure\Content\Taxonomy\TeachingDegreeHigherSemesterAdmissionRequirementTaxonomy;
-use RuntimeException;
 use WP_Term;
 
 /**
@@ -107,13 +104,7 @@ final class WpQueryArgsBuilder
                 'relation' => 'AND',
             ];
 
-            try {
-                $taxonomyToTermMapping = $this->campoKeysRepository->taxonomyToTermsMapFromCampoKeys(
-                    CampoKeys::fromHisCode($hisCode)
-                );
-            } catch (RuntimeException) {
-                continue;
-            }
+            $taxonomyToTermMapping = $this->campoKeysRepository->taxonomyToTermsMapFromHisCode($hisCode);
 
             if (count($taxonomyToTermMapping) === 0) {
                 continue;
@@ -276,31 +267,49 @@ final class WpQueryArgsBuilder
 
     private function applySearchFilter(SearchKeywordFilter $filter, WpQueryArgs $queryArgs, ?string $languageCode = null): WpQueryArgs
     {
-        if (!$languageCode) {
-            return $queryArgs->withMetaQueryItem(
-                [
-                    'relation' => 'OR',
-                    [
-                        'key' => 'fau_degree_program_searchable_content_' . MultilingualString::EN,
-                        'value' => $filter->value(),
-                        'compare' => 'LIKE',
-                    ],
-                    [
-                        'key' => 'fau_degree_program_searchable_content_' . MultilingualString::DE,
-                        'value' => $filter->value(),
-                        'compare' => 'LIKE',
-                    ],
-                ]
-            );
+        $keywords = array_filter(array_map('trim', explode(' ', $filter->value())));
+        $metaKeyPrefixes = ['fau_degree_program_searchable_content_'];
+
+        if ($filter->extended()) {
+            $metaKeyPrefixes[] = 'fau_degree_program_searchable_content_extended_';
         }
 
-        return $queryArgs->withMetaQueryItem(
-            [
-                'key' => 'fau_degree_program_searchable_content_' . $languageCode,
-                'value' => $filter->value(),
-                'compare' => 'LIKE',
-            ]
-        );
+        $metaKeys = $this->generateMetaKeys($metaKeyPrefixes, $languageCode);
+
+        $metaQuery = array_reduce($keywords, static function (array $metaQuery, string $keyword) use ($metaKeys): array {
+            $keywordConditions = array_map(
+                static fn($key) => [
+                    'key' => $key,
+                    'value' => $keyword,
+                    'compare' => 'LIKE',
+                ],
+                $metaKeys
+            );
+
+            $metaQuery[] = ['relation' => 'OR'] + $keywordConditions;
+
+            return $metaQuery;
+        }, ['relation' => 'AND']);
+
+        return $queryArgs->withMetaQueryItem($metaQuery);
+    }
+
+    private function generateMetaKeys(array $prefixes, ?string $languageCode): array
+    {
+        $metaKeys = [];
+
+        /** @var string[] $prefixes */
+        foreach ($prefixes as $prefix) {
+            if (is_string($languageCode) && $languageCode) {
+                $metaKeys[] = $prefix . $languageCode;
+                continue;
+            }
+
+            $metaKeys[] = $prefix . MultilingualString::EN;
+            $metaKeys[] = $prefix . MultilingualString::DE;
+        }
+
+        return $metaKeys;
     }
 
     private function currentTerm(CollectionCriteria $criteria): ?WP_Term

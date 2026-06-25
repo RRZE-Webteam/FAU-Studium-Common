@@ -29,6 +29,7 @@ class MultilingualLinksTest extends UnitTestCase
                     'de' => 'https://fau.localhost/biology',
                     'en' => 'https://fau.localhost/biology-en',
                 ],
+                'parent' => null,
             ],
             [
                 'id' => 'term:38',
@@ -47,6 +48,7 @@ class MultilingualLinksTest extends UnitTestCase
                     'de' => 'https://fau.localhost/biology-math',
                     'en' => 'https://fau.localhost/biology-math-en',
                 ],
+                'parent' => null,
             ],
         ];
 

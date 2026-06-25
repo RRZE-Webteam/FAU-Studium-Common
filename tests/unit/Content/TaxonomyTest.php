@@ -57,6 +57,22 @@ final class TaxonomyTest extends UnitTestCase
                 'hierarchical' => true,
                 'rest_base' => 'degree',
                 'public' => false,
+                'show_ui' => true,
+                'show_in_menu' => true,
+                'show_in_nav_menus' => false,
+                'show_in_rest' => true,
+                'meta_box_cb' => false,
+            ],
+            DegreeTaxonomy::editableOnly()->args()
+        );
+
+        $this->assertSame(
+            [
+                'label' => 'Degrees',
+                'labels' => $expectedLabels,
+                'hierarchical' => true,
+                'rest_base' => 'degree',
+                'public' => false,
                 'show_in_rest' => false,
             ],
             DegreeTaxonomy::hidden()->args()
