@@ -128,15 +128,13 @@ return [
         DegreeProgram::EXAMINATIONS_OFFICE => MultilingualLink::SCHEMA_REQUIRED,
         DegreeProgram::EXAMINATION_REGULATIONS => [
             'type' => 'string',
-            'minLength' => 1,
             'format' => 'uri',
         ],
         DegreeProgram::MODULE_HANDBOOK => [
             'type' => 'string',
-            'minLength' => 1,
             'format' => 'uri',
         ],
-        DegreeProgram::URL => MultilingualString::SCHEMA_URL_REQUIRED,
+        DegreeProgram::URL => MultilingualString::SCHEMA,
         DegreeProgram::DEPARTMENT => MultilingualString::SCHEMA_URL_REQUIRED,
         DegreeProgram::STUDENT_ADVICE => MultilingualLink::SCHEMA,
         DegreeProgram::SUBJECT_SPECIFIC_ADVICE => MultilingualLink::SCHEMA_REQUIRED,
