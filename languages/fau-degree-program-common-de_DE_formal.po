@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-18T11:51:52+00:00\n"
-"PO-Revision-Date: 2024-05-29 14:50+0200\n"
+"POT-Creation-Date: 2026-07-01T06:54:04+00:00\n"
+"PO-Revision-Date: 2026-07-01 09:56+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.9\n"
 "X-Domain: fau-degree-program-common\n"
 
 #: src/Infrastructure/Content/PostType/DegreeProgramPostType.php:21
@@ -171,6 +171,16 @@ msgctxt "backoffice: taxonomy singular name"
 msgid "Attribute"
 msgstr "Attribut"
 
+#: src/Infrastructure/Content/Taxonomy/BachelorOrTeachingDegreeAdmissionRequirementTaxonomy.php:27
+msgctxt "backoffice: taxonomy plural name"
+msgid "Admission requirements Bachelor's/Teaching degrees"
+msgstr "Zugangsvoraussetzungen Bachelor/Lehramt"
+
+#: src/Infrastructure/Content/Taxonomy/BachelorOrTeachingDegreeAdmissionRequirementTaxonomy.php:36
+msgctxt "backoffice: taxonomy singular name"
+msgid "Admission requirement Bachelor's/Teaching degrees"
+msgstr "Zugangsvoraussetzung Bachelor/Lehramt"
+
 #: src/Infrastructure/Content/Taxonomy/DegreeTaxonomy.php:29
 msgctxt "backoffice: taxonomy plural name"
 msgid "Degrees"
@@ -282,130 +292,144 @@ msgid "Subject-specific advice"
 msgstr "Beratung aus dem Fach"
 
 #. translators: %s - taxonomy plural name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:77
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:91
 msgctxt "backoffice: taxonomy label"
 msgid "Search %s"
 msgstr "%s suchen"
 
 #. translators: %s - taxonomy plural name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:82
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:96
 msgctxt "backoffice: taxonomy label"
 msgid "Popular %s"
 msgstr "Beliebte %s"
 
 #. translators: %s - taxonomy plural name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:87
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:101
 msgctxt "backoffice: taxonomy label"
 msgid "All %s"
 msgstr "Alle %s"
 
 #. translators: %s - taxonomy singular name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:92
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:106
 msgctxt "backoffice: taxonomy label"
 msgid "Parent %s"
 msgstr "Übergeordnete %s"
 
 #. translators: %s - taxonomy singular name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:97
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:111
 msgctxt "backoffice: taxonomy label"
 msgid "Parent %s:"
 msgstr "Übergeordnete %s:"
 
 #. translators: %s - taxonomy singular name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:102
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:116
 msgctxt "backoffice: taxonomy label"
 msgid "Edit %s"
 msgstr "%s bearbeiten"
 
 #. translators: %s - taxonomy singular name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:107
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:121
 msgctxt "backoffice: taxonomy label"
 msgid "View %s"
 msgstr "%s ansehen"
 
 #. translators: %s - taxonomy singular name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:112
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:126
 msgctxt "backoffice: taxonomy label"
 msgid "Update %s"
 msgstr "%s aktualisieren"
 
 #. translators: %s - taxonomy singular name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:117
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:131
 msgctxt "backoffice: taxonomy label"
 msgid "Add New %s"
 msgstr "Neue/s %s hinzufügen"
 
 #. translators: %s - taxonomy singular name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:122
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:136
 msgctxt "backoffice: taxonomy label"
 msgid "New %s Name"
 msgstr "Neue/s &s-Name"
 
 #. translators: %s - taxonomy plural name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:127
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:141
 msgctxt "backoffice: taxonomy label"
 msgid "Separate %s with commas"
 msgstr "%s durch Kommas trennen"
 
 #. translators: %s - taxonomy plural name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:136
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:150
 msgctxt "backoffice: taxonomy label"
 msgid "Add or remove %s"
 msgstr "%s hinzufügen oder entfernen"
 
 #. translators: %s - taxonomy plural name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:141
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:155
 msgctxt "backoffice: taxonomy label"
 msgid "Choose from the most used %s"
 msgstr "Wählen Sie aus den meistgenutzten %s"
 
 #. translators: %s - taxonomy plural name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:150
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:164
 msgctxt "backoffice: taxonomy label"
 msgid "No %s found."
 msgstr "Keine %s gefunden."
 
 #. translators: %s - taxonomy plural name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:155
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:169
 msgctxt "backoffice: taxonomy label"
 msgid "No %s"
 msgstr "Keine %s"
 
 #. translators: %s - taxonomy singular name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:160
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:174
 msgctxt "backoffice: taxonomy label"
 msgid "Filter by %s"
 msgstr "Nach %s filtern"
 
 #. translators: %s - taxonomy plural name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:165
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:179
 msgctxt "backoffice: taxonomy label"
 msgid "%s list navigation"
 msgstr "Navigation der %s-Liste"
 
 #. translators: %s - taxonomy plural name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:174
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:188
 msgctxt "backoffice: taxonomy label"
 msgid "%s list"
 msgstr "%s-Liste"
 
 #. translators: %s - taxonomy plural name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:179
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:193
 msgctxt "backoffice: taxonomy label"
 msgid "&larr; Go to %s"
 msgstr "&larr; Weiter zu den %s"
 
 #. translators: %s - taxonomy singular name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:184
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:198
 msgctxt "backoffice: taxonomy label"
 msgid "%s Link"
 msgstr "%s-Link"
 
 #. translators: %s - taxonomy singular name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:189
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:203
 msgctxt "backoffice: taxonomy label"
 msgid "A link to a %s."
 msgstr "Ein Link zu eine/r %s."
+
+#: src/Infrastructure/Content/Taxonomy/TeachingDegreeHigherSemesterAdmissionRequirementTaxonomy.php:27
+msgctxt "backoffice: taxonomy plural name"
+msgid ""
+"Admission requirements for entering a Bachelor's/teaching degree at a higher "
+"semester"
+msgstr "Zugangsvoraussetzungen Bachelor/Lehramt höheres Semester"
+
+#: src/Infrastructure/Content/Taxonomy/TeachingDegreeHigherSemesterAdmissionRequirementTaxonomy.php:36
+msgctxt "backoffice: taxonomy singular name"
+msgid ""
+"Admission requirement for entering a Bachelor's/teaching degree at a higher "
+"semester"
+msgstr "Zugangsvoraussetzung Bachelor/Lehramt höheres Semester"
 
 #: src/Infrastructure/Content/Taxonomy/TeachingLanguageTaxonomy.php:29
 msgctxt "backoffice: taxonomy plural name"
@@ -422,271 +446,304 @@ msgctxt "backoffice: admin bar menu item"
 msgid "FAU Degree Program"
 msgstr "FAU Studiengang"
 
-#: src/Infrastructure/Content/Taxonomy/BachelorOrTeachingDegreeAdmissionRequirementTaxonomy.php:27
-msgctxt "backoffice: taxonomy plural name"
-msgid "Admission requirements Bachelor's/Teaching degrees"
-msgstr "Zugangsvoraussetzungen Bachelor/Lehramt"
-
-#: src/Infrastructure/Content/Taxonomy/BachelorOrTeachingDegreeAdmissionRequirementTaxonomy.php:36
-msgctxt "backoffice: taxonomy singular name"
-msgid "Admission requirement Bachelor's/Teaching degrees"
-msgstr "Zugangsvoraussetzung Bachelor/Lehramt"
-
-#: src/Infrastructure/Content/Taxonomy/TeachingDegreeHigherSemesterAdmissionRequirementTaxonomy.php:27
-msgctxt "backoffice: taxonomy plural name"
-msgid "Admission requirements for entering a Bachelor's/teaching degree at a higher semester"
-msgstr "Zugangsvoraussetzungen Bachelor/Lehramt höheres Semester"
-
-#: src/Infrastructure/Content/Taxonomy/TeachingDegreeHigherSemesterAdmissionRequirementTaxonomy.php:36
-msgctxt "backoffice: taxonomy singular name"
-msgid "Admission requirement for entering a Bachelor's/teaching degree at a higher semester"
-msgstr "Zugangsvoraussetzung Bachelor/Lehramt höheres Semester"
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:173
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:193
-msgctxt "rest_api: response status"
-msgid "Degree program not found."
-msgstr "Studiengang nicht gefunden."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:104
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:139
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:203
 msgctxt "rest_api: response status"
 msgid "Something went wrong. Please try again later."
 msgstr "Etwas ging schief. Bitte versuchen Sie es später noch einmal."
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:124
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:159
 msgctxt "rest_api: response status"
 msgid "The page number requested is larger than the number of pages available."
-msgstr "Die angeforderte Seitenzahl ist größer als die Anzahl der verfügbaren Seiten."
+msgstr ""
+"Die angeforderte Seitenzahl ist größer als die Anzahl der verfügbaren Seiten."
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:431
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:240
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:260
+msgctxt "rest_api: response status"
+msgid "Degree program not found."
+msgstr "Studiengang nicht gefunden."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:334
 msgctxt "rest_api: schema item description"
-msgid "Admission requirement link."
-msgstr "Zugangsvoraussetzungen-Link."
+msgid "Language code (\"de\" and \"en\" are supported)."
+msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:439
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:347
 msgctxt "rest_api: schema item description"
-msgid "Admission requirements."
-msgstr "Zugangsvoraussetzungen."
+msgid "Determine whether the search should include additional data."
+msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:463
-msgctxt "rest_api: schema item description"
-msgid "Application deadline summer semester."
-msgstr "Bewerbungsfrist Sommersemester."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:455
-msgctxt "rest_api: schema item description"
-msgid "Application deadline winter semester."
-msgstr "Bewerbungsfrist Wintersemester."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:367
-msgctxt "rest_api: schema item description"
-msgid "Attributes."
-msgstr "Attribute."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:632
-msgctxt "rest_api: schema item description"
-msgid "Available translations."
-msgstr "Verfügbare Übersetzungen."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:447
-msgctxt "rest_api: schema item description"
-msgid "Content-related admission requirements for Master’s degree."
-msgstr "Inhaltliche Zugangsvoraussetzungen Master."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:423
-msgctxt "rest_api: schema item description"
-msgid "Content."
-msgstr "Inhalte."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:576
-msgctxt "rest_api: schema item description"
-msgid "Counseling and Service Centers at FAU."
-msgstr "Beratungs- und Servicestellen der FAU."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:528
-msgctxt "rest_api: schema item description"
-msgid "Degree program and examination regulations."
-msgstr "Studien- und Prüfungsordnungen."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:600
-msgctxt "rest_api: schema item description"
-msgid "Degree program fees."
-msgstr "Studiengangsgebühren."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:624
-msgctxt "rest_api: schema item description"
-msgid "Degree program limited possible combinations."
-msgstr "Eingeschränkt mögliche Studiengangskombinationen."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:616
-msgctxt "rest_api: schema item description"
-msgid "Degree program possible combinations."
-msgstr "Mögliche Studiengangskombinationen."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:544
-msgctxt "rest_api: schema item description"
-msgid "Degree program URL."
-msgstr "Studiengang-URL."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:375
-msgctxt "rest_api: schema item description"
-msgid "Degree."
-msgstr "Abschluss."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:552
-msgctxt "rest_api: schema item description"
-msgid "Department."
-msgstr "Department."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:471
-msgctxt "rest_api: schema item description"
-msgid "Details and notes."
-msgstr "Details und Anmerkungen."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:520
-msgctxt "rest_api: schema item description"
-msgid "Examinations Office."
-msgstr "Prüfungsamt."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:383
-msgctxt "rest_api: schema item description"
-msgid "Faculty."
-msgstr "Fakultät."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:295
-msgctxt "rest_api: schema item description"
-msgid "Feature image."
-msgstr "Beitragsbild."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:335
-msgctxt "rest_api: schema item description"
-msgid "Fee required."
-msgstr "Kostenpflichtig."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:584
-msgctxt "rest_api: schema item description"
-msgid "Info brochure degree program."
-msgstr "Infobroschüre Studiengang."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:496
-msgctxt "rest_api: schema item description"
-msgid "Language certificates/German language skills for international applicants."
-msgstr "Sprachnachweise/Deutschkenntnisse für internationale Bewerberinnen und Bewerber."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:487
-msgctxt "rest_api: schema item description"
-msgid "Language skills for Faculty of Humanities, Social Sciences, and Theology only."
-msgstr "Sprachkenntnisse nur für die Philosophische Fakultät und Fachbereich Theologie."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:479
-msgctxt "rest_api: schema item description"
-msgid "Language skills."
-msgstr "Sprachkenntnisse."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:415
-msgctxt "rest_api: schema item description"
-msgid "Meta description."
-msgstr "Metabeschreibung."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:536
-msgctxt "rest_api: schema item description"
-msgid "Module handbook."
-msgstr "Modulhandbuch."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:640
-msgctxt "rest_api: schema item description"
-msgid "Notes for international applicants."
-msgstr "Hinweise für internationale Bewerber."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:351
-msgctxt "rest_api: schema item description"
-msgid "Number of students."
-msgstr "Studierendenzahl."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:608
-msgctxt "rest_api: schema item description"
-msgid "Opportunities for spending time abroad."
-msgstr "Wege ins Ausland."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:512
-msgctxt "rest_api: schema item description"
-msgid "Semester dates."
-msgstr "Semestertermine."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:592
-msgctxt "rest_api: schema item description"
-msgid "Semester fee."
-msgstr "Semesterbeitrag."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:327
-msgctxt "rest_api: schema item description"
-msgid "Standard duration of study."
-msgstr "Regelstudienzeit."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:343
-msgctxt "rest_api: schema item description"
-msgid "Start of degree program."
-msgstr "Studienbeginn."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:504
-msgctxt "rest_api: schema item description"
-msgid "Start of semester."
-msgstr "Semesterstart."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:560
-msgctxt "rest_api: schema item description"
-msgid "Student Advice and Career Service."
-msgstr "Allgemeine Studienberatung."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:648
-msgctxt "rest_api: schema item description"
-msgid "Students' Union/Student Initiatives."
-msgstr "StuVe/FSI."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:391
-msgctxt "rest_api: schema item description"
-msgid "Study location."
-msgstr "Studienorte."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:399
-msgctxt "rest_api: schema item description"
-msgid "Subject groups."
-msgstr "Fächergruppen."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:568
-msgctxt "rest_api: schema item description"
-msgid "Subject-specific advice."
-msgstr "Beratung aus dem Fach."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:319
-msgctxt "rest_api: schema item description"
-msgid "Subtitle."
-msgstr "Untertitel."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:359
-msgctxt "rest_api: schema item description"
-msgid "Teaching language."
-msgstr "Unterrichtssprache."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:303
-msgctxt "rest_api: schema item description"
-msgid "Teaser image."
-msgstr "Teaserbild."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:311
-msgctxt "rest_api: schema item description"
-msgid "Title."
-msgstr "Titel."
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:287
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:368
 msgctxt "rest_api: schema item description"
 msgid "Unique identifier for the degree program."
 msgstr "Eindeutiger Bezeichner für den Studiengang."
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:407
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:376
+#, fuzzy
+#| msgctxt "rest_api: schema item description"
+#| msgid "Unique identifier for the degree program."
+msgctxt "rest_api: schema item description"
+msgid "The date the degree program was created."
+msgstr "Eindeutiger Bezeichner für den Studiengang."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:385
+#, fuzzy
+#| msgctxt "backoffice: post type label"
+#| msgid "Filter degree programs list"
+msgctxt "rest_api: schema item description"
+msgid "The date the degree program was last modified."
+msgstr "Studiengangsliste filtern"
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:394
+msgctxt "rest_api: schema item description"
+msgid "Feature image."
+msgstr "Beitragsbild."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:402
+msgctxt "rest_api: schema item description"
+msgid "Teaser image."
+msgstr "Teaserbild."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:410
+msgctxt "rest_api: schema item description"
+msgid "Title."
+msgstr "Titel."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:418
+msgctxt "rest_api: schema item description"
+msgid "Subtitle."
+msgstr "Untertitel."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:426
+msgctxt "rest_api: schema item description"
+msgid "Standard duration of study."
+msgstr "Regelstudienzeit."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:434
+msgctxt "rest_api: schema item description"
+msgid "Fee required."
+msgstr "Kostenpflichtig."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:442
+msgctxt "rest_api: schema item description"
+msgid "Start of degree program."
+msgstr "Studienbeginn."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:450
+msgctxt "rest_api: schema item description"
+msgid "Number of students."
+msgstr "Studierendenzahl."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:458
+msgctxt "rest_api: schema item description"
+msgid "Teaching language."
+msgstr "Unterrichtssprache."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:466
+msgctxt "rest_api: schema item description"
+msgid "Attributes."
+msgstr "Attribute."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:474
+msgctxt "rest_api: schema item description"
+msgid "Degree."
+msgstr "Abschluss."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:482
+msgctxt "rest_api: schema item description"
+msgid "Faculty."
+msgstr "Fakultät."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:490
+msgctxt "rest_api: schema item description"
+msgid "Study location."
+msgstr "Studienorte."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:498
+msgctxt "rest_api: schema item description"
+msgid "Subject groups."
+msgstr "Fächergruppen."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:506
 msgctxt "rest_api: schema item description"
 msgid "Videos."
 msgstr "Videos."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:514
+msgctxt "rest_api: schema item description"
+msgid "Meta description."
+msgstr "Metabeschreibung."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:522
+msgctxt "rest_api: schema item description"
+msgid "Content."
+msgstr "Inhalte."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:530
+msgctxt "rest_api: schema item description"
+msgid "Admission requirement link."
+msgstr "Zugangsvoraussetzungen-Link."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:538
+msgctxt "rest_api: schema item description"
+msgid "Admission requirements."
+msgstr "Zugangsvoraussetzungen."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:546
+msgctxt "rest_api: schema item description"
+msgid "Content-related admission requirements for Master’s degree."
+msgstr "Inhaltliche Zugangsvoraussetzungen Master."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:554
+msgctxt "rest_api: schema item description"
+msgid "Application deadline winter semester."
+msgstr "Bewerbungsfrist Wintersemester."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:562
+msgctxt "rest_api: schema item description"
+msgid "Application deadline summer semester."
+msgstr "Bewerbungsfrist Sommersemester."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:570
+msgctxt "rest_api: schema item description"
+msgid "Details and notes."
+msgstr "Details und Anmerkungen."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:578
+msgctxt "rest_api: schema item description"
+msgid "Language skills."
+msgstr "Sprachkenntnisse."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:586
+msgctxt "rest_api: schema item description"
+msgid ""
+"Language skills for Faculty of Humanities, Social Sciences, and Theology "
+"only."
+msgstr ""
+"Sprachkenntnisse nur für die Philosophische Fakultät und Fachbereich "
+"Theologie."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:595
+msgctxt "rest_api: schema item description"
+msgid ""
+"Language certificates/German language skills for international applicants."
+msgstr ""
+"Sprachnachweise/Deutschkenntnisse für internationale Bewerberinnen und "
+"Bewerber."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:603
+msgctxt "rest_api: schema item description"
+msgid "Start of semester."
+msgstr "Semesterstart."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:611
+msgctxt "rest_api: schema item description"
+msgid "Semester dates."
+msgstr "Semestertermine."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:619
+msgctxt "rest_api: schema item description"
+msgid "Examinations Office."
+msgstr "Prüfungsamt."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:627
+msgctxt "rest_api: schema item description"
+msgid "Degree program and examination regulations."
+msgstr "Studien- und Prüfungsordnungen."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:635
+msgctxt "rest_api: schema item description"
+msgid "Module handbook."
+msgstr "Modulhandbuch."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:643
+msgctxt "rest_api: schema item description"
+msgid "Degree program URL."
+msgstr "Studiengang-URL."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:651
+msgctxt "rest_api: schema item description"
+msgid "Department."
+msgstr "Department."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:659
+msgctxt "rest_api: schema item description"
+msgid "Student Advice and Career Service."
+msgstr "Allgemeine Studienberatung."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:667
+msgctxt "rest_api: schema item description"
+msgid "Subject-specific advice."
+msgstr "Beratung aus dem Fach."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:675
+msgctxt "rest_api: schema item description"
+msgid "Counseling and Service Centers at FAU."
+msgstr "Beratungs- und Servicestellen der FAU."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:683
+msgctxt "rest_api: schema item description"
+msgid "Info brochure degree program."
+msgstr "Infobroschüre Studiengang."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:691
+msgctxt "rest_api: schema item description"
+msgid "Semester fee."
+msgstr "Semesterbeitrag."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:699
+msgctxt "rest_api: schema item description"
+msgid "Degree program fees."
+msgstr "Studiengangsgebühren."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:707
+msgctxt "rest_api: schema item description"
+msgid "Opportunities for spending time abroad."
+msgstr "Wege ins Ausland."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:715
+msgctxt "rest_api: schema item description"
+msgid "Degree program possible combinations."
+msgstr "Mögliche Studiengangskombinationen."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:723
+msgctxt "rest_api: schema item description"
+msgid "Degree program limited possible combinations."
+msgstr "Eingeschränkt mögliche Studiengangskombinationen."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:731
+msgctxt "rest_api: schema item description"
+msgid "Available translations."
+msgstr "Verfügbare Übersetzungen."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:739
+msgctxt "rest_api: schema item description"
+msgid "Notes for international applicants."
+msgstr "Hinweise für internationale Bewerber."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:747
+msgctxt "rest_api: schema item description"
+msgid "Students' Union/Student Initiatives."
+msgstr "StuVe/FSI."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:755
+msgctxt "rest_api: schema item description"
+msgid "Current news / time-sensitive notices (Aktuelles)."
+msgstr "Aktuelle, zeitlich begrenzte Hinweise (Aktuelles)."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:763
+msgctxt "rest_api: schema item description"
+msgid "Expiry date after which the Aktuelles notice is hidden."
+msgstr "Ablaufdatum, nach dem der Hinweis „Aktuelles“ ausgeblendet wird."
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:771
+#, fuzzy
+#| msgctxt "rest_api: schema item description"
+#| msgid "Degree program fees."
+msgctxt "rest_api: schema item description"
+msgid "Degree program Campo Keys."
+msgstr "Studiengangsgebühren."
 
 #: src/Infrastructure/Validator/ConditionalFieldsValidator.php:92
 msgctxt "backoffice: REST API error message"
