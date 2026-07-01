@@ -72,7 +72,6 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
         }
 
         $featuredImageId = (int) get_post_thumbnail_id($post);
-        $teaserImageId = (int) get_post_meta($postId, DegreeProgram::TEASER_IMAGE, true);
 
         /**
          * @var string $videos
@@ -93,10 +92,6 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             featuredImage: Image::new(
                 $featuredImageId,
                 (string) wp_get_attachment_image_url($featuredImageId, 'full')
-            ),
-            teaserImage: Image::new(
-                $teaserImageId,
-                (string) wp_get_attachment_image_url($teaserImageId, 'full')
             ),
             title: MultilingualString::fromTranslations(
                 $this->idGenerator->generatePostId($post, 'title'),
@@ -364,8 +359,6 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
         );
 
         $metas = [
-            DegreeProgram::TEASER_IMAGE =>
-                $degreeProgramViewRaw->teaserImage()->id(),
             BilingualRepository::addEnglishSuffix('title') =>
                 $degreeProgramViewRaw->title()->inEnglish(),
             BilingualRepository::addEnglishSuffix('post_name') =>

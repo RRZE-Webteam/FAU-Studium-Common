@@ -90,11 +90,6 @@ final class StubDegreeProgramRepository implements DegreeProgramRepository, Degr
                 $raw->featuredImage()->url(),
                 '',
             ),
-            teaserImage: ImageView::new(
-                $raw->teaserImage()->id(),
-                $raw->teaserImage()->url(),
-                '',
-            ),
             title: $raw->title()->asString($languageCode),
             subtitle: $raw->subtitle()->asString($languageCode),
             standardDuration: $raw->standardDuration(),

@@ -28,7 +28,6 @@ use JsonSerializable;
  *     slug: string,
  *     lang: LanguageCodes,
  *     featured_image: ImageViewType,
- *     teaser_image: ImageViewType,
  *     title: string,
  *     subtitle: string,
  *     standard_duration: string,
@@ -107,7 +106,6 @@ final class DegreeProgramViewTranslated implements JsonSerializable
          */
         private string $lang,
         private ImageView $featuredImage,
-        private ImageView $teaserImage,
         private string $title,
         private string $subtitle,
         private string $standardDuration,
@@ -172,7 +170,6 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             slug: '',
             lang: $languageCode,
             featuredImage: ImageView::empty(),
-            teaserImage: ImageView::empty(),
             title: '',
             subtitle: '',
             standardDuration: '',
@@ -245,7 +242,6 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             slug: $data[DegreeProgram::SLUG],
             lang: $data[self::LANG],
             featuredImage: ImageView::fromArray($data[DegreeProgram::FEATURED_IMAGE]),
-            teaserImage: ImageView::fromArray($data[DegreeProgram::TEASER_IMAGE]),
             title: $data[DegreeProgram::TITLE],
             subtitle: $data[DegreeProgram::SUBTITLE],
             standardDuration: $data[DegreeProgram::STANDARD_DURATION],
@@ -324,7 +320,6 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             DegreeProgram::SLUG => $this->slug,
             self::LANG => $this->lang,
             DegreeProgram::FEATURED_IMAGE => $this->featuredImage->asArray(),
-            DegreeProgram::TEASER_IMAGE => $this->teaserImage->asArray(),
             DegreeProgram::TITLE => $this->title,
             DegreeProgram::SUBTITLE => $this->subtitle,
             DegreeProgram::STANDARD_DURATION => $this->standardDuration,
@@ -493,11 +488,6 @@ final class DegreeProgramViewTranslated implements JsonSerializable
     public function featuredImage(): ImageView
     {
         return $this->featuredImage;
-    }
-
-    public function teaserImage(): ImageView
-    {
-        return $this->teaserImage;
     }
 
     public function title(): string

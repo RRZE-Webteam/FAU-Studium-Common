@@ -52,7 +52,6 @@ trait FixtureDegreeProgramDataProviderTrait
             id: DegreeProgramId::fromInt($id),
             slug: MultilingualString::empty(),
             featuredImage: Image::empty(),
-            teaserImage: Image::empty(),
             title: MultilingualString::empty(),
             subtitle: MultilingualString::empty(),
             standardDuration: '',
