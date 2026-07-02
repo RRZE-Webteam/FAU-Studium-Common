@@ -67,6 +67,8 @@ use RuntimeException;
  *     student_initiatives: MultilingualLinkType,
  *     apply_now_link: MultilingualLinkType,
  *     entry_text: MultilingualStringType,
+ *     news: MultilingualStringType,
+ *     news_expiry_date: string,
  *     campo_keys: CampoKeysMap,
  * }
  */
@@ -115,6 +117,8 @@ final class DegreeProgram
     public const KEYWORDS = 'keywords';
     public const AREA_OF_STUDY = 'area_of_study';
     public const ENTRY_TEXT = 'entry_text';
+    public const NEWS = 'news';
+    public const NEWS_EXPIRY_DATE = 'news_expiry_date';
     public const COMBINATIONS = 'combinations';
     public const LIMITED_COMBINATIONS = 'limited_combinations';
     public const COMBINATIONS_CHANGESET = 'combinations_changeset';
@@ -190,6 +194,14 @@ final class DegreeProgram
          * Einstiegtext (werbend)
          */
         private MultilingualString $entryText,
+        /**
+         * Current news
+         */
+        private MultilingualString $news,
+        /**
+         * News expiry date (optional)
+         */
+        private string $newsExpiryDate,
         //--- Content (“Inhalte”) ---//
         private Content $content,
         //--- Admission requirements, application and enrollment (“Zugangsvoraussetzungen, Bewerbung und Einschreibung”) ---//
@@ -384,6 +396,7 @@ final class DegreeProgram
                 self::DETAILS_AND_NOTES,
                 self::LANGUAGE_SKILLS,
                 self::ENTRY_TEXT,
+                self::NEWS,
             ] as $key
         ) {
             $data[$key] = MultilingualString::mapTranslations(
@@ -454,6 +467,8 @@ final class DegreeProgram
         $this->studentInitiatives = MultilingualLink::fromArray($data[self::STUDENT_INITIATIVES]);
         $this->applyNowLink = MultilingualLink::fromArray($data[self::APPLY_NOW_LINK]);
         $this->entryText = MultilingualString::fromArray($data[self::ENTRY_TEXT]);
+        $this->news = MultilingualString::fromArray($data[self::NEWS]);
+        $this->newsExpiryDate = $data[self::NEWS_EXPIRY_DATE];
         $this->campoKeys = CampoKeys::fromArray($data[self::CAMPO_KEYS]);
 
         $this->combinationsChangeset = $this
@@ -518,6 +533,8 @@ final class DegreeProgram
      *     student_initiatives: MultilingualLink,
      *     apply_now_link: MultilingualLink,
      *     entry_text: MultilingualString,
+     *     news: MultilingualString,
+     *     news_expiry_date: string,
      *     campo_keys: CampoKeys,
      * }
      * @internal Only for repositories usage
@@ -577,6 +594,8 @@ final class DegreeProgram
             self::STUDENT_INITIATIVES => $this->studentInitiatives,
             self::APPLY_NOW_LINK => $this->applyNowLink,
             self::ENTRY_TEXT => $this->entryText,
+            self::NEWS => $this->news,
+            self::NEWS_EXPIRY_DATE => $this->newsExpiryDate,
             self::CAMPO_KEYS => $this->campoKeys,
         ];
     }

@@ -68,6 +68,8 @@ trait FixtureDegreeProgramDataProviderTrait
             keywords: MultilingualList::new(),
             areaOfStudy: MultilingualLinks::new(),
             entryText: MultilingualString::empty(),
+            news: MultilingualString::empty(),
+            newsExpiryDate: '',
             content: Content::new(
                 about: ContentItem::new(MultilingualString::empty(), MultilingualString::empty()),
                 structure: ContentItem::new(MultilingualString::empty(), MultilingualString::empty()),

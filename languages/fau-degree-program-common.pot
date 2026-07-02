@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: FAU-Studium-Common\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-05-29T12:47:59+00:00\n"
+"POT-Creation-Date: 2026-07-01T06:54:04+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.10.0\n"
+"X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: fau-degree-program-common\n"
 
 #: src/Infrastructure/Content/PostType/DegreeProgramPostType.php:21
@@ -290,127 +290,127 @@ msgid "Subject-specific advice"
 msgstr ""
 
 #. translators: %s - taxonomy plural name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:77
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:91
 msgctxt "backoffice: taxonomy label"
 msgid "Search %s"
 msgstr ""
 
 #. translators: %s - taxonomy plural name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:82
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:96
 msgctxt "backoffice: taxonomy label"
 msgid "Popular %s"
 msgstr ""
 
 #. translators: %s - taxonomy plural name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:87
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:101
 msgctxt "backoffice: taxonomy label"
 msgid "All %s"
 msgstr ""
 
 #. translators: %s - taxonomy singular name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:92
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:106
 msgctxt "backoffice: taxonomy label"
 msgid "Parent %s"
 msgstr ""
 
 #. translators: %s - taxonomy singular name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:97
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:111
 msgctxt "backoffice: taxonomy label"
 msgid "Parent %s:"
 msgstr ""
 
 #. translators: %s - taxonomy singular name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:102
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:116
 msgctxt "backoffice: taxonomy label"
 msgid "Edit %s"
 msgstr ""
 
 #. translators: %s - taxonomy singular name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:107
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:121
 msgctxt "backoffice: taxonomy label"
 msgid "View %s"
 msgstr ""
 
 #. translators: %s - taxonomy singular name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:112
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:126
 msgctxt "backoffice: taxonomy label"
 msgid "Update %s"
 msgstr ""
 
 #. translators: %s - taxonomy singular name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:117
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:131
 msgctxt "backoffice: taxonomy label"
 msgid "Add New %s"
 msgstr ""
 
 #. translators: %s - taxonomy singular name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:122
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:136
 msgctxt "backoffice: taxonomy label"
 msgid "New %s Name"
 msgstr ""
 
 #. translators: %s - taxonomy plural name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:127
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:141
 msgctxt "backoffice: taxonomy label"
 msgid "Separate %s with commas"
 msgstr ""
 
 #. translators: %s - taxonomy plural name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:136
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:150
 msgctxt "backoffice: taxonomy label"
 msgid "Add or remove %s"
 msgstr ""
 
 #. translators: %s - taxonomy plural name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:141
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:155
 msgctxt "backoffice: taxonomy label"
 msgid "Choose from the most used %s"
 msgstr ""
 
 #. translators: %s - taxonomy plural name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:150
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:164
 msgctxt "backoffice: taxonomy label"
 msgid "No %s found."
 msgstr ""
 
 #. translators: %s - taxonomy plural name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:155
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:169
 msgctxt "backoffice: taxonomy label"
 msgid "No %s"
 msgstr ""
 
 #. translators: %s - taxonomy singular name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:160
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:174
 msgctxt "backoffice: taxonomy label"
 msgid "Filter by %s"
 msgstr ""
 
 #. translators: %s - taxonomy plural name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:165
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:179
 msgctxt "backoffice: taxonomy label"
 msgid "%s list navigation"
 msgstr ""
 
 #. translators: %s - taxonomy plural name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:174
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:188
 msgctxt "backoffice: taxonomy label"
 msgid "%s list"
 msgstr ""
 
 #. translators: %s - taxonomy plural name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:179
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:193
 msgctxt "backoffice: taxonomy label"
 msgid "&larr; Go to %s"
 msgstr ""
 
 #. translators: %s - taxonomy singular name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:184
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:198
 msgctxt "backoffice: taxonomy label"
 msgid "%s Link"
 msgstr ""
 
 #. translators: %s - taxonomy singular name
-#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:189
+#: src/Infrastructure/Content/Taxonomy/Taxonomy.php:203
 msgctxt "backoffice: taxonomy label"
 msgid "A link to a %s."
 msgstr ""
@@ -440,258 +440,284 @@ msgctxt "backoffice: admin bar menu item"
 msgid "FAU Degree Program"
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:128
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:139
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:203
 msgctxt "rest_api: response status"
 msgid "Something went wrong. Please try again later."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:148
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:159
 msgctxt "rest_api: response status"
 msgid "The page number requested is larger than the number of pages available."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:197
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:217
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:240
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:260
 msgctxt "rest_api: response status"
 msgid "Degree program not found."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:290
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:334
 msgctxt "rest_api: schema item description"
 msgid "Language code (\"de\" and \"en\" are supported)."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:311
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:347
+msgctxt "rest_api: schema item description"
+msgid "Determine whether the search should include additional data."
+msgstr ""
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:368
 msgctxt "rest_api: schema item description"
 msgid "Unique identifier for the degree program."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:319
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:376
+msgctxt "rest_api: schema item description"
+msgid "The date the degree program was created."
+msgstr ""
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:385
+msgctxt "rest_api: schema item description"
+msgid "The date the degree program was last modified."
+msgstr ""
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:394
 msgctxt "rest_api: schema item description"
 msgid "Feature image."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:327
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:402
 msgctxt "rest_api: schema item description"
 msgid "Teaser image."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:335
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:410
 msgctxt "rest_api: schema item description"
 msgid "Title."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:343
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:418
 msgctxt "rest_api: schema item description"
 msgid "Subtitle."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:351
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:426
 msgctxt "rest_api: schema item description"
 msgid "Standard duration of study."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:359
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:434
 msgctxt "rest_api: schema item description"
 msgid "Fee required."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:367
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:442
 msgctxt "rest_api: schema item description"
 msgid "Start of degree program."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:375
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:450
 msgctxt "rest_api: schema item description"
 msgid "Number of students."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:383
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:458
 msgctxt "rest_api: schema item description"
 msgid "Teaching language."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:391
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:466
 msgctxt "rest_api: schema item description"
 msgid "Attributes."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:399
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:474
 msgctxt "rest_api: schema item description"
 msgid "Degree."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:407
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:482
 msgctxt "rest_api: schema item description"
 msgid "Faculty."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:415
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:490
 msgctxt "rest_api: schema item description"
 msgid "Study location."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:423
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:498
 msgctxt "rest_api: schema item description"
 msgid "Subject groups."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:431
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:506
 msgctxt "rest_api: schema item description"
 msgid "Videos."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:439
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:514
 msgctxt "rest_api: schema item description"
 msgid "Meta description."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:447
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:522
 msgctxt "rest_api: schema item description"
 msgid "Content."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:455
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:530
 msgctxt "rest_api: schema item description"
 msgid "Admission requirement link."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:463
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:538
 msgctxt "rest_api: schema item description"
 msgid "Admission requirements."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:471
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:546
 msgctxt "rest_api: schema item description"
 msgid "Content-related admission requirements for Master’s degree."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:479
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:554
 msgctxt "rest_api: schema item description"
 msgid "Application deadline winter semester."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:487
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:562
 msgctxt "rest_api: schema item description"
 msgid "Application deadline summer semester."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:495
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:570
 msgctxt "rest_api: schema item description"
 msgid "Details and notes."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:503
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:578
 msgctxt "rest_api: schema item description"
 msgid "Language skills."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:511
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:586
 msgctxt "rest_api: schema item description"
 msgid "Language skills for Faculty of Humanities, Social Sciences, and Theology only."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:520
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:595
 msgctxt "rest_api: schema item description"
 msgid "Language certificates/German language skills for international applicants."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:528
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:603
 msgctxt "rest_api: schema item description"
 msgid "Start of semester."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:536
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:611
 msgctxt "rest_api: schema item description"
 msgid "Semester dates."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:544
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:619
 msgctxt "rest_api: schema item description"
 msgid "Examinations Office."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:552
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:627
 msgctxt "rest_api: schema item description"
 msgid "Degree program and examination regulations."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:560
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:635
 msgctxt "rest_api: schema item description"
 msgid "Module handbook."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:568
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:643
 msgctxt "rest_api: schema item description"
 msgid "Degree program URL."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:576
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:651
 msgctxt "rest_api: schema item description"
 msgid "Department."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:584
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:659
 msgctxt "rest_api: schema item description"
 msgid "Student Advice and Career Service."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:592
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:667
 msgctxt "rest_api: schema item description"
 msgid "Subject-specific advice."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:600
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:675
 msgctxt "rest_api: schema item description"
 msgid "Counseling and Service Centers at FAU."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:608
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:683
 msgctxt "rest_api: schema item description"
 msgid "Info brochure degree program."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:616
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:691
 msgctxt "rest_api: schema item description"
 msgid "Semester fee."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:624
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:699
 msgctxt "rest_api: schema item description"
 msgid "Degree program fees."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:632
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:707
 msgctxt "rest_api: schema item description"
 msgid "Opportunities for spending time abroad."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:640
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:715
 msgctxt "rest_api: schema item description"
 msgid "Degree program possible combinations."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:648
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:723
 msgctxt "rest_api: schema item description"
 msgid "Degree program limited possible combinations."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:656
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:731
 msgctxt "rest_api: schema item description"
 msgid "Available translations."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:664
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:739
 msgctxt "rest_api: schema item description"
 msgid "Notes for international applicants."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:672
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:747
 msgctxt "rest_api: schema item description"
 msgid "Students' Union/Student Initiatives."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:680
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:755
+msgctxt "rest_api: schema item description"
+msgid "Current news / time-sensitive notices (Aktuelles)."
+msgstr ""
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:763
+msgctxt "rest_api: schema item description"
+msgid "Expiry date after which the Aktuelles notice is hidden."
+msgstr ""
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:771
 msgctxt "rest_api: schema item description"
 msgid "Degree program Campo Keys."
 msgstr ""

@@ -153,6 +153,10 @@ return [
         DegreeProgram::STUDENT_INITIATIVES => MultilingualLink::SCHEMA,
         DegreeProgram::APPLY_NOW_LINK => MultilingualLink::SCHEMA_REQUIRED,
         DegreeProgram::ENTRY_TEXT => MultilingualString::SCHEMA_REQUIRED,
+        DegreeProgram::NEWS => MultilingualString::SCHEMA,
+        DegreeProgram::NEWS_EXPIRY_DATE => [
+            'type' => 'string',
+        ],
         DegreeProgram::CAMPO_KEYS => CampoKeys::SCHEMA_REQUIRED,
     ],
 ];
