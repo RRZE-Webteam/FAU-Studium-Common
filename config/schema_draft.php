@@ -28,7 +28,6 @@ return [
         ],
         DegreeProgram::SLUG => MultilingualString::SCHEMA,
         DegreeProgram::FEATURED_IMAGE => Image::SCHEMA,
-        DegreeProgram::TEASER_IMAGE => Image::SCHEMA,
         DegreeProgram::TITLE => MultilingualString::SCHEMA,
         DegreeProgram::SUBTITLE => MultilingualString::SCHEMA,
         DegreeProgram::STANDARD_DURATION => [

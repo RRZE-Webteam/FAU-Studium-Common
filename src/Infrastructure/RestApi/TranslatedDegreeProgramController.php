@@ -398,14 +398,6 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 ),
                 'type' => 'object',
             ],
-            DegreeProgram::TEASER_IMAGE => [
-                'description' => _x(
-                    'Teaser image.',
-                    'rest_api: schema item description',
-                    'fau-degree-program-common'
-                ),
-                'type' => 'object',
-            ],
             DegreeProgram::TITLE => [
                 'description' => _x(
                     'Title.',

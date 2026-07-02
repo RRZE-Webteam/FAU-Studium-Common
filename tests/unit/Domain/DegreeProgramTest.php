@@ -68,10 +68,6 @@ class DegreeProgramTest extends UnitTestCase
             $result['featured_image']->id()
         );
         $this->assertSame(
-            14,
-            $result['teaser_image']->id()
-        );
-        $this->assertSame(
             'Master of Art FAU EN',
             $result['title']->inEnglish()
         );

@@ -30,7 +30,6 @@ final class DegreeProgramViewRaw implements JsonSerializable
         private DegreeProgramId $id,
         private MultilingualString $slug,
         private Image $featuredImage,
-        private Image $teaserImage,
         private MultilingualString $title,
         private MultilingualString $subtitle,
         private string $standardDuration,
@@ -90,7 +89,6 @@ final class DegreeProgramViewRaw implements JsonSerializable
             $data[DegreeProgram::ID],
             $data[DegreeProgram::SLUG],
             $data[DegreeProgram::FEATURED_IMAGE],
-            $data[DegreeProgram::TEASER_IMAGE],
             $data[DegreeProgram::TITLE],
             $data[DegreeProgram::SUBTITLE],
             $data[DegreeProgram::STANDARD_DURATION],
@@ -151,7 +149,6 @@ final class DegreeProgramViewRaw implements JsonSerializable
             id: DegreeProgramId::fromInt($data[DegreeProgram::ID]),
             slug: MultilingualString::fromArray($data[DegreeProgram::SLUG]),
             featuredImage: Image::fromArray($data[DegreeProgram::FEATURED_IMAGE]),
-            teaserImage: Image::fromArray($data[DegreeProgram::TEASER_IMAGE]),
             title: MultilingualString::fromArray($data[DegreeProgram::TITLE]),
             subtitle: MultilingualString::fromArray($data[DegreeProgram::SUBTITLE]),
             standardDuration: $data[DegreeProgram::STANDARD_DURATION],
@@ -216,7 +213,6 @@ final class DegreeProgramViewRaw implements JsonSerializable
             DegreeProgram::ID => $this->id->asInt(),
             DegreeProgram::SLUG => $this->slug->asArray(),
             DegreeProgram::FEATURED_IMAGE => $this->featuredImage->asArray(),
-            DegreeProgram::TEASER_IMAGE => $this->teaserImage->asArray(),
             DegreeProgram::TITLE => $this->title->asArray(),
             DegreeProgram::SUBTITLE => $this->subtitle->asArray(),
             DegreeProgram::STANDARD_DURATION => $this->standardDuration,
@@ -287,11 +283,6 @@ final class DegreeProgramViewRaw implements JsonSerializable
     public function featuredImage(): Image
     {
         return $this->featuredImage;
-    }
-
-    public function teaserImage(): Image
-    {
-        return $this->teaserImage;
     }
 
     public function title(): MultilingualString

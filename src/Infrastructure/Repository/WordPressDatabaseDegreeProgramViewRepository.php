@@ -118,11 +118,6 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
                 DegreeProgram::FEATURED_IMAGE,
                 $title
             ),
-            teaserImage: $this->imageView(
-                $raw->teaserImage(),
-                DegreeProgram::TEASER_IMAGE,
-                $title
-            ),
             title: $raw->title()->asString($languageCode),
             subtitle: $raw->subtitle()->asString($languageCode),
             standardDuration: $raw->standardDuration(),
@@ -193,7 +188,7 @@ final class WordPressDatabaseDegreeProgramViewRepository implements DegreeProgra
     }
 
     /**
-     * @psalm-param 'featured_image' | 'teaser_image' $type
+     * @psalm-param 'featured_image' $type
      */
     private function imageView(Image $image, string $type, string $alt): ImageView
     {
