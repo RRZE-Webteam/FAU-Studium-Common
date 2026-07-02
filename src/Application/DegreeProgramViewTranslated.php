@@ -246,6 +246,7 @@ final class DegreeProgramViewTranslated implements JsonSerializable
      * } $data
      *
      * phpcs:disable Inpsyde.CodeQuality.FunctionLength.TooLong
+     * phpcs:disable Generic.Metrics.CyclomaticComplexity.TooHigh
      */
     public static function fromArray(array $data): self
     {
