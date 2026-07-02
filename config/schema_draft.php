@@ -131,6 +131,18 @@ return [
             'type' => 'string',
             'format' => 'uri',
         ],
+        DegreeProgram::SSC_FACULTY_ADVICE_ORG_ID => [
+            'type' => 'string',
+            'pattern' => JsonSchemaDegreeProgramDataValidator::FAUDIR_ORG_ID_PATTERN,
+        ],
+        DegreeProgram::SUBJECT_STUDY_ADVICE_ORG_ID => [
+            'type' => 'string',
+            'pattern' => JsonSchemaDegreeProgramDataValidator::FAUDIR_ORG_ID_PATTERN,
+        ],
+        DegreeProgram::DEGREE_PROGRAM_COORDINATOR_ORG_ID => [
+            'type' => 'string',
+            'pattern' => JsonSchemaDegreeProgramDataValidator::FAUDIR_ORG_ID_PATTERN,
+        ],
         DegreeProgram::URL => MultilingualString::SCHEMA,
         DegreeProgram::DEPARTMENT => MultilingualString::SCHEMA,
         DegreeProgram::STUDENT_ADVICE => MultilingualLink::SCHEMA,

@@ -59,6 +59,9 @@ final class DegreeProgramViewRaw implements JsonSerializable
         private MultilingualLink $examinationsOffice,
         private string $examinationRegulations,
         private string $moduleHandbook,
+        private string $sscFacultyAdviceOrgId,
+        private string $subjectStudyAdviceOrgId,
+        private string $degreeProgramCoordinatorOrgId,
         private MultilingualString $url,
         private MultilingualString $department,
         private MultilingualLink $studentAdvice,
@@ -119,6 +122,9 @@ final class DegreeProgramViewRaw implements JsonSerializable
             $data[DegreeProgram::EXAMINATIONS_OFFICE],
             $data[DegreeProgram::EXAMINATION_REGULATIONS],
             $data[DegreeProgram::MODULE_HANDBOOK],
+            $data[DegreeProgram::SSC_FACULTY_ADVICE_ORG_ID],
+            $data[DegreeProgram::SUBJECT_STUDY_ADVICE_ORG_ID],
+            $data[DegreeProgram::DEGREE_PROGRAM_COORDINATOR_ORG_ID],
             $data[DegreeProgram::URL],
             $data[DegreeProgram::DEPARTMENT],
             $data[DegreeProgram::STUDENT_ADVICE],
@@ -180,6 +186,9 @@ final class DegreeProgramViewRaw implements JsonSerializable
             examinationsOffice: MultilingualLink::fromArray($data[DegreeProgram::EXAMINATIONS_OFFICE]),
             examinationRegulations: $data[DegreeProgram::EXAMINATION_REGULATIONS],
             moduleHandbook: $data[DegreeProgram::MODULE_HANDBOOK],
+            sscFacultyAdviceOrgId: $data[DegreeProgram::SSC_FACULTY_ADVICE_ORG_ID] ?? '',
+            subjectStudyAdviceOrgId: $data[DegreeProgram::SUBJECT_STUDY_ADVICE_ORG_ID] ?? '',
+            degreeProgramCoordinatorOrgId: $data[DegreeProgram::DEGREE_PROGRAM_COORDINATOR_ORG_ID] ?? '',
             url: MultilingualString::fromArray($data[DegreeProgram::URL]),
             department: MultilingualString::fromArray($data[DegreeProgram::DEPARTMENT]),
             studentAdvice: MultilingualLink::fromArray($data[DegreeProgram::STUDENT_ADVICE]),
@@ -248,6 +257,9 @@ final class DegreeProgramViewRaw implements JsonSerializable
             DegreeProgram::EXAMINATIONS_OFFICE => $this->examinationsOffice->asArray(),
             DegreeProgram::EXAMINATION_REGULATIONS => $this->examinationRegulations,
             DegreeProgram::MODULE_HANDBOOK => $this->moduleHandbook,
+            DegreeProgram::SSC_FACULTY_ADVICE_ORG_ID => $this->sscFacultyAdviceOrgId,
+            DegreeProgram::SUBJECT_STUDY_ADVICE_ORG_ID => $this->subjectStudyAdviceOrgId,
+            DegreeProgram::DEGREE_PROGRAM_COORDINATOR_ORG_ID => $this->degreeProgramCoordinatorOrgId,
             DegreeProgram::URL => $this->url->asArray(),
             DegreeProgram::DEPARTMENT => $this->department->asArray(),
             DegreeProgram::STUDENT_ADVICE => $this->studentAdvice->asArray(),
@@ -432,6 +444,21 @@ final class DegreeProgramViewRaw implements JsonSerializable
     public function moduleHandbook(): string
     {
         return $this->moduleHandbook;
+    }
+
+    public function sscFacultyAdviceOrgId(): string
+    {
+        return $this->sscFacultyAdviceOrgId;
+    }
+
+    public function subjectStudyAdviceOrgId(): string
+    {
+        return $this->subjectStudyAdviceOrgId;
+    }
+
+    public function degreeProgramCoordinatorOrgId(): string
+    {
+        return $this->degreeProgramCoordinatorOrgId;
     }
 
     public function url(): MultilingualString
