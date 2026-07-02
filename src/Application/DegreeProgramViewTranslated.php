@@ -57,6 +57,9 @@ use JsonSerializable;
  *     examinations_office: LinkType,
  *     examination_regulations: string,
  *     module_handbook: string,
+ *     ssc_faculty_advice_org_id: string,
+ *     subject_study_advice_org_id: string,
+ *     degree_program_coordinator_org_id: string,
  *     url: string,
  *     department: string,
  *     student_advice: LinkType,
@@ -137,6 +140,9 @@ final class DegreeProgramViewTranslated implements JsonSerializable
         private Link $examinationsOffice,
         private string $examinationRegulations,
         private string $moduleHandbook,
+        private string $sscFacultyAdviceOrgId,
+        private string $subjectStudyAdviceOrgId,
+        private string $degreeProgramCoordinatorOrgId,
         private string $url,
         private string $department,
         private Link $studentAdvice,
@@ -205,6 +211,9 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             examinationsOffice: Link::empty(),
             examinationRegulations: '',
             moduleHandbook: '',
+            sscFacultyAdviceOrgId: '',
+            subjectStudyAdviceOrgId: '',
+            degreeProgramCoordinatorOrgId: '',
             url: '',
             department: '',
             studentAdvice: Link::empty(),
@@ -279,6 +288,9 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             examinationsOffice: Link::fromArray($data[DegreeProgram::EXAMINATIONS_OFFICE]),
             examinationRegulations: $data[DegreeProgram::EXAMINATION_REGULATIONS],
             moduleHandbook: $data[DegreeProgram::MODULE_HANDBOOK],
+            sscFacultyAdviceOrgId: $data[DegreeProgram::SSC_FACULTY_ADVICE_ORG_ID] ?? '',
+            subjectStudyAdviceOrgId: $data[DegreeProgram::SUBJECT_STUDY_ADVICE_ORG_ID] ?? '',
+            degreeProgramCoordinatorOrgId: $data[DegreeProgram::DEGREE_PROGRAM_COORDINATOR_ORG_ID] ?? '',
             url: $data[DegreeProgram::URL],
             department: $data[DegreeProgram::DEPARTMENT],
             studentAdvice: Link::fromArray($data[DegreeProgram::STUDENT_ADVICE]),
@@ -358,6 +370,9 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             DegreeProgram::EXAMINATIONS_OFFICE => $this->examinationsOffice->asArray(),
             DegreeProgram::EXAMINATION_REGULATIONS => $this->examinationRegulations,
             DegreeProgram::MODULE_HANDBOOK => $this->moduleHandbook,
+            DegreeProgram::SSC_FACULTY_ADVICE_ORG_ID => $this->sscFacultyAdviceOrgId,
+            DegreeProgram::SUBJECT_STUDY_ADVICE_ORG_ID => $this->subjectStudyAdviceOrgId,
+            DegreeProgram::DEGREE_PROGRAM_COORDINATOR_ORG_ID => $this->degreeProgramCoordinatorOrgId,
             DegreeProgram::URL => $this->url,
             DegreeProgram::DEPARTMENT => $this->department,
             DegreeProgram::STUDENT_ADVICE => $this->studentAdvice->asArray(),
@@ -643,6 +658,21 @@ final class DegreeProgramViewTranslated implements JsonSerializable
     public function moduleHandbook(): string
     {
         return $this->moduleHandbook;
+    }
+
+    public function sscFacultyAdviceOrgId(): string
+    {
+        return $this->sscFacultyAdviceOrgId;
+    }
+
+    public function subjectStudyAdviceOrgId(): string
+    {
+        return $this->subjectStudyAdviceOrgId;
+    }
+
+    public function degreeProgramCoordinatorOrgId(): string
+    {
+        return $this->degreeProgramCoordinatorOrgId;
     }
 
     public function url(): string

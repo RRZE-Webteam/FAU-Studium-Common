@@ -631,6 +631,30 @@ final class TranslatedDegreeProgramController extends WP_REST_Controller
                 ),
                 'type' => 'string',
             ],
+            DegreeProgram::SSC_FACULTY_ADVICE_ORG_ID => [
+                'description' => _x(
+                    'SSC/advice at the faculty/department (FAUdir organization ID).',
+                    'rest_api: schema item description',
+                    'fau-degree-program-common'
+                ),
+                'type' => 'string',
+            ],
+            DegreeProgram::SUBJECT_STUDY_ADVICE_ORG_ID => [
+                'description' => _x(
+                    'Subject study advice (FAUdir organization ID).',
+                    'rest_api: schema item description',
+                    'fau-degree-program-common'
+                ),
+                'type' => 'string',
+            ],
+            DegreeProgram::DEGREE_PROGRAM_COORDINATOR_ORG_ID => [
+                'description' => _x(
+                    'Degree program coordinator (FAUdir organization ID).',
+                    'rest_api: schema item description',
+                    'fau-degree-program-common'
+                ),
+                'type' => 'string',
+            ],
             DegreeProgram::URL => [
                 'description' => _x(
                     'Degree program URL.',
