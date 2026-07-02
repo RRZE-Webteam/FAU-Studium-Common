@@ -109,22 +109,22 @@ class JsonSchemaDegreeProgramDataValidatorTest extends WpDbLessTestCase
     public function invalidFaudirOrgIdDataProvider(): array
     {
         return [
-            ['abc123456'], // 9 chars, too short
-            ['abc123456789'], // 12 chars, too long
-            ['ABC1234567'], // uppercase not allowed
-            ['abc-123456'], // symbol not allowed
-            ['abc 123456'], // whitespace not allowed
+            '9 chars, too short' => ['abc123456'],
+            '12 chars, too long' => ['abc123456789'],
+            'uppercase not allowed' => ['ABC1234567'],
+            'symbol not allowed' => ['abc-123456'],
+            'whitespace not allowed' => ['abc 123456'],
         ];
     }
 
     public function validFaudirOrgIdDataProvider(): array
     {
         return [
-            ['abc1234567'], // 10 chars
-            ['abc12345678'], // 11 chars
-            ['0123456789'], // digits only
-            ['abcdefghij'], // letters only
-            [''], // empty (optional)
+            '10 chars' => ['abc1234567'],
+            '11 chars' => ['abc12345678'],
+            'digits only' => ['0123456789'],
+            'letters only' => ['abcdefghij'],
+            'empty string, optional field' => [''],
         ];
     }
 
