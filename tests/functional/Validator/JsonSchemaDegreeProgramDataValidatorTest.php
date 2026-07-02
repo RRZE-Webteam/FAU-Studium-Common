@@ -78,6 +78,56 @@ class JsonSchemaDegreeProgramDataValidatorTest extends WpDbLessTestCase
         $this->assertCount(0, $violations->getArrayCopy());
     }
 
+    /**
+     * @dataProvider invalidFaudirOrgIdDataProvider
+     */
+    public function testInvalidFaudirOrgId(string $orgId): void
+    {
+        $fixtureData = $this->fixtureData();
+        $fixtureData['ssc_faculty_advice_org_id'] = $orgId;
+
+        $violations = $this->sut->validatePublish($fixtureData);
+        $this->assertCount(1, $violations->getArrayCopy());
+        $this->assertStringStartsWith(
+            'ssc_faculty_advice_org_id does not match pattern',
+            $violations['ssc_faculty_advice_org_id']->errorMessage(),
+        );
+    }
+
+    /**
+     * @dataProvider validFaudirOrgIdDataProvider
+     */
+    public function testValidFaudirOrgId(string $orgId): void
+    {
+        $fixtureData = $this->fixtureData();
+        $fixtureData['ssc_faculty_advice_org_id'] = $orgId;
+
+        $violations = $this->sut->validatePublish($fixtureData);
+        $this->assertCount(0, $violations->getArrayCopy());
+    }
+
+    public function invalidFaudirOrgIdDataProvider(): array
+    {
+        return [
+            '9 chars, too short' => ['abc123456'],
+            '12 chars, too long' => ['abc123456789'],
+            'uppercase not allowed' => ['ABC1234567'],
+            'symbol not allowed' => ['abc-123456'],
+            'whitespace not allowed' => ['abc 123456'],
+        ];
+    }
+
+    public function validFaudirOrgIdDataProvider(): array
+    {
+        return [
+            '10 chars' => ['abc1234567'],
+            '11 chars' => ['abc12345678'],
+            'digits only' => ['0123456789'],
+            'letters only' => ['abcdefghij'],
+            'empty string, optional field' => [''],
+        ];
+    }
+
     public function invalidDeadlineDataProvider(): array
     {
         return [

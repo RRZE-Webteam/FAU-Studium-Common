@@ -203,6 +203,21 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
                 DegreeProgram::MODULE_HANDBOOK,
                 true
             ),
+            sscFacultyAdviceOrgId: (string) get_post_meta(
+                $postId,
+                DegreeProgram::SSC_FACULTY_ADVICE_ORG_ID,
+                true
+            ),
+            subjectStudyAdviceOrgId: (string) get_post_meta(
+                $postId,
+                DegreeProgram::SUBJECT_STUDY_ADVICE_ORG_ID,
+                true
+            ),
+            degreeProgramCoordinatorOrgId: (string) get_post_meta(
+                $postId,
+                DegreeProgram::DEGREE_PROGRAM_COORDINATOR_ORG_ID,
+                true
+            ),
             url: $this->bilingualPostMeta($post, DegreeProgram::URL),
             department: $this->bilingualPostMeta($post, DegreeProgram::DEPARTMENT),
             studentAdvice: $this->bilingualLinkFromOption(DegreeProgram::STUDENT_ADVICE),
@@ -403,6 +418,18 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             DegreeProgram::EXAMINATION_REGULATIONS =>
                 $this->fieldsSanitizer->sanitizeUrlField(
                     $degreeProgramViewRaw->examinationRegulations()
+                ),
+            DegreeProgram::SSC_FACULTY_ADVICE_ORG_ID =>
+                $this->fieldsSanitizer->sanitizeTextField(
+                    $degreeProgramViewRaw->sscFacultyAdviceOrgId()
+                ),
+            DegreeProgram::SUBJECT_STUDY_ADVICE_ORG_ID =>
+                $this->fieldsSanitizer->sanitizeTextField(
+                    $degreeProgramViewRaw->subjectStudyAdviceOrgId()
+                ),
+            DegreeProgram::DEGREE_PROGRAM_COORDINATOR_ORG_ID =>
+                $this->fieldsSanitizer->sanitizeTextField(
+                    $degreeProgramViewRaw->degreeProgramCoordinatorOrgId()
                 ),
         ];
 
