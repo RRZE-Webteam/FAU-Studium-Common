@@ -28,7 +28,6 @@ use JsonSerializable;
  *     slug: string,
  *     lang: LanguageCodes,
  *     featured_image: ImageViewType,
- *     teaser_image: ImageViewType,
  *     title: string,
  *     subtitle: string,
  *     standard_duration: string,
@@ -75,6 +74,8 @@ use JsonSerializable;
  *     student_initiatives: LinkType,
  *     apply_now_link: LinkType,
  *     entry_text: string,
+ *     news: string,
+ *     news_expiry_date: string,
  *     campo_keys: CampoKeysMap
  * }
  * @psalm-type DegreeProgramViewTranslatedArrayType = DegreeProgramTranslation & array{
@@ -107,7 +108,6 @@ final class DegreeProgramViewTranslated implements JsonSerializable
          */
         private string $lang,
         private ImageView $featuredImage,
-        private ImageView $teaserImage,
         private string $title,
         private string $subtitle,
         private string $standardDuration,
@@ -154,6 +154,8 @@ final class DegreeProgramViewTranslated implements JsonSerializable
         private Link $studentInitiatives,
         private Link $applyNowLink,
         private string $entryText,
+        private string $news,
+        private string $newsExpiryDate,
         private CampoKeys $campoKeys,
     ) {
     }
@@ -172,7 +174,6 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             slug: '',
             lang: $languageCode,
             featuredImage: ImageView::empty(),
-            teaserImage: ImageView::empty(),
             title: '',
             subtitle: '',
             standardDuration: '',
@@ -221,6 +222,8 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             studentInitiatives: Link::empty(),
             applyNowLink: Link::empty(),
             entryText: '',
+            news: '',
+            newsExpiryDate: '',
             campoKeys: CampoKeys::empty(),
         );
     }
@@ -245,7 +248,6 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             slug: $data[DegreeProgram::SLUG],
             lang: $data[self::LANG],
             featuredImage: ImageView::fromArray($data[DegreeProgram::FEATURED_IMAGE]),
-            teaserImage: ImageView::fromArray($data[DegreeProgram::TEASER_IMAGE]),
             title: $data[DegreeProgram::TITLE],
             subtitle: $data[DegreeProgram::SUBTITLE],
             standardDuration: $data[DegreeProgram::STANDARD_DURATION],
@@ -294,6 +296,8 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             studentInitiatives: Link::fromArray($data[DegreeProgram::STUDENT_INITIATIVES]),
             applyNowLink: Link::fromArray($data[DegreeProgram::APPLY_NOW_LINK]),
             entryText: $data[DegreeProgram::ENTRY_TEXT],
+            news: $data[DegreeProgram::NEWS] ?? '',
+            newsExpiryDate: $data[DegreeProgram::NEWS_EXPIRY_DATE] ?? '',
             campoKeys: CampoKeys::fromArray($data[DegreeProgram::CAMPO_KEYS] ?? []),
         );
 
@@ -324,7 +328,6 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             DegreeProgram::SLUG => $this->slug,
             self::LANG => $this->lang,
             DegreeProgram::FEATURED_IMAGE => $this->featuredImage->asArray(),
-            DegreeProgram::TEASER_IMAGE => $this->teaserImage->asArray(),
             DegreeProgram::TITLE => $this->title,
             DegreeProgram::SUBTITLE => $this->subtitle,
             DegreeProgram::STANDARD_DURATION => $this->standardDuration,
@@ -372,6 +375,8 @@ final class DegreeProgramViewTranslated implements JsonSerializable
             DegreeProgram::STUDENT_INITIATIVES => $this->studentInitiatives->asArray(),
             DegreeProgram::APPLY_NOW_LINK => $this->applyNowLink->asArray(),
             DegreeProgram::ENTRY_TEXT => $this->entryText,
+            DegreeProgram::NEWS => $this->news,
+            DegreeProgram::NEWS_EXPIRY_DATE => $this->newsExpiryDate,
             DegreeProgram::CAMPO_KEYS => $this->campoKeys->asArray(),
             self::TRANSLATIONS => $this->translationsAsArray(),
         ];
@@ -493,11 +498,6 @@ final class DegreeProgramViewTranslated implements JsonSerializable
     public function featuredImage(): ImageView
     {
         return $this->featuredImage;
-    }
-
-    public function teaserImage(): ImageView
-    {
-        return $this->teaserImage;
     }
 
     public function title(): string
@@ -728,6 +728,16 @@ final class DegreeProgramViewTranslated implements JsonSerializable
     public function entryText(): string
     {
         return $this->entryText;
+    }
+
+    public function news(): string
+    {
+        return $this->news;
+    }
+
+    public function newsExpiryDate(): string
+    {
+        return $this->newsExpiryDate;
     }
 
     public function campoKeys(): CampoKeys

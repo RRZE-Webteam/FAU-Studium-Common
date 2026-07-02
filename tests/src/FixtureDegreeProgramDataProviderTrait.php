@@ -52,7 +52,6 @@ trait FixtureDegreeProgramDataProviderTrait
             id: DegreeProgramId::fromInt($id),
             slug: MultilingualString::empty(),
             featuredImage: Image::empty(),
-            teaserImage: Image::empty(),
             title: MultilingualString::empty(),
             subtitle: MultilingualString::empty(),
             standardDuration: '',
@@ -69,6 +68,8 @@ trait FixtureDegreeProgramDataProviderTrait
             keywords: MultilingualList::new(),
             areaOfStudy: MultilingualLinks::new(),
             entryText: MultilingualString::empty(),
+            news: MultilingualString::empty(),
+            newsExpiryDate: '',
             content: Content::new(
                 about: ContentItem::new(MultilingualString::empty(), MultilingualString::empty()),
                 structure: ContentItem::new(MultilingualString::empty(), MultilingualString::empty()),

@@ -34,7 +34,6 @@ final class JsonSchemaDegreeProgramDataValidator implements DegreeProgramDataVal
         DegreeProgram::ID,
         DegreeProgram::SLUG,
         DegreeProgram::FEATURED_IMAGE,
-        DegreeProgram::TEASER_IMAGE,
         DegreeProgram::TITLE,
         DegreeProgram::SUBTITLE,
         DegreeProgram::STANDARD_DURATION,

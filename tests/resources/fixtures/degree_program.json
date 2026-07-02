@@ -9,10 +9,6 @@
     "id": 9,
     "url": "https:\/\/fau.localhost\/wp-content\/uploads\/2022\/12\/viber_image_2022-05-27_15-30-39-852.jpg"
   },
-  "teaser_image": {
-    "id": 14,
-    "url": "https:\/\/fau.localhost\/wp-content\/uploads\/2022\/12\/abstract-1-1528080.jpg"
-  },
   "title": {
     "id": "post:25:title",
     "de": "Master of Art FAU",
@@ -696,6 +692,12 @@
     "de": "Einstiegtext (werbend)",
     "en": "Entry text (promotional)"
   },
+  "news": {
+    "id": "post_meta:25:news",
+    "de": "Aktuelles",
+    "en": "Current news"
+  },
+  "news_expiry_date": "",
   "campo_keys": {
     "degree": "185",
     "area_of_study": "85",

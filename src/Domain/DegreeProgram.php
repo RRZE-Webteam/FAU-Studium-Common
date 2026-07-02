@@ -22,7 +22,6 @@ use RuntimeException;
  *     id: int,
  *     slug: MultilingualStringType,
  *     featured_image: array{id: int, url: string},
- *     teaser_image: array{id: int, url: string},
  *     title: MultilingualStringType,
  *     subtitle: MultilingualStringType,
  *     standard_duration: string,
@@ -71,6 +70,8 @@ use RuntimeException;
  *     student_initiatives: MultilingualLinkType,
  *     apply_now_link: MultilingualLinkType,
  *     entry_text: MultilingualStringType,
+ *     news: MultilingualStringType,
+ *     news_expiry_date: string,
  *     campo_keys: CampoKeysMap,
  * }
  */
@@ -79,7 +80,6 @@ final class DegreeProgram
     public const ID = 'id';
     public const SLUG = 'slug';
     public const FEATURED_IMAGE = 'featured_image';
-    public const TEASER_IMAGE = 'teaser_image';
     public const TITLE = 'title';
     public const SUBTITLE = 'subtitle';
     public const STANDARD_DURATION = 'standard_duration';
@@ -123,6 +123,8 @@ final class DegreeProgram
     public const KEYWORDS = 'keywords';
     public const AREA_OF_STUDY = 'area_of_study';
     public const ENTRY_TEXT = 'entry_text';
+    public const NEWS = 'news';
+    public const NEWS_EXPIRY_DATE = 'news_expiry_date';
     public const COMBINATIONS = 'combinations';
     public const LIMITED_COMBINATIONS = 'limited_combinations';
     public const COMBINATIONS_CHANGESET = 'combinations_changeset';
@@ -142,7 +144,6 @@ final class DegreeProgram
         private MultilingualString $slug,
         //--- At a glance (“Auf einen Blick”) ---//
         private Image $featuredImage,
-        private Image $teaserImage,
         private MultilingualString $title,
         private MultilingualString $subtitle,
         /**
@@ -199,6 +200,14 @@ final class DegreeProgram
          * Einstiegtext (werbend)
          */
         private MultilingualString $entryText,
+        /**
+         * Current news
+         */
+        private MultilingualString $news,
+        /**
+         * News expiry date (optional)
+         */
+        private string $newsExpiryDate,
         //--- Content (“Inhalte”) ---//
         private Content $content,
         //--- Admission requirements, application and enrollment (“Zugangsvoraussetzungen, Bewerbung und Einschreibung”) ---//
@@ -405,6 +414,7 @@ final class DegreeProgram
                 self::DETAILS_AND_NOTES,
                 self::LANGUAGE_SKILLS,
                 self::ENTRY_TEXT,
+                self::NEWS,
             ] as $key
         ) {
             $data[$key] = MultilingualString::mapTranslations(
@@ -430,7 +440,6 @@ final class DegreeProgram
 
         $this->slug = MultilingualString::fromArray($data[self::SLUG]);
         $this->featuredImage = Image::fromArray($data[self::FEATURED_IMAGE]);
-        $this->teaserImage = Image::fromArray($data[self::TEASER_IMAGE]);
         $this->title = MultilingualString::fromArray($data[self::TITLE]);
         $this->subtitle = MultilingualString::fromArray($data[self::SUBTITLE]);
         $this->standardDuration = $data[self::STANDARD_DURATION];
@@ -479,6 +488,8 @@ final class DegreeProgram
         $this->studentInitiatives = MultilingualLink::fromArray($data[self::STUDENT_INITIATIVES]);
         $this->applyNowLink = MultilingualLink::fromArray($data[self::APPLY_NOW_LINK]);
         $this->entryText = MultilingualString::fromArray($data[self::ENTRY_TEXT]);
+        $this->news = MultilingualString::fromArray($data[self::NEWS]);
+        $this->newsExpiryDate = $data[self::NEWS_EXPIRY_DATE];
         $this->campoKeys = CampoKeys::fromArray($data[self::CAMPO_KEYS]);
 
         $this->combinationsChangeset = $this
@@ -496,7 +507,6 @@ final class DegreeProgram
      *     id: DegreeProgramId,
      *     slug: MultilingualString,
      *     featured_image: Image,
-     *     teaser_image: Image,
      *     title: MultilingualString,
      *     subtitle: MultilingualString,
      *     standard_duration: string,
@@ -547,6 +557,8 @@ final class DegreeProgram
      *     student_initiatives: MultilingualLink,
      *     apply_now_link: MultilingualLink,
      *     entry_text: MultilingualString,
+     *     news: MultilingualString,
+     *     news_expiry_date: string,
      *     campo_keys: CampoKeys,
      * }
      * @internal Only for repositories usage
@@ -558,7 +570,6 @@ final class DegreeProgram
             self::ID => $this->id,
             self::SLUG => $this->slug,
             self::FEATURED_IMAGE => $this->featuredImage,
-            self::TEASER_IMAGE => $this->teaserImage,
             self::TITLE => $this->title,
             self::SUBTITLE => $this->subtitle,
             self::STANDARD_DURATION => $this->standardDuration,
@@ -610,6 +621,8 @@ final class DegreeProgram
             self::STUDENT_INITIATIVES => $this->studentInitiatives,
             self::APPLY_NOW_LINK => $this->applyNowLink,
             self::ENTRY_TEXT => $this->entryText,
+            self::NEWS => $this->news,
+            self::NEWS_EXPIRY_DATE => $this->newsExpiryDate,
             self::CAMPO_KEYS => $this->campoKeys,
         ];
     }

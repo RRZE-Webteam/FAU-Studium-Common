@@ -28,7 +28,6 @@ return [
         ],
         DegreeProgram::SLUG => MultilingualString::SCHEMA,
         DegreeProgram::FEATURED_IMAGE => Image::SCHEMA,
-        DegreeProgram::TEASER_IMAGE => Image::SCHEMA,
         DegreeProgram::TITLE => MultilingualString::SCHEMA,
         DegreeProgram::SUBTITLE => MultilingualString::SCHEMA,
         DegreeProgram::STANDARD_DURATION => [
@@ -163,6 +162,10 @@ return [
         DegreeProgram::STUDENT_INITIATIVES => MultilingualLink::SCHEMA,
         DegreeProgram::APPLY_NOW_LINK => MultilingualLink::SCHEMA,
         DegreeProgram::ENTRY_TEXT => MultilingualString::SCHEMA,
+        DegreeProgram::NEWS => MultilingualString::SCHEMA,
+        DegreeProgram::NEWS_EXPIRY_DATE => [
+            'type' => 'string',
+        ],
         DegreeProgram::CAMPO_KEYS => CampoKeys::SCHEMA,
     ],
 ];

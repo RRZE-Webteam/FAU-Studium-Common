@@ -72,7 +72,6 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
         }
 
         $featuredImageId = (int) get_post_thumbnail_id($post);
-        $teaserImageId = (int) get_post_meta($postId, DegreeProgram::TEASER_IMAGE, true);
 
         /**
          * @var string $videos
@@ -93,10 +92,6 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             featuredImage: Image::new(
                 $featuredImageId,
                 (string) wp_get_attachment_image_url($featuredImageId, 'full')
-            ),
-            teaserImage: Image::new(
-                $teaserImageId,
-                (string) wp_get_attachment_image_url($teaserImageId, 'full')
             ),
             title: MultilingualString::fromTranslations(
                 $this->idGenerator->generatePostId($post, 'title'),
@@ -130,6 +125,12 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
             keywords: $this->bilingualTermsList($post, KeywordTaxonomy::KEY),
             areaOfStudy: $this->bilingualTermLinks($post, AreaOfStudyTaxonomy::KEY),
             entryText: $this->bilingualPostMeta($post, DegreeProgram::ENTRY_TEXT),
+            news: $this->bilingualPostMeta($post, DegreeProgram::NEWS),
+            newsExpiryDate: (string) get_post_meta(
+                $postId,
+                DegreeProgram::NEWS_EXPIRY_DATE,
+                true
+            ),
             content: Content::new(
                 about: $this->contentItem($post, Content::ABOUT),
                 structure: $this->contentItem($post, Content::STRUCTURE),
@@ -379,8 +380,6 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
         );
 
         $metas = [
-            DegreeProgram::TEASER_IMAGE =>
-                $degreeProgramViewRaw->teaserImage()->id(),
             BilingualRepository::addEnglishSuffix('title') =>
                 $degreeProgramViewRaw->title()->inEnglish(),
             BilingualRepository::addEnglishSuffix('post_name') =>
@@ -400,6 +399,8 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
                         $degreeProgramViewRaw->videos()->getArrayCopy(),
                     ),
                 ),
+            DegreeProgram::NEWS_EXPIRY_DATE =>
+                $degreeProgramViewRaw->newsExpiryDate(),
             DegreeProgram::APPLICATION_DEADLINE_WINTER_SEMESTER =>
                 $degreeProgramViewRaw->applicationDeadlineWinterSemester(),
             DegreeProgram::APPLICATION_DEADLINE_SUMMER_SEMESTER =>
@@ -463,6 +464,7 @@ final class WordPressDatabaseDegreeProgramRepository extends BilingualRepository
                 $degreeProgramViewRaw->department()
             ),
             $degreeProgramViewRaw->entryText(),
+            $degreeProgramViewRaw->news(),
         ];
 
         foreach ($bilingualMetas as $bilingualMeta) {
