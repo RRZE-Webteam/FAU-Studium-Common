@@ -1,13 +1,13 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: FAU-Studium-Common\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-01T06:54:04+00:00\n"
+"POT-Creation-Date: 2026-07-02T13:42:59+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: fau-degree-program-common\n"
@@ -489,235 +489,245 @@ msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:402
 msgctxt "rest_api: schema item description"
-msgid "Teaser image."
+msgid "Title."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:410
 msgctxt "rest_api: schema item description"
-msgid "Title."
+msgid "Subtitle."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:418
 msgctxt "rest_api: schema item description"
-msgid "Subtitle."
+msgid "Standard duration of study."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:426
 msgctxt "rest_api: schema item description"
-msgid "Standard duration of study."
+msgid "Fee required."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:434
 msgctxt "rest_api: schema item description"
-msgid "Fee required."
+msgid "Start of degree program."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:442
 msgctxt "rest_api: schema item description"
-msgid "Start of degree program."
+msgid "Number of students."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:450
 msgctxt "rest_api: schema item description"
-msgid "Number of students."
+msgid "Teaching language."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:458
 msgctxt "rest_api: schema item description"
-msgid "Teaching language."
+msgid "Attributes."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:466
 msgctxt "rest_api: schema item description"
-msgid "Attributes."
+msgid "Degree."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:474
 msgctxt "rest_api: schema item description"
-msgid "Degree."
+msgid "Faculty."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:482
 msgctxt "rest_api: schema item description"
-msgid "Faculty."
+msgid "Study location."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:490
 msgctxt "rest_api: schema item description"
-msgid "Study location."
+msgid "Subject groups."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:498
 msgctxt "rest_api: schema item description"
-msgid "Subject groups."
+msgid "Videos."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:506
 msgctxt "rest_api: schema item description"
-msgid "Videos."
+msgid "Meta description."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:514
 msgctxt "rest_api: schema item description"
-msgid "Meta description."
+msgid "Content."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:522
 msgctxt "rest_api: schema item description"
-msgid "Content."
+msgid "Admission requirement link."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:530
 msgctxt "rest_api: schema item description"
-msgid "Admission requirement link."
+msgid "Admission requirements."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:538
 msgctxt "rest_api: schema item description"
-msgid "Admission requirements."
+msgid "Content-related admission requirements for Master’s degree."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:546
 msgctxt "rest_api: schema item description"
-msgid "Content-related admission requirements for Master’s degree."
+msgid "Application deadline winter semester."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:554
 msgctxt "rest_api: schema item description"
-msgid "Application deadline winter semester."
+msgid "Application deadline summer semester."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:562
 msgctxt "rest_api: schema item description"
-msgid "Application deadline summer semester."
+msgid "Details and notes."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:570
 msgctxt "rest_api: schema item description"
-msgid "Details and notes."
+msgid "Language skills."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:578
 msgctxt "rest_api: schema item description"
-msgid "Language skills."
-msgstr ""
-
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:586
-msgctxt "rest_api: schema item description"
 msgid "Language skills for Faculty of Humanities, Social Sciences, and Theology only."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:595
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:587
 msgctxt "rest_api: schema item description"
 msgid "Language certificates/German language skills for international applicants."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:603
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:595
 msgctxt "rest_api: schema item description"
 msgid "Start of semester."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:611
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:603
 msgctxt "rest_api: schema item description"
 msgid "Semester dates."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:619
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:611
 msgctxt "rest_api: schema item description"
 msgid "Examinations Office."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:627
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:619
 msgctxt "rest_api: schema item description"
 msgid "Degree program and examination regulations."
 msgstr ""
 
-#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:635
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:627
 msgctxt "rest_api: schema item description"
 msgid "Module handbook."
 msgstr ""
 
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:635
+msgctxt "rest_api: schema item description"
+msgid "SSC/advice at the faculty/department (FAUdir organization ID)."
+msgstr ""
+
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:643
 msgctxt "rest_api: schema item description"
-msgid "Degree program URL."
+msgid "Subject study advice (FAUdir organization ID)."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:651
 msgctxt "rest_api: schema item description"
-msgid "Department."
+msgid "Degree program coordinator (FAUdir organization ID)."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:659
 msgctxt "rest_api: schema item description"
-msgid "Student Advice and Career Service."
+msgid "Degree program URL."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:667
 msgctxt "rest_api: schema item description"
-msgid "Subject-specific advice."
+msgid "Department."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:675
 msgctxt "rest_api: schema item description"
-msgid "Counseling and Service Centers at FAU."
+msgid "Student Advice and Career Service."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:683
 msgctxt "rest_api: schema item description"
-msgid "Info brochure degree program."
+msgid "Subject-specific advice."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:691
 msgctxt "rest_api: schema item description"
-msgid "Semester fee."
+msgid "Counseling and Service Centers at FAU."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:699
 msgctxt "rest_api: schema item description"
-msgid "Degree program fees."
+msgid "Info brochure degree program."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:707
 msgctxt "rest_api: schema item description"
-msgid "Opportunities for spending time abroad."
+msgid "Semester fee."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:715
 msgctxt "rest_api: schema item description"
-msgid "Degree program possible combinations."
+msgid "Degree program fees."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:723
 msgctxt "rest_api: schema item description"
-msgid "Degree program limited possible combinations."
+msgid "Opportunities for spending time abroad."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:731
 msgctxt "rest_api: schema item description"
-msgid "Available translations."
+msgid "Degree program possible combinations."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:739
 msgctxt "rest_api: schema item description"
-msgid "Notes for international applicants."
+msgid "Degree program limited possible combinations."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:747
 msgctxt "rest_api: schema item description"
-msgid "Students' Union/Student Initiatives."
+msgid "Available translations."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:755
 msgctxt "rest_api: schema item description"
-msgid "Current news / time-sensitive notices (Aktuelles)."
+msgid "Notes for international applicants."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:763
 msgctxt "rest_api: schema item description"
-msgid "Expiry date after which the Aktuelles notice is hidden."
+msgid "Students' Union/Student Initiatives."
 msgstr ""
 
 #: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:771
+msgctxt "rest_api: schema item description"
+msgid "Current news / time-sensitive notices (Aktuelles)."
+msgstr ""
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:779
+msgctxt "rest_api: schema item description"
+msgid "Expiry date after which the Aktuelles notice is hidden."
+msgstr ""
+
+#: src/Infrastructure/RestApi/TranslatedDegreeProgramController.php:787
 msgctxt "rest_api: schema item description"
 msgid "Degree program Campo Keys."
 msgstr ""
